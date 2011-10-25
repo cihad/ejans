@@ -1,0 +1,612 @@
+// Widths
+$sitewidth : 900px;
+
+// Colors
+$sitebg     : #f7f7f7;
+$fontcolor  : #333333;
+$mainBorder : #e7e7e7;
+$linkColor  : #0069D6;
+$textColor  : #333333;
+
+// Mixins
+@mixin border-radius($radius) {
+  -webkit-border-radius : $radius;
+  -moz-border-radius    : $radius;
+  border-radius         : $radius; 
+}
+
+@mixin box-shadow($shadow) {
+  -webkit-box-shadow: $shadow;
+  -moz-box-shadow   : $shadow;
+  box-shadow        : $shadow;
+}
+
+// Graidents
+@mixin vertical-graident($startColor, $endColor) {
+  background-color: $endColor;
+  background-repeat: repeat-x;
+  background-image: -khtml-gradient(linear, left top, left bottom, from($startColor), to($endColor)); // Konqueror
+  background-image: -moz-linear-gradient(top, $startColor, $endColor); // FF 3.6+
+  background-image: -ms-linear-gradient(top, $startColor, $endColor); // IE10
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, $startColor), color-stop(100%, $endColor)); // Safari 4+, Chrome 2+
+  background-image: -webkit-linear-gradient(top, $startColor, $endColor); // Safari 5.1+, Chrome 10+
+  background-image: -o-linear-gradient(top, $startColor, $endColor); // Opera 11.10
+  background-image: linear-gradient(top, $startColor, $endColor); // The standard
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#{$startColor}, endColorstr=#{$endColor}, GradientType=0); // IE9 and down
+}
+
+body {
+  font: 13px/16px Arial;
+  color: $textColor;
+  background: $sitebg;
+
+}
+
+a {
+  color: $linkColor;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+    color: darken($linkColor, 10%);
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: normal;
+}
+
+h2 {
+  font-size: 2em;
+  margin:  10px 0 10px;
+  line-height: 1em;
+}
+
+h3 {
+  font-size: 1.6em;
+  margin: 8px 0 8px;
+}
+
+p {
+  margin: 1em 0;
+}
+
+article {
+  ol, ul {
+    margin: 0;
+    li {
+      margin: 5px 0 5px 20px;
+      list-style: disc;
+    }
+  }
+
+  b, strong {
+    font-weight: bold;
+  }
+
+  i, cite {
+    font-style: italic;
+  }
+
+  u {
+    text-decoration: underline;
+  }
+}
+
+// Some Definitions
+.price {
+  font-size: 0.8em;
+  color: red;
+}
+
+.no-list-style {
+  list-style: none;
+}
+
+#wrapper {
+  width: $sitewidth;
+  margin: 0 auto;
+  padding-top: 40px;
+}
+
+$headerBottomColor: #2a2a2a;
+header {
+  border: 1px solid darken($headerBottomColor, 10%);;
+  line-height: 45px;
+  height: 45px;
+  @include border-radius(4px);
+  @include vertical-graident(lighten($headerBottomColor, 15%), $headerBottomColor);
+  @include box-shadow(inset 0 1px 0 0 lighten($headerBottomColor, 30%));
+
+  #logo {
+    color: #fff;
+    font-size: 2em; 
+    text-shadow: 0 -1px 0 #000;
+    float:left;
+    padding: 0 20px;
+    position: relative;
+    &:hover {
+      text-decoration: none;
+      text-shadow: 0 0 5px #999, 0 0 1px #000;
+    }
+    &:active {
+      top: 1px;
+    }
+  }
+
+  nav ul li {
+    float:right;
+    border-left: 1px solid #000;
+  }
+
+  nav ul li a {
+    display: block;
+    padding: 0 20px;
+    color: #ddd;
+    text-shadow: 0 -1px 0 #000;
+    border-left: 1px solid lighten($headerBottomColor, 20%);
+    &:hover {
+      text-decoration: none;
+      color: #ddd;
+      background: #fff;
+      text-shadow: 0 0 0;
+      @include vertical-graident(lighten($headerBottomColor, 20%), lighten($headerBottomColor, 5%));
+      @include box-shadow(inset 0 1px 0 0 lighten($headerBottomColor, 40%));
+    }
+  }
+}
+
+#main {
+  margin-top: 20px;
+}
+
+#main-ins {
+  @include border-radius(4px);
+  background: #fff;
+  border:1px solid $mainBorder;
+}
+
+#breadcrumb {
+  padding-top:10px;
+  padding-bottom:10px;
+  border-bottom: 1px solid darken($mainBorder, 12%);
+  @include vertical-graident(#eee, #ddd);
+  @include border-radius(4px 4px 0 0);
+  text-shadow: 0 1px 0 #fff;
+  @include box-shadow(inset 0 1px 0 0 #f9f9f9)
+}
+
+.oneColumn #content {
+  width: 100%;
+}
+
+#content {
+  float: left;
+  width: 70%;
+}
+
+aside#right {
+  float:right;
+  width: 30%;
+}
+
+#right-ins {
+  border-left: 1px solid $mainBorder;
+  height: 500px;
+}
+
+.ins {
+  padding: 20px;
+}
+
+$serviceItemBg : #DCEAF4;
+#service-statics {
+  margin-top: 30px; 
+  .item {
+    @include border-radius(3px);
+    display: inline-block;
+    background: $serviceItemBg;
+    padding: 15px 20px;
+    text-align: center;
+    margin-right: 10px;
+
+    .count {
+      font-size: 2em;
+      color: darken($serviceItemBg, 50%);
+    }
+    .desc {
+      font-size: 0.8em;
+      text-align: right;
+    }
+  }
+}
+
+#service-subscription {
+  margin-top: 30px;
+  form {
+    display: inline-block;
+  }
+  ///////////////////// Geçici
+  .ui-widget-header {
+    display: none;
+  }
+}
+
+#service-notice {
+  margin-top: 30px;
+  h3 {
+    border-bottom: 1px solid darken($mainBorder, 20%);
+    line-height:1.6em;
+    margin-bottom: 0;
+  }
+  li.notice {
+    padding: 10px 0 10px 0;
+    border-bottom: 1px solid darken($mainBorder, 10%);
+    &:hover {
+      @include vertical-graident(#f8f8f8, #eee);
+      p {
+        background: url(images/gray_arrow_right.png) center right no-repeat;
+      }
+
+    }
+    p {
+      margin: 0;
+      padding-right: 30px;
+      background: url(images/gray_arrow_right.png) center right no-repeat;
+    }
+  }
+  .more {
+    display: block;
+    text-align: center;
+    line-height: 3em;
+    margin-top: 10px;
+    color: $textColor;
+    text-shadow: 0 1px 0 #fff;
+    border: 1px solid #ccc;
+    @include vertical-graident(#fff, #eee);
+    @include border-radius(4px);
+    &:hover {
+      text-decoration: none;
+      @include vertical-graident(#eee, #ddd);
+      @include box-shadow(inset 0 1px 0 #fff);
+    }
+    &:active {
+      @include vertical-graident(#ddd, #eee); 
+    }
+  }
+}
+
+
+// Right Block' Blocks
+#right {
+  .service-block {
+    margin-bottom: 30px;
+    h3 {
+      font-size: 1.26em;
+      line-height: 1.7em;
+      border-bottom: 1px solid darken($mainBorder, 20%);
+      margin-bottom:0;
+    }
+    li {
+      padding: 7px 0;
+      border-bottom: 1px solid darken($mainBorder, 10%);
+      background: url("images/right-arrow-mini.gif") center right no-repeat;
+      @include vertical-graident(#fff, lighten($serviceItemBg, 5%));
+      &:hover {
+        @include vertical-graident(#f9f9f9, #eee);
+        background-image: url("images/right-arrow-mini.gif") center right no-repeat;
+      }
+    }
+  }
+}
+
+// Jquery UI
+.ui-dialog {
+  padding: 0;
+}
+
+.ui-dialog .ui-corner-all {
+  @include border-radius(2px 2px 0 0);
+}
+
+// Forms
+.page-form {
+  margin-top: 30px;
+}
+
+$focusBgColor : #FDECB2;
+input[type=text],
+input[type=password],
+textarea {
+  @include border-radius(3px);
+  border:1px solid #bbb;
+  padding: 5px;
+  @include box-shadow(-1px 1px 1px #ccc);
+  &:focus {
+    border: 1px solid darken($focusBgColor, 40%);
+    @include box-shadow(-1px 1px 0 darken($focusBgColor, 40%));
+  }
+}
+
+.curFocus {
+  background: $focusBgColor;
+  @include border-radius(4px);
+}
+
+.form-item {
+  padding: 10px 25px;
+}
+
+.page-form label.main-label {
+  display: block;
+  float: left;
+  width: 160px;
+}
+
+.page-form .long-field{
+  width: 445px;
+  float: left;
+}
+
+.page-form .long-field {
+  input[type=text],
+  textarea, {
+    width: 97%;
+  }
+}
+
+.page-form .title-field label {
+  line-height: 2em;
+}
+
+.page-form .title-field input {
+  font-size: 1.3em;
+}
+
+.page-form #filter .filter {
+  margin-bottom: 5px;
+  display: block;
+  padding: 10px;
+  @include border-radius(4px);
+  background:  lighten($serviceItemBg, 4%);
+
+  label,
+  input {
+    float: left;
+    width: auto;
+    line-height: 2em;
+    margin-right: 5px;
+  }
+}
+
+.chars-left {
+  font-size: 1.2em;
+  color: red;
+}
+
+.right-align {
+  text-align: right;
+}
+
+.mini-font {
+  font-size: .9em;
+}
+
+.no-margin {
+  margin: 0;
+}
+
+#submit {
+  margin: 0 -20px -20px;
+  background: #666;
+  padding: 15px;
+  margin-top: 10px;
+  @include border-radius(0 0 4px 4px);
+}
+
+// Comments
+#comments {
+  margin-top: 30px;
+  h3 {
+    border-bottom: 1px solid darken($mainBorder, 20%);
+    line-height:1.6em;
+    margin-bottom: 0;
+  }
+}
+
+$commentBg : #ddd;
+.comment {
+  margin: 20px 0;
+  padding-left: 60px;
+  position: relative;
+
+  .avatar {
+    position: absolute;
+    left:0;
+    top:0;
+    img {
+      width: 48px;
+      height: 48px;
+      @include border-radius(3px);
+      background: #ccc;
+    }
+  }
+
+  .body {
+    padding: 3px;
+    @include border-radius(3px);
+    background: $commentBg;
+    .body-ins {
+      background: #fff;
+      border: 1px solid $commentBg;
+    }
+  }
+  
+
+  .cmeta {
+    padding: 0 10px;
+    border-bottom: 1px solid $commentBg;
+    @include vertical-graident(#f7f7f7, #eee);
+    @include border-radius(2px 2px 0 0);
+    .author {
+      float: left;
+      b {
+        font-weight: bold;
+      }
+    }
+
+    .info {
+      float: right;
+      font-size: 0.8em;
+    }
+
+    p {
+      margin: 0;
+      line-height: 30px;
+      text-shadow: 0 1px 0 #fff;
+    }
+  }
+
+  .content {
+    padding: 0 10px;
+    font-size: 12px;
+  }
+}
+
+.owner {
+  .body {
+    background: darken($serviceItemBg, 10%);
+    .body-ins {
+      border-color: darken($serviceItemBg, 10%);
+    }
+  }
+  .cmeta {
+    @include vertical-graident(lighten($serviceItemBg, 2%),
+                               $serviceItemBg);
+    border-bottom-color: darken($serviceItemBg, 15%);
+  }
+}
+
+.comment-form textarea {
+  width: 95%;
+}
+
+// User Pages
+#user-services {
+
+  ul {
+    @include border-radius(4px);
+    border: 1px solid #333;
+    padding: 1px;
+    background: #999;
+
+    li:first-child a {
+      @include border-radius(4px 4px 0 0);
+    }
+
+    li:last-child a {
+      @include border-radius(0 0 4px 4px);
+      border-bottom:0;
+    }
+  }
+
+  a {
+    display: block;
+    padding: 3px 20px;
+    line-height: 2.3em;
+    @include vertical-graident(#555, #505050);
+    color: #eee;
+    text-shadow: 0 -1px 0 #000;
+    border-bottom:1px solid #333;
+    @include box-shadow(inset 0 1px 0 #666);
+    
+    &:hover {
+      text-decoration: none;
+      @include vertical-graident(#444, #404040);
+      color: #fafafa;
+      text-shadow: 0 -1px 0 #444;
+    }
+
+    &:active {
+
+      @include box-shadow(inset 0 2px 7px #222);
+
+      span.service-name {
+        top: 1px;
+        left: 1px;
+      }
+    }
+
+    span.service-name {
+      position: relative
+    }
+
+    span.new {
+      float:right;
+      color: lighten(red, 15%);
+      font-weight: bold;
+    }
+
+  }
+
+  li.active a {
+    border-right: 0;
+    color: $textColor;
+    background: #eee;
+    text-shadow: 0 0 0;
+    @include box-shadow(inset 0 2px 7px #222);
+  }
+}
+
+
+.user-page {
+  #left {
+    float:left;
+    width:30%;
+    .ins {
+      padding-left:0;
+    }
+
+    .block {
+      margin-bottom: 20px;
+    }
+  } 
+
+  #main {
+    float:right;
+    width: 70%;
+  }
+
+  #service-notice {
+    margin-top: 0;
+
+    li.notice {
+      margin: 0 -20px;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+    li.un-read {
+      background: lighten(yellow, 40%);
+      font-weight: bold;
+    }
+  }
+}
+
+#title-filter {
+  border-bottom: 1px solid darken($mainBorder, 20%);
+  margin: -20px -20px 0;
+  padding: 0 20px;
+
+  h2 {
+    line-height: 2em;
+    float:left;
+    margin: 0;
+  }
+
+  .radio-filter {
+    float:right;
+    margin-top: 13px;
+    margin-right: 0;
+    font-size: 0.85em;
+  }
+}
