@@ -1,14 +1,56 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Proje</title>
+  <title><%= yield(:title) || "The Place to Buy Stuff" %> - Synchronize.me</title>
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
-<body>
+<body class="<%= content_for?(:right) ? 'twoColumn' : 'oneColumn' %> <%= yield(:body_class) %>">
+<div id="wrapper">
+  <%= render 'layouts/header' %>
 
-<%= yield %>
+  <div id="main">
+    <div id="main-ins" class="clearfix">
+    <% if content_for?(:breadcrumb) %>
+      <div id="breadcrumb" class="ins">
+        <%= link_to "Anasayfa", root_path %><%= yield :breadcrumb %>
+      </div>
+    <% end %>
 
+    <section id="content">
+      <div id="content-ins" class="ins">
+        <%= yield %>
+      </div>
+    </section>
+    <!--/section#content-->
+
+    <% if content_for?(:right) %>
+    <aside id="right">
+      <div id="right-ins" class="ins">
+        <%= yield :right %>
+      </div>
+    </aside>
+    <!--/aside#right-->
+    <% end %>
+    </div><!--/div#main-ins-->
+  </div>
+  <!--/div#main-->
+
+  <% if content_for?(:left) %>
+    <aside id="left">
+      <div id="left-ins" class="ins">
+        <%= yield :left %>
+      </div>
+    </aside>
+    <!--/aside#right-->
+  <% end %>
+
+  <%= render 'layouts/footer' %>
+</div>
+<!--/wrapper-->
+<div id="signin-modal">
+  <p>Giriş yap formu</p>
+</div>
 </body>
 </html>
