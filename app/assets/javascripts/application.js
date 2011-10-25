@@ -12,12 +12,12 @@ $(function() {
   $( "#signin-modal" ).dialog({
     autoOpen: false,
     modal: true,
-    title: 'Giriş yap',
+    title: 'Sign in',
     width: 400,
     height: 300,
     buttons: [
     {
-        text: "Giriş yap",
+        text: "Sign in",
         click: function() { $(this).dialog("close"); }
     }]
   });
@@ -27,23 +27,26 @@ $(function() {
       $( "#signin-modal" ).dialog( "open" );
   });
 
-  // Form effect
-  // $(".page-form input, .page-form textarea").focus(function() {
-
-  // $(this)
-  //   .parent()
-  //   .parent()
-  //   .addClass("curFocus")
-  //   .children("div")
-  //   .toggle();
-  // });
-  // $(".page-form input, .page-form textarea").blur(function() {
-  //   $(this)
-  //     .parent()
-  //     .parent()
-  //     .removeClass("curFocus")
-  //     .children("div")
-  //     .toggle();
-  // });
+  // Submit Buttons
   $( "input:submit" ).button();
+
+  // Account menu
+  $(".account").click(function(e) {
+    e.preventDefault();
+    $("#account_menu").toggle();
+    $(".account").toggleClass("menu-open");
+  });
+
+  $("#account_menu").mouseup(function() {
+    return false
+  });
+
+  $(document).mouseup(function(e) {
+    if($(e.target).parent("a.account").length==0) {
+      $(".account").removeClass("menu-open");
+      $("#account_menu").hide();
+    }
+  });            
+
+
 });

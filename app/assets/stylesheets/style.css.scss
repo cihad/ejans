@@ -110,7 +110,7 @@ article {
 
 $headerBottomColor: #2a2a2a;
 header {
-  border: 1px solid darken($headerBottomColor, 10%);;
+  border: 1px solid darken($headerBottomColor, 10%);
   line-height: 45px;
   height: 45px;
   @include border-radius(4px);
@@ -133,12 +133,17 @@ header {
     }
   }
 
-  nav ul li {
+  nav div.nav-list {
     float:right;
     border-left: 1px solid #000;
+    position: relative;
+
+    a.menu-open {
+      @include vertical-graident($headerBottomColor, lighten($headerBottomColor, 10%));
+    }
   }
 
-  nav ul li a {
+  nav a.nav-list-a {
     display: block;
     padding: 0 20px;
     color: #ddd;
@@ -173,6 +178,21 @@ header {
   @include border-radius(4px 4px 0 0);
   text-shadow: 0 1px 0 #fff;
   @include box-shadow(inset 0 1px 0 0 #f9f9f9)
+}
+
+#message {
+  margin: 20px;
+  p {
+    margin: 0;
+  }
+
+  .notice {
+    color: green;
+  }
+
+  .alert {
+    color: darken(red, 15%);
+  }
 }
 
 .oneColumn #content {
@@ -316,6 +336,7 @@ $serviceItemBg : #DCEAF4;
 $focusBgColor : #FDECB2;
 input[type=text],
 input[type=password],
+input[type=email],
 textarea {
   @include border-radius(3px);
   border:1px solid #bbb;
@@ -608,5 +629,43 @@ $commentBg : #ddd;
     margin-top: 13px;
     margin-right: 0;
     font-size: 0.85em;
+  }
+}
+
+// Account Menu
+#account_menu {
+  position: absolute;
+  right:-1px;
+  top: 41px;
+  width: 100%;
+  display: none;
+  background: lighten($headerBottomColor, 10%);
+  @include border-radius(0 0 4px 4px);
+
+  #account-menu-ins {
+    padding: 5px;
+  }
+
+
+  li {
+    line-height: 1em;
+
+    a {
+      color: $textColor;
+      display: block;
+      line-height: 2em;
+      background: #fff;
+      text-decoration: none;
+      border-bottom: 1px dotted lighten($headerBottomColor, 10%);
+      padding: 0 10px;
+      &:hover {
+        background: #f0f0f0;
+      }
+    }
+
+    &:last-child a {
+      @include border-radius(0 0 4px 4px);
+      border-bottom: 0;
+    }
   }
 }

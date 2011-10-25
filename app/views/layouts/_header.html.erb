@@ -1,12 +1,18 @@
 <header class="clearfix">
   <%= link_to content_tag("h1", "Synchronize.me"), root_path, :id => "logo" %>
   <nav>
-    <ul>
-      <% if account_signed_in? %>
-        <li><%= current_account.email %></li>
-      <% else %>
-        <li><a href="#" class="signin">Sign in</a></li>
-      <% end %>
-    </ul>
+    <% if account_signed_in? %>
+      <div class="nav-list menu-list"><a href="#" class="account nav-list-a"><span><%= current_account.email %></span></a>
+        <div id="account_menu">
+          <div id="account-menu-ins">
+            <ul>
+              <li><%= link_to "Sign out", destroy_account_session_path, :method => :delete %></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    <% else %>
+      <div class="nav-list"><a href="#modal-signin" class="signin nav-list-a">Sign in</a></div>
+    <% end %>
   </nav>
 </header>
