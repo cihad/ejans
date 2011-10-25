@@ -4,6 +4,8 @@ gem 'rails', '3.1.1'
 gem 'sqlite3'
 gem 'jquery-rails'
 
+# User
+gem 'devise', '1.4.9'
 
 # Groups
 group :assets do
