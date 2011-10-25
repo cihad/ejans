@@ -7,3 +7,43 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
+$(function() {
+  // Signin Modal
+  $( "#signin-modal" ).dialog({
+    autoOpen: false,
+    modal: true,
+    title: 'Giriş yap',
+    width: 400,
+    height: 300,
+    buttons: [
+    {
+        text: "Giriş yap",
+        click: function() { $(this).dialog("close"); }
+    }]
+  });
+
+  $( ".signin" )
+    .click(function() {
+      $( "#signin-modal" ).dialog( "open" );
+  });
+
+  // Form effect
+  // $(".page-form input, .page-form textarea").focus(function() {
+
+  // $(this)
+  //   .parent()
+  //   .parent()
+  //   .addClass("curFocus")
+  //   .children("div")
+  //   .toggle();
+  // });
+  // $(".page-form input, .page-form textarea").blur(function() {
+  //   $(this)
+  //     .parent()
+  //     .parent()
+  //     .removeClass("curFocus")
+  //     .children("div")
+  //     .toggle();
+  // });
+  $( "input:submit" ).button();
+});
