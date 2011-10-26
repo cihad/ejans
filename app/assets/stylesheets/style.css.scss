@@ -369,6 +369,7 @@ textarea {
   display: block;
   float: left;
   width: 160px;
+  line-height: 2em;
 }
 
 .page-form .long-field{
@@ -381,6 +382,10 @@ textarea {
   textarea, {
     width: 97%;
   }
+}
+
+.user-page .page-form .long-field {
+  width: 245px;
 }
 
 .page-form .title-field label {
