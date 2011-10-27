@@ -4,7 +4,7 @@
   &raquo; <span>Edit <%= resource_name.to_s.humanize %></span>
 <% end %>
 
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<h2>Edit <%= resource_name.to_s.humanize %> <span style="font-size:10px; line-height: 1em">(Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :confirm => "Are you sure?", :method => :delete %>.)</span></h2>
 
 
 <div class="page-form">
@@ -19,7 +19,7 @@
   </div>
 
   <div class="form-item password-field clearfix">
-    <%= f.label :password, :class => "main-label" %> 
+    <%= f.label :password, "New password", :class => "main-label" %> 
     <span class="long-field">
       <%= f.password_field :password %>
       <i>leave blank if you don't want to change it</i>
@@ -43,15 +43,9 @@
 
   <div id="submit">
     <%= f.submit "Update", :style => "margin-left: 190px" %>
+    <%= link_to "Cancel", :back %>
   </div>
 <% end %>
-
-
-<h3>Cancel my account</h3>
-
-<p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :confirm => "Are you sure?", :method => :delete %>.</p>
-
-
 
 <%= content_for(:left) do %>
   <%= render "devise/shared/user_menu" %>

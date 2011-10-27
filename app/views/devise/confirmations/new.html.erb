@@ -1,12 +1,25 @@
+<%= title "Resend confirmation instructions" %>
+<%= content_for :breadcrumb do %>
+  &raquo; <span>Resend confirmation instructions</span>
+<% end %>
+
 <h2>Resend confirmation instructions</h2>
 
+<div class="page-form">
 <%= form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post }) do |f| %>
   <%= devise_error_messages! %>
 
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email %></div>
+  <div class="form-item email-field clearfix">
+    <%= f.label :email, :class => "main-label" %>
+    <span class="long-field">
+      <%= f.email_field :email %>
+    </span>
+  </div>
 
-  <div><%= f.submit "Resend confirmation instructions" %></div>
+  <div id="submit">
+    <%= f.submit "Resend confirmation instructions", :style => "margin-left: 190px" %>
+  </div>
 <% end %>
+</div>
 
 <%= render :partial => "devise/shared/links" %>

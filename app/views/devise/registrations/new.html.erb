@@ -1,18 +1,39 @@
+<%= title "Sign up" %>
+<%= content_for :breadcrumb do %>
+  &raquo; <span>Sign up</span>
+<% end %>
+
 <h2>Sign up</h2>
 
+<div class="page-form">
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
 
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email %></div>
+  <div class="form-item email-field clearfix">
+    <%= f.label :email, :class => "main-label" %>
+    <span class="long-field">
+      <%= f.email_field :email %>
+    </span>
+  </div>
 
-  <div><%= f.label :password %><br />
-  <%= f.password_field :password %></div>
+  <div class="form-item password-field clearfix">
+    <%= f.label :password, :class => "main-label" %>
+    <span class="long-field">
+      <%= f.password_field :password %>
+    </span>
+  </div>
 
-  <div><%= f.label :password_confirmation %><br />
-  <%= f.password_field :password_confirmation %></div>
+  <div class="form-item password-field clearfix">
+    <%= f.label :password_confirmation, :class => "main-label" %>
+    <span class="long-field">
+      <%= f.password_field :password_confirmation %>
+    </span>
+  </div>
 
-  <div><%= f.submit "Sign up" %></div>
+  <div id="submit">
+    <%= f.submit "Sign up", :style => "margin-left: 190px" %>
+  </div>
 <% end %>
+</div>
 
 <%= render :partial => "devise/shared/links" %>

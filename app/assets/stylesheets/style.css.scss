@@ -346,7 +346,7 @@ input[type=text],
 input[type=password],
 input[type=email],
 textarea {
-  @include border-radius(3px);
+  @include border-radius(2px);
   border:1px solid #bbb;
   padding: 5px;
   @include box-shadow(-1px 1px 1px #ccc);
@@ -375,6 +375,10 @@ textarea {
 .page-form .long-field{
   width: 445px;
   float: left;
+
+  i {
+    font-size: .9em;
+  }
 }
 
 .page-form .long-field {
@@ -382,10 +386,6 @@ textarea {
   textarea, {
     width: 97%;
   }
-}
-
-.user-page .page-form .long-field {
-  width: 245px;
 }
 
 .page-form .title-field label {
@@ -435,6 +435,11 @@ textarea {
   padding: 15px;
   margin-top: 10px;
   @include border-radius(0 0 4px 4px);
+
+  a {
+    color: #fff;
+    margin-left: 10px;
+  }
 }
 
 // Comments
@@ -623,6 +628,10 @@ $commentBg : #ddd;
       background: lighten(yellow, 40%);
       font-weight: bold;
     }
+  }
+
+  .page-form .long-field {
+    width: 245px;
   }
 }
 
