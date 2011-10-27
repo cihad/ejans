@@ -684,9 +684,13 @@ $commentBg : #ddd;
         background: #f0f0f0;
       }
     }
+    
+    &:first-child a {
+      @include border-radius(2px 2px 0 0);
+    }
 
     &:last-child a {
-      @include border-radius(0 0 4px 4px);
+      @include border-radius(0 0 3px 3px);
       border-bottom: 0;
     }
   }
