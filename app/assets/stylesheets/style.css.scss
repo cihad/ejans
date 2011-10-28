@@ -345,6 +345,7 @@ $focusBgColor : #FDECB2;
 input[type=text],
 input[type=password],
 input[type=email],
+input[type=number],
 textarea {
   @include border-radius(2px);
   border:1px solid #bbb;
@@ -383,6 +384,9 @@ textarea {
 
 .page-form .long-field {
   input[type=text],
+  input[type=email],
+  input[type=number],
+  input[type=password],
   textarea, {
     width: 97%;
   }

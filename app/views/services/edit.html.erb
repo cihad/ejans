@@ -1,6 +1,10 @@
-<h1>Editing service</h1>
+<%= title "Editing Service" %>
+<%= content_for :breadcrumb do %>
+  &raquo; <%= link_to "Services", services_path %>
+  &raquo; <%= link_to @service.title, @service %>
+  &raquo; <span>Edit</span>
+<% end %>
+
+<h2>Edit "<%= @service.title %>" Service</h2>
 
 <%= render 'form' %>
-
-<%= link_to 'Show', @service %> |
-<%= link_to 'Back', services_path %>

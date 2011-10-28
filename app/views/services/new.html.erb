@@ -1,5 +1,9 @@
-<h1>New service</h1>
+<%= title "New Service" %>
+<%= content_for :breadcrumb do %>
+  &raquo; <%= link_to "Services", services_path %>
+  &raquo; <span>New</span>
+<% end %>
+
+<h2>New Service</h2>
 
 <%= render 'form' %>
-
-<%= link_to 'Back', services_path %>
