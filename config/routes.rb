@@ -1,4 +1,6 @@
 Proje::Application.routes.draw do
+  resources :services
+
   get "home/index"
 
   devise_for :accounts

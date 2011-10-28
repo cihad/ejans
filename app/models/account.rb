@@ -6,4 +6,7 @@ class Account < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
+
+  # Associations
+  has_many :own_services, :foreign_key => "owner_id", :class_name => "Service"
 end
