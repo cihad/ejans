@@ -25,7 +25,11 @@ class ServicesController < ApplicationController
   # GET /services/new.json
   def new
     @service = Service.new
-    3.times { @service.filters.build }
+    3.times do
+      filter = @service.filters.build
+      5.times { filter.selections.build }
+    end
+
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @service }

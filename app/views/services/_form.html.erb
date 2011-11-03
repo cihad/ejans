@@ -29,21 +29,8 @@
   <div class="form-item clearfix" id="filters">
     <%= label_tag nil, "Add filter", :class => "main-label" %>
     <span class="long-field clearfix">
-      <% @service.filters.each do |filter| %>
-        <%= f.fields_for :filters, filter do |filter_form|   %>
-          <span class="filter">
-            <span class="filter-header clearfix">
-              <%= filter_form.label :name %>
-              <%= filter_form.text_field :name, :size => "17" %>
-              <%= filter_form.check_box :_destroy, :class => "styled-checkbox" %>
-              <%= filter_form.label :_destroy %>
-              <span class="add-line-item">Add line item</span>
-            </span>
-            <div class="line-items">
-              Add line items
-            </div>
-          </span>    
-        <% end %>
+      <%= f.fields_for :filters do |builder| %>
+        <%= render "filter_fields", :f => builder %>
       <% end %>
     </span>
   </div>
