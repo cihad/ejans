@@ -28,7 +28,10 @@ $(function() {
   });
 
   // Submit Buttons
-  $( "input:submit" ).button();
+  $( "input:submit, .add-line-item" ).button();
+
+  // Checkbox Buttons
+  $( ".styled-checkbox").button();
 
   // Account menu
   $(".account").click(function(e) {
@@ -46,7 +49,17 @@ $(function() {
       $(".account").removeClass("menu-open");
       $("#account_menu").hide();
     }
-  });            
+  });
+  
+  // Add filter form
+  $(".add-line-item").click(function() {
+    $(this).parent().parent().find(".line-items").toggle();
+    $(this).toggleClass("open");
+  });
+
+  $(".line-items").mouseup(function() { // Mouse Up Click
+    return false
+  });
 
 
 });

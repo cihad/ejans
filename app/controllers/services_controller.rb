@@ -25,7 +25,7 @@ class ServicesController < ApplicationController
   # GET /services/new.json
   def new
     @service = Service.new
-
+    3.times { @service.filters.build }
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @service }
@@ -35,6 +35,7 @@ class ServicesController < ApplicationController
   # GET /services/1/edit
   def edit
     @service = Service.find(params[:id])
+    3.times { @service.filters.build }
   end
 
   # POST /services
@@ -56,6 +57,10 @@ class ServicesController < ApplicationController
   # PUT /services/1
   # PUT /services/1.json
   def update
+    # if params[:service][:filters_attributes].size > 3
+    #   render action: "edit"
+    #   flash[:notice] = 'More...'
+    # end
     @service = Service.find(params[:id])
 
     respond_to do |format|

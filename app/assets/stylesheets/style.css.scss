@@ -400,18 +400,18 @@ textarea {
   font-size: 1.3em;
 }
 
-.page-form #filter .filter {
+.page-form #filters .filter {
   margin-bottom: 5px;
   display: block;
   padding: 10px;
   @include border-radius(4px);
   background:  lighten($serviceItemBg, 4%);
-
+  line-height: 2em;
+  
   label,
   input {
     float: left;
     width: auto;
-    line-height: 2em;
     margin-right: 5px;
   }
 }
@@ -444,6 +444,19 @@ textarea {
     color: #fff;
     margin-left: 10px;
   }
+}
+
+.filter-header {
+  display: block;
+}
+
+.line-items {
+  display: none;
+  height: 200px;
+  background: #fff;
+  @include border-radius(4px);
+  margin-top: 10px;
+  padding: 10px;
 }
 
 // Comments
