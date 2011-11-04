@@ -1,4 +1,4 @@
-<span class="filter">
+<span class="filter fields">
   <span class="filter-header clearfix">
     <%= f.label :name %>
     <%= f.text_field :name, :size => "17" %>
@@ -8,9 +8,9 @@
   </span>
   <div class="line-items">
     <%= f.fields_for :selections do |builder|   %>
-      <div class="clearfix">
-        <%= render 'selection_fields', :f => builder %>
-      </div>
+      <%= render 'selection_fields', :f => builder %>
     <% end %>
+  <span><%= link_to_add_fields "Add Selection", f, :selections %></span>
   </div>
+
 </span>    

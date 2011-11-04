@@ -400,19 +400,58 @@ textarea {
   font-size: 1.3em;
 }
 
-.page-form #filters .filter {
-  margin-bottom: 5px;
-  display: block;
-  padding: 10px;
-  @include border-radius(4px);
-  background:  lighten($serviceItemBg, 4%);
-  line-height: 2em;
-  
-  label,
-  input {
-    float: left;
-    width: auto;
-    margin-right: 5px;
+.page-form #filters {
+  .filter {
+    margin-bottom: 5px;
+    display: block;
+    padding: 10px;
+    @include border-radius(4px);
+    background: lighten($serviceItemBg, 4%);
+    line-height: 2em;
+    
+    label,
+    input {
+      float: left;
+      width: auto;
+      margin-right: 5px;
+    }
+
+    .filter-header {
+      display: block;
+    }
+
+    .line-items {
+      display: none;
+      @include border-radius(0 0 4px 4px);
+      margin: 10px -10px -10px;
+      padding: 10px;
+      border-top: 1px solid $serviceItemBg;
+      background: lighten($serviceItemBg, 6%);
+    }
+
+    .selection-fields {
+      
+      margin: 0 0 .5em;
+      line-height: 1.7em;
+         
+      input {
+        @include box-shadow(0 0 0);
+        padding:2px;
+      }
+
+      a {
+        font-size: 0.9em;
+        color: lighten($linkColor, 25%);
+      }
+    }
+  }
+
+  .opened-filters {
+      background: $serviceItemBg;
+
+    .line-items {
+      background: lighten($serviceItemBg, 4%);
+    }
   }
 }
 
@@ -444,18 +483,6 @@ textarea {
     color: #fff;
     margin-left: 10px;
   }
-}
-
-.filter-header {
-  display: block;
-}
-
-.line-items {
-  display: none;
-  background: #fff;
-  @include border-radius(4px);
-  margin-top: 10px;
-  padding: 10px;
 }
 
 // Comments

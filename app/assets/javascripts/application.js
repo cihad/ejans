@@ -55,15 +55,19 @@ $(function() {
   $(".add-line-item").click(function() {
     $(this).parent().parent().find(".line-items").toggle();
     $(this).toggleClass("open");
+    $(this).parent().parent().toggleClass("opened-filters");
   });
 
   $(".line-items").mouseup(function() { // Mouse Up Click
     return false
   });
 
+  $(".line-items").sortable();
+
 });
 
 
+// Selection add/remove
 function remove_fields(link) {
   $(link).prev("input[type=hidden]").val("1");
   $(link).closest(".fields").hide();

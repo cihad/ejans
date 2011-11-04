@@ -1,4 +1,7 @@
-<%= f.label :label %>
-<%= f.text_field :label, :size => "17" %>
-<%= f.check_box :_destroy, :class => "styled-check_box" %>
-<%= f.label :_destroy, "Remove" %>
+<p class="fields selection-fields">
+  <%= f.label :label %>
+  <%= f.text_field :label, :size => "27" %>
+  <%#= f.check_box :_destroy, :class => "styled-check_box" %>
+  <%#= f.label :_destroy, "Remove" %>
+  <%= link_to_remove_fields "remove", f %>
+</p>

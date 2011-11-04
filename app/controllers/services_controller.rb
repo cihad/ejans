@@ -25,6 +25,7 @@ class ServicesController < ApplicationController
   # GET /services/new.json
   def new
     @service = Service.new
+
     3.times do
       filter = @service.filters.build
       5.times { filter.selections.build }
@@ -39,7 +40,12 @@ class ServicesController < ApplicationController
   # GET /services/1/edit
   def edit
     @service = Service.find(params[:id])
-    3.times { @service.filters.build }
+
+    form_count = 3 - (@service.filters.count)
+    form_count.times do
+      filter = @service.filters.build
+      5.times { filter.selections.new }
+    end
   end
 
   # POST /services

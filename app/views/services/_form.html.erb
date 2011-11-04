@@ -28,7 +28,7 @@
 
   <div class="form-item clearfix" id="filters">
     <%= label_tag nil, "Add filter", :class => "main-label" %>
-    <span class="long-field clearfix">
+    <span class="long-field clearfix fields">
       <%= f.fields_for :filters do |builder| %>
         <%= render "filter_fields", :f => builder %>
       <% end %>
