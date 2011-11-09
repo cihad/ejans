@@ -45,16 +45,6 @@ ActiveRecord::Schema.define(:version => 20111109134843) do
     t.datetime "updated_at"
   end
 
-  create_table "service_prices", :force => true do |t|
-    t.integer  "service_id"
-    t.float    "sender_credit"
-    t.float    "receiver_credit"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "service_prices", ["service_id"], :name => "index_service_prices_on_service_id"
-
   create_table "services", :force => true do |t|
     t.integer  "owner_id"
     t.string   "title"
