@@ -5,4 +5,7 @@ class Service < ActiveRecord::Base
   accepts_nested_attributes_for :filters,
           :allow_destroy => true,
           :reject_if => proc { |attributes| attributes['name'].blank? }
+
+  has_one :service_price, :dependent => :destroy
+  accepts_nested_attributes_for :service_price, :allow_destroy => true
 end

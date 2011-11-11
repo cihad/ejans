@@ -363,97 +363,114 @@ textarea {
 }
 
 .form-item {
-  padding: 10px 25px;
+  padding: 5px 25px;
 }
 
-.page-form label.main-label {
-  display: block;
-  float: left;
-  width: 160px;
-  line-height: 2em;
-}
-
-.page-form .long-field{
-  width: 445px;
-  float: left;
-
-  i {
-    font-size: .9em;
-  }
-}
-
-.page-form .long-field {
-  input[type=text],
-  input[type=email],
-  input[type=number],
-  input[type=password],
-  textarea, {
-    width: 97%;
-  }
-}
-
-.page-form .title-field label {
-  line-height: 2em;
-}
-
-.page-form .title-field input {
-  font-size: 1.3em;
-}
-
-.page-form #filters {
-  .filter {
-    margin-bottom: 5px;
+.page-form {
+  label.main-label {
     display: block;
-    padding: 10px;
-    @include border-radius(4px);
-    background: lighten($serviceItemBg, 4%);
+    float: left;
+    width: 160px;
     line-height: 2em;
-    
-    label,
+  }
+
+  .long-field{
+    width: 445px;
+    float: left;
+
+    i {
+      font-size: .9em;
+    }
+
+    input[type=text],
+    input[type=email],
+    input[type=number],
+    input[type=password],
+    textarea, {
+      width: 97%;
+    }
+  }
+
+  .title-field {
+    label {
+      line-height: 2em;
+    }
+
     input {
-      float: left;
-      width: auto;
-      margin-right: 5px;
+      font-size: 1.3em;
     }
+  }
 
-    .filter-header {
-      display: block;
-    }
-
-    .line-items {
-      display: none;
-      @include border-radius(0 0 4px 4px);
-      margin: 10px -10px -10px;
-      padding: 10px;
-      border-top: 1px solid $serviceItemBg;
-      background: lighten($serviceItemBg, 6%);
-    }
-
-    .selection-fields {
-      
-      margin: 0 0 .5em;
-      line-height: 1.7em;
-         
-      input {
-        @include box-shadow(0 0 0);
-        padding:2px;
+  .number-field {
+    .long-field {
+      label {
+        display: inline;
+        float: none;
+        font-size: .9em;
       }
-
-      a {
-        font-size: 0.9em;
-        color: lighten($linkColor, 25%);
+      input {
+        width: 50px;
       }
     }
   }
 
-  .opened-filters {
-      background: $serviceItemBg;
-
-    .line-items {
+  #filters {
+    .filter {
+      margin-bottom: 5px;
+      display: block;
+      padding: 10px;
+      @include border-radius(4px);
       background: lighten($serviceItemBg, 4%);
+      line-height: 2em;
+      
+      label,
+      input {
+        float: left;
+        width: auto;
+        margin-right: 5px;
+      }
+
+      .filter-header {
+        display: block;
+      }
+
+      .line-items {
+        display: none;
+        @include border-radius(0 0 4px 4px);
+        margin: 10px -10px -10px;
+        padding: 10px;
+        border-top: 1px solid $serviceItemBg;
+        background: lighten($serviceItemBg, 6%);
+      }
+
+      .selection-fields {
+        
+        margin: 0 0 .5em;
+        line-height: 1.7em;
+           
+        input {
+          @include box-shadow(0 0 0);
+          padding:2px;
+        }
+
+        a {
+          font-size: 0.9em;
+          color: lighten($linkColor, 25%);
+        }
+      }
+    }
+
+    .opened-filters {
+        background: $serviceItemBg;
+
+      .line-items {
+        background: lighten($serviceItemBg, 4%);
+      }
     }
   }
 }
+// End of Page Form
+
 
 .chars-left {
   font-size: 1.2em;

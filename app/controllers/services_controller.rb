@@ -25,6 +25,7 @@ class ServicesController < ApplicationController
   # GET /services/new.json
   def new
     @service = Service.new
+    @service.build_service_price
 
     3.times do
       filter = @service.filters.build

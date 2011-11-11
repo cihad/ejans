@@ -61,7 +61,6 @@ $(function() {
   $(".line-items").mouseup(function() { // Mouse Up Click
     return false
   });
-
 });
 
 
