@@ -17,5 +17,3 @@ end
 group :development do
   gem 'therubyracer'
 end
-
-gem 'formtastic'
