@@ -8,4 +8,6 @@ class Service < ActiveRecord::Base
 
   has_one :service_price, :dependent => :destroy
   accepts_nested_attributes_for :service_price, :allow_destroy => true
+
+  has_many :notifications
 end

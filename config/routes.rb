@@ -1,5 +1,8 @@
 Proje::Application.routes.draw do
-  resources :services
+
+  resources :services do
+    resources :notifications, :except => :index
+  end
   get "home/index"
   devise_for :accounts
 

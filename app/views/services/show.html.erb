@@ -10,3 +10,29 @@
 <p>
   <%= @service.description %>
 </p>
+
+<table>
+  <tr>
+    <th>Service</th>
+    <th>Title</th>
+    <th>Sms</th>
+    <th>Description</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @service.notifications.each do |notification| %>
+  <tr>
+    <td><%= notification.service %></td>
+    <td><%= notification.title %></td>
+    <td><%= notification.sms %></td>
+    <td><%= notification.description %></td>
+    <td><%= link_to 'Show', [@service, notification] %></td>
+    <td><%= link_to 'Edit', edit_service_notification_path(@service, notification) %></td>
+    <td><%= link_to 'Destroy', service_notification_path(@service), confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+<%= link_to 'New Notification', new_service_notification_path(@service) %>
+</article>

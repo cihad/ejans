@@ -1,0 +1,48 @@
+<div class="page-form">
+<%= form_for [@service, @notification] do |f| %>
+  <% if @notification.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@notification.errors.count, "error") %> prohibited this notification from being saved:</h2>
+
+      <ul>
+      <% @notification.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-item title-field clearfix">
+    <%= label_tag nil, "Service", :class => "main-label" %>
+    <span class="long-field">
+      <%= text_field_tag nil, nil, :placeholder => @service.title, :disabled => true %>
+    </span>
+  </div>
+
+  <div class="form-item title-field clearfix">
+    <%= f.label :title, "Notification title", :class => "main-label" %>
+    <span class="long-field">
+      <%= f.text_field :title %>
+    </span>
+  </div>
+
+  <div class="form-item textarea-field clearfix">
+    <%= f.label :sms, :class => "main-label" %>
+    <span class="long-field">
+      <%= f.text_area :sms, :rows => "2", :maxlength => 160, :class => "limited" %>
+      <p class="right-align mini-font no-margin"><span class="chars-left">160</span> char left.</p>
+    </span>
+  </div>
+
+  <div class="form-item textarea-field clearfix">
+    <%= f.label :description, :class => "main-label" %>
+    <span class="long-field">
+      <%= f.text_area :description, :rows => "10" %>
+    </span>
+  </div>
+
+  <div id="submit">
+    <%= f.submit "Submit", :style => "margin-left: 190px" %>
+  </div>
+<% end %>
+</div>

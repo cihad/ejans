@@ -1,0 +1,34 @@
+<%= title @notification.title %>
+<%= content_for :breadcrumb do %>
+  &raquo; <%= link_to "Services", services_path %>
+  &raquo; <%= link_to @service.title, @service %>
+  &raquo; <span><%= @notification.title %></span>
+<% end %>
+
+<article>
+  <h2><%= @notification.title %></h2>
+
+  <p>
+    <b>Service:</b>
+    <%= @notification.service.title %>
+  </p>
+
+  <p>
+    <b>Title:</b>
+    <%= @notification.title %>
+  </p>
+
+  <p>
+    <b>Sms:</b>
+    <%= @notification.sms %>
+  </p>
+
+  <p>
+    <b>Description:</b>
+    <%= @notification.description %>
+  </p>
+
+
+  <%= link_to 'Edit', edit_service_notification_path(@service, @notification) %> |
+  <%= link_to 'Back', @service %>
+</article>

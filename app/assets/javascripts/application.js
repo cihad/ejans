@@ -61,6 +61,12 @@ $(function() {
   $(".line-items").mouseup(function() { // Mouse Up Click
     return false
   });
+
+  // Sms field char count
+  $('textarea.limited').maxlength({
+      'feedback' : '.chars-left' // note: looks within the current form
+  });
+
 });
 
 

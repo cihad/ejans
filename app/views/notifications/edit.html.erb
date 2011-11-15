@@ -1,0 +1,11 @@
+<%= title "Editing #{@notification.title}" %>
+<%= content_for :breadcrumb do %>
+  &raquo; <%= link_to "Services", services_path %>
+  &raquo; <%= link_to @service.title, @service %>
+  &raquo; <%= link_to @notification.title, [@service, @notification] %>
+  &raquo; <span>Edit</span>
+<% end %>
+
+<h2>Editing <%= @notification.title %></h2>
+
+<%= render 'form' %>
