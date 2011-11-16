@@ -67,7 +67,7 @@ class NotificationsController < ApplicationController
     @notification.destroy
 
     respond_to do |format|
-      format.html { redirect_to notifications_url }
+      format.html { redirect_to @service }
       format.json { head :ok }
     end
   end

@@ -12,7 +12,7 @@
     </div>
   <% end %>
 
-  <div class="form-item title-field clearfix">
+  <div class="form-item text-field clearfix">
     <%= label_tag nil, "Service", :class => "main-label" %>
     <span class="long-field">
       <%= text_field_tag nil, nil, :placeholder => @service.title, :disabled => true %>
@@ -33,6 +33,28 @@
       <p class="right-align mini-font no-margin"><span class="chars-left">160</span> char left.</p>
     </span>
   </div>
+
+  <div class="form-item multi-select clearfix" id="filters">
+    <%= label_tag nil, "Filters", :class => "main-label" %>
+    <span class="long-field">
+      <% for filter in @service.filters %>
+        <span class="filter fields">
+          <span class="fixed"><%= truncate(filter.name, :length => 20) %></span>
+          <%= collection_select :notification, :selection_ids, filter.selections, :id, :label, {}, {:multiple => true, :id => "notification_selection_ids_#{filter.id}"} %>
+        </span>
+      <% end %>
+    </span>
+  </div>
+
+  <script type="text/javascript">
+  $(function() {
+    $(".filter select").multiselect({
+      selectedList: 4,
+      header: false,
+      minWidth: 270,
+    });
+  });
+  </script>
 
   <div class="form-item textarea-field clearfix">
     <%= f.label :description, :class => "main-label" %>

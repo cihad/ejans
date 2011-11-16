@@ -16,17 +16,15 @@
   </tr>
 
 <% @services.each do |service| %>
-  <tr>
+  <tr class="<%= cycle("odd", "even") %>">
     <td><%= service.owner_id %></td>
     <td><%= service.title %></td>
-    <td><%= service.description %></td>
+    <td><%= truncate(service.description, :length => 40) %></td>
     <td><%= link_to 'Show', service %></td>
     <td><%= link_to 'Edit', edit_service_path(service) %></td>
     <td><%= link_to 'Destroy', service, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>
 </table>
-
-<br />
 
 <%= link_to 'New Service', new_service_path %>

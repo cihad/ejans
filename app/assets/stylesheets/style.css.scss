@@ -1,5 +1,6 @@
 // Widths
-$sitewidth : 900px;
+$defaultSiteWidth : 700px;
+$wideSiteWidth : 900px;
 
 // Colors
 $sitebg     : #f7f7f7;
@@ -92,6 +93,25 @@ article {
   }
 }
 
+table {
+  width: 100%;
+  margin-bottom: 1em;
+}
+
+th, td {
+  padding: .5em;
+  border: 1px solid #ccc;
+}
+
+th {
+  background: darken($sitebg, 10%);
+  font-weight: bold;
+}
+
+tr.odd {
+  background: $sitebg;
+}
+
 // Some Definitions
 .price {
   font-size: 0.8em;
@@ -103,7 +123,7 @@ article {
 }
 
 #wrapper {
-  width: $sitewidth;
+  width: $defaultSiteWidth;
   margin: 0 auto;
   padding-top: 40px;
 }
@@ -423,11 +443,21 @@ textarea {
       background: lighten($serviceItemBg, 4%);
       line-height: 2em;
       
-      label,
-      input {
+      .floated,
+      input[type=text] {
         float: left;
         width: auto;
         margin-right: 5px;
+      }
+
+      .fixed {
+        display: block;
+        float: left;
+        width: 150px;
+      }
+
+      select {
+        float: right;
       }
 
       .filter-header {
@@ -590,6 +620,10 @@ $commentBg : #ddd;
 }
 
 // User Pages
+.user-page #wrapper {
+  width: $wideSiteWidth;
+  
+}
 #user-services, #user-menu {
 
   ul {

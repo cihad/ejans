@@ -1,6 +1,7 @@
 class Service < ActiveRecord::Base
   # Associations
   belongs_to :owner, :foreign_key => "owner_id", :class_name => "Account"
+  
   has_many :filters, :dependent => :destroy
   accepts_nested_attributes_for :filters,
           :allow_destroy => true,
@@ -9,5 +10,5 @@ class Service < ActiveRecord::Base
   has_one :service_price, :dependent => :destroy
   accepts_nested_attributes_for :service_price, :allow_destroy => true
 
-  has_many :notifications
+  has_many :notifications, :dependent => :destroy
 end

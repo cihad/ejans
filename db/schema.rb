@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111114121951) do
+ActiveRecord::Schema.define(:version => 20111115075329) do
 
   create_table "accounts", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false
@@ -48,6 +48,15 @@ ActiveRecord::Schema.define(:version => 20111114121951) do
   end
 
   add_index "notifications", ["service_id"], :name => "index_notifications_on_service_id"
+
+  create_table "notifications_selections", :id => false, :force => true do |t|
+    t.integer "notification_id"
+    t.integer "selection_id"
+  end
+
+  add_index "notifications_selections", ["notification_id", "selection_id"], :name => "notification_id_and_selection_id", :unique => true
+  add_index "notifications_selections", ["notification_id"], :name => "index_notifications_selections_on_notification_id"
+  add_index "notifications_selections", ["selection_id"], :name => "index_notifications_selections_on_selection_id"
 
   create_table "selections", :force => true do |t|
     t.integer  "filter_id"
