@@ -8,24 +8,18 @@
 <article>
   <h2><%= @notification.title %></h2>
 
+  <ul style="float:right; padding: 5px 20px; border: 1px solid #ccc;">
+    <% @notification.selections.each do |selection| %>
+      <li><%= selection.label %></li>
+    <% end %>
+  </ul>
+
   <p>
-    <b>Service:</b>
-    <%= @notification.service.title %>
+    <i><%= @notification.sms %></i>
   </p>
 
   <p>
-    <b>Title:</b>
-    <%= @notification.title %>
-  </p>
-
-  <p>
-    <b>Sms:</b>
-    <%= @notification.sms %>
-  </p>
-
-  <p>
-    <b>Description:</b>
-    <%= @notification.description %>
+    <%= simple_format @notification.description %>
   </p>
 
 

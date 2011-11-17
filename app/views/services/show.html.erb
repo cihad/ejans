@@ -27,7 +27,7 @@
     <td><%= notification.service %></td>
     <td><%= notification.title %></td>
     <td><%= notification.sms %></td>
-    <td><%= notification.description %></td>
+    <td><%= truncate notification.description, :length => 30 %></td>
     <td><%= link_to 'Show', [@service, notification] %></td>
     <td><%= link_to 'Edit', edit_service_notification_path(@service, notification) %></td>
     <td><%= link_to 'Destroy', service_notification_path(@service, notification), confirm: 'Are you sure?', method: :delete %></td>
