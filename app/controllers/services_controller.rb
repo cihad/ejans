@@ -14,6 +14,11 @@ class ServicesController < ApplicationController
   # GET /services/1.json
   def show
     @service = Service.find(params[:id])
+    @subscription = current_account.subscriptions.find_by_service_id(@service) if account_signed_in?
+
+    if !@subscription
+      @subscription = @service.subscriptions.build
+    end
 
     respond_to do |format|
       format.html # show.html.erb

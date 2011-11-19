@@ -1,0 +1,61 @@
+<div id="service-subscription">
+  <h3>Subscription</h3>
+  <% if account_signed_in? %>
+    <%= form_for(@subscription) do |f| %>
+      <% if @subscription.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@subscription.errors.count, "error") %> prohibited this subscription from being saved:</h2>
+
+          <ul>
+          <% @subscription.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <%= hidden_field_tag "subscription[service_id]", @service.id %>
+
+      <% for filter in @service.filters %>
+        <span class="filter fields">
+          <%= collection_select :subscription, :selection_ids, filter.selections, :id, :label, {}, {:multiple => true, :id => "subscription_selection_ids_#{filter.id}" } %>
+        </span>
+      <% end %>
+
+
+      <span id="choices">
+        <%= f.label :email %>
+        <%= f.check_box :email %>
+        <%= f.label :sms %>
+        <%= f.check_box :sms %>
+      </span>
+
+      <%= f.submit "Subscribe" %>
+
+    <% end %>
+
+  <% else %>
+    <div>
+      <% for filter in @service.filters %>
+        <span class="filter fields">
+          <%= collection_select :subscription, :selection_ids, filter.selections, :id, :label, {}, {:multiple => true, :id => "subscription_selection_ids_#{filter.id}" } %>
+        </span>
+      <% end %>
+      <%= submit_tag "Subscribe", :class => "signin" %>
+    </div>
+  <% end %>
+</div>
+
+
+<script type="text/javascript">
+$(function() {
+  $(".filter select").multiselect({
+    selectedList: 1,
+    header: false,
+    minWidth: 180,
+  });
+
+  $( "#subscription_email, #subscription_sms" ).button();
+
+});
+</script>

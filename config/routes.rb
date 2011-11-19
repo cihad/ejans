@@ -1,5 +1,9 @@
 Proje::Application.routes.draw do
 
+  scope "accounts" do
+    resources :subscriptions, :except => :new
+  end
+
   resources :services do
     resources :notifications, :except => :index
   end

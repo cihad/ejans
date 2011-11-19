@@ -1,8 +1,22 @@
-<%= form_for("account", :url => account_session_path) do |f| %>
-  <%= f.text_field :email %>
-  <%= f.password_field :password %>
-  <%= f.check_box :remember_me %>
-  <%= f.label :remember_me %>
-  <%= f.submit 'Sign in' %>
-  <%= link_to "Forgot your password?", new_password_path('account') %>
+<%= form_for "account", :url => account_session_path, :html => { :id => "signin-form" } do |f| %>
+  <p>
+    <%= f.label :email %><br>
+    <%= f.text_field :email %>
+  </p>
+
+  <p>
+    <%= f.label :password %><br>
+    <%= f.password_field :password %>
+  </p>
+
+  <p>
+    <%= f.check_box :remember_me %>
+    <%= f.label :remember_me %>
+  </p>
+
+  <p style="text-align:right;"><%= link_to "Forgot your password?", new_password_path('account') %></p>
+
+  <%= f.submit 'Sign in', :style => "display: none" %>
+
 <% end %>
+

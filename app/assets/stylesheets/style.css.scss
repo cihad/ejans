@@ -120,6 +120,7 @@ tr.odd {
 
 .no-list-style {
   list-style: none;
+  margin: 0;
 }
 
 #wrapper {
@@ -201,7 +202,8 @@ header {
 }
 
 #message {
-  margin: 20px;
+  margin:10px 0 20px;
+
   p {
     margin: 0;
     padding: 7px 15px;
@@ -277,6 +279,11 @@ $serviceItemBg : #DCEAF4;
   .ui-widget-header {
     display: none;
   }
+
+  li {
+    list-style: none;
+    margin: 0;
+  }
 }
 
 #service-notice {
@@ -287,19 +294,36 @@ $serviceItemBg : #DCEAF4;
     margin-bottom: 0;
   }
   li.notice {
-    padding: 10px 0 10px 0;
     border-bottom: 1px solid darken($mainBorder, 10%);
+
     &:hover {
       @include vertical-graident(#f8f8f8, #eee);
-      p {
-        background: url(images/gray_arrow_right.png) center right no-repeat;
+    }
+
+    &:active {
+      @include vertical-graident(#eee, #f8f8f8);
+    }
+
+    a {
+      padding: 10px 0 10px 0;
+      display: block;
+      background: url(images/gray_arrow_right.png) center right no-repeat;
+      color: $textColor;
+
+      &:hover {
+        text-decoration: none;
       }
 
+      &:active {
+        
+      }
     }
+
+    
     p {
       margin: 0;
       padding-right: 30px;
-      background: url(images/gray_arrow_right.png) center right no-repeat;
+      background: url("images/gray_arrow_right.png") center right no-repeat;
     }
   }
   .more {
@@ -368,12 +392,13 @@ input[type=email],
 input[type=number],
 textarea {
   @include border-radius(2px);
-  border:1px solid #bbb;
-  padding: 5px;
-  @include box-shadow(-1px 1px 1px #ccc);
+  border-color: #BCBCBC #D5D5D5 #D5D5D5;
+  border-style: solid;
+  border-width: 1px;
+  padding: 4px 6px;
   &:focus {
-    border: 1px solid darken($focusBgColor, 40%);
-    @include box-shadow(-1px 1px 0 darken($focusBgColor, 40%));
+    border-color: #777;
+    @include box-shadow(inset 0 0 2px #777);
   }
 }
 

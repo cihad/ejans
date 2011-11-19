@@ -13,12 +13,11 @@ $(function() {
     autoOpen: false,
     modal: true,
     title: 'Sign in',
-    width: 400,
+    width: 300,
     height: 300,
     buttons: [
     {
-        text: "Sign in",
-        click: function() { $(this).dialog("close"); }
+        text: "Sign in", click: function() { $("#signin-form").submit(); },
     }]
   });
 

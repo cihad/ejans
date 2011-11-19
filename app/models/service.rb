@@ -11,4 +11,7 @@ class Service < ActiveRecord::Base
   accepts_nested_attributes_for :service_price, :allow_destroy => true
 
   has_many :notifications, :dependent => :destroy
+
+  has_many :subscriptions
+  has_many :accounts, :through => :subscriptions
 end

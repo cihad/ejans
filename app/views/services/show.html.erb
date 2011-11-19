@@ -11,28 +11,49 @@
   <%= @service.description %>
 </p>
 
-<table>
-  <tr>
-    <th>Service</th>
-    <th>Title</th>
-    <th>Sms</th>
-    <th>Description</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<div id="service-statics">
+  <div class="item">
+    <div class="count">
+      <span><%= @service.subscriptions.count %></span>
+    </div>
+    <div class="desc">
+      <span>takipçi</span>
+    </div>
+  </div>  
 
-<% @service.notifications.each do |notification| %>
-  <tr>
-    <td><%= notification.service %></td>
-    <td><%= notification.title %></td>
-    <td><%= notification.sms %></td>
-    <td><%= truncate notification.description, :length => 30 %></td>
-    <td><%= link_to 'Show', [@service, notification] %></td>
-    <td><%= link_to 'Edit', edit_service_notification_path(@service, notification) %></td>
-    <td><%= link_to 'Destroy', service_notification_path(@service, notification), confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
-</table>
-<%= link_to 'New Notification', new_service_notification_path(@service) %>
+
+  <div class="item">
+    <div class="count">
+      <span>23</span>
+    </div>
+    <div class="desc">
+      <span>ortalama aylık gönderim</span>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="count">
+      <span>987</span>
+    </div>
+    <div class="desc">
+      <span>kişi beğendi</span>
+    </div>
+  </div>
+</div>
+
+<%= render "services/subscription" %>
+
+<div id="service-notice">
+  <h3>Service Notification</h3>
+  <ul>
+  <% @service.notifications.each do |notification| %>
+    <li class="notice no-list-style">
+      <%= link_to notification.sms, service_notification_path(@service, notification) %>
+    </li>
+  <% end %>
+  </ul>
+</div>
+
+<p><%= link_to 'New Notification', new_service_notification_path(@service) %></p>
+
 </article>

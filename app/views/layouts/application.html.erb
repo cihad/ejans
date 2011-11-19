@@ -18,19 +18,20 @@
       </div>
     <% end %>
 
-    <% if notice or alert %>
-      <div id="message">
-        <% if notice %>
-          <p class="notice"><%= notice %></p>
-        <% end %>
-        <% if alert %>
-          <p class="alert"><%= alert %></p>
-        <% end %>
-      </div>
-    <% end -%>
-
     <section id="content">
       <div id="content-ins" class="ins">
+
+        <% if notice or alert %>
+          <div id="message">
+            <% if notice %>
+              <p class="notice"><%= notice %></p>
+            <% end %>
+            <% if alert %>
+              <p class="alert"><%= alert %></p>
+            <% end %>
+          </div>
+        <% end %>
+
         <%= yield %>
       </div>
     </section>
@@ -58,14 +59,17 @@
   <% end %>
 
   <%= render 'layouts/footer' %>
-  <div style="clear:both"><%#= debug(params) if Rails.env.development? %></div>
+  <div style="clear:both"><%= debug(params) if Rails.env.development? %></div>
 </div>
 <!--/wrapper-->
+
 
 <div id="signin-modal">
   <%= render 'layouts/signin' %>
 </div>
 <!--/signin-modal-->
 
+
+<%= yield :bottom %>
 </body>
 </html>

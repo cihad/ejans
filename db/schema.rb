@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111115075329) do
+ActiveRecord::Schema.define(:version => 20111117121439) do
 
   create_table "accounts", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false
@@ -80,5 +80,25 @@ ActiveRecord::Schema.define(:version => 20111115075329) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "subscriptions", :force => true do |t|
+    t.integer  "account_id"
+    t.integer  "service_id"
+    t.boolean  "email",      :default => false
+    t.boolean  "sms",        :default => false
+    t.boolean  "active",     :default => true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "subscriptions", ["account_id"], :name => "index_subscriptions_on_account_id"
+  add_index "subscriptions", ["service_id"], :name => "index_subscriptions_on_service_id"
+
+  create_table "subscriptions_selections", :id => false, :force => true do |t|
+    t.integer "subscription_id"
+    t.integer "selection_id"
+  end
+
+  add_index "subscriptions_selections", ["subscription_id"], :name => "index_subscriptions_selections_on_subscription_id"
 
 end
