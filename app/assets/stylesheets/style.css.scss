@@ -385,6 +385,10 @@ $serviceItemBg : #DCEAF4;
   margin-top: 30px;
 }
 
+input:-webkit-autofill {
+  color: #2a2a2a !important;
+}
+
 $focusBgColor : #FDECB2;
 input[type=text],
 input[type=password],
@@ -396,6 +400,9 @@ textarea {
   border-style: solid;
   border-width: 1px;
   padding: 4px 6px;
+  outline: none;
+  background: #fff;
+  
   &:focus {
     border-color: #777;
     @include box-shadow(inset 0 0 2px #777);
