@@ -1,9 +1,10 @@
-<%= title "Listing Services" %>
-<%= content_for :breadcrumb do %>
-  &raquo; <span>Services</span>
-<% end %>
+<% page_name = "Listing Services" %>
+<%= title page_name %>
+<% 
+  breadcrumbs.add 'Services'
+%>
 
-<h2>Listing Services</h2>
+<%= content_tag :h2, page_name %>
 
 <table>
   <tr>

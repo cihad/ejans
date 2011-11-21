@@ -46,6 +46,8 @@ class ServicesController < ApplicationController
   # GET /services/1/edit
   def edit
     @service = Service.find(params[:id])
+    # breadcrumbs.add @service.title, service_path(@service)
+    # breadcrumbs.add "Edit"
 
     form_count = 3 - (@service.filters.count)
     form_count.times do

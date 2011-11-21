@@ -7,6 +7,9 @@ gem 'jquery-rails'
 # User
 gem 'devise', '1.4.9'
 
+# Layouts
+gem 'breadcrumbs', '~> 0.1.6'
+
 # Groups
 group :assets do
   gem 'sass-rails',   '~> 3.1.4'

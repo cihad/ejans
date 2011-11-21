@@ -1,10 +1,10 @@
-<%= title "Editing Service" %>
-<%= content_for :breadcrumb do %>
-  &raquo; <%= link_to "Services", services_path %>
-  &raquo; <%= link_to @service.title, @service %>
-  &raquo; <span>Edit</span>
-<% end %>
+<% page_name = "Editing Service" %>
+<%= title page_name %>
+<% 
+  breadcrumbs.add @service.title, service_path(@service)
+  breadcrumbs.add page_name
+%>
 
-<h2>Edit "<%= @service.title %>" Service</h2>
+<%= content_tag :h2, "Edit \"#{@service.title}\" Service" %>
 
 <%= render 'form' %>

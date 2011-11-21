@@ -1,4 +1,9 @@
-<h2>Sign in</h2>
+<% page_name = "Sign in" %>
+<% title page_name %>
+<%
+  breadcrumbs.add page_name
+%>
+<%= content_tag :h2, page_name %>
 
 <div class="page-form">
 <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>

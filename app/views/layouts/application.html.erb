@@ -12,39 +12,39 @@
 
   <div id="main">
     <div id="main-ins" class="clearfix">
-    <% if content_for?(:breadcrumb) %>
-      <div id="breadcrumb" class="ins">
-        <%= link_to "Home", root_path %><%= yield :breadcrumb %>
+      
+      <div id="breadcrumb" class="clearfix  ins">
+        <%= breadcrumbs.render %>
       </div>
-    <% end %>
 
-    <section id="content">
-      <div id="content-ins" class="ins">
+      <section id="content">
+        <div id="content-ins" class="ins">
 
-        <% if notice or alert %>
-          <div id="message">
-            <% if notice %>
-              <p class="notice"><%= notice %></p>
-            <% end %>
-            <% if alert %>
-              <p class="alert"><%= alert %></p>
-            <% end %>
-          </div>
-        <% end %>
+          <% if notice or alert %>
+            <div id="message">
+              <% if notice %>
+                <p class="notice"><%= notice %></p>
+              <% end %>
+              <% if alert %>
+                <p class="alert"><%= alert %></p>
+              <% end %>
+            </div>
+          <% end %>
 
-        <%= yield %>
-      </div>
-    </section>
-    <!--/section#content-->
+          <%= yield %>
+        </div>
+      </section>
+      <!--/section#content-->
 
-    <% if content_for?(:right) %>
-    <aside id="right">
-      <div id="right-ins" class="ins">
-        <%= yield :right %>
-      </div>
-    </aside>
-    <!--/aside#right-->
-    <% end %>
+      <% if content_for?(:right) %>
+      <aside id="right">
+        <div id="right-ins" class="ins">
+          <%= yield :right %>
+        </div>
+      </aside>
+      <!--/aside#right-->
+      <% end %>
+
     </div><!--/div#main-ins-->
   </div>
   <!--/div#main-->

@@ -1,9 +1,9 @@
-<%= title "New Service" %>
-<%= content_for :breadcrumb do %>
-  &raquo; <%= link_to "Services", services_path %>
-  &raquo; <span>New</span>
-<% end %>
-
-<h2>New Service</h2>
+<% page_name = "New Service" %>
+<%= title page_name %>
+<%
+  breadcrumbs.add "Services", services_path
+  breadcrumbs.add page_name
+%>
+<%= content_tag :h2, page_name %>
 
 <%= render 'form' %>

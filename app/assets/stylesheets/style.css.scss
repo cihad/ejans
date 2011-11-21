@@ -194,11 +194,19 @@ header {
 #breadcrumb {
   padding-top:10px;
   padding-bottom:10px;
-  border-bottom: 1px solid darken($mainBorder, 12%);
-  @include vertical-graident(#eee, #ddd);
-  @include border-radius(4px 4px 0 0);
-  text-shadow: 0 1px 0 #fff;
-  @include box-shadow(inset 0 1px 0 0 #f9f9f9)
+  border-bottom: 1px solid $mainBorder;
+
+  li {
+    float:left;
+    padding: 0 15px 0 10px;
+    background: url("images/chevron.gif") 100% 50% no-repeat;
+    &.first {
+      padding-left: 0;
+    }
+    &.last {
+      background-image: none;
+    }
+  }
 }
 
 #message {

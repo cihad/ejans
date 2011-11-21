@@ -1,12 +1,13 @@
-<%= title @notification.title %>
-<%= content_for :breadcrumb do %>
-  &raquo; <%= link_to "Services", services_path %>
-  &raquo; <%= link_to @service.title, @service %>
-  &raquo; <span><%= @notification.title %></span>
-<% end %>
+<% page_name = @notification.title %>
+<%= title page_name %>
+<%
+  breadcrumbs.add "Services", services_path
+  breadcrumbs.add @service.title, service_path(@service)
+  breadcrumbs.add page_name
+%>
 
 <article>
-  <h2><%= @notification.title %></h2>
+  <%= content_tag :h2, page_name %>
 
   <ul style="float:right; padding: 5px 20px; border: 1px solid #ccc;">
     <% @notification.selections.each do |selection| %>

@@ -1,9 +1,9 @@
-<%= title "Forgot your password?" %>
-<%= content_for :breadcrumb do %>
-  &raquo; <span>Forgot your password?</span>
-<% end %>
-
-<h2>Forgot your password?</h2>
+<% page_name = "Forgot your password?" %>
+<% title page_name %>
+<%
+  breadcrumbs.add page_name
+%>
+<%= content_tag :h2, page_name %>
 
 <div class="page-form">
 <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>

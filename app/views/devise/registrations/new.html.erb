@@ -1,9 +1,11 @@
-<%= title "Sign up" %>
-<%= content_for :breadcrumb do %>
-  &raquo; <span>Sign up</span>
-<% end %>
+<% page_name = "Sign up" %>
+<%= title page_name %>
 
-<h2>Sign up</h2>
+<%
+  breadcrumbs.add page_name
+%>
+
+<%= content_tag :h2, page_name %>
 
 <div class="page-form">
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
