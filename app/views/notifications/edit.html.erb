@@ -5,6 +5,7 @@
   breadcrumbs.add @service.title, service_path(@service)
   breadcrumbs.add @notification.title, service_notification_path(@service, @notification)
   breadcrumbs.add "Editing"
+  breadcrumbs.add @notification.title, [@service, @notification]
 %>
 <%= content_tag :h2, "Editing #{page_name}" %>
 

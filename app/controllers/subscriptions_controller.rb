@@ -11,22 +11,6 @@ class SubscriptionsController < ApplicationController
     end
   end
 
-  # GET /subscriptions/1
-  # GET /subscriptions/1.json
-  def show
-    @subscription = Subscription.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @subscription }
-    end
-  end
-
-  # GET /subscriptions/1/edit
-  def edit
-    @subscription = Subscription.find(params[:id])
-  end
-
   # POST /subscriptions
   # POST /subscriptions.json
   def create
@@ -73,6 +57,16 @@ class SubscriptionsController < ApplicationController
     end
   end
 
+  def multiple_update
+    @subscriptions = Subscription.update(params[:subscriptions].keys, params[:subscriptions].values).reject { |p| p.errors.empty? }
+    if @subscriptions.empty?
+      flash[:notice] = "Subscriptions updated"
+      redirect_to subscriptions_path
+    else
+      render :action => "edit_individual"
+    end
+  end
+
   # DELETE /subscriptions/1
   # DELETE /subscriptions/1.json
   def destroy
@@ -82,7 +76,7 @@ class SubscriptionsController < ApplicationController
 
 
     respond_to do |format|
-      format.html { redirect_to @service }
+      format.html { redirect_to subscriptions_path, notice: 'Subscription was successfully destroyed.' }
       format.json { head :ok }
     end
   end

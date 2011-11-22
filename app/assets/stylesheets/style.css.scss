@@ -559,8 +559,8 @@ textarea {
 }
 
 #submit {
-  margin: 0 -20px -20px;
-  background: #666;
+  margin: 0 -20px -21px;
+  background: #fff;
   padding: 15px;
   margin-top: 10px;
   @include border-radius(0 0 4px 4px);
@@ -568,6 +568,10 @@ textarea {
   a {
     color: #fff;
     margin-left: 10px;
+  }
+
+  input {
+    width: 100px;
   }
 }
 
@@ -765,6 +769,45 @@ $commentBg : #ddd;
 
   .page-form .long-field {
     width: 245px;
+  }
+}
+
+#subscriptions {
+  
+  li {
+    @include vertical-graident(lighten($serviceItemBg, 10%), lighten($serviceItemBg, 5%));
+
+    &:first-child {
+      border-top: 1px solid $mainBorder;
+    }
+
+    &:hover {
+      @include vertical-graident(lighten($serviceItemBg, 10%), $serviceItemBg);
+    }
+    
+  }
+
+  .subscription {
+    border-bottom: 1px solid $mainBorder;
+    margin: 0 -20px;
+    padding: 15px 20px;
+          
+    .title {
+      font-size: 1em;
+
+    }
+
+    .subscription-settings {
+      float: right;
+    }
+
+    .go-icon a {
+      font-size: 2em;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+
   }
 }
 

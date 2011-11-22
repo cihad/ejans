@@ -1,27 +1,52 @@
-<h1>Listing subscriptions</h1>
+<% page_name = "Listing subscriptions" %>
+<%= body_class "user-page" %>
+<%
+  breadcrumbs.add page_name
+%>
 
-<table>
-  <tr>
-    <th>Account</th>
-    <th>Service</th>
-    <th>Email</th>
-    <th>Sms</th>
-    <th>Active</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<%= content_tag :h2, page_name %>
 
-<% @subscriptions.each do |subscription| %>
-  <tr>
-    <td><%= subscription.account %></td>
-    <td><%= subscription.service %></td>
-    <td><%= subscription.email %></td>
-    <td><%= subscription.sms %></td>
-    <td><%= subscription.active %></td>
-    <td><%= link_to 'Show', subscription %></td>
-    <td><%= link_to 'Edit', edit_subscription_path(subscription) %></td>
-    <td><%= link_to 'Destroy', subscription, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
+
+  
+  <%= form_tag multiple_update_subscriptions_path,  :method => :put do |f| %>
+    
+    <% if !@subscriptions.blank? %>
+      <% for subscription in @subscriptions %>
+        <ul id="subscriptions">
+          <li class="subscription <%= cycle("odd", "even") %>">
+            
+            <span class="subscription-settings">
+              <%= fields_for "subscriptions[]", subscription do |f| %>
+                <%= render "fields", :f => f %>
+              <% end %>
+
+              <%= link_to 'Unsubscribe', subscription, confirm: 'Are you sure?', method: :delete, :class => "button" %>
+            </span>
+
+            <span class="title">
+              <%= subscription.service.title %>
+              <span class="go-icon"><%= link_to raw("&rarr;"), subscription.service %></span>
+            </span>
+          </li>
+        </ul>
+      <% end %>
+    <% else %>
+      <%= content_tag :p, "Nothing service" %>
+    <% end %>
+      
+    <div id="submit" class="clearfix">
+      <%= submit_tag "Update", :style => "float:right;" %>
+    </div>
+  <% end %>
+
+
+<script type="text/javascript">
+$(function() {
+  $(".subscription input, .button").button();
+
+});
+</script>
+
+<%= content_for(:left) do %>
+  <%= render "devise/shared/user_menu" %>
 <% end %>
-</table>

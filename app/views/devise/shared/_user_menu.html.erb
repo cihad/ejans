@@ -1,6 +1,7 @@
 <div class="block" id="user-menu">
   <ul>
-    <%= menu_list "Edit", edit_account_registration_path, "get" %>
+    <%= menu_list "Edit Account", edit_account_registration_path, "get" %>
+    <%= menu_list "Edit Subscriptions", subscriptions_path, "get" %>
     <%= menu_list "Sign out", destroy_account_session_path, "delete" %>
   </ul>
 </div>
