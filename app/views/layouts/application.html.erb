@@ -1,75 +1,69 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title><%= yield(:title) || "The Place to Buy Stuff" %> - Synchronize.me</title>
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
+<!-- /HEAD -->
+
 <body class="<%= content_for?(:right) ? 'twoColumn' : 'oneColumn' %> <%= yield(:body_class) %>">
-<div id="wrapper">
-  <%= render 'layouts/header' %>
 
-  <div id="main">
-    <div id="main-ins" class="clearfix">
-      
-      <div id="breadcrumb" class="clearfix  ins">
-        <%= breadcrumbs.render %>
+  <!-- Container -->
+  <div class="container">
+
+    <%= render 'layouts/header' %>
+
+    <div id="page">
+      <div class="row">
+        
+        <div id="breadcrumb">
+          <%= breadcrumbs.render %>
+        </div>
+        <!-- /Breadcrumb -->
+
+
+        <% if content_for?(:left) %>
+        <div class="span4">
+          <aside>
+            <%= yield :left %>
+          </aside>
+        </div>
+        <!-- /aside left -->
+        <% end %>
+
+        <div class="span12">
+          <section id="content">
+            <%= render 'layouts/messages' %>
+            <%= yield %>
+          </section>
+        </div>
+        <!-- /Content -->
+        
+
+        <% if content_for?(:right) %>
+        <div class="span4">
+          <aside>
+            <%= yield :right %>
+          </aside>
+        </div>
+        <!-- /aside right -->
+        <% end %>
+
+
+
       </div>
+    </div>
+    <!-- /Page -->
 
-      <section id="content">
-        <div id="content-ins" class="ins">
+    <%= render 'layouts/footer' %>
 
-          <% if notice or alert %>
-            <div id="message">
-              <% if notice %>
-                <p class="notice"><%= notice %></p>
-              <% end %>
-              <% if alert %>
-                <p class="alert"><%= alert %></p>
-              <% end %>
-            </div>
-          <% end %>
-
-          <%= yield %>
-        </div>
-      </section>
-      <!--/section#content-->
-
-      <% if content_for?(:right) %>
-      <aside id="right">
-        <div id="right-ins" class="ins">
-          <%= yield :right %>
-        </div>
-      </aside>
-      <!--/aside#right-->
-      <% end %>
-
-    </div><!--/div#main-ins-->
   </div>
-  <!--/div#main-->
+  <!-- /Container -->
 
-  <% if content_for?(:left) %>
-    <aside id="left">
-      <div id="left-ins" class="ins">
-        <%= yield :left %>
-      </div>
-    </aside>
-    <!--/aside#right-->
-  <% end %>
-
-  <%= render 'layouts/footer' %>
-  <div style="clear:both"><%= debug(params) if Rails.env.development? %></div>
-</div>
-<!--/wrapper-->
-
-
-<div id="signin-modal">
   <%= render 'layouts/signin' %>
-</div>
-<!--/signin-modal-->
-
-
-<%= yield :bottom %>
+  <%= yield :bottom %>
 </body>
 </html>

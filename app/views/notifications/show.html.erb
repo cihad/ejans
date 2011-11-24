@@ -9,7 +9,7 @@
 <article>
   <%= content_tag :h2, page_name %>
 
-  <ul style="float:right; padding: 5px 20px; border: 1px solid #ccc;">
+  <ul class="border-radius no-style-list" style="float:right; padding: 5px 20px; border: 1px solid #ccc;">
     <% @notification.selections.each do |selection| %>
       <li><%= selection.label %></li>
     <% end %>

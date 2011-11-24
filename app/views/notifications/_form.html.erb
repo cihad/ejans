@@ -12,31 +12,31 @@
     </div>
   <% end %>
 
-  <div class="form-item text-field clearfix">
-    <%= label_tag nil, "Service", :class => "main-label" %>
-    <span class="long-field">
-      <%= text_field_tag nil, nil, :placeholder => @service.title, :disabled => true %>
+  <div class="form-item text-field row">
+    <%= label_tag nil, "Service", :class => "span3" %>
+    <span class="span8">
+      <%= text_field_tag nil, nil, :placeholder => @service.title, :disabled => true, :class => "span8" %>
     </span>
   </div>
 
-  <div class="form-item title-field clearfix">
-    <%= f.label :title, "Notification title", :class => "main-label" %>
-    <span class="long-field">
-      <%= f.text_field :title %>
+  <div class="form-item title-field row">
+    <%= f.label :title, "Notification title", :class => "span3" %>
+    <span class="span8">
+      <%= f.text_field :title, :class => "span8" %>
     </span>
   </div>
 
-  <div class="form-item textarea-field clearfix">
-    <%= f.label :sms, :class => "main-label" %>
-    <span class="long-field">
-      <%= f.text_area :sms, :rows => "2", :maxlength => 160, :class => "limited" %>
-      <p class="right-align mini-font no-margin"><span class="chars-left">160</span> char left.</p>
+  <div class="form-item textarea-field row">
+    <%= f.label :sms, :class => "span3" %>
+    <span class="span8">
+      <%= f.text_area :sms, :rows => "2", :maxlength => 160, :class => "limited span8 " %>
+      <p class="right-align mini-font no-margin"><span class="chars-left pastelred">160</span> char left.</p>
     </span>
   </div>
 
-  <div class="form-item multi-select clearfix" id="filters">
-    <%= label_tag nil, "Filters", :class => "main-label" %>
-    <span class="long-field">
+  <div class="form-item multi-select row" id="filters">
+    <%= label_tag nil, "Filters", :class => "span3" %>
+    <span class="span8">
       <% for filter in @service.filters %>
         <span class="filter fields">
           <span class="fixed"><%= truncate(filter.name, :length => 20) %></span>
@@ -49,22 +49,22 @@
   <script type="text/javascript">
   $(function() {
     $(".filter select").multiselect({
-      selectedList: 4,
+      selectedList: 1,
       header: false,
       minWidth: 270,
     });
   });
   </script>
 
-  <div class="form-item textarea-field clearfix">
-    <%= f.label :description, :class => "main-label" %>
-    <span class="long-field">
-      <%= f.text_area :description, :rows => "10" %>
+  <div class="form-item textarea-field row">
+    <%= f.label :description, :class => "span3" %>
+    <span class="span8">
+      <%= f.text_area :description, :rows => "10", :class => "span8" %>
     </span>
   </div>
 
-  <div id="submit">
-    <%= f.submit "Submit", :style => "margin-left: 190px" %>
+  <div class="actions">
+    <%= f.submit "Submit" %>
   </div>
 <% end %>
 </div>

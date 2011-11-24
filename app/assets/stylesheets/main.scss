@@ -1,0 +1,310 @@
+$bgcolor:       #F7F7F7;
+$bordercolor:   #EEEEEE;
+$serviceitembg: #DCEAF4;
+
+
+body {
+  background: $bgcolor;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: normal;
+}
+
+// default
+.margin-padding-zero {
+  margin: 0;
+  padding: 0;
+}
+
+.nostyle-list {
+  list-style: none;
+  @extend .margin-padding-zero;
+}
+
+.inline-list {
+  @extend .nostyle-list;
+  display: inline;
+}
+
+.pastelred {
+  color: $red;
+}
+
+.orange {
+  color: $orange;
+}
+
+.modal-backdrop {
+  background: $white;
+}
+
+.border-radius {
+  @include border-radius(4px);
+}
+
+// LAYOUT
+.oneColumn .container {
+  width: 700px;
+}
+
+#page {
+  margin: 0 -21px;
+  padding: 20px;
+  @include border-radius;
+  background: #fff;
+  border: 1px solid $bordercolor;
+}
+
+// HEADER
+.topbar-wrapper {
+  position: relative;
+  height: 40px;
+  margin: 40px 0 20px;
+}
+.topbar-wrapper .topbar {
+  position: absolute;
+  margin: 0 -20px;
+}
+.topbar-wrapper .topbar .topbar-inner {
+  padding-left: 20px;
+  padding-right: 20px;
+  @include border-radius;
+}
+
+
+// Breadcrumb
+#breadcrumb {
+  @extend .clearfix;
+  padding-bottom:10px;
+  border-bottom: 1px solid $bordercolor;
+  margin: -5px -20px 20px 0;
+
+  li {
+    @extend .inline-list;
+    float:left;
+    line-height: 1.2em;
+    padding: 0 15px 0 10px;
+    background: url("images/chevron.gif") 100% 50% no-repeat;
+    &.first {
+      padding-left: 0;
+    }
+    &.last {
+      background-image: none;
+    }
+  }
+}
+
+// SERVICE PAGES
+#service-statics {
+  margin-top: 30px; 
+  .item {
+    @include border-radius;
+    display: inline-block;
+    background: $serviceitembg;
+    padding: 15px 20px;
+    text-align: center;
+    margin-right: 10px;
+
+    .count {
+      font-size: 2em;
+      color: darken($serviceitembg, 50%);
+    }
+    .desc {
+      font-size: 0.8em;
+      text-align: right;
+    }
+  }
+}
+
+#service-subscription {
+  margin-top: 30px;
+  form {
+    display: inline-block;
+  }
+}
+
+#service-notification {
+  margin-top: 30px;
+  h3 {
+    border-bottom: 1px solid darken($bordercolor, 20%);
+    line-height:1.6em;
+    margin-bottom: 0;
+  }
+
+  ul {
+    @extend .margin-padding-zero;
+
+    li.notice {
+      border-bottom: 1px solid darken($bordercolor, 10%);
+      @extend .nostyle-list;
+
+      &:hover {
+        @include vertical-gradient(#f8f8f8, #eee);
+      }
+
+      &:active {
+        @include vertical-gradient(#eee, #f8f8f8);
+      }
+
+      a {
+        padding: 10px 0 10px 0;
+        display: block;
+        background: url(images/gray_arrow_right.png) center right no-repeat;
+        color: $grayDark;
+
+        &:hover {
+          text-decoration: none;
+        }
+
+        &:active {
+          
+        }
+      }
+
+      
+      p {
+        margin: 0;
+        padding-right: 30px;
+        background: url("images/gray_arrow_right.png") center right no-repeat;
+      }
+    }
+  }
+
+  .more {
+    display: block;
+    text-align: center;
+    line-height: 3em;
+    margin-top: 10px;
+    color: $grayDark;
+    text-shadow: 0 1px 0 #fff;
+    border: 1px solid #ccc;
+    @include vertical-gradient(#fff, #eee);
+    @include border-radius(4px);
+    &:hover {
+      text-decoration: none;
+      @include vertical-gradient(#eee, #ddd);
+      @include box-shadow(inset 0 1px 0 #fff);
+    }
+    &:active {
+      @include vertical-gradient(#ddd, #eee); 
+    }
+  }
+}
+
+// FORM
+// forms 43
+label {
+  width: auto;
+  float: none;
+  text-align: left;
+}
+// forms 147
+input,
+textarea {
+  @include border-radius(2px);
+  border-color: #BCBCBC #D5D5D5 #D5D5D5;
+  border-style: solid;
+  border-width: 1px;
+  padding: 4px 6px;
+  @include box-shadow(none);
+  @include transition(none);
+
+  &:focus {
+    outline: 0;
+    border-color: #777;
+    $shadow: inset 0 0 2px #777;
+    @include box-shadow($shadow);
+  }
+}
+
+input[type=file]:focus,
+input[type=checkbox]:focus,
+select:focus {
+  @include box-shadow(none); // override for file inputs
+  outline: 1px dotted #666; // Select elements don't get box-shadow styles, so instead we do outline
+}
+
+.form-item {
+  @extend .clearfix;
+}
+
+.page-form {
+
+  .title-field {
+    label {
+      line-height: 2em;
+    }
+
+    input {
+      font-size: 1.3em;
+    }
+  }
+
+  #filters {
+    .filter {
+      margin-bottom: 5px;
+      display: block;
+      padding: 10px;
+      @include border-radius;
+      background: lighten($serviceitembg, 4%);
+      line-height: 2em;
+      
+      .floated,
+      input[type=text] {
+        float: left;
+        width: auto;
+        margin-right: 5px;
+      }
+
+      .fixed {
+        display: block;
+        float: left;
+        width: 150px;
+      }
+
+      select {
+        float: right;
+      }
+
+      .filter-header {
+        display: block;
+      }
+
+      .line-items {
+        display: none;
+        @include border-radius(0 0 4px 4px);
+        margin: 10px -10px -10px;
+        padding: 10px;
+        border-top: 1px solid $serviceitembg;
+        background: lighten($serviceitembg, 6%);
+      }
+
+      .selection-fields {
+        
+        margin: 0 0 .5em;
+        line-height: 1.7em;
+           
+        input {
+          @include box-shadow(0 0 0);
+          padding:2px;
+        }
+
+        a {
+          font-size: 0.9em;
+          color: lighten($linkColor, 25%);
+        }
+      }
+    }
+
+    .opened-filters {
+        background: $serviceitembg;
+
+      .line-items {
+        background: lighten($serviceitembg, 4%);
+      }
+    }
+  }
+}
+// End of Page Form
+

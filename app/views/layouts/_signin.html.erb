@@ -1,22 +1,29 @@
-<%= form_for "account", :url => account_session_path, :html => { :id => "signin-form" } do |f| %>
-  <p>
-    <%= f.label :email %><br>
-    <%= f.text_field :email %>
-  </p>
+<div id="modal-from-dom" class="row signin modal hide" style="margin-left:-160px; width: 320px;">
+  <div class="modal-header">
+    <a href="#" class="close">&times;</a>
+    <h3>Sign in</h3>
+  </div>
+  <div class="modal-body">
+      <%= form_for "account", :url => account_session_path, :html => { :id => "signin-form" } do |f| %>
+        <p>
+          <%= f.label :email %><br>
+          <%= f.text_field :email, :class => "span5" %>
+        </p>
 
-  <p>
-    <%= f.label :password %><br>
-    <%= f.password_field :password %>
-  </p>
+        <p>
+          <%= f.label :password %><br>
+          <%= f.password_field :password, :class => "span5" %>
+        </p>
 
-  <p>
-    <%= f.check_box :remember_me %>
-    <%= f.label :remember_me %>
-  </p>
-
-  <p style="text-align:right;"><%= link_to "Forgot your password?", new_password_path('account') %></p>
-
-  <%= f.submit 'Sign in', :style => "display: none" %>
-
-<% end %>
-
+        <p>
+          <%= f.check_box :remember_me %>
+          <%= f.label :remember_me %>
+        </p>
+              
+  </div>
+  <div class="modal-footer">
+    <%= f.submit 'Sign in', :class => "btn primary" %>
+    <%= link_to "Forgot your password?", new_password_path('account'), :class => "btn warning" %>
+    <% end %>
+  </div>
+</div>

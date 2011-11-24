@@ -12,23 +12,23 @@
     </div>
   <% end %>
 
-  <div class="form-item title-field clearfix">
-    <%= f.label :title, :class => "main-label" %>
-    <span class="long-field">
-      <%= f.text_field :title %>
+  <div class="form-item title-field row ">
+    <%= f.label :title, :class => "span3" %>
+    <span class="span8">
+      <%= f.text_field :title, :class => "span8" %>
     </span>
   </div>
 
-  <div class="form-item textarea-field clearfix">
-    <%= f.label :description, :class => "main-label" %>
-    <span class="long-field">
-      <%= f.text_area :description, :rows => "5" %>
+  <div class="form-item textarea-field row">
+    <%= f.label :description, :class => "span3" %>
+    <span class="span8">
+      <%= f.text_area :description, :rows => "5", :class => "span8" %>
     </span>
   </div>
 
-  <div class="form-item clearfix" id="filters">
-    <%= label_tag nil, "Add filter", :class => "main-label" %>
-    <span class="long-field clearfix fields">
+  <div class="form-item row" id="filters">
+    <%= label_tag nil, "Add filter", :class => "span3" %>
+    <span class="fields span8">
       <%= f.fields_for :filters do |builder| %>
         <%= render "filter_fields", :f => builder %>
       <% end %>
@@ -39,8 +39,8 @@
     <%= render "price_fields", :f => builder %>
   <% end %>
   
-  <div id="submit">
-    <%= f.submit "Submit", :style => "margin-left: 190px" %>
+  <div class="actions">
+    <%= f.submit "Submit" %>
   </div>
 <% end %>
 </div>
