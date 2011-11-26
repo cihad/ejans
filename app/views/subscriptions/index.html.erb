@@ -11,8 +11,8 @@
   <%= form_tag multiple_update_subscriptions_path,  :method => :put do |f| %>
     
     <% if !@subscriptions.blank? %>
-      <% for subscription in @subscriptions %>
-        <ul id="subscriptions">
+      <ul id="subscriptions">
+        <% for subscription in @subscriptions %>
           <li class="subscription <%= cycle("odd", "even") %>">
             
             <span class="subscription-settings">
@@ -28,14 +28,14 @@
               <span class="go-icon"><%= link_to raw("&rarr;"), subscription.service %></span>
             </span>
           </li>
-        </ul>
-      <% end %>
+        <% end %>
+      </ul>
     <% else %>
       <%= content_tag :p, "Nothing service" %>
     <% end %>
       
-    <div id="submit" class="clearfix">
-      <%= submit_tag "Update", :style => "float:right;" %>
+    <div class="actions">
+      <%= submit_tag "Update", :style => "text-align:right;" %>
     </div>
   <% end %>
 

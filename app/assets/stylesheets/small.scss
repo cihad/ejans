@@ -1,0 +1,60 @@
+.small-page {
+
+  background: $white;
+
+  header {
+    margin: 40px 0 20px;
+
+  }
+
+  #page {
+    position: relative;
+    border: 1px solid #ddd;
+  }
+
+  .container {
+    width: 340px;
+  }
+
+  .tabs {
+    margin: -21px -21px 20px;
+    padding: 21px 21px 0;
+    background: lighten($grayLighter, 3%);
+    border-width: 1px;
+    border-style: solid;
+    border-color: #ddd;
+    @include border-radius(4px 4px 0 0);
+
+    a {
+      color: $grayDark;
+    }
+  }
+
+  .small-form {
+    @include border-radius;
+    //background: lighten($grayLight, 20%);
+    padding: 0;
+    margin-bottom: -20px;
+
+    p {
+    }
+
+    label {
+    }
+
+    .checkbox-field {
+      label {
+        position: relative;
+      }
+    }
+
+    input {
+      font-size: 1.2em;
+      height: auto;
+    }
+
+    input[type=submit] {
+      width: 343px;
+    }
+  }
+}

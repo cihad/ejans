@@ -1,25 +1,23 @@
 <% page_name = "Resend confirmation instructions" %>
 <% title page_name %>
-<%
-  breadcrumbs.add page_name
-%>
 <%= content_tag :h2, page_name %>
+
+<%= render :partial => "devise/shared/links" %>
 
 <div class="page-form">
 <%= form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post }) do |f| %>
   <%= devise_error_messages! %>
 
-  <div class="form-item email-field clearfix">
-    <%= f.label :email, :class => "main-label" %>
-    <span class="long-field">
-      <%= f.email_field :email %>
+  <div class="form-item email-field row">
+    <%= f.label :email, :class => "span3 offset3" %>
+    <span class="span5">
+      <%= f.email_field :email, :class => "span5" %>
     </span>
   </div>
 
-  <div id="submit">
-    <%= f.submit "Resend confirmation instructions", :style => "margin-left: 190px" %>
+  <div class="actions">
+    <%= f.submit "Resend confirmation instructions" %>
   </div>
 <% end %>
 </div>
 
-<%= render :partial => "devise/shared/links" %>

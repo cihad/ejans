@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title><%= yield(:title) || "The Place to Buy Stuff" %> - Synchronize.me</title>
+  <%= stylesheet_link_tag    "application" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<!-- /HEAD -->
+
+<%
+contentspan = content_for?(:left) ? 'span9' : 'span12'
+allspan = content_for?(:left) ? '13' : '12'
+
+%>
+
+<body class="oneColumn <%= yield(:body_class) %>">
+
+  <!-- Container -->
+  <div class="container">
+    <div class="middle-align">
+      <%= render 'layouts/header_small' %>
+
+      <div id="page">
+        <div class="row">
+
+
+          <div class="span6">
+            <section id="content">
+              <%= render 'devise/shared/links' %>
+              <%= render 'layouts/messages' %>
+              <%= yield %>
+            </section>
+          </div>
+          <!-- /Content -->
+
+
+        </div>
+      </div>
+      <!-- /Page -->
+
+      <%= render 'layouts/footer' %>
+    </div>
+  </div>
+  <!-- /Container -->
+  <%= yield :bottom %>
+</body>
+</html>
+  

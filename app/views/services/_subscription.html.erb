@@ -30,7 +30,7 @@
         <%= f.check_box :sms %>
       </span>
 
-      <%= f.submit "Subscribe" %>
+      <%= f.submit "Subscribe", :class => "btn success" %>
 
     <% end %>
 
@@ -41,7 +41,7 @@
           <%= collection_select :subscription, :selection_ids, filter.selections, :id, :label, {}, {:multiple => true, :id => "subscription_selection_ids_#{filter.id}" } %>
         </span>
       <% end %>
-      <%= submit_tag "Subscribe", :class => "signin" %>
+      <button class="btn success" data-controls-modal="modal-from-dom" data-backdrop="true" data-keyboard="true">Subscribe</button>
     </div>
   <% end %>
 </div>

@@ -1,38 +1,33 @@
 <% page_name = "Sign in" %>
 <% title page_name %>
-<%
-  breadcrumbs.add page_name
-%>
-<%= content_tag :h2, page_name %>
+<% body_class "small-page" %>
 
 <div class="page-form">
-<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-  <div class="form-item email-field clearfix">
-    <%= f.label :email, :class => "main-label" %>
-    <span class="long-field">
-      <%= f.email_field :email %>
-    </span>
-  </div>
+<%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:autocomplete => :off}) do |f| %>
 
-  <div class="form-item password-field clearfix">
-    <%= f.label :password, :class => "main-label" %>
-    <span class="long-field">
-      <%= f.password_field :password %>
-    </span>
-  </div>
 
-  <% if devise_mapping.rememberable? -%>
-  <div class="form-item checkbox-field clearfix" style="padding-left: 180px">
+  <div class="small-form">
     <div>
-      <%= f.check_box :remember_me %> <%= f.label :remember_me %>
-    </div>
-  </div>
-  <% end %>
+      
+      <p>
+        <%= f.label :email %>
+        <%= f.email_field :email, :class => "span6" %>
+      </p>
 
-  <div id="submit">
-    <%= f.submit "Sign in", :style => "margin-left: 190px" %>
-  </div>
+      <p>
+        <%= f.label :password %>
+        <%= f.password_field :password, :class => "span6" %>
+      </p>
+
+      <% if devise_mapping.rememberable? -%>
+      <p class="checkbox-field">
+        <%= f.check_box :remember_me %> <%= f.label :remember_me %>
+      </p>
+      <% end %>
+
+      <p>
+        <%= f.submit "Sign in", :class => "btn success", :style => "width:343px;" %>
+      </p>
+    </div>
 <% end %>
 </div>
-
-<%= render :partial => "devise/shared/links" %>

@@ -6,24 +6,20 @@
 
 <%= content_tag :h2, page_name %>
 
-<table>
+<table class="zebra-striped">
   <tr>
-    <th>Owner</th>
     <th>Title</th>
     <th>Description</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th>Actions</th>
   </tr>
 
 <% @services.each do |service| %>
   <tr class="<%= cycle("odd", "even") %>">
-    <td><%= service.owner_id %></td>
     <td><%= service.title %></td>
     <td><%= truncate(service.description, :length => 40) %></td>
-    <td><%= link_to 'Show', service %></td>
-    <td><%= link_to 'Edit', edit_service_path(service) %></td>
-    <td><%= link_to 'Destroy', service, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= link_to 'Show', service %>
+        <%= link_to 'Edit', edit_service_path(service) %>
+        <%= link_to 'Destroy', service, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>
 </table>

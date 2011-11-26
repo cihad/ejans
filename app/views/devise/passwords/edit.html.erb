@@ -3,31 +3,29 @@
 <%
   breadcrumbs.add page_name
 %>
-<%= content_tag :h2, page_name %>
+<%= render :partial => "devise/shared/links" %>
 
 <div class="page-form">
 <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f| %>
   <%= devise_error_messages! %>
   <%= f.hidden_field :reset_password_token %>
 
-  <div class="form-item password-field clearfix">
-    <%= f.label :password, "New password", :class => "main-label" %>
-    <span class="long-field">
-      <%= f.password_field :password %>
+  <div class="form-item password-field row">
+    <%= f.label :password, "New password", :class => "span3" %>
+    <span class="span5">
+      <%= f.password_field :password, :class => "span5" %>
     </span>
   </div>
 
-  <div class="form-item password-field clearfix">
-    <%= f.label :password_confirmation, "Confirm new password", :class => "main-label" %>
-    <span class="long-field">
-      <%= f.password_field :password_confirmation %>
+  <div class="form-item password-field row">
+    <%= f.label :password_confirmation, "Confirm new password", :class => "span3" %>
+    <span class="span5">
+      <%= f.password_field :password_confirmation, :class => "span5" %>
     </span>
   </div>
 
-  <div id="submit">
-    <%= f.submit "Change my password", :style => "margin-left: 190px" %>
+  <div class="actions">
+    <%= f.submit "Change my password" %>
   </div>
 <% end %>
 </div>
-
-<%= render :partial => "devise/shared/links" %>

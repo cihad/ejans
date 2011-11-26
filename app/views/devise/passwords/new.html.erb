@@ -1,26 +1,23 @@
 <% page_name = "Forgot your password?" %>
 <% title page_name %>
-<%
-  breadcrumbs.add page_name
-%>
-<%= content_tag :h2, page_name %>
+<%= body_class "small-page" %>
 
 <div class="page-form">
-<%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
+<%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post, :autocomplete => :off }) do |f| %>
   <%= devise_error_messages! %>
 
-  <div class="form-item email-field clearfix">
-    <%= f.label :email, :class => "main-label" %>
-    <span class="long-field">
-      <%= f.email_field :email %>
-    </span>
-  </div>
+  <div class="small-form">
+    <div>
 
-  <div id="submit">
-    <%= f.submit "Send me reset password instructions",
-                 :style => "margin-left: 190px" %>
-  </div>
+      <p>
+        <%= f.label :email %>
+        <%= f.email_field :email, :class => "span6" %>
+      </p>
+
+      <p>
+        <%= f.submit "Send me reset password instructions", :class => "btn success" %>
+      </p>
+
+    </div>
 <% end %>
 </div>
-
-<%= render :partial => "devise/shared/links" %>

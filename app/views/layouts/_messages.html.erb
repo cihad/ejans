@@ -1,16 +1,18 @@
-<div id="message">
-  <% if alert %>
-    <div class="alert-message warning fade in" data-alert="alert">
-      <a class="close" href="#">×</a>
-      <p><%= alert %></p>
-    </div>
-  <% end %>
+<% if alert or notice %>
+  <div id="message">
+    <% if alert %>
+      <div class="alert-message warning fade in" data-alert="alert">
+        <a class="close" href="#">×</a>
+        <p><%= alert %></p>
+      </div>
+    <% end %>
 
-  <% if notice %>
-    <div class="alert-message success fade in" data-alert="alert">
-      <a class="close" href="#">×</a>
-      <p><%= notice %></p>
-    </div>
-  <% end %>    
-</div>
-<!-- /messages -->
+    <% if notice %>
+      <div class="alert-message success fade in" data-alert="alert">
+        <a class="close" href="#">×</a>
+        <p><%= notice %></p>
+      </div>
+    <% end %>    
+  </div>
+  <!-- /messages -->
+<% end %>

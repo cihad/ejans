@@ -4,7 +4,7 @@
       <div class="topbar-inner">
         <div class="container">
 
-          <%= content_tag :h3, link_to("Synchronize.me", root_path) %>
+          <%= content_tag :h3, link_to("ejans.com", root_path) %>
           <!-- /Site Name -->
 
           <!--<ul class="nav">
@@ -30,7 +30,7 @@
 
             <% if account_signed_in? %>
               <li class="dropdown">
-                <a href="#" class="dropdown-toggle">Dropdown</a>
+                <a href="#" class="dropdown-toggle"><%= truncate current_account.email, :length => 14 %></a>
                 <ul class="dropdown-menu">
                   <li><%= link_to "Edit", edit_account_registration_path, :method => :get %></li>
                   <li><%= link_to "Subscription settings", subscriptions_path %></li>

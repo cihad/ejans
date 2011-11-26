@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title><%= yield(:title) || "The Place to Buy Stuff" %> - Ejans.com</title>
+  <title><%= yield(:title) || "The Place to Buy Stuff" %> - Synchronize.me</title>
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
@@ -20,28 +20,9 @@ allspan = content_for?(:left) ? '13' : '12'
   <!-- Container -->
   <div class="container">
 
-    <%= render 'layouts/header' %>
-
     <div id="page">
       <div class="row">
-        
-        <% if breadcrumbs.items.size != 1 %>
-        <div id="breadcrumb">
-          <%= breadcrumbs.render %>
-        </div>
-        <!-- /Breadcrumb -->
-        <% end %>
-        
 
-
-        <% if content_for?(:left) %>
-        <div class="span4">
-          <aside id="left">
-            <%= yield :left %>
-          </aside>
-        </div>
-        <!-- /aside left -->
-        <% end %>
 
         <div class="<%= contentspan %>">
           <section id="content">
@@ -50,17 +31,6 @@ allspan = content_for?(:left) ? '13' : '12'
           </section>
         </div>
         <!-- /Content -->
-        
-
-        <% if content_for?(:right) %>
-        <div class="span4">
-          <aside id="right">
-            <%= yield :right %>
-          </aside>
-        </div>
-        <!-- /aside right -->
-        <% end %>
-
 
 
       </div>
@@ -72,7 +42,6 @@ allspan = content_for?(:left) ? '13' : '12'
   </div>
   <!-- /Container -->
 
-  <%= render 'layouts/signin' %>
   <%= yield :bottom %>
 </body>
 </html>
