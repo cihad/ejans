@@ -1,8 +1,9 @@
 Proje::Application.routes.draw do
 
   scope "accounts" do
-    resources :subscriptions, :except => [:show, :new] do
+    resources :subscriptions, :except => [:new, :edit] do
       put :multiple_update, :on => :collection
+      get :edit, :on => :collection
     end
   end
 

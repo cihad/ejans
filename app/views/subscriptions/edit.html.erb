@@ -1,0 +1,53 @@
+<% page_name = "Edit subscriptions" %>
+<% title page_name %>
+<%= body_class "user-page" %>
+<%
+  breadcrumbs.add page_name
+%>
+
+<%= content_tag :h2, page_name %>
+
+
+  
+  <%= form_tag multiple_update_subscriptions_path,  :method => :put do |f| %>
+    
+    <% if !@subscriptions.blank? %>
+      <ul id="subscriptions">
+        <% for subscription in @subscriptions %>
+          <li class="subscription <%= cycle("odd", "even") %>">
+            
+            <span class="subscription-settings">
+              <%= fields_for "subscriptions[]", subscription do |f| %>
+                <%= render "fields", :f => f %>
+              <% end %>
+
+              <%= link_to 'Unsubscribe', subscription, confirm: 'Are you sure?', method: :delete, :class => "button" %>
+            </span>
+
+            <span class="title">
+              <%= subscription.service.title %>
+              <span class="go-icon"><%= link_to raw("&rarr;"), subscription.service %></span>
+            </span>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <%= content_tag :p, "Nothing service" %>
+    <% end %>
+      
+    <div class="actions">
+      <%= submit_tag "Update", :style => "text-align:right;" %>
+    </div>
+  <% end %>
+
+
+<script type="text/javascript">
+$(function() {
+  $(".subscription input, .button").button();
+
+});
+</script>
+
+<%= content_for(:left) do %>
+  <%= render "devise/shared/user_menu" %>
+<% end %>

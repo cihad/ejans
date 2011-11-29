@@ -11,6 +11,15 @@ class SubscriptionsController < ApplicationController
     end
   end
 
+  def show
+    @subscription = Subscription.find(params[:id])
+  end
+
+  def edit
+    @account = current_account
+    @subscriptions = @account.subscriptions
+  end
+
   # POST /subscriptions
   # POST /subscriptions.json
   def create
@@ -19,10 +28,9 @@ class SubscriptionsController < ApplicationController
     @service = @subscription.service
     selection_ids = params[:subscription][:selection_ids]
 
+
     respond_to do |format|
-      if selection_ids.nil?
-        format.html { redirect_to @service, alert: 'Nothing selected. Please select one.' }
-      else
+      if @subscription.valid_filter? selection_ids
         if @subscription.save
           format.html { redirect_to @service, notice: 'Subscription was successfully created.' }
           format.json { render json: @subscription, status: :created, location: @subscription }
@@ -30,6 +38,8 @@ class SubscriptionsController < ApplicationController
           format.html { render action: "new" }
           format.json { render json: @subscription.errors, status: :unprocessable_entity }
         end
+      else
+        format.html { redirect_to @service, alert: 'Please select minumum a item from each filter.' }
       end
     end
   end
@@ -44,7 +54,7 @@ class SubscriptionsController < ApplicationController
     respond_to do |format|
       if selection_ids.nil?
         @subscription.destroy
-        format.html { redirect_to @service, notice: "Subscription was successfull destroyed. Select one for be subscriber." }
+        format.html { redirect_to @service, alert: "Subscription was successfull destroyed. Please select minumum a item from each filter for be subscriber." }
       else
         if @subscription.update_attributes(params[:subscription])
           format.html { redirect_to @service, notice: 'Subscription was successfully updated.' }
