@@ -5,6 +5,9 @@ class Subscription < ActiveRecord::Base
 
   has_and_belongs_to_many :selections, :join_table => "subscriptions_selections"
 
+  has_many :notices
+  has_many :notifications, :through => :notices
+
   def valid_filter?(selection_ids)
     if selection_ids.nil?
       false
