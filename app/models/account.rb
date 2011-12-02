@@ -10,5 +10,7 @@ class Account < ActiveRecord::Base
   # Associations
   has_many :own_services, :foreign_key => "owner_id", :class_name => "Service"
   has_many :subscriptions
+  has_many :notices, :through => :subscriptions
   has_many :services, :through => :subscriptions
+
 end

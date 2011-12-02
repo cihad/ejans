@@ -12,7 +12,7 @@ module ApplicationHelper
     if current_page?(path)
       li_class = "active"
     end
-    content_tag :li, link_to(text, path, :method => method, :class => "active" ), :class => li_class
+    content_tag :li, link_to(text, path, :method => method, :class => li_class ), :class => li_class
   end
 
   def link_to_remove_fields(name, f)
@@ -37,5 +37,4 @@ module ApplicationHelper
       });
     });"
   end
-
 end

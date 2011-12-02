@@ -1,8 +1,8 @@
 <div class="block" id="user-menu">
   <ul>
-  <%= menu_list "All notificaitons", subscriptions_path %>
+  <%= menu_list "All notifications #{content_tag :span, current_account.notices.where(:read => false).count}".html_safe, subscriptions_path %>
   <% current_account.subscriptions.each do |subscription| %>
-    <%= menu_list subscription.service.title, subscription %>
+    <%= menu_list "#{truncate(subscription.service.title, :length => 30)} #{content_tag :span, subscription.notices.where(:read => false).count}".html_safe, subscription %>
   <% end %>
   </ul>
 </div>

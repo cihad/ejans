@@ -3,7 +3,7 @@ class CreateNotices < ActiveRecord::Migration
     create_table :notices do |t|
       t.references :subscription
       t.references :notification
-      t.boolean :read
+      t.boolean :read, :default => false
 
       t.timestamps
     end

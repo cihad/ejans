@@ -68,7 +68,7 @@ class Notification < ActiveRecord::Base
       end
 
       if !(array.include? false)
-        new_notice = subscription.notices.build(:notification => self)  
+        new_notice = subscription.notices.build(:notification => self, :read => false)  
         new_notice.save
       end
     end

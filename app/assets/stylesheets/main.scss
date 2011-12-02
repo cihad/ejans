@@ -39,6 +39,11 @@ h2 {
   color: $orange;
 }
 
+.modal {
+  border: 1px solid $grayLighter;
+  @include border-radius(4px);
+  @include box-shadow(0 1px 2px #ccc);
+}
 .modal-backdrop {
   background: $white;
 }
@@ -385,6 +390,18 @@ aside#left {
           background: $blue;
           color: $white;
         }
+
+        span {
+          display: block;
+          float: right;
+          padding: 0 5px;
+          margin:6px 7px 0 0;
+          line-height: 1.1em;
+          font-size: .9em;
+          @include border-radius(12px);
+          background: $white;
+          color: $blue;
+        }
       }
     }
   }
@@ -402,6 +419,48 @@ ul#subscriptions {
 
     .subscription-settings {
       float: right;
+    }
+  }
+}
+
+ul.notices {
+  @extend .margin-padding-zero;
+
+  li:first-child {
+    border-top: 1px solid darken($bordercolor, 10%);
+  }
+
+  li {
+    @extend .nostyle-list;
+    
+    border-bottom: 1px solid darken($bordercolor, 5%);
+
+    a {
+      display: block;
+      padding: 10px 20px 10px 0;
+      color: $grayDark;
+      background: url("images/gray_arrow_right.png") 100% center no-repeat;
+
+      &:hover {
+        text-decoration: none;
+      }
+
+      &:active {
+        
+      }
+    }
+
+    &:hover {
+      @include vertical-gradient(#fcfcfc, #f0f0f0);
+    }
+
+    &:active {
+      @include vertical-gradient(#f0f0f0, #fcfcfc);
+    }
+
+    &.unread {
+     background: lighten($yellow, 40%);
+     font-weight: bold; 
     }
   }
 }

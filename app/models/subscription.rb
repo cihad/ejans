@@ -25,4 +25,8 @@ class Subscription < ActiveRecord::Base
     end
   end
 
+  def self.unread_notice_count
+    notices.where(:read => false).count
+  end
+
 end

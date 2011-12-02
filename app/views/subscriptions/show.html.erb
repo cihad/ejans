@@ -2,13 +2,16 @@
 <% title page_name %>
 
 <%= body_class "user-page" %>
-<%
-  breadcrumbs.add page_name
-%>
 
 <%= content_tag :h2, page_name %>
 
-<%= @subscription.service.title %>
+<div id="service-notice">
+  <ul class="notices">
+    <% @subscription.notices.each do |notice| %>
+      <li><%= link_to notice.notification.sms, [notice.notification.service, notice.notification] %></li> 
+    <% end %>
+  </ul>
+</div>
 
 <%= content_for(:left) do %>
   <%= render "devise/shared/user_menu" %>

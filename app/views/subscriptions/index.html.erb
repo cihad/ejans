@@ -1,14 +1,16 @@
 <% page_name = "Listing notifications" %>
 <% title page_name %>
 <%= body_class "user-page" %>
-<%
-  breadcrumbs.add page_name
-%>
 
 <%= content_tag :h2, page_name %>
 
-
-All notificaitons
+<div id="service-notice">
+  <ul class="notices">
+    <% @account.notices.each do |notice| %>
+      <li class="<%= notice.read? ? "read" : "unread" %>"><%= link_to notice.notification.sms, [notice.notification.service, notice.notification] %></li> 
+    <% end %>
+  </ul>
+</div>
 
 <script type="text/javascript">
 $(function() {

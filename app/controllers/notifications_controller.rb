@@ -6,6 +6,10 @@ class NotificationsController < ApplicationController
   def show
     @notification = Notification.find(params[:id])
 
+    if notice = current_account.notices.find_by_notification_id(params[:id])
+      notice.update_attributes(:read => true)
+    end
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @notification }

@@ -32,8 +32,9 @@
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle"><%= truncate current_account.email, :length => 14 %></a>
                 <ul class="dropdown-menu">
-                  <li><%= link_to "Edit", edit_account_registration_path, :method => :get %></li>
-                  <li><%= link_to "Subscription settings", subscriptions_path %></li>
+                  <li><%= link_to "All notifications", subscriptions_path %></li>
+                  <li><%= link_to "Edit", edit_account_registration_path %></li>
+                  <li><%= link_to "Subscription settings", edit_subscriptions_path %></li>
                   <li class="divider"></li>
                   <li><%= link_to "Sign out", destroy_account_session_path, :method => :delete %></li>
                 </ul>
