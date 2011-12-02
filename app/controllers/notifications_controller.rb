@@ -6,8 +6,10 @@ class NotificationsController < ApplicationController
   def show
     @notification = Notification.find(params[:id])
 
-    if notice = current_account.notices.find_by_notification_id(params[:id])
-      notice.update_attributes(:read => true)
+    if account_signed_in?
+      if notice = current_account.notices.find_by_notification_id(params[:id])
+        notice.update_attributes(:read => true)
+      end
     end
 
     respond_to do |format|

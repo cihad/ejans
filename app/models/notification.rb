@@ -74,5 +74,4 @@ class Notification < ActiveRecord::Base
     end
   end
 
-
 end
