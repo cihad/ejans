@@ -12,5 +12,4 @@ class Account < ActiveRecord::Base
   has_many :subscriptions
   has_many :notices, :through => :subscriptions
   has_many :services, :through => :subscriptions
-
 end

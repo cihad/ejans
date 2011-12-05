@@ -1,9 +1,10 @@
 <div class="block" id="user-menu">
   <ul>
-  <%= menu_list "All notifications #{content_tag :span, current_account.notices.where(:read => false).count}".html_safe, subscriptions_path %>
-  <% current_account.subscriptions.each do |subscription| %>
-    <%= menu_list "#{truncate(subscription.service.title, :length => 30)} #{content_tag :span, subscription.notices.where(:read => false).count}".html_safe, subscription %>
-  <% end %>
+    <%= menu_list "All notifications #{account_notice_count(current_account)}".html_safe, subscriptions_path %>
+
+    <% current_account.subscriptions.each do |subscription| %>
+      <%= menu_list "#{truncate(subscription.service.title, :length => 30)} #{subscription_notice_count(subscription)}".html_safe, subscription %>
+    <% end %>
   </ul>
 </div>
 

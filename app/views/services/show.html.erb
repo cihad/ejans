@@ -25,19 +25,10 @@
 
     <div class="item">
       <div class="count">
-        <span>23</span>
+        <span><%= @service.notifications.where("created_at > ?", 1.month.ago).count %></span>
       </div>
       <div class="desc">
-        <span>ortalama aylık gönderim</span>
-      </div>
-    </div>
-
-    <div class="item">
-      <div class="count">
-        <span>987</span>
-      </div>
-      <div class="desc">
-        <span>kişi beğendi</span>
+        <span>son bir ayda gönderim</span>
       </div>
     </div>
   </div>

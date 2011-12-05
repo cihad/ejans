@@ -46,8 +46,6 @@ class ServicesController < ApplicationController
   # GET /services/1/edit
   def edit
     @service = Service.find(params[:id])
-    # breadcrumbs.add @service.title, service_path(@service)
-    # breadcrumbs.add "Edit"
 
     form_count = 3 - (@service.filters.count)
     form_count.times do
@@ -75,10 +73,6 @@ class ServicesController < ApplicationController
   # PUT /services/1
   # PUT /services/1.json
   def update
-    # if params[:service][:filters_attributes].size > 3
-    #   render action: "edit"
-    #   flash[:notice] = 'More...'
-    # end
     @service = Service.find(params[:id])
 
     respond_to do |format|

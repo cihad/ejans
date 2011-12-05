@@ -37,4 +37,18 @@ module ApplicationHelper
       });
     });"
   end
+
+  def subscription_notice_count(subscription)
+    count = subscription.notices.where(:read => false).count
+    if count > 0
+      content_tag :span, count
+    end
+  end
+
+  def account_notice_count(account)
+    count = account.notices.where(:read => false).count
+    if count > 0
+      content_tag :span, count
+    end
+  end
 end
