@@ -1,0 +1,16 @@
+<% page_name = "Payments" %>
+<% title page_name %>
+
+<%= body_class "user-page" %>
+
+<%= content_tag :h2, page_name %>
+
+<ul>
+  <li>Kredi Bakiyesi</li>
+  <li>Kredi Dökümü</li>
+</ul>
+
+
+<% content_for :left do %>
+  <% render 'devise/shared/user_menu' %>
+<% end %>

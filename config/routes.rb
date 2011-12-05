@@ -1,15 +1,19 @@
 Proje::Application.routes.draw do
 
-  scope "accounts" do
+  scope "accounts" do      
     resources :subscriptions, :except => [:new, :edit] do
       put :multiple_update, :on => :collection
       get :edit, :on => :collection
     end
   end
 
+
+  match 'accounts/payments' => 'payments#index'
+
   resources :services do
     resources :notifications, :except => :index
   end
+
   get "home/index"
   devise_for :accounts
 
