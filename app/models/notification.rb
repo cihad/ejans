@@ -68,8 +68,10 @@ class Notification < ActiveRecord::Base
       end
 
       if !(array.include? false)
-        new_notice = subscription.notices.build(:notification => self, :read => false)  
-        new_notice.save
+        if subscription.account.account_credit.credit.to_i >= self.service.service_price.receiver_credit.to_i
+          new_notice = subscription.notices.create!(:notification => self, :read => false)
+          subscription.account.account_credit.decrement!(:credit, self.service.service_price.receiver_credit)
+        end
       end
     end
   end
