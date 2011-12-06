@@ -5,4 +5,5 @@ class Notice < ActiveRecord::Base
 
   # Scopes
   default_scope order("id DESC")
+
 end

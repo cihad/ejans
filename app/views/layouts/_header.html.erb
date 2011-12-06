@@ -29,7 +29,38 @@
           <ul class="nav secondary-nav">
 
             <% if account_signed_in? %>
-              <li class="dropdown">
+
+              <li class="dropdown notice-dropdown"> 
+                <% new_notices = current_account.notices.where(:new => true) %>
+                <% if new_notices and new_notices.count > 0 %>
+                    <span class="notice-tooltip"><%= new_notices.count %></span>
+
+                    <a href="#" class="dropdown-toggle">Notices</a>
+                <% else %>    
+                    <a href="#" class="dropdown-toggle no-notice">No Notices</a>
+                <% end %>
+
+                <ul class="dropdown-menu">
+                  <% notices = current_account.notices.where(:read => false) %>
+                  <% if !notices.blank? %>
+
+                    <% notices.each do |notice| %>
+                      <li>
+                        <%= link_to truncate(notice.notification.service.title, :length => 25), 
+                                    [notice.notification.service, notice.notification] %>
+                        <%= content_tag :span, "new", :class => "label success" if notice.new? %>
+                      </li>
+                    <% end %>
+
+                  <% else %>
+
+                    <li><%= link_to "Nothing unread notice.", "#" %><li>
+
+                  <% end %>
+                </ul>
+              </li>
+
+              <li class="dropdown user-dropdown">
                 <a href="#" class="dropdown-toggle"><%= truncate current_account.email, :length => 14 %></a>
                 <ul class="dropdown-menu">
                   <li><%= link_to "All notifications", subscriptions_path %></li>

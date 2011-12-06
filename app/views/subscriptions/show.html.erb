@@ -8,10 +8,17 @@
 <div id="service-notice">
   <ul class="notices">
     <% @subscription.notices.each do |notice| %>
-      <li><%= link_to notice.notification.sms, [notice.notification.service, notice.notification] %></li> 
+      <li class="<%= notice.read? ? "read" : "unread" %>">
+        <%= link_to [notice.notification.service, notice.notification] do %>
+          <%= "<span class=\"label success\">New</span>".html_safe if notice.new? %>
+          <%= notice.notification.sms %>
+        <% end %>
+      </li> 
     <% end %>
   </ul>
 </div>
+
+<% @subscription.notices.where(:new => true).update_all(:new => false) %>
 
 <%= content_for(:left) do %>
   <%= render "devise/shared/user_menu" %>

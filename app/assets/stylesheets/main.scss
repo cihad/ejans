@@ -93,6 +93,44 @@ h2 {
   @include border-radius;
 }
 
+.notice-dropdown ul {
+  width: 400px;
+}
+
+.nav > li {
+  position: relative;
+}
+
+.notice-tooltip {
+  position: absolute;
+  right: 7px;
+  top: -10px;
+  width: 15px;
+  @include border-radius(3px);
+  background: darken(red, 5%);
+  color: $white;
+  text-align:center;
+  font-size: .8em;
+  font-weight: bold;
+}
+
+.topbar div > ul a.no-notice {
+  color: $gray;
+}
+
+ul.dropdown-menu li {
+  postion:relative;
+
+  span {
+    position: absolute;
+    right: 5px;
+    top: 13px;
+    height: 12px;
+    line-height: 1.2em;
+    padding: 0 3px;
+  }
+}
+
 
 // Breadcrumb
 #breadcrumb {
@@ -364,7 +402,7 @@ aside#left {
   border-right: 1px solid $bordercolor;
 
   .block {
-    margin-bottom: 20px;
+    margin-bottom: 40px;
 
     ul {
       @extend .margin-padding-zero;
@@ -387,20 +425,19 @@ aside#left {
         }
 
         &.active a {
-          background: $blue;
+          background: darken($serviceitembg, 30%);
           color: $white;
+
+          span {
+            color: $yellow;  
+          }
         }
 
         span {
-          display: block;
           float: right;
-          padding: 0 5px;
-          margin:6px 7px 0 0;
-          line-height: 1.1em;
+          color: darken($orange, 10%);
+          margin-right: 5px;
           font-size: .9em;
-          @include border-radius(12px);
-          background: $white;
-          color: $blue;
         }
       }
     }
@@ -459,9 +496,19 @@ ul.notices {
     }
 
     &.unread {
-     background: lighten($yellow, 40%);
-     font-weight: bold; 
+      @include vertical-gradient(lighten($yellow, 45%), lighten($yellow, 40%));
+      font-weight: bold; 
+
+      &:hover {
+        @include vertical-gradient(lighten($yellow, 43%), lighten($yellow, 30%));
+      }
+
+      &:active {
+       @include vertical-gradient(lighten($yellow, 30%), lighten($yellow, 43%));
+      }   
     }
+
+
   }
 }
 

@@ -8,7 +8,7 @@ class NotificationsController < ApplicationController
 
     if account_signed_in?
       if notice = current_account.notices.find_by_notification_id(params[:id])
-        notice.update_attributes(:read => true)
+        notice.update_attributes(:read => true, :new => false)
       end
     end
 

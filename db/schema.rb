@@ -11,7 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111201130418) do
+ActiveRecord::Schema.define(:version => 20111205115138) do
+
+  create_table "account_credits", :force => true do |t|
+    t.integer  "account_id"
+    t.integer  "credit"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "account_credits", ["account_id"], :name => "index_account_credits_on_account_id"
 
   create_table "accounts", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false
@@ -44,7 +53,7 @@ ActiveRecord::Schema.define(:version => 20111201130418) do
     t.boolean  "read",            :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "new",             :default => false
+    t.boolean  "new",             :default => true
   end
 
   add_index "notices", ["notification_id"], :name => "index_notices_on_notification_id"
@@ -79,8 +88,8 @@ ActiveRecord::Schema.define(:version => 20111201130418) do
 
   create_table "service_prices", :force => true do |t|
     t.integer  "service_id"
-    t.float    "sender_credit",   :default => 0.0
-    t.float    "receiver_credit", :default => 0.0
+    t.integer  "sender_credit",   :default => 0
+    t.integer  "receiver_credit", :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -1,0 +1,23 @@
+<% page_name = "New Payment" %>
+<% title page_name %>
+
+<%= body_class "user-page" %>
+
+<%= content_tag :h2, page_name %>
+
+<%= form_for @order, :url => payments_path do |f| %>
+  <div class="form-item title-field row">
+    <%= f.label :credit, :class => "span3" %>
+    <span class="span6">
+      <%= f.number_field :credit, :class => "span2" %>
+    </span>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Submit" %>
+  </div>
+<% end %>
+
+<% content_for :left do %>
+  <% render 'devise/shared/user_menu' %>
+<% end %>

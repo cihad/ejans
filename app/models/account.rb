@@ -12,4 +12,15 @@ class Account < ActiveRecord::Base
   has_many :subscriptions
   has_many :notices, :through => :subscriptions
   has_many :services, :through => :subscriptions
+  has_one :account_credit
+
+  # Callbacks
+  after_create :add_account_credit
+
+  STARTER_CREDIT = 100
+
+  def add_account_credit
+    @credit = self.build_account_credit(:credit => STARTER_CREDIT)
+    @credit.save
+  end
 end

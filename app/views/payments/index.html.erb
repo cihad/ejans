@@ -5,9 +5,27 @@
 
 <%= content_tag :h2, page_name %>
 
-<ul>
-  <li>Kredi Bakiyesi</li>
-  <li>Kredi Dökümü</li>
+<% @account_credit = AccountCredit.find_by_account_id(current_account.id) if account_signed_in? %>
+<% color = "red" if @account_credit == 0 %>
+
+<ul class="notices">
+  <li>
+    <%= link_to new_payment_path do %>
+      <span class="itemcontent">
+        You have <strong style="color: <%= color %>"><%= @account_credit.credit if !@account_credit.nil? %> Credits</strong> for getting premium notifications.
+      </span>
+      <span class="itemsetting">
+        Buy More
+      </span>
+    <% end %>
+  </li>
+  <li>
+    <%= link_to "#" do %>
+      <span class="itemlabel">
+        <strong>Credits Purchase History</strong>
+      </span>
+    <% end %>
+  </li>
 </ul>
 
 

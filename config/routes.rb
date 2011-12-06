@@ -5,10 +5,9 @@ Proje::Application.routes.draw do
       put :multiple_update, :on => :collection
       get :edit, :on => :collection
     end
+
+    resources :payments, :only => [:index, :new, :create]
   end
-
-
-  match 'accounts/payments' => 'payments#index'
 
   resources :services do
     resources :notifications, :except => :index

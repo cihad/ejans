@@ -8,6 +8,9 @@ class Subscription < ActiveRecord::Base
   has_many :notices
   has_many :notifications, :through => :notices
 
+  # Callbacks
+  after_commit :false_new
+
   def valid_filter?(selection_ids)
     if selection_ids.nil?
       false
@@ -25,8 +28,9 @@ class Subscription < ActiveRecord::Base
     end
   end
 
-  def self.unread_notice_count
-    notices.where(:read => false).count
-  end
+  private
 
+    def false_new
+      self.notices.update_all :new => false
+    end
 end
