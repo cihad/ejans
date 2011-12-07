@@ -9,13 +9,28 @@
 <article>
   <%= content_tag :h2, page_name %>
 
-  <ul class="border-radius no-style-list" style="float:right; padding: 5px 20px; border: 1px solid #ccc;">
+  <ul id="selections-list">
     <% @notification.selections.each do |selection| %>
-      <li><%= selection.label %></li>
+      <% if account_signed_in? and current_account.subscriptions.find_by_service_id(@notification.service.id).selections.include?(selection) %>
+        <li class="active"  data-placement="above" rel='twipsy' title='Currently, you selected this item'>
+          <%= selection.label %>
+          <span>✓</span>
+        </li>
+      <% else %>
+        <li><%= selection.label %></li>
+      <% end %>
     <% end %>
   </ul>
 
-  <p>
+  <script>
+    $(function () {
+      $("li[rel=twipsy]").twipsy({
+        live: true
+      })
+    })
+  </script>
+
+  <p style="font-weight: bold">
     <i><%= @notification.sms %></i>
   </p>
 
