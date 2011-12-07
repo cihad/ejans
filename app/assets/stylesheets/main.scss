@@ -90,7 +90,7 @@ h2 {
 .topbar-wrapper .topbar .topbar-inner {
   padding-left: 20px;
   padding-right: 20px;
-  @include border-radius;
+  @include border-radius(3px);
 }
 
 .notice-dropdown ul {

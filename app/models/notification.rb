@@ -19,7 +19,7 @@ class Notification < ActiveRecord::Base
   end
 
   def send_notification
-    self.add_notification_to_subscriptions #if (self.published_changed? && self.published == true)    
+    self.add_notification_to_subscriptions # if (self.published_changed? && self.published == true)    
   end
 
   def add_notification_to_subscriptions
@@ -72,6 +72,23 @@ class Notification < ActiveRecord::Base
           new_notice = subscription.notices.create!(:notification => self, :read => false)
           subscription.account.account_credit.decrement!(:credit, self.service.service_price.receiver_credit)
         end
+      end
+    end
+  end
+
+  def valid_filter?(selection_ids)
+    if selection_ids.nil?
+      false
+    else
+      array = []
+      selection_ids.each do |id|
+        array << Selection.find(id).filter_id
+      end
+
+      if array.uniq.size == self.service.filters.size
+        true
+      else
+        false
       end
     end
   end

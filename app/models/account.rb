@@ -1,4 +1,7 @@
 class Account < ActiveRecord::Base
+
+  STARTER_CREDIT = 100
+
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -17,10 +20,7 @@ class Account < ActiveRecord::Base
   # Callbacks
   after_create :add_account_credit
 
-  STARTER_CREDIT = 100
-
   def add_account_credit
-    @credit = self.build_account_credit(:credit => STARTER_CREDIT)
-    @credit.save
+    self.create_account_credit(:credit => STARTER_CREDIT)
   end
 end
