@@ -5,4 +5,8 @@ class Filter < ActiveRecord::Base
   accepts_nested_attributes_for :selections,
           :allow_destroy => true,
           :reject_if => proc { |attributes| attributes['label'].blank? }
+
+  # Validates
+  validates_associated :selections
+  validates :name, :presence => true
 end

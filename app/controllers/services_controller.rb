@@ -64,6 +64,10 @@ class ServicesController < ApplicationController
         format.html { redirect_to @service, notice: 'Service was successfully created.' }
         format.json { render json: @service, status: :created, location: @service }
       else
+        3.times do
+          filter = @service.filters.build
+          5.times { filter.selections.build }
+        end
         format.html { render action: "new" }
         format.json { render json: @service.errors, status: :unprocessable_entity }
       end
@@ -80,6 +84,11 @@ class ServicesController < ApplicationController
         format.html { redirect_to @service, notice: 'Service was successfully updated.' }
         format.json { head :ok }
       else
+        form_count = 3 - (@service.filters.count)
+          form_count.times do
+            filter = @service.filters.build
+            5.times { filter.selections.new }
+          end
         format.html { render action: "edit" }
         format.json { render json: @service.errors, status: :unprocessable_entity }
       end

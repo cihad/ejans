@@ -11,6 +11,7 @@ class Subscription < ActiveRecord::Base
   # Callbacks
   after_commit :false_new
 
+  # When user creating subscription
   def valid_filter?(selection_ids)
     if selection_ids.nil?
       false

@@ -1,4 +1,7 @@
 class Notification < ActiveRecord::Base
+
+  SMS_LENGTH = 160
+
   # Callbacks
   after_destroy :destroy_selections
   # after_update :send_notification
@@ -13,7 +16,13 @@ class Notification < ActiveRecord::Base
   # Scope
   # default_scope where(:published => true)
 
-  # Methods
+  # Validates
+  validates :title, :sms, :description,
+    :presence => true
+  validates :sms,
+    :presence => true,
+    :length => { :maximum => SMS_LENGTH }
+
   def destroy_selections
     self.selections.destroy_all
   end
