@@ -23,43 +23,45 @@ allspan = content_for?(:left) ? '13' : '12'
     <%= render 'layouts/header' %>
 
     <div id="page">
-      <div class="row">
+      <div data-pjax-container>
         
-        <% if breadcrumbs.items.size != 1 %>
-        <div id="breadcrumb">
-          <%= breadcrumbs.render %>
-        </div>
-        <!-- /Breadcrumb -->
-        <% end %>
-        
+        <div class="row">
+          <% if breadcrumbs.items.size != 1 %>
+          <div id="breadcrumb">
+            <%= breadcrumbs.render %>
+          </div>
+          <!-- /Breadcrumb -->
+          <% end %>
+          
 
 
-        <% if content_for?(:left) %>
-        <div class="span4">
-          <aside id="left">
-            <%= yield :left %>
-          </aside>
-        </div>
-        <!-- /aside left -->
-        <% end %>
+          <% if content_for?(:left) %>
+          <div class="span4">
+            <aside id="left">
+              <%= yield :left %>
+            </aside>
+          </div>
+          <!-- /aside left -->
+          <% end %>
 
-        <div class="<%= contentspan %>">
-          <section id="content">
-            <%= render 'layouts/messages' %>
-            <%= yield %>
-          </section>
-        </div>
-        <!-- /Content -->
-        
+          <div class="<%= contentspan %>">
+            <section id="content">
+              <%= render 'layouts/messages' %>
+                <%= yield %>
+            </section>
+          </div>
+          <!-- /Content -->
+          
 
-        <% if content_for?(:right) %>
-        <div class="span4">
-          <aside id="right">
-            <%= yield :right %>
-          </aside>
+          <% if content_for?(:right) %>
+          <div class="span4">
+            <aside id="right">
+              <%= yield :right %>
+            </aside>
+          </div>
+          <!-- /aside right -->
+          <% end %>
         </div>
-        <!-- /aside right -->
-        <% end %>
 
 
 

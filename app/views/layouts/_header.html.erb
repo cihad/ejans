@@ -47,7 +47,8 @@
                     <% notices.each do |notice| %>
                       <li>
                         <%= link_to truncate(notice.notification.service.title, :length => 25), 
-                                    [notice.notification.service, notice.notification] %>
+                                    [notice.notification.service, notice.notification],
+                                    :class => "data-remote" %>
                         <%= content_tag :span, "new", :class => "label success" if notice.new? %>
                       </li>
                     <% end %>

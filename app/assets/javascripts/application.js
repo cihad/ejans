@@ -6,6 +6,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.pjax
 //= require_tree .
 $(function() {
   // Signin Modal
@@ -65,6 +66,16 @@ $(function() {
   $('textarea.limited').maxlength({
       'feedback' : '.chars-left' // note: looks within the current form
   });
+
+  // Pjax
+  $('a.data-remote, .breadcrumbs a').pjax('[data-pjax-container]');
+
+  $('[data-pjax-container]').bind('start.pjax', function() {
+    $('[data-pjax-container]').fadeOut(400) 
+  }).bind('end.pjax', function() { 
+    $('[data-pjax-container]').fadeIn(400) 
+  });
+
 
 });
 
