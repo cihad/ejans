@@ -9,6 +9,7 @@ gem 'devise', '1.4.9'
 
 # Layouts
 gem 'breadcrumbs', '~> 0.1.6'
+gem 'rack-pjax'
 
 # Groups
 group :assets do

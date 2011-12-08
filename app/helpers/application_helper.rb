@@ -8,11 +8,18 @@ module ApplicationHelper
     content_for(:body_class) { classes }
   end
 
-  def menu_list(text, path, method = "get")
+  def menu_list(text, path, method = "", data_remote = false)
+    li_class = ""
+
     if current_page?(path)
       li_class = "active"
     end
-    content_tag :li, link_to(text, path, :method => method, :class => li_class ), :class => li_class
+
+    if data_remote
+      li_class += " data-remote"
+    end
+
+    content_tag :li, link_to(text, path, :method => method, :class => "#{li_class}" ), :class => li_class
   end
 
   def link_to_remove_fields(name, f)
