@@ -1,7 +1,11 @@
 Proje::Application.routes.draw do
 
-  resources :payment_types
+  # Admin
+  namespace :admin do
+    resources :payment_types
+  end
 
+  # Account
   scope "accounts" do      
     resources :subscriptions, :except => [:new, :edit] do
       put :multiple_update, :on => :collection
@@ -13,10 +17,12 @@ Proje::Application.routes.draw do
     end
   end
 
+  # Service
   resources :services do
     resources :notifications, :except => :index
   end
 
+  # Home
   get "home/index"
   devise_for :accounts
 

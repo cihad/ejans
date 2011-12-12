@@ -32,11 +32,6 @@ class PaymentTypesController < ApplicationController
     end
   end
 
-  # GET /payment_types/1/edit
-  def edit
-    @payment_type = PaymentType.find(params[:id])
-  end
-
   # POST /payment_types
   # POST /payment_types.json
   def create
@@ -50,34 +45,6 @@ class PaymentTypesController < ApplicationController
         format.html { render action: "new" }
         format.json { render json: @payment_type.errors, status: :unprocessable_entity }
       end
-    end
-  end
-
-  # PUT /payment_types/1
-  # PUT /payment_types/1.json
-  def update
-    @payment_type = PaymentType.find(params[:id])
-
-    respond_to do |format|
-      if @payment_type.update_attributes(params[:payment_type])
-        format.html { redirect_to @payment_type, notice: 'Payment type was successfully updated.' }
-        format.json { head :ok }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @payment_type.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /payment_types/1
-  # DELETE /payment_types/1.json
-  def destroy
-    @payment_type = PaymentType.find(params[:id])
-    @payment_type.destroy
-
-    respond_to do |format|
-      format.html { redirect_to payment_types_url }
-      format.json { head :ok }
     end
   end
 end
