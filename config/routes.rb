@@ -6,7 +6,9 @@ Proje::Application.routes.draw do
       get :edit, :on => :collection
     end
 
-    resources :payments, :only => [:index, :new, :create]
+    resources :payments, :except => [:edit, :update, :destroy] do
+      get :history, :on => :collection
+    end
   end
 
   resources :services do

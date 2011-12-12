@@ -5,14 +5,14 @@
 
 <%= content_tag :h2, page_name %>
 
-<% @account_credit = AccountCredit.find_by_account_id(current_account.id) if account_signed_in? %>
-<% color = "red" if @account_credit == 0 %>
+
+<% color = "red" if current_account.credit.credit == 0 account_signed_in? %>
 
 <ul class="notices">
   <li>
     <%= link_to new_payment_path do %>
       <span class="itemcontent">
-        You have <strong style="color: <%= color %>"><%= @account_credit.credit if !@account_credit.nil? %> Credits</strong> for getting premium notifications.
+        You have <strong style="color: <%= color %>"><%= current_account.credit.credit if !current_account.credit.nil? %> Credits</strong> for getting premium notifications.
       </span>
       <span class="itemsetting">
         Buy More
