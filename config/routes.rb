@@ -1,5 +1,7 @@
 Proje::Application.routes.draw do
 
+  resources :payment_types
+
   scope "accounts" do      
     resources :subscriptions, :except => [:new, :edit] do
       put :multiple_update, :on => :collection
