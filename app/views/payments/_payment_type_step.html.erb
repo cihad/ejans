@@ -1,0 +1,10 @@
+<ul class="notices">
+  <% PaymentType.all.each do |payment_type| %>
+    <li><%= link_to payment_type.name, "" %></li>
+  <% end %>
+</ul>
+
+
+<div class="actions">
+  <%= link_to "Back", "#", :class => "btn disabled" %>
+</div>

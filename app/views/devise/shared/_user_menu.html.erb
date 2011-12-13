@@ -10,7 +10,7 @@
 
 <div class="block" id="user-menu">
   <ul>
-    <%= menu_list "Payments #{content_count(current_account.account_credit.credit, "credit")}".html_safe, payments_path %>
+    <%= menu_list "Payments #{content_count(current_account.credit.credit, "credit")}".html_safe, payments_path %>
     <%= menu_list "Edit Account", edit_account_registration_path %>
     <%= menu_list "Edit Subscriptions", edit_subscriptions_path %>
     <%= menu_list "Sign out", destroy_account_session_path, "delete" %>

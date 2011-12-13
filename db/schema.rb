@@ -11,20 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111212082057) do
-
-  create_table "account_credits", :force => true do |t|
-    t.integer "account_payment_id"
-    t.integer "credit"
-  end
-
-  add_index "account_credits", ["account_payment_id"], :name => "index_account_credits_on_account_payment_id"
-
-  create_table "account_payments", :force => true do |t|
-    t.integer "account_id"
-  end
-
-  add_index "account_payments", ["account_id"], :name => "index_account_payments_on_account_id"
+ActiveRecord::Schema.define(:version => 20111212092059) do
 
   create_table "accounts", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false
@@ -43,6 +30,19 @@ ActiveRecord::Schema.define(:version => 20111212082057) do
 
   add_index "accounts", ["email"], :name => "index_accounts_on_email", :unique => true
   add_index "accounts", ["reset_password_token"], :name => "index_accounts_on_reset_password_token", :unique => true
+
+  create_table "credit_histories", :force => true do |t|
+    t.integer  "credit_id"
+    t.integer  "credit_datable_id"
+    t.string   "credit_datable_type"
+    t.integer  "credit_quantity"
+    t.decimal  "price",               :precision => 5, :scale => 2
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "credit_histories", ["credit_datable_id"], :name => "index_credit_histories_on_credit_datable_id"
+  add_index "credit_histories", ["credit_id"], :name => "index_credit_histories_on_credit_id"
 
   create_table "credits", :force => true do |t|
     t.integer "creditable_id"
@@ -91,33 +91,19 @@ ActiveRecord::Schema.define(:version => 20111212082057) do
   add_index "notifications_selections", ["notification_id"], :name => "index_notifications_selections_on_notification_id"
   add_index "notifications_selections", ["selection_id"], :name => "index_notifications_selections_on_selection_id"
 
-  create_table "payment_histories", :id => false, :force => true do |t|
-    t.integer  "account_payment_id"
-    t.integer  "payment_type_id"
-    t.integer  "credit"
-    t.decimal  "amount"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "payment_histories", ["account_payment_id"], :name => "index_payment_histories_on_account_payment_id"
-  add_index "payment_histories", ["payment_type_id"], :name => "index_payment_histories_on_payment_type_id"
-
   create_table "payment_type_selections", :force => true do |t|
     t.integer  "payment_type_id"
     t.integer  "credit"
     t.decimal  "price"
-    t.boolean  "active",          :default => false
+    t.boolean  "active",          :default => true
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "payment_type_selections", ["payment_type_id"], :name => "index_payment_type_selections_on_payment_type_id"
-
   create_table "payment_types", :force => true do |t|
     t.string   "name"
     t.text     "description"
-    t.boolean  "active",      :default => false
+    t.boolean  "active"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -1,27 +1,27 @@
-<h1>Listing payment_types</h1>
+<% page_name = "Listing Payment Types" %>
+<%= title page_name %>
+<%= content_tag :h2, page_name %>
 
-<table>
+<table class="condensed-table zebra-striped">
   <tr>
     <th>Name</th>
-    <th>Description</th>
     <th>Active</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th>Actions</th>
   </tr>
 
 <% @payment_types.each do |payment_type| %>
   <tr>
     <td><%= payment_type.name %></td>
-    <td><%= payment_type.description %></td>
     <td><%= payment_type.active %></td>
-    <td><%= link_to 'Show', payment_type %></td>
-    <td><%= link_to 'Edit', edit_payment_type_path(payment_type) %></td>
-    <td><%= link_to 'Destroy', payment_type, confirm: 'Are you sure?', method: :delete %></td>
+    <td>
+      <%= link_to 'Show', [:admin, payment_type] %>
+      <%= link_to 'Edit', edit_admin_payment_type_path(payment_type) %>
+      <%= link_to 'Destroy', [:admin, payment_type], confirm: 'Are you sure?', method: :delete %>
+    </td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Payment type', new_payment_type_path %>
+<%= link_to 'New Payment type', new_admin_payment_type_path %>

@@ -1,4 +1,4 @@
-class PaymentTypesController < ApplicationController
+class Admin::PaymentTypesController < ApplicationController
   # GET /payment_types
   # GET /payment_types.json
   def index
@@ -14,6 +14,7 @@ class PaymentTypesController < ApplicationController
   # GET /payment_types/1.json
   def show
     @payment_type = PaymentType.find(params[:id])
+    @payment_type.payment_type_selections.build
 
     respond_to do |format|
       format.html # show.html.erb
@@ -39,7 +40,7 @@ class PaymentTypesController < ApplicationController
 
     respond_to do |format|
       if @payment_type.save
-        format.html { redirect_to @payment_type, notice: 'Payment type was successfully created.' }
+        format.html { redirect_to [:admin, @payment_type], notice: 'Payment type was successfully created.' }
         format.json { render json: @payment_type, status: :created, location: @payment_type }
       else
         format.html { render action: "new" }
@@ -47,4 +48,20 @@ class PaymentTypesController < ApplicationController
       end
     end
   end
+
+  def edit
+    @payment_type = PaymentType.find(params[:id])
+  end
+
+  def update
+    @payment_type = PaymentType.find(params[:id])
+    
+    if @payment_type.update_attributes(params[:payment_type])
+      redirect_to [:admin, @payment_type], :notice => "Payment Type succesfully update."
+    else
+      render action: "edit"
+    end
+  end
+
+  
 end

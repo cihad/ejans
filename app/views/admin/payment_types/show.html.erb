@@ -1,20 +1,42 @@
-<p id="notice"><%= notice %></p>
+<% page_name = @payment_type.name %>
+<%= title page_name %>
+<%= content_tag :h2, page_name %>
+
 
 <p>
-  <b>Name:</b>
-  <%= @payment_type.name %>
-</p>
-
-<p>
-  <b>Description:</b>
   <%= @payment_type.description %>
 </p>
 
 <p>
   <b>Active:</b>
-  <%= @payment_type.active %>
+  <%= @payment_type.active? ? "✓" : "x" %>
 </p>
 
 
-<%= link_to 'Edit', edit_payment_type_path(@payment_type) %> |
-<%= link_to 'Back', payment_types_path %>
+<table class="condensed-table zebra-striped">
+  <tr>
+    <th>Credit</th>
+    <th>Price</th>
+    <th>Active</th>
+  </tr>
+
+  <%= form_for [:admin, @payment_type] do |f| %>
+      <%= f.fields_for :payment_type_selections do |field| %>
+        <tr>
+          <td><%= field.number_field :credit, :class => "span2" %></td>
+          <td><%= field.text_field :price, :class => "span2" %></td>
+          <td><%= field.check_box :active %></td>    
+        </tr>
+      <% end %>
+
+    <tr>
+      <td colspan="3" valign="center"><%= f.submit "Save", :class => "span5" %></td>
+      
+    </tr>
+  <% end %>
+
+</table>
+
+<%= link_to 'Edit', edit_admin_payment_type_path(@payment_type) %> |
+<%= link_to 'Back', admin_payment_types_path %>
+

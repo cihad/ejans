@@ -5,17 +5,39 @@
 
 <%= content_tag :h2, page_name %>
 
-<%= form_for @order, :url => payments_path do |f| %>
-  <div class="form-item title-field row">
-    <%= f.label :credit, :class => "span3" %>
-    <span class="span6">
-      <%= f.number_field :credit, :class => "span2" %>
-    </span>
-  </div>
+<% unless params[:payment_type] or params[:selection] %>
+  <ul class="notices">
+    <% PaymentType.all.each do |payment_type| %>
+      <li><%= link_to payment_type.name, new_payment_path(:payment_type => payment_type.id), :class => "data-remote" %></li>
+    <% end %>
+  </ul>
+<% end %>
 
-  <div class="actions">
-    <%= f.submit "Submit" %>
-  </div>
+<% if params[:payment_type] and !params[:selection] %>
+  <ul class="notices">
+    <% PaymentType.find(params[:payment_type]).payment_type_selections.each do |payment_type_selection| %>
+      <li>
+        <%= link_to "#{payment_type_selection.credit} Credits for #{payment_type_selection.price} USD",
+                    new_payment_path(:selection => payment_type_selection.id),
+                    :class => "data-remote" %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<% if !params[:payment_type] and params[:selection] %>
+  <% @payment_type_selection = PaymentTypeSelection.find(params[:selection]) %>
+  
+  <div class="alert-message block-message warning">
+    <p><strong>Are you confirm?</strong> <%= @payment_type_selection.credit %> Credits for <%= @payment_type_selection.price %> USD</p>
+    <div class="alert-actions">
+      <%= form_for @credit, :url => payments_path, :method => :post do |f| %>
+        <%= hidden_field_tag :payment_type_selection, @payment_type_selection.id %>
+        <%= f.submit "OK", :class => "btn success span3" %>
+      <% end %>
+      <%= link_to "Cancel", subscriptions_path, :class => "btn default" %>
+    </div>
+</div>
+  
 <% end %>
 
 <% content_for :left do %>

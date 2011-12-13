@@ -20,4 +20,5 @@ end
 
 group :development do
   gem 'therubyracer'
+  gem 'annotate'
 end

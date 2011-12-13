@@ -17,6 +17,9 @@ Proje::Application.routes.draw do
     end
   end
 
+  match 'payments/new/:payment_type_id/' => "payments#new"
+  match 'payments/new/:payment_type_selection_id/' => "payments#new"
+
   # Service
   resources :services do
     resources :notifications, :except => :index

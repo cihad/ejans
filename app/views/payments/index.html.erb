@@ -6,13 +6,11 @@
 <%= content_tag :h2, page_name %>
 
 
-<% color = "red" if current_account.credit.credit == 0 account_signed_in? %>
-
 <ul class="notices">
   <li>
-    <%= link_to new_payment_path do %>
+    <%= link_to new_payment_path, :class => "data-remote" do %>
       <span class="itemcontent">
-        You have <strong style="color: <%= color %>"><%= current_account.credit.credit if !current_account.credit.nil? %> Credits</strong> for getting premium notifications.
+        You have <strong><%= current_account.credit.credit unless current_account.credit.nil? %> Credits</strong> for getting premium notifications.
       </span>
       <span class="itemsetting">
         Buy More
@@ -20,7 +18,7 @@
     <% end %>
   </li>
   <li>
-    <%= link_to "#" do %>
+    <%= link_to history_payments_path, :class => "data-remote" do %>
       <span class="itemlabel">
         <strong>Credits Purchase History</strong>
       </span>

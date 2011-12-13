@@ -1,6 +1,9 @@
-<h1>Editing payment_type</h1>
+<% page_name = @payment_type.name %>
+<%= title page_name %>
+
+<%= content_tag :h2, "Editing #{page_name}" %>
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @payment_type %> |
-<%= link_to 'Back', payment_types_path %>
+<%= link_to 'Show', [:admin, @payment_type] %> |
+<%= link_to 'Back', admin_payment_types_path %>
