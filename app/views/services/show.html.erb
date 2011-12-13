@@ -12,26 +12,7 @@
     <%= @service.description %>
   </p>
 
-  <div id="service-statics">
-    <div class="item">
-      <div class="count">
-        <span><%= @service.subscriptions.count %></span>
-      </div>
-      <div class="desc">
-        <span>takipçi</span>
-      </div>
-    </div>  
-
-
-    <div class="item">
-      <div class="count">
-        <span><%= @service.notifications.where("created_at > ?", 1.month.ago).count %></span>
-      </div>
-      <div class="desc">
-        <span>son bir ayda gönderim</span>
-      </div>
-    </div>
-  </div>
+  <%= render "services/statics" %>
 
   <%= render "services/subscription" %>
 

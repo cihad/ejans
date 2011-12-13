@@ -23,4 +23,8 @@ class Account < ActiveRecord::Base
   def add_starter_credit
     self.create_credit(:credit => STARTER_CREDIT)
   end
+
+  def subscribing?(service)
+    self.subscriptions.find_by_service_id(service.id) ? true : false
+  end
 end

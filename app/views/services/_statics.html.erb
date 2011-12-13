@@ -1,0 +1,29 @@
+<table class="statics-table">
+  <tr>
+    <td>
+      <div class="count">
+        <span><%= @service.subscriptions.count %></span>
+      </div>
+      <div class="desc">
+        <span>takipçi</span>
+      </div>
+    </td>
+
+    <td>
+      <div class="count">
+        <span><%= @service.notifications.where("created_at > ?", 1.month.ago).count %></span>
+      </div>
+      <div class="desc">
+        <span>son bir ayda gönderim</span>
+      </div>
+    </td>
+
+    <td>
+      <% if account_signed_in? and current_account.subscribing?(@service) %>
+        <%= content_tag :span, "Subscribe Settings", :class => "subscribe btn large default" %>
+      <% else %>
+        <%= content_tag :span, "Subscribe", :class => "subscribe btn large default" %>
+      <% end %>
+    </td>
+  </tr>
+</table>

@@ -1,36 +1,34 @@
-<div id="service-subscription">
-  <h3>Subscription</h3>
+<div id="service-subscription" class="alert-message block-message warning in" style="display: none;">
   <% if account_signed_in? %>
     <%= form_for(@subscription) do |f| %>
-      <% if @subscription.errors.any? %>
-        <div id="error_explanation">
-          <h2><%= pluralize(@subscription.errors.count, "error") %> prohibited this subscription from being saved:</h2>
-
-          <ul>
-          <% @subscription.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-          <% end %>
-          </ul>
-        </div>
-      <% end %>
 
       <%= hidden_field_tag "subscription[service_id]", @service.id %>
 
       <% for filter in @service.filters %>
-        <span class="filter fields">
-          <%= collection_select :subscription, :selection_ids, filter.selections, :id, :label, {}, {:multiple => true, :id => "subscription_selection_ids_#{filter.id}" } %>
-        </span>
+        <div class="filter fields row">
+          <label class="span2"><%= filter.name %></label>
+          <div class="span5">
+            <%= collection_select :subscription, :selection_ids, filter.selections, :id, :label, {}, {:multiple => true, :id => "subscription_selection_ids_#{filter.id}" } %>
+          </div>
+        </div>
       <% end %>
 
 
-      <span id="choices">
-        <%= f.label :email %>
-        <%= f.check_box :email %>
-        <%= f.label :sms %>
-        <%= f.check_box :sms %>
-      </span>
+      <div class="row">
+        <%= f.label "Alıcılar", :class => "span2" %>
+        <div class="span5">
+          <%= f.check_box :email %>
+          <%= f.label :email %>
+          <%= f.check_box :sms %>
+          <%= f.label :sms %>
+        </div>
+      </div>
 
-      <%= f.submit "Subscribe", :class => "btn success" %>
+      <div class="alert-actions row">
+        <div class="span5 offset2">
+          <%= f.submit "Subscribe", :class => "btn success span4" %>
+        </div>
+      </div>
 
     <% end %>
 
@@ -55,7 +53,11 @@ $(function() {
     minWidth: 180,
   });
 
-  $( "#subscription_email, #subscription_sms" ).button();
+  $("#subscription_email, #subscription_sms").button();
 
+  $(".subscribe").click(function() {
+    $("#service-subscription").toggle();
+    $(this).toggleClass("disabled");
+  });
 });
 </script>

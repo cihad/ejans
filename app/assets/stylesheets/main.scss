@@ -163,15 +163,20 @@ ul.dropdown-menu li {
 }
 
 // SERVICE PAGES
-#service-statics {
-  margin-top: 30px; 
-  .item {
+.statics-table {
+  border-collapse: separate;
+  border-spacing: 10px;
+  *border-collapse: expression('separate', cellSpacing = '10px');
+  width: auto;
+  margin:0 0 0 -10px;
+
+  td {
     @include border-radius;
-    display: inline-block;
     background: $serviceitembg;
-    padding: 15px 20px;
+    padding: 10px 15px;
     text-align: center;
-    margin-right: 10px;
+    vertical-align: middle;
+    border-top: 0;
 
     .count {
       font-size: 2em;
@@ -185,7 +190,17 @@ ul.dropdown-menu li {
 }
 
 #service-subscription {
-  margin-top: 30px;
+  ul {
+    margin-right: 0;
+  }
+
+  .ui-multiselect-menu {
+    margin-top: 2px;
+  }
+
+  .label + .span3 {
+    text-align: right; 
+  }
   form {
     display: inline-block;
   }

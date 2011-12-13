@@ -607,7 +607,7 @@ footer {
     font-size: $basefont + 2px;
     line-height: normal;
     padding: 9px 14px 9px;
-    @include border-radius(6px);
+    @include border-radius(4px);
   }
   &.small {
     padding: 7px 9px 7px;
