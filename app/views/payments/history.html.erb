@@ -1,2 +1,23 @@
-<h1>Payments#history</h1>
-<p>Find me in app/views/payments/history.html.erb</p>
+<% page_name = "Payments History" %>
+<% title page_name %>
+
+<%= body_class "user-page" %>
+
+<%= content_tag :h2, page_name %>
+
+
+<ul class="notices">
+  <% current_account.credit.credit_histories.order("created_at DESC").each do |history| %>
+    <li>
+      <p style="padding: 10px 10px 0;">
+        <strong><%= history.credit_quantity %></strong> Credit / <strong><%= history.price %></strong> TL<br/>
+        on <strong><%= history.created_at %></strong>, <strong><%= history.credit_datable_type.constantize.find(history.credit_datable_id).name %></strong>
+      </p>
+    </li>
+  <% end %>
+</ul>
+
+
+<% content_for :left do %>
+  <% render 'devise/shared/user_menu' %>
+<% end %>
