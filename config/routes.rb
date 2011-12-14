@@ -1,5 +1,9 @@
 Proje::Application.routes.draw do
 
+  # Home
+  root :to => 'services#index'
+  get "home/index"
+
   # Admin
   namespace :admin do
     resources :payment_types
@@ -18,17 +22,13 @@ Proje::Application.routes.draw do
     end
   end
 
-  match 'payments/new/:payment_type_id/' => "payments#new"
-  match 'payments/new/:payment_type_selection_id/' => "payments#new"
+  devise_for :accounts
 
   # Service
   resources :services do
     resources :notifications, :except => :index
   end
 
-  # Home
-  get "home/index"
-  devise_for :accounts
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -80,7 +80,6 @@ Proje::Application.routes.draw do
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   # root :to => 'welcome#index'
-  root :to => 'services#index'
 
   # See how all your routes lay out with "rake routes"
 
