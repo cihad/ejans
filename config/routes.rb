@@ -3,6 +3,7 @@ Proje::Application.routes.draw do
   # Admin
   namespace :admin do
     resources :payment_types
+    match "dashboard" => "dashboard#index"
   end
 
   # Account
