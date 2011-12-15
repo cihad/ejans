@@ -19,7 +19,7 @@
   <div id="service-notification">
     <h3>Service Notification</h3>
     <ul>
-    <% @service.notifications.each do |notification| %>
+    <% @service.notifications.published.each do |notification| %>
       <li class="notice no-list-style">
         <%= link_to notification.sms, service_notification_path(@service, notification), :class => "data-remote" %>
       </li>

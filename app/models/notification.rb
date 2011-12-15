@@ -4,8 +4,8 @@ class Notification < ActiveRecord::Base
 
   # Callbacks
   after_destroy :destroy_selections
-  # after_update :send_notification
-  after_save :send_notification
+  after_update :send_notification
+  # after_save :send_notification
 
   # Associations
   belongs_to :service
@@ -14,7 +14,8 @@ class Notification < ActiveRecord::Base
   has_many :subscriptions, :through => :notices
 
   # Scope
-  # default_scope where(:published => true)
+  scope :published, where(:published => true)
+  scope :unpublished, where(:published => false)
 
   # Validates
   validates :title, :sms, :description,
@@ -28,7 +29,7 @@ class Notification < ActiveRecord::Base
   end
 
   def send_notification
-    self.add_notification_to_subscriptions # if (self.published_changed? && self.published == true)    
+    self.add_notification_to_subscriptions if (self.published_changed? && self.published == true)
   end
 
   def add_notification_to_subscriptions

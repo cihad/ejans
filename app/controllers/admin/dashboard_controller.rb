@@ -1,10 +1,8 @@
 class Admin::DashboardController < ApplicationController
+
+  layout "admin"
   
   def index
     
-  end
-
-  def notifications
-    @notifications = Notification.where(:active => false)
   end
 end

@@ -25,3 +25,7 @@
 <br />
 
 <%= link_to 'New Payment type', new_admin_payment_type_path %>
+
+<%= content_for :left do %>
+  <%= render "admin/shared/menu_links" %>
+<% end %>

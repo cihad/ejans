@@ -89,6 +89,15 @@ class NotificationsController < ApplicationController
     end
   end
 
+  def publish
+    @notification = Notification.find(params[:id])
+    if @notification.update_attributes(:published => true)
+      redirect_to admin_dashboard_notifications_path, notice: "Notification was successfully published."
+    else
+      redirect_to admin_dashboard_notifications_path
+    end
+  end
+
   private
     def service
       @service = Service.find(params[:service_id])

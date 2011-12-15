@@ -7,3 +7,7 @@
 
 <%= link_to 'Show', [:admin, @payment_type] %> |
 <%= link_to 'Back', admin_payment_types_path %>
+
+<%= content_for :left do %>
+  <%= render "admin/shared/menu_links" %>
+<% end %>

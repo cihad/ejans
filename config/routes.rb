@@ -7,6 +7,10 @@ Proje::Application.routes.draw do
   # Admin
   namespace :admin do
     resources :payment_types
+    resources :notifications, :only => [:index, :update] do
+      put :publish, :on => :member
+    end
+
     match "dashboard" => "dashboard#index"
   end
 
