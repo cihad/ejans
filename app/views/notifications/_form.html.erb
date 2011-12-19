@@ -34,27 +34,59 @@
     </span>
   </div>
 
-  <div class="form-item multi-select row" id="filters">
-    <%= label_tag nil, "Filters", :class => "span3" %>
-    <span class="span8">
-      <% for filter in @service.filters %>
-        <span class="filter fields">
-          <span class="fixed"><%= truncate(filter.name, :length => 20) %></span>
-          <%= collection_select :notification, :selection_ids, filter.selections, :id, :label, {}, {:multiple => true, :id => "notification_selection_ids_#{filter.id}"} %>
-        </span>
-      <% end %>
-    </span>
-  </div>
+  <% unless @service.filters.blank? %>
+    <div class="form-item multi-select row" id="filters">
+      <%= label_tag nil, "Filters", :class => "span3" %>
+      <span class="span8">
+        <% for filter in @service.filters %>
+          <span class="filter fields">
+            <span class="fixed"><%= truncate(filter.name, :length => 20) %></span>
+            <%= collection_select :notification, :selection_ids, filter.selections, :id, :label, {}, {:multiple => true, :id => "notification_selection_ids_#{filter.id}"} %>
+          </span>
+        <% end %>
+      </span>
+    </div>
+  <% end %>
 
   <script type="text/javascript">
   $(function() {
+
+    var target = $("#target");
+
     $(".filter select").multiselect({
       selectedList: 1,
-      header: false,
-      minWidth: 270,
+      minWidth: 290,
+    }).change(function () {
+
+      var str = "";
+      $("select option:selected").each(function () {
+        str += $(this).val() + "+";
+      });
+
+      target.attr(
+        'href', "<%= calculate_service_notifications_path(@service) %>?selection_ids=" + str
+      );
+    }).trigger('change');
+
+    target.live("click", function() {
+      $("#subscription_price").html("loading...");
+      $.getScript(this.href);
+      return false;
     });
   });
   </script>
+
+  <div class="form-item info-field row">
+    <%= label_tag nil, "Subscription count", :class => "span3" %>
+    <span class="span8">
+      <span id="subscription_price">
+        <%= @service.filters.blank? ? (@service.service_price.sender_credit * @service.subscriptions.count) : "0" %>
+      </span>
+      <% if @service.filters.present? %>
+        <%= link_to "Refresh", "", :id => "target", :class => "btn small", :style => "float:right;" %>
+      <% end %>
+    </span>
+  </div>
 
   <div class="form-item textarea-field row">
     <%= f.label :description, :class => "span3" %>
@@ -67,4 +99,5 @@
     <%= f.submit "Submit" %>
   </div>
 <% end %>
+
 </div>

@@ -21,11 +21,20 @@ class NotificationsController < ApplicationController
   # GET /notifications/new
   # GET /notifications/new.json
   def new
-    @notification = Notification.new
+    @notification = Notification.new(:service => @service)
 
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render json: @notification }
+      format.js
+    end
+  end
+
+  def calculate
+    params[:selection_ids] = params[:selection_ids].split
+    @subscription_price = @service.filters.blank? ? @service.subscriptions.count : Notification.new(:service => @service).subcription_price(params[:selection_ids])
+
+    respond_to do |format|
+      format.js
     end
   end
 
@@ -39,20 +48,26 @@ class NotificationsController < ApplicationController
   def create
     @notification = @service.notifications.new(params[:notification])
     selection_ids = params[:notification][:selection_ids]
+    @subscription_count = selection_ids
 
     respond_to do |format|
       if @notification.valid_filter? selection_ids
         if @notification.save
-          format.html { redirect_to @service, notice: 'Notification was successfully created.' }
+          format.html { redirect_to @service, notice: 'Notification was successfully created. #{selection_ids}' }
           format.json { render json: @notification, status: :created, location: @notification }
+          format.js
         else
           format.html { render action: "new" }
           format.json { render json: @notification.errors, status: :unprocessable_entity }
+          format.js
         end
       else
         flash.now[:alert] = 'Please select minumum a item from each filter.'
         format.html { render action: "new",  }
+        format.js
       end
+      # format.html { render action: "new" }
+      # format.js
     end
   end
 

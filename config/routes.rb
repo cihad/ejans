@@ -30,7 +30,9 @@ Proje::Application.routes.draw do
 
   # Service
   resources :services do
-    resources :notifications, :except => :index
+    resources :notifications, :except => :index do
+      get :calculate, :on => :collection
+    end
   end
 
 
