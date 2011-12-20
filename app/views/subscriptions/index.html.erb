@@ -17,7 +17,7 @@
   </ul>
 </div>
 
-<% current_account.notices.where(:new => true).update_all(:new => false) if !current_account.notices.where(:new => true).blank? %>
+<%# current_account.notices.where(:new => true).update_all(:new => false) unless current_account.notices.where(:new => true).blank? %>
 
 <script type="text/javascript">
 $(function() {

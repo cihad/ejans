@@ -20,5 +20,7 @@ end
 
 group :development do
   gem 'therubyracer'
-  gem 'annotate'
+  gem 'annotate', :git => 'git://github.com/ctran/annotate_models.git'
+  gem 'faker'
+  gem 'populator'
 end

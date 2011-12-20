@@ -32,7 +32,7 @@ class SubscriptionsController < ApplicationController
     respond_to do |format|
       if @subscription.valid_filter? selection_ids or @service.filters.blank?
         if @subscription.save
-          format.html { redirect_to @service, notice: 'Subscription was successfully created.' }
+          format.html { redirect_to @service, notice: "Subscription was successfully created." }
           format.json { render json: @subscription, status: :created, location: @subscription }
         else
           format.html { render action: "new" }
