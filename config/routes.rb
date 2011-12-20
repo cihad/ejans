@@ -30,6 +30,10 @@ Proje::Application.routes.draw do
 
   # Service
   resources :services do
+    post :sort, :on => :collection
+    get :selections, :on => :member
+    post :create_new_selection, :on => :collection
+
     resources :notifications, :except => :index do
       get :calculate, :on => :collection
     end

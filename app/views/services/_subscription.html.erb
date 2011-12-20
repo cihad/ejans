@@ -8,7 +8,7 @@
         <div class="filter fields row">
           <label class="span2"><%= filter.name %></label>
           <div class="span5">
-            <%= collection_select :subscription, :selection_ids, filter.selections, :id, :label, {}, {:multiple => true, :id => "subscription_selection_ids_#{filter.id}" } %>
+            <%= collection_select :subscription, :selection_ids, filter.selections.order("position"), :id, :label, {}, {:multiple => true, :id => "subscription_selection_ids_#{filter.id}" } %>
           </div>
         </div>
       <% end %>

@@ -1,0 +1,39 @@
+<% page_name = "\"#{@service.title}\" Selections" %>
+<%= title page_name %>
+<%
+  breadcrumbs.add "Services", services_path
+  breadcrumbs.add @service.title, service_path(@service)
+  breadcrumbs.add "Selections"
+%>
+
+<%= content_tag :h2, page_name %>
+
+<% @service.filters.each do |filter| %>
+  <div style="margin-bottom:30px;">
+    <%= content_tag :h3, filter.name %>  
+
+    <ul class="sortable selections" data-update-url="<%= sort_services_url %>">
+      <% filter.selections.order("position").each do |selection| %>
+        <%= content_tag_for :li, selection do %>
+          <span class="handle">[drag]</span>
+          <%= selection.label %>
+        <% end %>
+      <% end %>
+    </ul>
+
+  </div>
+<% end %>
+
+<script>
+$(document).ready(function(){
+
+  $('.sortable').sortable({
+    axis: 'y',
+    handle: ".handle",
+    update: function() {
+      return $.post($(this).data('update-url'), $(this).sortable('serialize'));
+    }
+  });
+
+});
+</script>

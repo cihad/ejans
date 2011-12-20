@@ -26,6 +26,10 @@ class ServicesController < ApplicationController
     end
   end
 
+  def selections
+    @service = Service.find(params[:id])
+  end
+
   # GET /services/new
   # GET /services/new.json
   def new
@@ -105,5 +109,27 @@ class ServicesController < ApplicationController
       format.html { redirect_to services_url }
       format.json { head :ok }
     end
+  end
+
+  def sort
+    params[:selection].each_with_index do |id, index|
+      Selection.update_all({position: index+1}, {id: id})
+    end
+    render nothing: true
+  end
+
+  def create_new_selection
+    @selection = Selection.new(params[:selection])
+
+    @service = @selection.filter.service
+
+    respond_to do |format|
+      if @selection.save
+        format.html { redirect_to selections_service_path(@selection.filter.service) }
+        format.js
+      end
+    end
+      
+
   end
 end

@@ -274,6 +274,28 @@ ul.dropdown-menu li {
   }
 }
 
+.selections {
+  @extend .nostyle-list;
+  li {
+    padding: 3px 5px 3px 0;
+    border: 1px solid $bordercolor;
+    margin-bottom: 3px;
+    background: $white;
+    color: $grayDark;
+  }
+}
+
+.handle {
+  display: block;
+  float: left;
+  margin-right: 5px;
+  width: 16px;
+  height: 16px;
+  background: url("images/handle.png") no-repeat;
+  text-indent: -9999px;
+  cursor: move;
+}
+
 // NOTIFICATION PAGES
 ul#selections-list {
   @extend .margin-padding-zero;
