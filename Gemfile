@@ -4,12 +4,10 @@ gem 'rails', '3.1.1'
 gem 'sqlite3'
 gem 'jquery-rails'
 
-# User
 gem 'devise', '1.4.9'
-
-# Layouts
 gem 'breadcrumbs', '~> 0.1.6'
 gem 'rack-pjax'
+gem 'kaminari'
 
 # Groups
 group :assets do

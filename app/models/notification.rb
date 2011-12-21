@@ -24,6 +24,9 @@ class Notification < ActiveRecord::Base
     :presence => true,
     :length => { :maximum => SMS_LENGTH }
 
+  # Kaminari
+  paginates_per 10
+
   def destroy_selections
     self.selections.destroy_all
   end

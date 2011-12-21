@@ -129,7 +129,7 @@ end
 
 def make_notifications
   Service.all.each do |service|
-    Random.new.rand(5..10).times do
+    Random.new.rand(5..15).times do
       array = selection_ids(service)
       puts array.to_s
       notification = service.notifications.create(

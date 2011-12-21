@@ -18,14 +18,18 @@
 
   <div id="service-notification">
     <h3>Service Notification</h3>
-    <ul>
-    <% @service.notifications.published.each do |notification| %>
-      <li class="notice no-list-style">
-        <%= link_to notification.sms, service_notification_path(@service, notification), :class => "data-remote" %>
-      </li>
-    <% end %>
-    </ul>
+    <div data-notification-container>
+      <ul>
+      <% @notifications.each do |notification| %>
+        <li class="notice no-list-style">
+          <%= link_to notification.sms, service_notification_path(@service, notification), :class => "data-remote" %>
+        </li>
+      <% end %>
+      </ul>
+    </div>
   </div>
+
+  <%= paginate @notifications %>
 
   <p><%= link_to 'New Notification', new_service_notification_path(@service) %></p>
 

@@ -14,6 +14,7 @@ class ServicesController < ApplicationController
   # GET /services/1.json
   def show
     @service = Service.find(params[:id])
+    @notifications = @service.notifications.page(params[:page])
     @subscription = current_account.subscriptions.find_by_service_id(@service) if account_signed_in?
 
     if !@subscription
