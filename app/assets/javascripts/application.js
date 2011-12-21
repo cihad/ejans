@@ -74,6 +74,16 @@ $(function() {
     .bind('start.pjax', function() { $('[data-pjax-container]').fadeOut(400) })
     .bind('end.pjax', function() { $('[data-pjax-container]').fadeIn(400) });
 
+  if (history && history.pushState) {
+    $(".pagination a").live("click", function(e) {
+      $.getScript(this.href);
+      history.pushState(null, document.title, this.href); 
+      e.preventDefault();
+    });
+    $(window).bind("popstate", function() {
+      $.getScript(location.href);
+    });
+  }
 
 });
 

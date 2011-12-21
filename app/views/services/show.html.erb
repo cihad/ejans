@@ -17,19 +17,12 @@
   <%= render "services/subscription" %>
 
   <div id="service-notification">
-    <h3>Service Notification</h3>
-    <div data-notification-container>
-      <ul>
-      <% @notifications.each do |notification| %>
-        <li class="notice no-list-style">
-          <%= link_to notification.sms, service_notification_path(@service, notification), :class => "data-remote" %>
-        </li>
-      <% end %>
-      </ul>
-    </div>
+    <%= render "notifications" %>
   </div>
 
-  <%= paginate @notifications %>
+  <div id="paginate">
+    <%= paginate @notifications %>
+  </div>
 
   <p><%= link_to 'New Notification', new_service_notification_path(@service) %></p>
 
