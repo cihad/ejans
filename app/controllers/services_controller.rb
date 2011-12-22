@@ -66,7 +66,7 @@ class ServicesController < ApplicationController
 
     respond_to do |format|
       if @service.save
-        format.html { redirect_to @service, notice: "Service was successfully created. #{params[:service]}" }
+        format.html { redirect_to @service, notice: "Service was successfully created." }
         format.json { render json: @service, status: :created, location: @service }
       else
         3.times do

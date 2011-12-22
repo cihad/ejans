@@ -27,6 +27,11 @@ class Notification < ActiveRecord::Base
   # Kaminari
   paginates_per 10
 
+  # FriendlyID
+  extend FriendlyId
+  friendly_id :title, :use => :slugged
+  
+
   def destroy_selections
     self.selections.destroy_all
   end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111219112334) do
+ActiveRecord::Schema.define(:version => 20111222091516) do
 
   create_table "accounts", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false
@@ -80,9 +80,11 @@ ActiveRecord::Schema.define(:version => 20111219112334) do
     t.datetime "updated_at"
     t.boolean  "published",    :default => false
     t.datetime "published_at"
+    t.string   "slug"
   end
 
   add_index "notifications", ["service_id"], :name => "index_notifications_on_service_id"
+  add_index "notifications", ["slug"], :name => "index_notifications_on_slug", :unique => true
 
   create_table "notifications_selections", :id => false, :force => true do |t|
     t.integer "notification_id"
@@ -144,7 +146,10 @@ ActiveRecord::Schema.define(:version => 20111219112334) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "slug"
   end
+
+  add_index "services", ["slug"], :name => "index_services_on_slug", :unique => true
 
   create_table "subscriptions", :force => true do |t|
     t.integer  "account_id"

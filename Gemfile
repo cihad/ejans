@@ -8,6 +8,7 @@ gem 'devise', '1.4.9'
 gem 'breadcrumbs', '~> 0.1.6'
 gem 'rack-pjax'
 gem 'kaminari'
+gem "friendly_id", "~> 4.0.0.beta14"
 
 # Groups
 group :assets do

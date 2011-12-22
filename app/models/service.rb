@@ -24,4 +24,8 @@ class Service < ActiveRecord::Base
   validates_associated :service_price 
 
   validates :title, :description, :presence => true
+
+  # FriendlyID
+  extend FriendlyId
+  friendly_id :title, :use => :slugged
 end
