@@ -29,15 +29,6 @@ class NotificationsController < ApplicationController
     end
   end
 
-  def calculate
-    params[:selection_ids] = params[:selection_ids].split
-    @subscription_price = @service.filters.blank? ? @service.subscriptions.count : Notification.new(:service => @service).subcription_price(params[:selection_ids])
-
-    respond_to do |format|
-      format.js
-    end
-  end
-
   # GET /notifications/1/edit
   def edit
     @notification = Notification.find(params[:id])
@@ -111,6 +102,19 @@ class NotificationsController < ApplicationController
     else
       redirect_to admin_dashboard_notifications_path
     end
+  end
+
+  def calculate
+    params[:selection_ids] = params[:selection_ids].split
+    @subscription_price = @service.filters.blank? ? @service.subscriptions.count : Notification.new(:service => @service).subcription_price(params[:selection_ids])
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def statics
+    @notification = Notification.find(params[:id])
   end
 
   private

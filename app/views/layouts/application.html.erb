@@ -5,6 +5,7 @@
   <title><%= yield(:title) || "The Place to Buy Stuff" %> - Ejans.com</title>
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
+  <%= yield(:head) %>
   <%= csrf_meta_tags %>
 </head>
 <!-- /HEAD -->

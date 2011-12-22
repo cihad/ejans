@@ -36,6 +36,7 @@ Proje::Application.routes.draw do
 
     resources :notifications, :except => :index do
       get :calculate, :on => :collection
+      get :statics, :on => :member
     end
   end
 

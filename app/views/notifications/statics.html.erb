@@ -1,0 +1,59 @@
+<% page_name = "#{@notification.title} Statics" %>
+<%= title page_name %>
+<% stylesheet "statics" %>
+<%
+  breadcrumbs.add "Services", services_path
+  breadcrumbs.add @service.title, service_path(@service)
+  breadcrumbs.add @notification.title, service_notification_path(@service, @notification)
+  breadcrumbs.add "Statics"
+%>
+<%= content_tag :h2, page_name %>
+
+<table class="statics-table" style="width:100%">
+  <tbody>
+    <tr>
+      <td width="20%">
+        <span class="count"><%= notice_count = @notification.notices.count %></span>
+      </td>
+      <td class="aLeft">
+        <span>sended to subscribers</span>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <span class="count"><%= read_notices_count = @notification.notices.where("read = ?", true).count %></span>
+      </td>
+      <td class="aLeft">
+        <span>read</span>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <span class="count"><%= (read_notices_count / notice_count) * 100 %>%</span>
+      </td>
+      <td class="aLeft">
+        <span>read percentage</span>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <span class="count">00:00</span>
+      </td>
+      <td class="aLeft">
+        <span>avarage time on notification</span>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <span class="count">X</span>
+      </td>
+      <td class="aLeft">
+        <span>touched</span>
+      </td>
+    </tr>
+  </tbody>
+</table>
