@@ -1,8 +1,7 @@
 class NotificationsController < ApplicationController
+  load_and_authorize_resource
   before_filter :service
 
-  # GET /notifications/1
-  # GET /notifications/1.json
   def show
     @notification = Notification.find(params[:id])
 
@@ -11,15 +10,8 @@ class NotificationsController < ApplicationController
         notice.update_attributes(:read => true, :new => false)
       end
     end
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @notification }
-    end
   end
 
-  # GET /notifications/new
-  # GET /notifications/new.json
   def new
     @notification = Notification.new(:service => @service)
 
@@ -34,17 +26,15 @@ class NotificationsController < ApplicationController
     @notification = Notification.find(params[:id])
   end
 
-  # POST /notifications
-  # POST /notifications.json
   def create
-    @notification = @service.notifications.new(params[:notification])
+    @notification = @service.notifications.new(params[:notification].merge(:notificationable => current_account))
     selection_ids = params[:notification][:selection_ids]
     @subscription_count = selection_ids
 
     respond_to do |format|
       if @notification.valid_filter? selection_ids
         if @notification.save
-          format.html { redirect_to @service, notice: 'Notification was successfully created. #{selection_ids}' }
+          format.html { redirect_to @service, notice: 'Notification was successfully created.' }
           format.json { render json: @notification, status: :created, location: @notification }
           format.js
         else
@@ -62,8 +52,6 @@ class NotificationsController < ApplicationController
     end
   end
 
-  # PUT /notifications/1
-  # PUT /notifications/1.json
   def update
     @notification = Notification.find(params[:id])
     selection_ids = params[:notification][:selection_ids]
@@ -83,8 +71,6 @@ class NotificationsController < ApplicationController
     end
   end
 
-  # DELETE /notifications/1
-  # DELETE /notifications/1.json
   def destroy
     @notification = Notification.find(params[:id])
     @notification.destroy

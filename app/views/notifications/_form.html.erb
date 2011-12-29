@@ -73,6 +73,8 @@
       $.getScript(this.href);
       return false;
     });
+
+    $( "#notification_available_until" ).datepicker({ minDate: -1, maxDate: "+1M", dateFormat: "yy-mm-dd" });
   });
   </script>
 
@@ -85,6 +87,13 @@
       <% if @service.filters.present? %>
         <%= link_to "Refresh", "", :id => "target", :class => "btn small", :style => "float:right;" %>
       <% end %>
+    </span>
+  </div>
+
+  <div class="form-item text-field row">
+    <%= f.label :available_until, :class => "span3" %>
+    <span class="span8">
+      <%= f.text_field :available_until, :class => "span3" %>
     </span>
   </div>
 

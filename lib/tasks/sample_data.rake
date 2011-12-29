@@ -23,7 +23,7 @@ def make_accounts
     :password_confirmation  => "123456"
   )
 
-  99.times do |n|
+  20.times do |n|
     email = Faker::Internet.email
     account = Account.create!(
       :email                  => email,
@@ -91,7 +91,7 @@ def make_services
   }
   Service.create(service)
 
-  Service.populate 20 do |service|
+  Service.populate 10 do |service|
     service.title       = Populator.words(2..5).titleize
     service.description = Faker::Lorem.paragraph
     puts service
@@ -129,14 +129,16 @@ end
 
 def make_notifications
   Service.all.each do |service|
-    Random.new.rand(5..15).times do
+    Random.new.rand(5..10).times do
       array = selection_ids(service)
       puts array.to_s
       notification = service.notifications.create(
         :title => Populator.words(2..5).titleize,
         :description => Faker::Lorem.paragraphs(5),
         :sms => Faker::Lorem.paragraph.truncate(150),
-        :selection_ids => array
+        :selection_ids => array,
+        :available_until => Date.today + Random.new.rand(-10..10),
+        :notificationable => Account.find(Random.new.rand(Account.first.id..Account.last.id))
       )
 
       notification.update_attributes(

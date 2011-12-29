@@ -246,32 +246,17 @@ ul.dropdown-menu li {
         }
       }
 
+      .active {
+        color: $green;
+        font-weight:bold;
+      }
+
       
       p {
         margin: 0;
         padding-right: 30px;
         background: url("images/gray_arrow_right.png") center right no-repeat;
       }
-    }
-  }
-
-  .more {
-    display: block;
-    text-align: center;
-    line-height: 3em;
-    margin-top: 10px;
-    color: $grayDark;
-    text-shadow: 0 1px 0 #fff;
-    border: 1px solid #ccc;
-    @include vertical-gradient(#fff, #eee);
-    @include border-radius(4px);
-    &:hover {
-      text-decoration: none;
-      @include vertical-gradient(#eee, #ddd);
-      @include box-shadow(inset 0 1px 0 #fff);
-    }
-    &:active {
-      @include vertical-gradient(#ddd, #eee); 
     }
   }
 }

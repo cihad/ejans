@@ -1,15 +1,17 @@
-Proje::Application.routes.draw do
+Proje::Application.routes.draw d
+
   # Home
   root :to => 'services#index'
   get "home/index"
 
   # Admin
   namespace :admin do
-    resources :roles
     resources :payment_types
     resources :notifications, :only => [:index, :update] do
       put :publish, :on => :member
     end
+
+    match "dashboard" => "dashboard#index"
   end
 
   # Account

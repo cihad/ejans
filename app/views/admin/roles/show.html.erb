@@ -1,0 +1,8 @@
+<% page_name = @role.name %>
+<%= title page_name %>
+
+<%= content_tag :h2, page_name %>
+
+
+<%= link_to 'Edit', edit_admin_role_path(:admin, @role) %> |
+<%= link_to 'Back', admin_roles_path %>

@@ -38,6 +38,10 @@
     <%= simple_format @notification.description %>
   </p>
 
+  <p>
+    Created at: <strong><%= @notification.created_at %></strong><br>
+    Available until: <strong><%= @notification.available_until %></strong><br>
+  </p>
 
   <%= link_to 'Edit', edit_service_notification_path(@service, @notification) %> |
   <%= link_to 'Back', @service %>

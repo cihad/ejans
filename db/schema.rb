@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111222091516) do
+ActiveRecord::Schema.define(:version => 20111227160703) do
 
   create_table "accounts", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false
@@ -30,6 +30,14 @@ ActiveRecord::Schema.define(:version => 20111222091516) do
 
   add_index "accounts", ["email"], :name => "index_accounts_on_email", :unique => true
   add_index "accounts", ["reset_password_token"], :name => "index_accounts_on_reset_password_token", :unique => true
+
+  create_table "accounts_roles", :id => false, :force => true do |t|
+    t.integer "account_id"
+    t.integer "role_id"
+  end
+
+  add_index "accounts_roles", ["account_id"], :name => "index_accounts_roles_on_account_id"
+  add_index "accounts_roles", ["role_id"], :name => "index_accounts_roles_on_role_id"
 
   create_table "credit_histories", :force => true do |t|
     t.integer  "credit_id"
@@ -78,9 +86,12 @@ ActiveRecord::Schema.define(:version => 20111222091516) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "published",    :default => false
+    t.boolean  "published",             :default => false
     t.datetime "published_at"
     t.string   "slug"
+    t.integer  "notificationable_id"
+    t.string   "notificationable_type"
+    t.date     "available_until"
   end
 
   add_index "notifications", ["service_id"], :name => "index_notifications_on_service_id"
@@ -111,18 +122,11 @@ ActiveRecord::Schema.define(:version => 20111222091516) do
     t.datetime "updated_at"
   end
 
-  create_table "rails_admin_histories", :force => true do |t|
-    t.text     "message"
-    t.string   "username"
-    t.integer  "item"
-    t.string   "table"
-    t.integer  "month",      :limit => 2
-    t.integer  "year",       :limit => 5
+  create_table "roles", :force => true do |t|
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  add_index "rails_admin_histories", ["item", "table", "month", "year"], :name => "index_rails_admin_histories"
 
   create_table "selections", :force => true do |t|
     t.integer  "filter_id"

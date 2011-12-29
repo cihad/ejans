@@ -25,5 +25,11 @@
         <%= content_tag :span, "Subscribe", :class => "subscribe btn large default" %>
       <% end %>
     </td>
+
+    <% if account_signed_in? %>
+      <td>
+        <%= link_to 'New Notification', new_service_notification_path(@service), :class => "btn large default" %>
+      </td>
+    <% end %>
   </tr>
 </table>

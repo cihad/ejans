@@ -12,17 +12,29 @@ class Notification < ActiveRecord::Base
   has_and_belongs_to_many :selections
   has_many :notices
   has_many :subscriptions, :through => :notices
+  belongs_to :notificationable, :polymorphic => true
 
   # Scope
   scope :published, where(:published => true)
   scope :unpublished, where(:published => false)
+  scope :available, where("available_until > ?", Date.today - 1)
+  scope :unavailable, where("available_until < ?", Date.today)
 
   # Validates
-  validates :title, :sms, :description,
+  validates :title, :sms, :description, :available_until,
     :presence => true
   validates :sms,
     :presence => true,
     :length => { :maximum => SMS_LENGTH }
+
+  #validate :available_until_date_cannot_be_in_the_past
+
+  def available_until_date_cannot_be_in_the_past
+    if available_until < Date.today
+      errors.add(:available_until, "can't be in the past")
+    end
+  end
+
 
   # Kaminari
   paginates_per 10
@@ -37,7 +49,7 @@ class Notification < ActiveRecord::Base
   end
 
   def send_notification
-    self.add_notification_to_subscriptions if (self.published_changed? && self.published == true)
+    self.add_notification_to_subscriptions if self.published_changed? && self.published == true
   end
 
   def which_subscriptions(selections = [])

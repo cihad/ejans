@@ -1,0 +1,13 @@
+<% page_name = "Ediding role" %>
+<%= title page_name %>
+
+<%= content_tag :h2, page_name %>
+
+<%= render 'form' %>
+
+<%= link_to 'Show', [:admin, @role] %> |
+<%= link_to 'Back', admin_roles_path %>
+
+<%= content_for :left do %>
+  <%= render "admin/shared/menu_links" %>
+<% end %>

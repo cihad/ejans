@@ -17,6 +17,15 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  rescue_from CanCan::AccessDenied do |exception|
+    flash.now[:notice] = "Access denied."
+    redirect_to root_path
+  end
+
+  def current_ability
+    @current_ability ||= Ability.new(current_account)
+  end
+
   protected
 
     def template

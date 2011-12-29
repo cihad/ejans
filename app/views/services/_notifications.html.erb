@@ -1,8 +1,11 @@
 <h3>Service Notification</h3>
 <ul>
   <% @notifications.each do |notification| %>
-    <li class="notice no-list-style">
-      <%= link_to notification.sms, service_notification_path(@service, notification), :class => "data-remote" %>
+    <li class="notice no-list-style <%= "active" if notification.available_until > Date.today - 1 %>">
+      <%= link_to service_notification_path(@service, notification), :class => "data-remote" do %>
+        <%= notification.sms %>
+        <%= content_tag :span, "active", :class => "active" if notification.available_until > Date.today - 1 %>
+      <% end %>
     </li>
   <% end %>
 </ul>
