@@ -171,7 +171,7 @@ ul.dropdown-menu li {
   margin:0 0 0 -10px;
 
   td {
-    @include border-radius;
+    @include border-radius(2px);
     background: $serviceitembg;
     padding: 10px 15px;
     text-align: center;
@@ -222,6 +222,7 @@ ul.dropdown-menu li {
     li.notice {
       border-bottom: 1px solid darken($bordercolor, 10%);
       @extend .nostyle-list;
+      text-shadow: 0 1px 0 #fff;
 
       &:hover {
         @include vertical-gradient(#f8f8f8, #eee);

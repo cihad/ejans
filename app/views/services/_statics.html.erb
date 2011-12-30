@@ -30,12 +30,14 @@
       <% end %>
     </td>
 
-    <% if account_signed_in? %>
-      <td>
-        <a href="<%= new_service_notification_path(@service) %>" class="btn large" rel="popover" data-placement="below" title="Test" data-content="fdsfsdf">
+    <td>
+      <% if account_signed_in? %>
+        <a href="<%= new_service_notification_path(@service) %>" class="btn large">
           New Notification
         </a>
-      </td>
-    <% end %>
+      <% else %>
+        <button class="btn large" data-controls-modal="modal-from-dom" data-backdrop="true" data-keyboard="true">New Notification</button>
+      <% end %>
+    </td>
   </tr>
 </table>

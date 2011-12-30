@@ -43,6 +43,12 @@ class Account < ActiveRecord::Base
     self.subscriptions.find_by_service_id(service.id) ? true : false
   end
 
+  def selected?(notification)
+    notification.selections.map(&:id).each do |id|
+      
+    end
+  end
+
   def role?(role)
     if roles.first.present?
       roles.first.name == role.to_s
