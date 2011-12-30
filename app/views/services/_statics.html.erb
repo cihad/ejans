@@ -19,8 +19,12 @@
     </td>
 
     <td>
-      <% if account_signed_in? and current_account.subscribing?(@service) %>
-        <%= content_tag :span, "Subscribe Settings", :class => "subscribe btn large default" %>
+      <% if account_signed_in? %>
+        <% if current_account.subscribing?(@service) %>
+          <%= content_tag :span, "Subscribe Settings", :class => "subscribe btn large success" %>
+        <% else %>
+          <%= content_tag :span, "Subscribe Settings", :class => "subscribe btn large default" %>
+        <% end %>  
       <% else %>
         <%= content_tag :span, "Subscribe", :class => "subscribe btn large default" %>
       <% end %>
@@ -28,7 +32,9 @@
 
     <% if account_signed_in? %>
       <td>
-        <%= link_to 'New Notification', new_service_notification_path(@service), :class => "btn large default" %>
+        <a href="<%= new_service_notification_path(@service) %>" class="btn large" rel="popover" data-placement="below" title="Test" data-content="fdsfsdf">
+          New Notification
+        </a>
       </td>
     <% end %>
   </tr>
