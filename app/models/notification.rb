@@ -5,7 +5,6 @@ class Notification < ActiveRecord::Base
   # Callbacks
   after_destroy :destroy_selections
   after_update :send_notification
-  # after_save :send_notification
 
   # Associations
   belongs_to :service
@@ -27,14 +26,13 @@ class Notification < ActiveRecord::Base
     :presence => true,
     :length => { :maximum => SMS_LENGTH }
 
-  #validate :available_until_date_cannot_be_in_the_past
+  # validate :available_until_date_cannot_be_in_the_past
 
   def available_until_date_cannot_be_in_the_past
     if available_until < Date.today
       errors.add(:available_until, "can't be in the past")
     end
   end
-
 
   # Kaminari
   paginates_per 10
@@ -44,6 +42,15 @@ class Notification < ActiveRecord::Base
   friendly_id :title, :use => :slugged
   
 
+  # Methods
+  def active?
+    self.available_until > Date.today - 1 ? true : false
+  end
+
+  def passive?
+    !self.active?
+  end
+
   def destroy_selections
     self.selections.destroy_all
   end
@@ -52,95 +59,74 @@ class Notification < ActiveRecord::Base
     self.add_notification_to_subscriptions if self.published_changed? && self.published == true
   end
 
-  def which_subscriptions(selections = [])
-    subscriptions = []
-    filters = self.service.filters
-    # Nofication's Service's Filters
-
-    notification_selections = {}
-    # Nofication's Service's Selections
-    # {:filter_id => [selection_id1,selection_id2,...], ...}
-
-    filters.each do |filter|
-      notification_selections["#{filter.id}"] = []
-      selections.each do |selection|
-        selection = Selection.find(selection)
-        if selection.filter == filter
-          notification_selections["#{filter.id}"] << selection.id
-        end
-      end
-    end
-
-    self.service.subscriptions.each do |subscription|
-      subscription_selections = {}
-      filters.each do |filter|
-        subscription_selections["#{filter.id}"] = []
-        subscription.selections.each do |selection|
-          if selection.filter == filter
-            subscription_selections["#{filter.id}"] << selection.id
-          end
-        end
-      end
-
-      array = []
-      # [true,false,...]
-      subscription_selections.each do |filter_id, selection_ids|
-        array1 = []
-        selection_ids.each do |selection_id|
-          if notification_selections["#{filter_id}"].include?(selection_id)
-            array1 << true
-          end
-        end
-
-        if array1.include? true
-          array << true
-        else
-          array << false
-        end
-      end
-
-      if !(array.include? false)
-        subscriptions << subscription
-      end
-    end
-
-    return subscriptions
+  def selections_map
+    h = Hash.new { |hash, key| hash[key] = [] }
+    self.selections.inject(h) { |hash, selection| hash[selection.filter.id] << selection.id; hash }
   end
 
+  def selections_map_by_selection_ids(selections)
+    h = Hash.new { |hash, key| hash[key] = [] }
+    selections = Selection.find(selections).includes(:filter)
+    selections.inject(h) { |hash, selection| hash[selection.filter.id] << selection.id; hash }
+  end
+
+  def selected_subscription?(subscription)
+    subscription_selections_map = subscription.selections_map
+    selections_map.inject([]) do |a, filter_selection|
+      filter_id, selection_ids = filter_selection
+      a << (selection_ids & subscription_selections_map[filter_id]).present?
+      a
+    end.all? { |v| v == true }
+  end
+
+  def selected_subscription_by_selection_ids?(subscription, selection_ids = [])
+    subscription_selections_map = subscription.selections_map
+    selections_map_by_selection_ids(selections).inject([]) do |a, filter_selection|
+      filter_id, selection_ids = filter_selection
+      a << (selection_ids & subscription_selections_map[filter_id]).present?
+      a
+    end.all? { |v| v == true }
+  end
+
+  def subscriptions
+    self.service.subscriptions.select { |subscription| selected_subscription?(subscription) }
+  end
+
+  def which_subscriptions_by_selection_ids(selections = [])
+    self.service.subscriptions.select { |subscription| selected_subscription_by_selection_ids?(subscription, selections) }
+  end
+
+  # Native method
   def add_notification_to_subscriptions
-    unless which_subscriptions(self.selections).blank?
-      which_subscriptions(self.selections).each do |subscription|
-        if subscription.account.credit.credit.to_i >= self.service.service_price.receiver_credit.to_i
-          new_notice = subscription.notices.create!(:notification => self, :read => false)
+    unless subscriptions.blank?
+      self.subscriptions.each do |subscription|
+        if subscription.account.credit.credit >= service.service_price.receiver_credit
+          new_notice = subscription.notices.create!(:notification => self)
           subscription.account.credit.decrement!(:credit, self.service.service_price.receiver_credit)
         end
       end
     end
   end
 
-  def subcription_count(selections = [])
-    which_subscriptions(selections).count
+  def subscription_count(selections = [])
+    which_subscriptions_by_selection_ids(selections).count
   end
 
-  def subcription_price(selections = [])
-    subcription_count = subcription_count(selections)
-    return self.service.service_price.sender_credit * subcription_count
+  def subscription_price(selections = [])
+    subscription_count = subscription_count(selections)
+    return self.service.service_price.sender_credit * subscription_count
   end
 
   def valid_filter?(selection_ids)
     if selection_ids.nil?
       false
     else
-      array = []
-      selection_ids.each do |id|
-        array << Selection.find(id).filter_id
-      end
+      array = selection_ids.inject([]) do |a, id|
+                a << Selection.find(id).filter_id
+                a
+              end
 
-      if array.uniq.size == self.service.filters.size
-        true
-      else
-        false
-      end
+      array.uniq.size == self.service.filters.size ? true : false
     end
   end
 

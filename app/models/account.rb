@@ -39,14 +39,12 @@ class Account < ActiveRecord::Base
     end
   end
 
-  def subscribing?(service)
-    self.subscriptions.find_by_service_id(service.id) ? true : false
+  def subscription(service)
+    subscriptions.find_by_service_id(service.id)
   end
 
-  def selected?(notification)
-    notification.selections.map(&:id).each do |id|
-      
-    end
+  def subscribing?(service)
+    self.subscriptions.find_by_service_id(service.id) ? true : false
   end
 
   def role?(role)

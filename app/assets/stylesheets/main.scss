@@ -64,6 +64,11 @@ h2 {
   display: inline;
 }
 
+span.active {
+  color: $green;
+  font-weight:bold;
+}
+
 // LAYOUT
 .oneColumn .container {
   width: 700px;
@@ -246,12 +251,6 @@ ul.dropdown-menu li {
           
         }
       }
-
-      .active {
-        color: $green;
-        font-weight:bold;
-      }
-
       
       p {
         margin: 0;

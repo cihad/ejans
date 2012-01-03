@@ -11,7 +11,9 @@
 
   <ul id="selections-list">
     <% @notification.selections.each do |selection| %>
-      <% if account_signed_in? and current_account.subscriptions.find_by_service_id(@notification.service.id).selections.include?(selection) %>
+      <% if account_signed_in? and
+            current_account.subscribing?(@notification.service) and
+            current_account.subscription(@notification.service).selections.include?(selection) %>
         <li class="active"  data-placement="above" rel='twipsy' title='Currently, you selected this item'>
           <%= selection.label %>
           <span>✓</span>
@@ -40,7 +42,8 @@
 
   <p>
     Created at: <strong><%= @notification.created_at %></strong><br>
-    Available until: <strong><%= @notification.available_until %></strong><br>
+    Available until: <strong><%= @notification.available_until %></strong>
+    <%= content_tag :span, "active", :class => "active" if @notification.active? %><br>
   </p>
 
   <%= link_to 'Edit', edit_service_notification_path(@service, @notification) %> |

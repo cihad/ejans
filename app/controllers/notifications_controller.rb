@@ -5,8 +5,9 @@ class NotificationsController < ApplicationController
   def show
     @notification = Notification.find(params[:id])
     unless @notification.service.service_price.receiver_credit == 0 or
-       current_account.notices.find_by_notification_id(params[:id]) or 
-       current_account.selected?(@notification)
+       (account_signed_in? and current_account.notices.find_by_notification_id(params[:id])) or 
+       (account_signed_in? and current_account.subscribing?(@service) and current_account.subscription(@service).selected_notification?(@notification)) or
+       !@notification.active?
       redirect_to @service, alert: "You are not authorized this notification."
     end
 
@@ -21,7 +22,7 @@ class NotificationsController < ApplicationController
     @notification = Notification.new(:service => @service)
 
     respond_to do |format|
-      format.html # new.html.erb
+      format.html
       format.js
     end
   end
@@ -97,7 +98,7 @@ class NotificationsController < ApplicationController
 
   def calculate
     params[:selection_ids] = params[:selection_ids].split
-    @subscription_price = @service.filters.blank? ? @service.subscriptions.count : Notification.new(:service => @service).subcription_price(params[:selection_ids])
+    @subscription_price = @service.filters.blank? ? @service.subscriptions.count : Notification.new(:service => @service).subscription_price(params[:selection_ids])
 
     respond_to do |format|
       format.js

@@ -79,7 +79,7 @@
   </script>
 
   <div class="form-item info-field row">
-    <%= label_tag nil, "Subscription count", :class => "span3" %>
+    <%= label_tag nil, "Subscription price", :class => "span3" %>
     <span class="span8">
       <span id="subscription_price">
         <%= @service.filters.blank? ? (@service.service_price.sender_credit * @service.subscriptions.count) : "0" %>

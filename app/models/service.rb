@@ -31,6 +31,11 @@ class Service < ActiveRecord::Base
   extend FriendlyId
   friendly_id :title, :use => :slugged
 
+  def selections_map
+    h = Hash.new { |hash, key| hash[key] = [] }
+    selections.inject(h) { |hash, selection| hash[selection.filter.id] << selection.id; hash }
+  end
+
   def which_notifications(selections = [])
     notifications = []
     filters = self.filters

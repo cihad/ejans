@@ -42,13 +42,12 @@
 
                 <ul class="dropdown-menu">
                   <% notices = current_account.notices.where(:read => false) %>
-                  <% if !notices.blank? %>
+                  <% if notices.present? %>
 
                     <% notices.each do |notice| %>
                       <li>
                         <%= link_to truncate(notice.notification.service.title, :length => 25), 
-                                    [notice.notification.service, notice.notification],
-                                    :class => "data-remote" %>
+                                    [notice.notification.service, notice.notification] %>
                         <%= content_tag :span, "new", :class => "label success" if notice.new? %>
                       </li>
                     <% end %>
