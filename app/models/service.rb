@@ -31,6 +31,7 @@ class Service < ActiveRecord::Base
   extend FriendlyId
   friendly_id :title, :use => :slugged
 
+  # Sphinx Search Engine
   define_index do
     indexes description
     indexes title

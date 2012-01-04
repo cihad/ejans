@@ -56,6 +56,7 @@ class ServicesController < ApplicationController
 
     if @service.save
       redirect_to @service, notice: "Service was successfully created."
+      system "rake thinking_sphinx:index"
     else
       3.times do
         filter = @service.filters.build
@@ -70,6 +71,7 @@ class ServicesController < ApplicationController
 
     if @service.update_attributes(params[:service])
       redirect_to @service, notice: 'Service was successfully updated.'
+      system "rake thinking_sphinx:index"
     else
       form_count = 3 - (@service.filters.count)
         form_count.times do

@@ -13,6 +13,8 @@ namespace :db do
     make_services
     make_subscriptions
     make_notifications
+
+    Rake::Task['thinking_sphinx:index'].invoke
   end
 end
 
