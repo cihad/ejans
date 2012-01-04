@@ -108,8 +108,8 @@ ActiveRecord::Schema.define(:version => 20111227160703) do
   create_table "payment_type_selections", :force => true do |t|
     t.integer  "payment_type_id"
     t.integer  "credit"
-    t.decimal  "price"
-    t.boolean  "active",          :default => true
+    t.decimal  "price",           :precision => 10, :scale => 0
+    t.boolean  "active",                                         :default => true
     t.datetime "created_at"
     t.datetime "updated_at"
   end

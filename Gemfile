@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.1.1'
-gem 'sqlite3'
+gem 'mysql2'
 gem 'jquery-rails'
 
 gem 'devise', '1.4.9'
@@ -10,6 +10,7 @@ gem 'rack-pjax'
 gem 'kaminari'
 gem 'friendly_id', '~> 4.0.0.beta14'
 gem 'cancan'
+gem 'thinking-sphinx'
 
 # Groups
 group :assets do
