@@ -2,10 +2,10 @@
   <tr>
     <td>
       <div class="count">
-        <span><%= @service.subscriptions.count %></span>
+        <span><%= subscription_count = @service.subscriptions.count %></span>
       </div>
       <div class="desc">
-        <span>takipçi</span>
+        <span><%= subscription_count == 1 ? t('.one_subscriber') : t('.many_subscribers') %></span>
       </div>
     </td>
 
@@ -14,26 +14,26 @@
         <span><%= @service.notifications.where("created_at > ?", 1.month.ago).count %></span>
       </div>
       <div class="desc">
-        <span>son bir ayda gönderim</span>
+        <span><%= t('.send') %></span>
       </div>
     </td>
 
     <td>
       <% if account_signed_in? %>
         <% if current_account.subscribing?(@service) %>
-          <%= content_tag :span, "Subscribe Settings", :class => "subscribe btn large success" %>
+          <%= content_tag :span, t(".settings"), :class => "subscribe btn large success" %>
         <% else %>
-          <%= content_tag :span, "Subscribe Settings", :class => "subscribe btn large default" %>
+          <%= content_tag :span, t('.settings'), :class => "subscribe btn large default" %>
         <% end %>  
       <% else %>
-        <%= content_tag :span, "Subscribe", :class => "subscribe btn large default" %>
+        <%= content_tag :span, t('global.subscribe'), :class => "subscribe btn large default" %>
       <% end %>
     </td>
 
     <td>
       <% if account_signed_in? %>
         <a href="<%= new_service_notification_path(@service) %>" class="btn large">
-          New Notification
+          <%= t('notifications.new.new_notification') %>
         </a>
       <% else %>
         <button class="btn large" data-controls-modal="modal-from-dom" data-backdrop="true" data-keyboard="true">New Notification</button>

@@ -1,11 +1,11 @@
-<% page_name = "#{@notification.title} Statics" %>
+<% page_name = t('.title', title: @notification.title) %>
 <%= title page_name %>
 <% stylesheet "statics" %>
 <%
-  breadcrumbs.add "Services", services_path
+  breadcrumbs.add t('global.services'), services_path
   breadcrumbs.add @service.title, service_path(@service)
   breadcrumbs.add @notification.title, service_notification_path(@service, @notification)
-  breadcrumbs.add "Statics"
+  breadcrumbs.add t(".name")
 %>
 <%= content_tag :h2, page_name %>
 
@@ -16,16 +16,16 @@
         <span class="count"><%= notice_count = @notification.notices.count %></span>
       </td>
       <td class="aLeft">
-        <span>sended to subscribers</span>
+        <span><%= t('.sended') %></span>
       </td>
     </tr>
 
     <tr>
       <td>
-        <span class="count"><%= read_notices_count = @notification.notices.where("read = ?", true).count %></span>
+        <span class="count"><%= read_notices_count = @notification.notices.count %></span>
       </td>
       <td class="aLeft">
-        <span>read</span>
+        <span><%= t('.read') %></span>
       </td>
     </tr>
 
@@ -34,7 +34,7 @@
         <span class="count"><%= (read_notices_count / notice_count) * 100 %>%</span>
       </td>
       <td class="aLeft">
-        <span>read percentage</span>
+        <span><%= t('.read_percentage') %></span>
       </td>
     </tr>
 
@@ -43,7 +43,7 @@
         <span class="count">00:00</span>
       </td>
       <td class="aLeft">
-        <span>avarage time on notification</span>
+        <span><%= t('.avarage_time') %></span>
       </td>
     </tr>
 
@@ -52,7 +52,7 @@
         <span class="count">X</span>
       </td>
       <td class="aLeft">
-        <span>touched</span>
+        <span><%= t('.touched') %></span>
       </td>
     </tr>
   </tbody>

@@ -1,16 +1,16 @@
 <span class="filter fields">
   <span class="filter-header">
-    <%= f.label :name, :class => "floated" %>
+    <%= f.label :name, t('services.filter_name'), :class => "floated" %>
     <%= f.text_field :name, :size => "17" %>
     <%= f.check_box :_destroy, :class => "styled-checkbox" %>
-    <%= f.label :_destroy, "Remove" %>
-    <span class="add-line-item">Add line item</span>
+    <%= f.label :_destroy, t("global.destroy") %>
+    <span class="add-line-item"><%= t('services.add_selection') %></span>
   </span>
   <div class="line-items">
     <%= f.fields_for :selections do |builder|   %>
       <%= render 'selection_fields', :f => builder %>
     <% end %>
-  <span><%= link_to_add_fields "Add Selection", f, :selections %></span>
+  <span><%= link_to_add_fields t('services.add_selection'), f, :selections %></span>
   </div>
 
 </span>    

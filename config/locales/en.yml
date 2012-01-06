@@ -1,5 +1,7 @@
-# Sample localization file for English. Add more files in this directory for other locales.
-# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+# US English translations for Ruby on Rails
+#
+# Use this as the base for the locale file of your language.
 
 en:
-  hello: "Hello world"
+  service:
+    services: "Services"

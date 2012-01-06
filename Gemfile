@@ -11,6 +11,7 @@ gem 'kaminari'
 gem 'friendly_id', '~> 4.0.0.beta14'
 gem 'cancan'
 gem 'thinking-sphinx'
+gem 'geocoder'
 
 # Groups
 group :assets do

@@ -13,14 +13,14 @@
   <% end %>
 
   <div class="form-item text-field row">
-    <%= label_tag nil, "Service", :class => "span3" %>
+    <%= label_tag nil, t("services.one"), :class => "span3" %>
     <span class="span8">
       <%= text_field_tag nil, nil, :placeholder => @service.title, :disabled => true, :class => "span8" %>
     </span>
   </div>
 
   <div class="form-item title-field row">
-    <%= f.label :title, "Notification title", :class => "span3" %>
+    <%= f.label :title, t("notifications.title"), :class => "span3" %>
     <span class="span8">
       <%= f.text_field :title, :class => "span8" %>
     </span>
@@ -36,7 +36,7 @@
 
   <% unless @service.filters.blank? %>
     <div class="form-item multi-select row" id="filters">
-      <%= label_tag nil, "Filters", :class => "span3" %>
+      <%= label_tag nil, t("notifications.filters"), :class => "span3" %>
       <span class="span8">
         <% for filter in @service.filters %>
           <span class="filter fields">
@@ -69,7 +69,7 @@
     }).trigger('change');
 
     target.live("click", function() {
-      $("#subscription_price").html("loading...");
+      $("#subscription_price").html("<%= t('global.loading') %>");
       $.getScript(this.href);
       return false;
     });
@@ -79,10 +79,10 @@
   </script>
 
   <div class="form-item info-field row">
-    <%= label_tag nil, "Subscription price", :class => "span3" %>
+    <%= label_tag nil, t("notifications.price"), :class => "span3" %>
     <span class="span8">
       <span id="subscription_price">
-        <%= @service.filters.blank? ? (@service.service_price.sender_credit * @service.subscriptions.count) : "0" %>
+        <%= @service.filters.blank? ? "#{(@service.service_price.sender_credit * @service.subscriptions.count)} #{t('global.credit')}" : t('global.free') %>
       </span>
       <% if @service.filters.present? %>
         <%= link_to "Refresh", "", :id => "target", :class => "btn small", :style => "float:right;" %>
@@ -91,14 +91,14 @@
   </div>
 
   <div class="form-item text-field row">
-    <%= f.label :available_until, :class => "span3" %>
+    <%= f.label :available_until, t('notifications.show.available'),:class => "span3" %>
     <span class="span8">
       <%= f.text_field :available_until, :class => "span3" %>
     </span>
   </div>
 
   <div class="form-item textarea-field row">
-    <%= f.label :description, :class => "span3" %>
+    <%= f.label :description, t('global.description'), :class => "span3" %>
     <span class="span8">
       <%= f.text_area :description, :rows => "10", :class => "span8" %>
     </span>

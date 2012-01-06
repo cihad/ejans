@@ -1,7 +1,7 @@
-<% page_name = "New Service" %>
+<% page_name = t('.new_service') %>
 <%= title page_name %>
 <%
-  breadcrumbs.add "Services", services_path
+  breadcrumbs.add t('global.services'), services_path
   breadcrumbs.add page_name
 %>
 <%= content_tag :h2, page_name %>

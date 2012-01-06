@@ -18,8 +18,7 @@ class ApplicationController < ActionController::Base
   end
 
   rescue_from CanCan::AccessDenied do |exception|
-    flash.now[:notice] = "Access denied."
-    redirect_to root_path
+    redirect_to root_path, notice: "Access denied."
   end
 
   def current_ability
@@ -39,7 +38,7 @@ class ApplicationController < ActionController::Base
   private
     
     def add_initial_breadcrumbs
-      breadcrumbs.add 'Home', root_path, :id => 'home'
+      breadcrumbs.add t('global.home'), root_path, :id => 'home'
     end
 
 end

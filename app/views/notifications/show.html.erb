@@ -1,7 +1,7 @@
 <% page_name = @notification.title %>
 <%= title page_name %>
 <%
-  breadcrumbs.add "Services", services_path
+  breadcrumbs.add t("global.services"), services_path
   breadcrumbs.add @service.title, service_path(@service)
   breadcrumbs.add page_name
 %>
@@ -14,7 +14,7 @@
       <% if account_signed_in? and
             current_account.subscribing?(@notification.service) and
             current_account.subscription(@notification.service).selections.include?(selection) %>
-        <li class="active"  data-placement="above" rel='twipsy' title='Currently, you selected this item'>
+        <li class="active"  data-placement="above" rel='twipsy' title='<%= t('.selected') %>'>
           <%= selection.label %>
           <span>✓</span>
         </li>
@@ -41,11 +41,11 @@
   </p>
 
   <p>
-    Created at: <strong><%= @notification.created_at %></strong><br>
-    Available until: <strong><%= @notification.available_until %></strong>
+    <%= t('global.created') %>: <strong><%= @notification.created_at %></strong><br>
+    <%= t('.available') %>: <strong><%= @notification.available_until %></strong>
     <%= content_tag :span, "active", :class => "active" if @notification.active? %><br>
   </p>
 
-  <%= link_to 'Edit', edit_service_notification_path(@service, @notification) %> |
-  <%= link_to 'Back', @service %>
+  <%= link_to t('global.edit'), edit_service_notification_path(@service, @notification) %> |
+  <%= link_to t('global.back'), @service %>
 </article>

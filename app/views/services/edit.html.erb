@@ -1,10 +1,10 @@
-<% page_name = "Editing Service" %>
+<% page_name = t(".edit_service") %>
 <%= title page_name %>
 <% 
   breadcrumbs.add @service.title, service_path(@service)
   breadcrumbs.add page_name
 %>
 
-<%= content_tag :h2, "Edit \"#{@service.title}\" Service" %>
+<%= content_tag :h2, t(".edit_service_title", :title => @service.title) %>
 
 <%= render 'form' %>

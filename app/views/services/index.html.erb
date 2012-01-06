@@ -1,28 +1,28 @@
-<% page_name = "Listing Services" %>
+<% page_name = t(".listing_services") %>
 <%= title page_name %>
 <% 
-  breadcrumbs.add 'Services'
+  breadcrumbs.add t('global.services')
 %>
 
 <%= content_tag :h2, page_name %>
 
 <table class="zebra-striped">
   <tr>
-    <th>Title</th>
-    <th>Description</th>
-    <th>Actions</th>
+    <th><%= t('global.title') %></th>
+    <th><%= t('global.description') %></th>
+    <th><%= t('global.actions') %></th>
   </tr>
 
 <% @services.each do |service| %>
   <tr class="<%= cycle("odd", "even") %>">
     <td><%= service.title %></td>
     <td><%= truncate(service.description, :length => 40) %></td>
-    <td><%= link_to 'Show', service, :class => "data-remote" %>
-        <%= link_to 'Selections', selections_service_path(service), :class => "data-remote" %>
-        <%= link_to 'Edit', edit_service_path(service) %>
-        <%= link_to 'Destroy', service, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= link_to t('global.show'), service, :class => "data-remote" %>
+        <%= link_to t('global.selections'), selections_service_path(service), :class => "data-remote" %>
+        <%= link_to t('global.edit'), edit_service_path(service) %>
+        <%= link_to t('global.destroy'), service, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>
 </table>
 
-<%= link_to 'New Service', new_service_path %>
+<%= link_to t('services.new.new_service'), new_service_path %>

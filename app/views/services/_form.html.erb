@@ -13,21 +13,21 @@
   <% end %>
 
   <div class="form-item title-field row ">
-    <%= f.label :title, :class => "span3" %>
+    <%= f.label :title, t('global.title'), :class => "span3" %>
     <span class="span8">
       <%= f.text_field :title, :class => "span8" %>
     </span>
   </div>
 
   <div class="form-item textarea-field row">
-    <%= f.label :description, :class => "span3" %>
+    <%= f.label :description, t('global.descriptiom'), :class => "span3" %>
     <span class="span8">
       <%= f.text_area :description, :rows => "5", :class => "span8" %>
     </span>
   </div>
 
   <div class="form-item row" id="filters">
-    <%= label_tag nil, "Add filter", :class => "span3" %>
+    <%= label_tag nil, t('services.new.add_filter'), :class => "span3" %>
     <span class="fields span8">
       <%= f.fields_for :filters do |builder| %>
         <%= render "filter_fields", :f => builder %>

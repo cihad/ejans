@@ -1,0 +1,6 @@
+<li class="notice no-list-style <%= "active" if notification.available_until > Date.today - 1 %>">
+  <%= link_to service_notification_path(@service, notification), :class => "data-remote" do %>
+    <%= notification.sms %>
+    <%= content_tag :span, "active", :class => "active" if notification.active? %>
+  <% end %>
+</li>

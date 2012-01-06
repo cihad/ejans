@@ -1,0 +1,89 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+#
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+tr:
+  global:
+    show: 'Göster'
+    edit: 'Düzenle'
+    destroy: 'Sil'
+    selection: 'seçenek'
+    selections: 'seçenekler'
+    title: 'Başlık'
+    description: 'Açıklama'
+    actions: 'Eylemler'
+    home: 'Anasayfa'
+    services: 'Servisler'
+    subscribe: 'Abone ol'
+    created: 'Eklenme tarihi'
+    back: 'Geri'
+    credit: 'Kredi'
+    loading: 'yükleniyor...'
+    free: 'Ücretsiz'
+
+  account:
+    signin: 'Giriş yap'
+    signout: 'Çıkış yap'
+    edit_account: 'Hesabı düzenle'
+    edit_subscriptions: 'Aboneliklerimi düzenle'
+
+  notices:
+    name: 'Bildiriler'
+    no_notice: 'Hiç yeni bildiri yok'
+    all: 'Bütün bildiriler'
+
+  services:
+    name: 'Servisler'
+    one: 'Servis'
+    subscriber: 'takipçi'
+    sender_credit: 'Gönderen için kredi'
+    receiver_credit: 'Alan için kredi'
+    credit_subscription: 'abone başına kredi'
+    credit_notification: 'bildiri başına kredi'
+    filter_name: 'Filtre adı'
+    add_selection: 'Seçenek ekle'
+    label: 'Etiket'
+    show:
+      notifications: 'Servis Bildirileri'
+    new:
+      add_filter: 'Filtre ekle'
+      new_service: 'Yeni Servis'
+    index:
+      listing_services: 'Servisler'
+    edit:
+      edit_service: 'Servisi düzenle'
+      edit_service_title: '"%{title}" servisini düzenle'
+    subscription:
+      receivers: 'Alıcılar'
+    statics:
+      one_subscriber: 'takipçi'
+      many_subscribers: 'takipçi'
+      send: 'Son 1 ayda gönderim'
+      settings: 'Abonelik ayarları'
+
+  notifications:
+    name: 'Bildiriler'
+    one: 'Bildiri'
+    all: 'Tüm bildiriler'
+    title: 'Bildiri başlığı'
+    filter: 'Filtre'
+    filters: 'Filtreler'
+    price: 'Bildiri ücreti'
+    char: '%{char} karakter kaldı'
+    new:
+      new_notification: 'Yeni bildiri'
+    statics:
+      name: 'İstatistikler'
+      title: '%{title} İstatistikleri'
+      sended: 'adet aboneye gönderildi'
+      read: 'kişi tarafından okundu'
+      read_percentage: 'okunma oranı'
+      avarage_time: 'bildiride geçirilen ortalama süre'
+      touched: 'kişi iletişime geçti'
+    show:
+      available: 'Hangi tarihe kadar geçerli'
+      selected: 'Bu seçeneğe abonesiniz'
+
+  payments:
+    name: 'Ödemeler'
+    

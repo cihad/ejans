@@ -1,6 +1,6 @@
 <div class="block" id="user-menu">
   <ul>
-    <%= menu_list "All notifications #{content_count(current_account.notices.where(:read => false).count)}".html_safe, subscriptions_path, nil, true %>
+    <%= menu_list "#{t('notifications.all')} #{content_count(current_account.notices.where(:read => false).count)}".html_safe, subscriptions_path, nil, true %>
 
     <% current_account.subscriptions.each do |subscription| %>
       <%= menu_list "#{truncate(subscription.service.title, :length => 30)} #{content_count(subscription.notices.where(:read => false).count)}".html_safe, subscription, nil, true %>
@@ -10,9 +10,9 @@
 
 <div class="block" id="user-menu">
   <ul>
-    <%= menu_list "Payments #{content_count(current_account.credit.credit, "credit")}".html_safe, payments_path %>
-    <%= menu_list "Edit Account", edit_account_registration_path %>
-    <%= menu_list "Edit Subscriptions", edit_subscriptions_path %>
-    <%= menu_list "Sign out", destroy_account_session_path, "delete" %>
+    <%= menu_list "#{t('payments.name')} #{content_count(current_account.credit.credit, t('global.credit'))}".html_safe, payments_path %>
+    <%= menu_list t('account.edit_account'), edit_account_registration_path %>
+    <%= menu_list t('account.edit_subscriptions'), edit_subscriptions_path %>
+    <%= menu_list t('account.signout'), destroy_account_session_path, "delete" %>
   </ul>
 </div>
