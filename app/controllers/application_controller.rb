@@ -1,7 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-
-  before_filter :add_initial_breadcrumbs
+  # before_filter :add_initial_breadcrumbs
   after_filter :referer_session
   layout :template
 
@@ -37,8 +36,8 @@ class ApplicationController < ActionController::Base
 
   private
     
-    def add_initial_breadcrumbs
-      breadcrumbs.add t('global.home'), root_path, :id => 'home'
-    end
+    # def add_initial_breadcrumbs
+      # breadcrumbs.add t('global.home'), root_path, :id => 'home'
+    # end
 
 end
