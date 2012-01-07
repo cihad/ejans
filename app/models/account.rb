@@ -18,6 +18,7 @@ class Account < ActiveRecord::Base
   has_one :credit, :as => :creditable
   has_and_belongs_to_many :roles, :limit => 1
   has_many :notifications, :as => :notificationable
+  has_many :ideas
 
   # Callbacks
   after_create :add_starter_credit

@@ -1,4 +1,6 @@
 Proje::Application.routes.draw do
+  resources :ideas
+
   # Home
   root :to => 'services#index'
   get "home/index"
@@ -37,6 +39,8 @@ Proje::Application.routes.draw do
       get :statics, :on => :member
     end
   end
+
+  resources :ideas, :only => [:create, :destroy]
 
 
   # The priority is based upon order of creation:

@@ -20,6 +20,7 @@ tr:
     credit: 'Kredi'
     loading: 'yükleniyor...'
     free: 'Ücretsiz'
+    email: 'Email'
 
   account:
     signin: 'Giriş yap'
@@ -87,3 +88,15 @@ tr:
   payments:
     name: 'Ödemeler'
     
+  search:
+    no_service: 'Servis bulunamadı'
+    description: 'Aradığınız - %{search} - ile ilgili bir sonuç bulunamadı.'
+    suggestion: 'Öneri'
+    suggestions: 'Öneriler'
+    s1: 'Tüm kelimeleri doğru yazdığınızdan emin olun.'
+    s3: 'Daha genel anahtar kelimeleri deneyin.'
+    s2: 'Başka anahtar kelimeleri deneyin.'
+    notice_me: 'Beni bilgilendir'
+    notice_desc: 'Bu aramayla ilgili yeni bir servis çıkınca size haber etmemizi istiyorsanız aşağıdaki formu doldurun.'
+    submit: 'Gönder'
+    submit_success: 'Öneriniz kaydedilmiştir. Bu aramayla ilgili bir sonuç çıktığında sizi email ile bilgilendireceğiz.'
