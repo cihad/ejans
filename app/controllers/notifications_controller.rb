@@ -105,7 +105,7 @@ class NotificationsController < ApplicationController
     end
   end
 
-  def statics
+  def statistics
     @notification = Notification.find(params[:id])
   end
 

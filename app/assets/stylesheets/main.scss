@@ -99,7 +99,7 @@ span.active {
 .topbar-wrapper .topbar .topbar-inner {
   padding-left: 20px;
   padding-right: 20px;
-  @include border-radius(3px);
+  @include border-radius(2px);
 }
 
 .notice-dropdown ul {

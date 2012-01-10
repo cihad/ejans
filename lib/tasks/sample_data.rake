@@ -136,7 +136,7 @@ def make_notifications
       puts array.to_s
       notification = service.notifications.create(
         :title => Populator.words(2..5).titleize,
-        :description => Faker::Lorem.paragraphs(5),
+        :description => Faker::Lorem.paragraphs(5).join("<br /><br />"),
         :sms => Faker::Lorem.paragraph.truncate(150),
         :selection_ids => array,
         :available_until => Date.today + Random.new.rand(-10..10),

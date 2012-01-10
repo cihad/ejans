@@ -12,6 +12,8 @@ gem 'friendly_id', '~> 4.0.0.beta14'
 gem 'cancan'
 gem 'thinking-sphinx'
 gem 'geocoder'
+gem 'resque'
+gem 'roadie'
 
 # Groups
 group :assets do

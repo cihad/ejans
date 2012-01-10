@@ -1,5 +1,7 @@
 class Notification < ActiveRecord::Base
 
+  require 'resque'
+
   SMS_LENGTH = 160
 
   # Callbacks
@@ -98,14 +100,7 @@ class Notification < ActiveRecord::Base
 
   # Native method
   def add_notification_to_subscriptions
-    unless subscriptions.blank?
-      self.subscriptions.each do |subscription|
-        if subscription.account.credit.credit >= service.service_price.receiver_credit
-          new_notice = subscription.notices.create!(:notification => self)
-          subscription.account.credit.decrement!(:credit, self.service.service_price.receiver_credit)
-        end
-      end
-    end
+    Resque.enqueue(SendNotification, self.id)
   end
 
   def subscription_count(selections = [])

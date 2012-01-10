@@ -30,7 +30,7 @@ tr:
 
   notices:
     name: 'Bildiriler'
-    no_notice: 'Hiç yeni bildiri yok'
+    no_notice: 'Yeni bildiri yok'
     all: 'Bütün bildiriler'
 
   services:
