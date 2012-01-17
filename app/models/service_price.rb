@@ -10,3 +10,15 @@ class ServicePrice < ActiveRecord::Base
                               
 
 end
+# == Schema Information
+#
+# Table name: service_prices
+#
+#  id              :integer(4)      not null, primary key
+#  service_id      :integer(4)
+#  sender_credit   :integer(4)      default(0)
+#  receiver_credit :integer(4)      default(0)
+#  created_at      :datetime
+#  updated_at      :datetime
+#
+

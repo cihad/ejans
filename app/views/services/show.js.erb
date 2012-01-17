@@ -1,2 +1,2 @@
-$("#service-notification").html("<%= escape_javascript(render("notifications")) %>");
+$("#notifications").html("<%= escape_javascript(render @notifications) %>");
 $("#paginate").html("<%= escape_javascript(paginate @notifications) %>");

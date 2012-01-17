@@ -10,8 +10,12 @@
     <% @subscription.notices.each do |notice| %>
       <li class="<%= notice.read? ? "read" : "unread" %>">
         <%= link_to [notice.notification.service, notice.notification], :class => "data-remote" do %>
-          <%= "<span class=\"label success\">New</span>".html_safe if notice.new? %>
-          <%= notice.notification.sms %>
+          <% unless notice.sufficient_credit? %>
+            <%= content_tag :span, t('.insuffient_credit'), :class => "label warning" %>
+          <% else %>
+            <%= content_tag :span, t('global.new'), :class => "label success" if notice.new? %>
+            <%= notice.notification.sms %>
+          <% end %>
         <% end %>
       </li> 
     <% end %>

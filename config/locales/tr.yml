@@ -21,6 +21,8 @@ tr:
     loading: 'yükleniyor...'
     free: 'Ücretsiz'
     email: 'Email'
+    denied_access: 'Erişim reddedildi'
+    insufficient_credit: 'Yeterli krediniz yok.'
 
   account:
     signin: 'Giriş yap'
@@ -54,7 +56,7 @@ tr:
     edit:
       edit_service: 'Servisi düzenle'
       edit_service_title: '"%{title}" servisini düzenle'
-    subscription:
+    subscription_form:
       receivers: 'Alıcılar'
     statics:
       one_subscriber: 'takipçi'
@@ -84,6 +86,17 @@ tr:
     show:
       available: 'Hangi tarihe kadar geçerli'
       selected: 'Bu seçeneğe abonesiniz'
+      add_my_account: 'Bildiriyi hesabıma ekle'
+      insufficient_credit: 'Yetersiz kredi'
+    notification:
+      insufficient_credit: 'Bu bildiri size gönderildi. Krediniz yetersiz olduğu için bildiriyi alamadınız.'
+      sufficient_credit: 'Şimdi yeterli krediniz var.'
+      before_time: 'Bu bildiri servise abone olmadığınız bir zamanda gönderildiği için göremiyorsunuz.'
+
+  subscriptions:
+    show:
+      insufficient_credit: 'Krediniz yetersiz olduğu için bu bildiriyi göremezsiniz.'
+      buy_credit: 'Kredi almak için tıklayınız.'
 
   payments:
     name: 'Ödemeler'

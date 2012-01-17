@@ -53,6 +53,10 @@ class Notification < ActiveRecord::Base
     !self.active?
   end
 
+  def free?
+    self.passive? || (service.service_price.receiver_credit == 0)
+  end
+
   def destroy_selections
     self.selections.destroy_all
   end
@@ -126,3 +130,22 @@ class Notification < ActiveRecord::Base
   end
 
 end
+# == Schema Information
+#
+# Table name: notifications
+#
+#  id                    :integer(4)      not null, primary key
+#  service_id            :integer(4)
+#  title                 :string(255)
+#  sms                   :string(255)
+#  description           :text
+#  created_at            :datetime
+#  updated_at            :datetime
+#  published             :boolean(1)      default(FALSE)
+#  published_at          :datetime
+#  slug                  :string(255)
+#  notificationable_id   :integer(4)
+#  notificationable_type :string(255)
+#  available_until       :date
+#
+

@@ -42,7 +42,7 @@ class SubscriptionsController < ApplicationController
       redirect_to @service, alert: "Subscription was successfull destroyed. Please select minumum a item from each filter for be subscriber."
     else
       if @subscription.update_attributes(params[:subscription])
-        redirect_to @service, notice: 'Subscription was successfully updated.'
+        redirect_to @service, notice: "Subscription was successfully updated."
       else
         render action: "edit"
       end

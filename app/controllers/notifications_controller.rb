@@ -4,12 +4,6 @@ class NotificationsController < ApplicationController
 
   def show
     @notification = Notification.find(params[:id])
-    unless @notification.service.service_price.receiver_credit == 0 or
-       (account_signed_in? and current_account.notices.find_by_notification_id(params[:id])) or 
-       (account_signed_in? and current_account.subscribing?(@service) and current_account.subscription(@service).selected_notification?(@notification)) or
-       !@notification.active?
-      redirect_to @service, alert: "You are not authorized this notification."
-    end
 
     if account_signed_in?
       if notice = current_account.notices.find_by_notification_id(params[:id])

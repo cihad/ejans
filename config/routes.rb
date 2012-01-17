@@ -21,7 +21,7 @@ Proje::Application.routes.draw do
       get :edit, :on => :collection
     end
 
-    resources :payments, :except => [:edit, :update, :destroy] do
+    resources :payments, :only => [:index, :new, :create] do
       get :history, :on => :collection
     end
   end
@@ -39,6 +39,7 @@ Proje::Application.routes.draw do
       get :statistics, :on => :member
     end
   end
+  resources :notices, :only => :create
 
   resources :ideas, :only => [:create, :destroy]
 

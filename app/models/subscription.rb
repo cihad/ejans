@@ -1,4 +1,5 @@
 class Subscription < ActiveRecord::Base
+
   # Associations
   belongs_to :account
   belongs_to :service
@@ -9,18 +10,14 @@ class Subscription < ActiveRecord::Base
   has_many :notifications, :through => :notices
 
   # Callbacks
-  after_commit :false_new
+  after_commit :do_false
 
   # When user creating subscription
   def valid_filter?(selection_ids)
     if selection_ids.nil?
       false
     else
-      array = []
-      selection_ids.each do |id|
-        array << Selection.find(id).filter_id
-      end
-
+      array = selection_ids.inject([]) { |a, id| a << Selection.find(id).filter_id }
       array.uniq.size == self.service.filters.size ? true : false
     end
   end
@@ -43,9 +40,39 @@ class Subscription < ActiveRecord::Base
     service.notifications.select { |notification| selected_notification?(notification) }
   end
 
+  def notice(notification)
+    self.notices.find_by_notification_id(notification.id)
+  end
+
+  def have_notice?(notification)
+    self.notice(notification).present?
+  end
+
+  def access_notification?(notification)
+    self.have_notice?(notification) ? self.notice(notification).sufficient_credit? : false
+  end
+
+  def have_notice?(notification)
+    notices.find_by_notification_id(notification.id) ? true : false
+  end
+
   private
 
-    def false_new
+    def do_false
       self.notices.update_all :new => false
     end
 end
+# == Schema Information
+#
+# Table name: subscriptions
+#
+#  id         :integer(4)      not null, primary key
+#  account_id :integer(4)
+#  service_id :integer(4)
+#  email      :boolean(1)      default(FALSE)
+#  sms        :boolean(1)      default(FALSE)
+#  active     :boolean(1)      default(TRUE)
+#  created_at :datetime
+#  updated_at :datetime
+#
+

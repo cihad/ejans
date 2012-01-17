@@ -1,4 +1,34 @@
-<% page_name = @notification.title %>
+<% if @notification.active? %>
+  <% if account_signed_in? and current_account.subscribing?(@service) %>
+    <% subscription = current_account.subscription(@service) %>
+    <% if subscription.have_notice?(@notification) %>
+      <% notice = subscription.notice(@notification) %>
+      <% if notice.sufficient_credit? %>
+        <% show = true %>
+      <% else %>
+        <% show = false %>
+        <% form = current_account.credit.credit >= @notification.service.service_price.receiver_credit %>
+        <% message_title = t('.insufficient_credit') %>
+        <% if current_account.credit.credit < @notification.service.service_price.receiver_credit %>
+          <% message_body = t('subscriptions.show.buy_credit') %>
+        <% else %>
+          <% message_body = t('notifications.notification.sufficient_credit') %>
+        <% end %>
+      <% end %>
+    <% else %>
+      <% show = false %>
+      <% form = current_account.credit.credit >= @notification.service.service_price.receiver_credit %>
+      <% message_body = t('notifications.notification.before_time') %>
+    <% end %>
+  <% else %>
+    <% show = false %>
+    <% message_body = t('notifications.notification.not_subscribing') %>
+  <% end %>
+<% else %>
+  <% show = true %>
+<% end %>
+
+<% page_name = show ? @notification.title : t('global.denied_access') %>
 <%= title page_name %>
 <%
   breadcrumbs.add t("global.services"), services_path
@@ -7,45 +37,74 @@
 %>
 
 <article>
-  <%= content_tag :h2, page_name %>
+  <% unless show %>
 
-  <ul id="selections-list">
-    <% @notification.selections.each do |selection| %>
-      <% if account_signed_in? and
-            current_account.subscribing?(@notification.service) and
-            current_account.subscription(@notification.service).selections.include?(selection) %>
-        <li class="active"  data-placement="above" rel='twipsy' title='<%= t('.selected') %>'>
-          <%= selection.label %>
-          <span>✓</span>
-        </li>
-      <% else %>
-        <li><%= selection.label %></li>
+
+    <div class="alert-message block-message warning">
+      <p>
+        <% if message_title %>
+          <strong><%= message_title %>!</strong>
+        <% end %>
+        <%= message_body %>
+      </p>
+      <div class="alert-actions">
+        <% if form %>
+          <%= form_for Notice.new(:notification_id => @notification.id) do |f| %>
+            <%= f.hidden_field :notification_id %>
+            <%= f.submit t('.add_my_account') %>
+          <% end %>
+        <% else %>
+          <span data-placement="below" rel="twipsy" data-original-title="Yeterli krediniz yok" class="btn small disabled"><%= t('.add_my_account') %></span>
+          <%= link_to t('subscriptions.show.buy_credit'), payments_path, :class => "btn small" %>
+        <% end %>
+      </div>
+    </div>
+
+
+  <% else %>
+
+
+    <%= content_tag :h2, page_name %>
+    <ul id="selections-list">
+      <% @notification.selections.each do |selection| %>
+        <% if account_signed_in? and
+              current_account.subscribing?(@notification.service) and
+              current_account.subscription(@notification.service).selections.include?(selection) %>
+          <li class="active"  data-placement="above" rel='twipsy' title='<%= t('.selected') %>'>
+            <%= selection.label %>
+            <span>✓</span>
+          </li>
+        <% else %>
+          <li><%= selection.label %></li>
+        <% end %>
       <% end %>
-    <% end %>
-  </ul>
+    </ul>
 
-  <script>
-    $(function () {
-      $("li[rel=twipsy]").twipsy({
-        live: true
-      })
-    })
-  </script>
+    <p style="font-weight: bold">
+      <i><%= @notification.sms %></i>
+    </p>
 
-  <p style="font-weight: bold">
-    <i><%= @notification.sms %></i>
-  </p>
+    <p>
+      <%= simple_format @notification.description %>
+    </p>
 
-  <p>
-    <%= simple_format @notification.description %>
-  </p>
+    <p>
+      <%= t('global.created') %>: <strong><%= @notification.created_at %></strong><br>
+      <%= t('.available') %>: <strong><%= @notification.available_until %></strong>
+      <%= content_tag :span, "active", :class => "active" if @notification.active? %><br>
+    </p>
 
-  <p>
-    <%= t('global.created') %>: <strong><%= @notification.created_at %></strong><br>
-    <%= t('.available') %>: <strong><%= @notification.available_until %></strong>
-    <%= content_tag :span, "active", :class => "active" if @notification.active? %><br>
-  </p>
+    <%= link_to t('global.edit'), edit_service_notification_path(@service, @notification) %> |
+    <%= link_to t('global.back'), @service %>
 
-  <%= link_to t('global.edit'), edit_service_notification_path(@service, @notification) %> |
-  <%= link_to t('global.back'), @service %>
+
+  <% end %>
 </article>
+
+<script>
+$(function () {
+  $("[rel=twipsy]").twipsy({
+    live: true
+  })
+})
+</script>

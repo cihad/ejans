@@ -1,0 +1,30 @@
+<%= form_for(@subscription) do |f| %>
+
+  <%= hidden_field_tag "subscription[service_id]", @service.id %>
+
+  <% for filter in @service.filters %>
+    <div class="filter fields row">
+      <label class="span2"><%= filter.name %></label>
+      <div class="span5">
+        <%= collection_select :subscription, :selection_ids, filter.selections.order("position"), :id, :label, {}, {:multiple => true, :id => "subscription_selection_ids_#{filter.id}" } %>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <%= f.label t('.receivers'), :class => "span2" %>
+    <div class="span5">
+      <%= f.check_box :email %>
+      <%= f.label :email %>
+      <%= f.check_box :sms %>
+      <%= f.label :sms %>
+    </div>
+  </div>
+
+  <div class="alert-actions row">
+    <div class="span5 offset2">
+      <%= f.submit t("global.subscribe"), :class => "btn success span4" %>
+    </div>
+  </div>
+
+<% end %>

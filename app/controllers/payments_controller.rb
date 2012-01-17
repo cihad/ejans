@@ -1,8 +1,9 @@
 class PaymentsController < ApplicationController
   include ActionView::Helpers::NumberHelper
-  load_and_authorize_resource
+  #load_and_authorize_resource
 
   def index
+    
   end
 
   def new

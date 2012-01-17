@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120106150130) do
+ActiveRecord::Schema.define(:version => 20120111091132) do
 
   create_table "accounts", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false
@@ -81,10 +81,11 @@ ActiveRecord::Schema.define(:version => 20120106150130) do
   create_table "notices", :force => true do |t|
     t.integer  "subscription_id"
     t.integer  "notification_id"
-    t.boolean  "read",            :default => false
+    t.boolean  "read",              :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "new",             :default => true
+    t.boolean  "new",               :default => true
+    t.boolean  "sufficient_credit", :default => true
   end
 
   add_index "notices", ["notification_id"], :name => "index_notices_on_notification_id"

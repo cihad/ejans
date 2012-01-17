@@ -98,3 +98,16 @@ class Service < ActiveRecord::Base
     return notifications.map(&:id)
   end
 end
+# == Schema Information
+#
+# Table name: services
+#
+#  id          :integer(4)      not null, primary key
+#  owner_id    :integer(4)
+#  title       :string(255)
+#  description :text
+#  created_at  :datetime
+#  updated_at  :datetime
+#  slug        :string(255)
+#
+

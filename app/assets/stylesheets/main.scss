@@ -238,9 +238,9 @@ ul.dropdown-menu li {
       }
 
       a {
-        padding: 10px 0 10px 0;
+        padding: 10px 20px 10px 0;
         display: block;
-        background: url(images/gray_arrow_right.png) center right no-repeat;
+        background: url(images/gray_arrow_right.png) right center no-repeat;
         color: $grayDark;
 
         &:hover {
@@ -251,11 +251,29 @@ ul.dropdown-menu li {
           
         }
       }
-      
-      p {
-        margin: 0;
-        padding-right: 30px;
-        background: url("images/gray_arrow_right.png") center right no-repeat;
+
+      .access-denied {
+        padding: 10px 20px 10px 0;
+        background: lighten($yellow, 40%);
+        color: $gray;
+        position: relative;
+
+        .list-form {
+          position: absolute;
+          right: 0;
+          top: 10px;
+          input[type=submit] {
+            width: auto;
+            padding: 3px;
+          }
+        }
+      }
+
+    }
+
+    .added {
+      a {
+        background: url('images/tick.png') right center no-repeat !important;
       }
     }
   }
@@ -587,8 +605,6 @@ ul.notices {
        @include vertical-gradient(lighten($yellow, 30%), lighten($yellow, 43%));
       }   
     }
-
-
   }
 }
 

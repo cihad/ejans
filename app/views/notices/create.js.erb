@@ -1,0 +1,7 @@
+<% if @message %>
+  $('#notification_<%= @notification.id %> .access-denied').html("<%= @message %>")
+<% else %>
+  $('#notifications #notification_<%= @notification.id %>').html("<%=j link_to @notification.sms, service_notification_path(@notification.service, @notification), :class => "data-remote" %>")
+    .addClass("added")
+    .animate({'background-color':'white'}, 1000);
+<% end %>

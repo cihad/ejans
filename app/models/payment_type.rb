@@ -7,3 +7,15 @@ class PaymentType < ActiveRecord::Base
           :allow_destroy => true,
           :reject_if => proc { |attributes| attributes['credit'].blank? or attributes['price'].blank? }
 end
+# == Schema Information
+#
+# Table name: payment_types
+#
+#  id          :integer(4)      not null, primary key
+#  name        :string(255)
+#  description :text
+#  active      :boolean(1)
+#  created_at  :datetime
+#  updated_at  :datetime
+#
+

@@ -7,9 +7,8 @@ class Ability
     if user.role? :admin
       can :manage, :all
     elsif user.role? :authenticated
-      can :read, [Service, Subscription, Notification]
-      can :update, [Subscription]
-      can :create, [Subscription]
+      can :read, [Service, Notification]
+      can :manage, Subscription
     else
       can :read, [Service, Notification]
     end
