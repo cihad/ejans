@@ -9,7 +9,7 @@ class ServicesController < ApplicationController
     @service = Service.find(params[:id])
 
     if @service.service_price.receiver_credit == 0
-      @notifications = @service.notifications.page(params[:page])
+      @notifications = @service.notifications.where(published: true).page(params[:page])
     else
       if account_signed_in? and current_account.subscribing?(@service)
         subscriptions = current_account.subscriptions.find_by_service_id(@service)

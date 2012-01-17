@@ -13,6 +13,5 @@ class Ability
       can :read, [Service, Notification]
     end
 
-
   end
 end
