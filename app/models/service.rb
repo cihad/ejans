@@ -43,59 +43,23 @@ class Service < ActiveRecord::Base
     selections.inject(h) { |hash, selection| hash[selection.filter.id] << selection.id; hash }
   end
 
-  def which_notifications(selections = [])
-    notifications = []
-    filters = self.filters
-    # Nofication's Service's Filters
+  def selections_map_by_selection_ids(selections)
+    h = Hash.new { |hash, key| hash[key] = [] }
+    selections = Selection.find(selections).includes(:filter)
+    selections.inject(h) { |hash, selection| hash[selection.filter.id] << selection.id; hash }
+  end
 
-    filters_map = {}
-    # Nofication's Service's Selections
-    # {:filter_id => [selection_id1,selection_id2,...], ...}
+  def selected_notification_by_selection_ids?(notification, selection_ids = [])
+    notification_selections_map = notification.selections_map
+    selections_map_by_selection_ids(selections_ids).inject([]) do |a, filter_selection|
+      filter_id, selection_ids = filter_selection
+      a << (selection_ids & notification_selections_map[filter_id]).present?
+      a
+    end.all? { |v| v == true }
+  end
 
-    filters.each do |filter|
-      filters_map["#{filter.id}"] = []
-      selections.each do |selection|
-        selection = Selection.find(selection)
-        if selection.filter == filter
-          filters_map["#{filter.id}"] << selection.id
-        end
-      end
-    end
-
-    self.notifications.each do |notification|
-      notification_selections = {}
-      filters.each do |filter|
-        notification_selections["#{filter.id}"] = []
-        notification.selections.each do |selection|
-          if selection.filter == filter
-            notification_selections["#{filter.id}"] << selection.id
-          end
-        end
-      end
-
-      array = []
-      # [true,false,...]
-      notification_selections.each do |filter_id, selection_ids|
-        array1 = []
-        selection_ids.each do |selection_id|
-          if filters_map["#{filter_id}"].include?(selection_id)
-            array1 << true
-          end
-        end
-
-        if array1.include? true
-          array << true
-        else
-          array << false
-        end
-      end
-
-      if !(array.include? false)
-        notifications << notification
-      end
-    end
-
-    return notifications.map(&:id)
+  def which_notifications(selection_ids = [])
+    self.notifications.select { |notification| selected_notification_by_selection_ids?(notification, selection_ids) }
   end
 end
 # == Schema Information

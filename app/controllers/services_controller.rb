@@ -12,15 +12,15 @@ class ServicesController < ApplicationController
       @notifications = @service.notifications.where(published: true).page(params[:page])
     else
       if account_signed_in? and current_account.subscribing?(@service)
-        subscriptions = current_account.subscriptions.find_by_service_id(@service)
-        selections = subscriptions.selections.map(&:id)
-        @notifications = Notification.find(@service.which_notifications(selections))
+        subscription = current_account.subscription(@service)
+        selection_ids = subscription.selections.map(&:id)
+        @notifications = Notification.find(@service.which_notifications(selection_ids))
       else
         @notifications = @service.notifications.unavailable.page(params[:page])
       end
     end
 
-    @subscription = current_account.subscriptions.find_by_service_id(@service) if account_signed_in?
+    @subscription = current_account.subscription(@service) if account_signed_in?
 
     if !@subscription
       @subscription = @service.subscriptions.build
