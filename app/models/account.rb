@@ -19,6 +19,7 @@ class Account < ActiveRecord::Base
   has_and_belongs_to_many :roles, :limit => 1
   has_many :notifications, :as => :notificationable
   has_many :ideas
+  has_many :comments, :foreign_key => "author_id", :class_name => "Comment"
 
   # Callbacks
   after_create :add_starter_credit

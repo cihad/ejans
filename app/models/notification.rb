@@ -14,6 +14,7 @@ class Notification < ActiveRecord::Base
   has_many :notices
   has_many :subscriptions, :through => :notices
   belongs_to :notificationable, :polymorphic => true
+  has_many :comments, :dependent => :destroy
 
   # Scope
   scope :published, where(:published => true)

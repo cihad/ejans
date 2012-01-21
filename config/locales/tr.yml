@@ -113,3 +113,6 @@ tr:
     notice_desc: 'Bu aramayla ilgili yeni bir servis çıkınca size haber etmemizi istiyorsanız aşağıdaki formu doldurun.'
     submit: 'Gönder'
     submit_success: 'Öneriniz kaydedilmiştir. Bu aramayla ilgili bir sonuç çıktığında sizi email ile bilgilendireceğiz.'
+
+  comments:
+    comment_title: 'Yorumlar'

@@ -608,6 +608,36 @@ ul.notices {
   }
 }
 
+// COMMENTS
+#comments {
+  margin-top: 50px;
+
+  h3 {
+    line-height: 2em;
+    border-bottom: 1px solid $grayLight;
+    margin-bottom: 20px;
+  }
+}
+.comment {
+  margin-bottom: 10px; 
+  .author {}
+
+  .body {
+    @include border-radius(3px);
+    background: $grayLighter;
+    padding: 4px;
+    font-size: 11px;
+
+    .ins {
+      @include border-radius(2px);
+      background: #fff;
+      border: 1px solid $grayLight;
+      padding: 7px;
+    }
+  }
+
+}
+
 
 // FOOTER
 //<!--footer

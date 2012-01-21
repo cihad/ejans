@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120111091132) do
+ActiveRecord::Schema.define(:version => 20120119133026) do
 
   create_table "accounts", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false
@@ -38,6 +38,17 @@ ActiveRecord::Schema.define(:version => 20120111091132) do
 
   add_index "accounts_roles", ["account_id"], :name => "index_accounts_roles_on_account_id"
   add_index "accounts_roles", ["role_id"], :name => "index_accounts_roles_on_role_id"
+
+  create_table "comments", :force => true do |t|
+    t.integer  "notification_id"
+    t.integer  "author_id"
+    t.text     "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "comments", ["author_id"], :name => "index_comments_on_author_id"
+  add_index "comments", ["notification_id"], :name => "index_comments_on_notification_id"
 
   create_table "credit_histories", :force => true do |t|
     t.integer  "credit_id"

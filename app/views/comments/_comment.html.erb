@@ -1,0 +1,15 @@
+<div class="row comment <%#= "notification_user" if comment.author == notification.account %>">
+  <div class="span2 offset1">
+    <div class="author">
+      <%= comment.author.email.split("@")[0] %>
+    </div>
+  </div>
+  <div class="span8">
+    <div class="body">
+      <div class="ins">
+        <%= simple_format comment.body %>
+        <%= comment.created_at %>
+      </div>
+    </div>
+  </div>
+</div>

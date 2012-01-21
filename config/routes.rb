@@ -1,6 +1,4 @@
 Proje::Application.routes.draw do
-  resources :ideas
-
   # Home
   root :to => 'services#index'
   get "home/index"
@@ -40,9 +38,8 @@ Proje::Application.routes.draw do
     end
   end
   resources :notices, :only => :create
-
+  resources :comments, :only => [:create, :destroy]
   resources :ideas, :only => [:create, :destroy]
-
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

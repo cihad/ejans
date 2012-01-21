@@ -94,6 +94,14 @@
       <%= content_tag :span, "active", :class => "active" if @notification.active? %><br>
     </p>
 
+
+    <div id="comments">
+      <h3><%= t('comments.comment_title') %></h3>
+      <%= render @notification.comments %>
+    </div>
+
+    <%= render 'comments/form', :notification => @notification %>
+
     <%= link_to t('global.edit'), edit_service_notification_path(@service, @notification) %> |
     <%= link_to t('global.back'), @service %>
 

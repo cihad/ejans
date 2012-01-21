@@ -1,7 +1,8 @@
 class PaymentsController < ApplicationController
   include ActionView::Helpers::NumberHelper
+  before_filter :authenticate_account!
   #load_and_authorize_resource
-
+  
   def index
     
   end
