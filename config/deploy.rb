@@ -1,22 +1,48 @@
-set :application, "set your application name here"
-set :repository,  "set your repository location here"
+set :application, "ejans"
+set :domain, "ejans.com"
+set :repository,  "."
 
-set :scm, :subversion
+set :scm, :git
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
 
-role :web, "your web-server here"                          # Your HTTP server, Apache/etc
-role :app, "your app-server here"                          # This may be the same as your `Web` server
-role :db,  "your primary db-server here", :primary => true # This is where Rails migrations will run
-role :db,  "your slave db-server here"
+# User account on the remote server
+set :user, 'deploy'
+set :use_sudo, false
+
+# Directory on the server where the
+# application will reside.
+set :deploy_to, "/var/www/#{application}"
+
+# Remote Cache Strategy
+# Updates a remote copy of the code instead of
+# doing a full checkout every time.
+set :deploy_via, :remote_cache
+
+# Your HTTP server, Apache/etc
+role :web, domain
+
+# This may be the same as your `Web` server
+role :app, domain
+
+# This is where Rails migrations will run
+role :db,  domain, :primary => true
+role :db,  domain
+
+
+after "deploy", "deploy:bundle_gems"
+after "deploy:bundle_gems", "deploy:restart"
 
 # if you're still using the script/reaper helper you will need
 # these http://github.com/rails/irs_process_scripts
 
 # If you are using Passenger mod_rails uncomment this:
-# namespace :deploy do
-#   task :start do ; end
-#   task :stop do ; end
-#   task :restart, :roles => :app, :except => { :no_release => true } do
-#     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
-#   end
-# end
+namespace :deploy do
+  task :bundle_gems do
+    run "cd #{deploy_to}/current && bundle install vendor/gems"
+  end
+  task :start do ; end
+  task :stop do ; end
+  task :restart, :roles => :app, :except => { :no_release => true } do
+    run "touch #{File.join(current_path,'tmp','restart.txt')}"
+  end
+end
