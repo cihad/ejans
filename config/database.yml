@@ -36,6 +36,7 @@ production:
   encoding: utf8
   reconnect: false
   database: ejans_production
+  host: ejans.com
   pool: 5
   username: root
   password: Chad1234
