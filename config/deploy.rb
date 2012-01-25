@@ -30,6 +30,7 @@ role :db,  domain
 
 
 after "deploy", "deploy:bundle_gems"
+after "deploy", "rvm:trust_rvmrc"
 after "deploy:bundle_gems", "deploy:restart"
 
 # if you're still using the script/reaper helper you will need
@@ -46,3 +47,21 @@ namespace :deploy do
     run "touch #{File.join(current_path,'tmp','restart.txt')}"
   end
 end
+
+namespace :rvm do
+  task :trust_rvmrc do
+    run "rvm rvmrc trust #{release_path}"
+  end
+end
+
+
+# Add RVM's lib directory to the load path.
+$:.unshift(File.expand_path('./lib', ENV['rvm_path']))
+# Load RVM's capistrano plugin.
+require "rvm/capistrano"
+# Or whatever env you want it to run in.
+set :rvm_ruby_string, 'ruby-1.9.2@proje'
+# Copy the exact line. I really mean :user here
+set :rvm_type, :User
+
+set :rvm_bin_path, "/usr/local/rvm/bin"
