@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.1.1'
-gem 'mysql2', '0.3.10'
+gem 'rails', '3.2.0'
+gem 'mysql2'
 gem 'jquery-rails'
 
 gem 'devise', '1.4.9'
@@ -11,19 +11,19 @@ gem 'kaminari'
 gem 'friendly_id', '~> 4.0.0.beta14'
 gem 'cancan'
 gem 'thinking-sphinx'
-gem 'geocoder'
 gem 'resque'
 gem 'roadie'
+gem 'capistrano'
 
 # Groups
 group :assets do
-  gem 'sass-rails',   '~> 3.1.4'
-  gem 'coffee-rails', '~> 3.1.1'
+  gem 'sass-rails',   '~> 3.2.3'
+  gem 'coffee-rails', '~> 3.2.1'
   gem 'uglifier', '>= 1.0.3'
+  gem 'therubyracer'
 end
 
 group :development do
-  gem 'therubyracer'
   gem 'annotate', :git => 'git://github.com/ctran/annotate_models.git'
   gem 'faker'
   gem 'populator'
