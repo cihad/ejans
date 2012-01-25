@@ -177,7 +177,7 @@ DEPENDENCIES
   geocoder
   jquery-rails
   kaminari
-  mysql2
+  mysql2 (= 0.3.10)
   populator
   rack-pjax
   rails (= 3.1.1)

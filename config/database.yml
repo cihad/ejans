@@ -38,5 +38,5 @@ production:
   database: proje_production
   pool: 5
   username: root
-  password:
+  password: Chad1234
   socket: /var/run/mysqld/mysqld.sock

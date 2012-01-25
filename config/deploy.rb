@@ -28,25 +28,24 @@ role :app, domain
 role :db,  domain, :primary => true
 role :db,  domain
 
-
-after "deploy", "deploy:bundle_gems"
+# after "deploy", "deploy:bundle_gems"
+# after "deploy:bundle_gems", "deploy:restart"
 after "deploy", "rvm:trust_rvmrc"
-after "deploy:bundle_gems", "deploy:restart"
 
 # if you're still using the script/reaper helper you will need
 # these http://github.com/rails/irs_process_scripts
 
 # If you are using Passenger mod_rails uncomment this:
-namespace :deploy do
-  task :bundle_gems do
-    run "cd #{deploy_to}/current && bundle install vendor/gems"
-  end
-  task :start do ; end
-  task :stop do ; end
-  task :restart, :roles => :app, :except => { :no_release => true } do
-    run "touch #{File.join(current_path,'tmp','restart.txt')}"
-  end
-end
+# namespace :deploy do
+#   task :bundle_gems do
+#     run "cd #{deploy_to}/current && bundle install vendor/gems"
+#   end
+#   task :start do ; end
+#   task :stop do ; end
+#   task :restart, :roles => :app, :except => { :no_release => true } do
+#     run "touch #{File.join(current_path,'tmp','restart.txt')}"
+#   end
+# end
 
 namespace :rvm do
   task :trust_rvmrc do
@@ -57,11 +56,14 @@ end
 
 # Add RVM's lib directory to the load path.
 $:.unshift(File.expand_path('./lib', ENV['rvm_path']))
+
 # Load RVM's capistrano plugin.
 require "rvm/capistrano"
+
 # Or whatever env you want it to run in.
 set :rvm_ruby_string, '1.9.2@proje'
+
 # Copy the exact line. I really mean :user here
-set :rvm_type, :User
+set :rvm_type, :user
 
 set :rvm_bin_path, "/usr/local/rvm/bin"
