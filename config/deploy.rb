@@ -1,8 +1,8 @@
 set :application, "ejans"
 set :domain, "ejans.com"
-set :repository,  "."
 
-set :scm, :git
+set :repository,  "."
+set :scm, :none
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
 
 # User account on the remote server
@@ -16,7 +16,7 @@ set :deploy_to, "/var/www/#{application}"
 # Remote Cache Strategy
 # Updates a remote copy of the code instead of
 # doing a full checkout every time.
-set :deploy_via, :remote_cache
+set :deploy_via, :copy
 
 # Your HTTP server, Apache/etc
 role :web, domain
@@ -50,7 +50,7 @@ end
 
 namespace :rvm do
   task :trust_rvmrc do
-    run "rvm rvmrc trust #{release_path}"
+    run "rvm rvmrc trust #{latest_release}"
   end
 end
 
@@ -60,7 +60,7 @@ $:.unshift(File.expand_path('./lib', ENV['rvm_path']))
 # Load RVM's capistrano plugin.
 require "rvm/capistrano"
 # Or whatever env you want it to run in.
-set :rvm_ruby_string, 'ruby-1.9.2@proje'
+set :rvm_ruby_string, '1.9.2@proje'
 # Copy the exact line. I really mean :user here
 set :rvm_type, :User
 
