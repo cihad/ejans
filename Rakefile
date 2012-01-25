@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Proje::Application.load_tasks
+Ejans::Application.load_tasks

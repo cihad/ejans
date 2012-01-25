@@ -1,4 +1,4 @@
-Proje::Application.routes.draw do
+Ejans::Application.routes.draw do
   # Home
   root :to => 'services#index'
   get "home/index"

@@ -15,7 +15,7 @@ if defined?(Bundler)
   # Bundler.require(:default, :assets, Rails.env)
 end
 
-module Proje
+module Ejans
   class Application < Rails::Application
     # Rack Pjax
     config.middleware.use Rack::Pjax
