@@ -11,8 +11,10 @@ gem 'kaminari'
 gem 'friendly_id', '~> 4.0.0.beta14'
 gem 'cancan'
 gem 'thinking-sphinx'
+
 gem 'resque'
 gem 'roadie'
+
 gem 'capistrano'
 
 # Groups
@@ -27,4 +29,8 @@ group :development do
   gem 'annotate', :git => 'git://github.com/ctran/annotate_models.git'
   gem 'faker'
   gem 'populator'
+end
+
+group :production do
+  gem 'unicorn'
 end
