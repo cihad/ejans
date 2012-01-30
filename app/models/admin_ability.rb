@@ -2,9 +2,10 @@ class AdminAbility
 
   include CanCan::Ability
 
-  user ||= Account.new
   
   def initialize(user)
+    user ||= Account.new
+    
     if user.role? :admin
       can :manage, :all
     end

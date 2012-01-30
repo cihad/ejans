@@ -10,12 +10,11 @@ gem 'rack-pjax'
 gem 'kaminari'
 gem 'friendly_id', '~> 4.0.0.beta14'
 gem 'cancan'
-gem 'thinking-sphinx'
+gem 'thinking-sphinx', '2.0.10'
 
 gem 'resque'
 gem 'roadie'
 
-gem 'capistrano'
 
 # Groups
 group :assets do
@@ -28,9 +27,10 @@ end
 group :development do
   gem 'annotate', :git => 'git://github.com/ctran/annotate_models.git'
   gem 'faker'
+  gem 'capistrano'
   gem 'populator'
 end
 
 group :production do
-  gem 'unicorn'
+  gem 'unicorn', '4.1.1'
 end

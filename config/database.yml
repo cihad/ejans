@@ -41,3 +41,4 @@ production:
   username: root
   password: Chad1234
   socket: /var/run/mysqld/mysqld.sock
+  port: 3306

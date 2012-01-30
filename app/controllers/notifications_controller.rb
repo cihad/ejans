@@ -44,7 +44,7 @@ class NotificationsController < ApplicationController
         end
       else
         flash.now[:alert] = 'Please select minumum a item from each filter.'
-        format.html { render action: "new",  }
+        format.html { render action: "new" }
         format.js
       end
       # format.html { render action: "new" }
