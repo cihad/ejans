@@ -1,3 +1,4 @@
+rails_env = ENV['RAILS_ENV'] || 'production'
 worker_processes 1
 APP_PATH = '/var/www/ejans'
 working_directory APP_PATH + "/current" # available in 0.94.0+

@@ -21,6 +21,7 @@ after "deploy", "rvm:trust_rvmrc"
 after "deploy", "thinking_sphinx:start"
 after "deploy", "unicorn:reload"
 after "deploy:restart", "deploy:cleanup"
+after "deploy:update_code", "assets:precompile"
 
 
 
@@ -37,7 +38,7 @@ set :rvm_bin_path, "/usr/local/rvm/bin"
 namespace :rvm do
   task :trust_rvmrc do
     run "rvm rvmrc trust #{release_path}"
-  end
+  expand_path
 end
 
 namespace :rake do  
@@ -67,6 +68,13 @@ namespace :unicorn do
   end
 
   after "deploy:restart", "unicorn:reload"
+end
+
+namespace :assets do
+  desc "Precompile assets"
+  task :precompile do
+    run("cd #{release_path}; RAILS_ENV=#{rails_env} RAILS_GROUPS=assets bundle exec rake assets:precompile")
+  end
 end
 
 namespace :thinking_sphinx do
