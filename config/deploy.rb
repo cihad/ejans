@@ -21,8 +21,8 @@ after "deploy", "rvm:trust_rvmrc"
 after "deploy", "thinking_sphinx:start"
 after "deploy", "unicorn:reload"
 after "deploy:restart", "deploy:cleanup"
-after "deploy:update_code", "assets:precompile"
-
+after "deploy", "assets:precompile"
+after "deploy:symlink", "deploy:restart_workers"
 
 
 # Add RVM's lib directory to the load path.
@@ -38,14 +38,14 @@ set :rvm_bin_path, "/usr/local/rvm/bin"
 namespace :rvm do
   task :trust_rvmrc do
     run "rvm rvmrc trust #{release_path}"
-  expand_path
+  end
 end
 
 namespace :rake do  
   desc "Run a task on a remote server."  
   # run like: cap staging rake:invoke task=a_certain_task  
   task :invoke do  
-    run("cd #{deploy_to}/current && bundle exec rake #{ENV['task']} RAILS_ENV=#{rails_env}")  
+    run "cd #{deploy_to}/current && bundle exec rake #{ENV['task']} RAILS_ENV=#{rails_env}"
   end  
 end
 
@@ -73,7 +73,7 @@ end
 namespace :assets do
   desc "Precompile assets"
   task :precompile do
-    run("cd #{release_path}; RAILS_ENV=#{rails_env} RAILS_GROUPS=assets bundle exec rake assets:precompile")
+    run "cd #{current_path} && RAILS_ENV=#{rails_env} rake assets:precompile"
   end
 end
 
@@ -91,5 +91,22 @@ namespace :thinking_sphinx do
   desc "Start Sphinx" 
   task :rebuild do
     run "cd #{current_path} && bundle exec rake thinking_sphinx:rebuild"
+  end
+end
+
+# Rake helper task.
+# https://gist.github.com/797301
+def run_remote_rake(rake_cmd)
+  rake_args = ENV['RAKE_ARGS'].to_s.split(',')
+  cmd = "cd #{fetch(:latest_release)} && #{fetch(:rake, "rake")} RAILS_ENV=#{fetch(:rails_env, "production")} #{rake_cmd}"
+  cmd += "['#{rake_args.join("','")}']" unless rake_args.empty?
+  run cmd
+  set :rakefile, nil if exists?(:rakefile)
+end
+
+namespace :deploy do
+  desc "Restart Resque Workers"
+  task :restart_workers, :roles => :db do
+    run_remote_rake "resque:restart_workers"
   end
 end
