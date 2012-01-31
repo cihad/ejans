@@ -21,19 +21,12 @@ after "deploy", "rvm:trust_rvmrc"
 after "deploy", "thinking_sphinx:start"
 after "deploy", "unicorn:reload"
 after "deploy:restart", "deploy:cleanup"
-after "deploy", "assets:precompile"
-after "deploy:symlink", "deploy:restart_workers"
+#after "deploy", "assets:precompile"
+#after "deploy:symlink", "resque:work"
 
-
-# Add RVM's lib directory to the load path.
-$:.unshift(File.expand_path('./lib', ENV['rvm_path']))
-# Load RVM's capistrano plugin.
-require "rvm/capistrano"
-# Or whatever env you want it to run in.
-set :rvm_ruby_string, '1.9.2@ejans'
 # Copy the exact line. I really mean :user here
+# https://rvm.beginrescueend.com/integration/capistrano/
 set :rvm_type, :user
-set :rvm_bin_path, "/usr/local/rvm/bin"
 
 namespace :rvm do
   task :trust_rvmrc do
@@ -73,7 +66,7 @@ end
 namespace :assets do
   desc "Precompile assets"
   task :precompile do
-    run "cd #{current_path} && RAILS_ENV=#{rails_env} rake assets:precompile"
+    run "cd #{current_path} && RAILS_ENV=#{rails_env} bundle exec rake assets:precompile"
   end
 end
 
@@ -94,19 +87,9 @@ namespace :thinking_sphinx do
   end
 end
 
-# Rake helper task.
-# https://gist.github.com/797301
-def run_remote_rake(rake_cmd)
-  rake_args = ENV['RAKE_ARGS'].to_s.split(',')
-  cmd = "cd #{fetch(:latest_release)} && #{fetch(:rake, "rake")} RAILS_ENV=#{fetch(:rails_env, "production")} #{rake_cmd}"
-  cmd += "['#{rake_args.join("','")}']" unless rake_args.empty?
-  run cmd
-  set :rakefile, nil if exists?(:rakefile)
-end
-
-namespace :deploy do
+namespace :resque do
   desc "Restart Resque Workers"
   task :restart_workers, :roles => :db do
-    run_remote_rake "resque:restart_workers"
+    run "cd #{current_path} && RAILS_ENV=production bundle exec rake resque:work QUEUE=*"
   end
 end

@@ -1,18 +1,28 @@
+# https://rvm.beginrescueend.com/integration/capistrano/
+# Add RVM's lib directory to the load path.
+$:.unshift(File.expand_path('./lib', ENV['rvm_path']))
+# Load RVM's capistrano plugin.
+require "rvm/capistrano"
+# Or whatever env you want it to run in.
+set :rvm_ruby_string, '1.9.2@ejans'
+# Copy the exact line. I really mean :user here
+set :rvm_bin_path, "/usr/local/rvm/bin"
+
 Ejans::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
   # Code is not reloaded between requests
-  config.cache_classes = true
+  config.cache_classes = false
 
   # Full error reports are disabled and caching is turned on
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
 
   # Disable Rails's static asset server (Apache or nginx will already do this)
-  config.serve_static_assets = false
+  config.serve_static_assets = true
 
   # Compress JavaScripts and CSS
-  config.assets.compress = true
+  config.assets.compress = false
 
   # Don't fallback to assets pipeline if a precompiled asset is missed
   config.assets.compile = false
