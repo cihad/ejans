@@ -1,4 +1,5 @@
 require "bundler/capistrano"
+require 'thinking_sphinx/deploy/capistrano'
 
 set :application, "ejans"
 set :domain, "ejans.com"
@@ -18,11 +19,12 @@ role :db,  domain, :primary => true
 default_environment["RAILS_ENV"] = 'production'
 
 after "deploy", "rvm:trust_rvmrc"
-after "deploy", "thinking_sphinx:start"
-after "deploy", "unicorn:reload"
+after "deploy", "unicorn:restart"
 after "deploy:restart", "deploy:cleanup"
-#after "deploy", "assets:precompile"
-#after "deploy:symlink", "resque:work"
+before "deploy:update_code", "ts:stop"
+after "deploy:symlink", "ts:symlink"
+after 'deploy', 'ts:start'
+after "deploy", "assets:precompile"
 
 # Copy the exact line. I really mean :user here
 # https://rvm.beginrescueend.com/integration/capistrano/
@@ -34,33 +36,32 @@ namespace :rvm do
   end
 end
 
-namespace :rake do  
-  desc "Run a task on a remote server."  
-  # run like: cap staging rake:invoke task=a_certain_task  
-  task :invoke do  
-    run "cd #{deploy_to}/current && bundle exec rake #{ENV['task']} RAILS_ENV=#{rails_env}"
-  end  
-end
-
 namespace :unicorn do
   desc "start unicorn"
   task :start, :roles => :app, :except => { :no_release => true } do 
     run "cd #{current_path} && bundle exec unicorn -c #{current_path}/config/unicorn.rb -E #{rails_env} -D"
   end
+
   desc "stop unicorn"
   task :stop, :roles => :app, :except => { :no_release => true } do 
     run "kill `cat #{unicorn_pid}`"
   end
+
   desc "graceful stop unicorn"
   task :graceful_stop, :roles => :app, :except => { :no_release => true } do
     run "kill -s QUIT `cat #{unicorn_pid}`"
   end
+
   desc "reload unicorn"
   task :reload, :roles => :app, :except => { :no_release => true } do
     run "kill -s USR2 `cat #{unicorn_pid}`"
   end
 
-  after "deploy:restart", "unicorn:reload"
+  desc "restart unicorn"
+  task :restart, :roles => :app, :except => { :no_release => true } do
+    stop
+    start
+  end
 end
 
 namespace :assets do
@@ -70,26 +71,40 @@ namespace :assets do
   end
 end
 
-namespace :thinking_sphinx do
-  desc "Index Sphinx" 
-  task :index do
-    run "cd #{current_path} && bundle exec rake thinking_sphinx:index"
+namespace :ts do
+  desc "Stop Sphinx!"
+  task :index, :roles => :app do
+    thinking_sphinx.index
   end
 
-  desc "Start Sphinx" 
-  task :start do
-    run "cd #{current_path} && bundle exec rake thinking_sphinx:start"
+  desc "Stop Sphinx!"
+  task :stop, :roles => :app do
+    thinking_sphinx.stop
   end
 
-  desc "Start Sphinx" 
-  task :rebuild do
-    run "cd #{current_path} && bundle exec rake thinking_sphinx:rebuild"
+  desc "Re-establish symlinks"
+  task :symlink do
+    run <<-CMD
+      rm -rf #{release_path}/db/sphinx &&
+      ln -nfs #{shared_path}/db/sphinx #{release_path}/db/sphinx
+    CMD
+  end
+
+  desc "Symlink, Configure and Start Sphinx!"
+  task :start, :roles => :app do
+    thinking_sphinx.configure
+    thinking_sphinx.start
+  end
+
+  desc "Link up Sphinx's indexes."
+  task :symlink_sphinx_indexes, :roles => :app do
+    run "ln -nfs #{shared_path}/db/sphinx #{current_path}/db/sphinx"
   end
 end
 
 namespace :resque do
   desc "Restart Resque Workers"
-  task :restart_workers, :roles => :db do
+  task :work, :roles => :db do
     run "cd #{current_path} && RAILS_ENV=production bundle exec rake resque:work QUEUE=*"
   end
 end

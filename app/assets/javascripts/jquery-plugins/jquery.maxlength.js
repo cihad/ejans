@@ -1,14 +1,14 @@
-/*
-  @author: remy sharp / http://remysharp.com
-  @params:
-    feedback - the selector for the element that gives the user feedback. Note that this will be relative to the form the plugin is run against.
-    hardLimit - whether to stop the user being able to keep adding characters. Defaults to true.
-    useInput - whether to look for a hidden input named 'maxlength' instead of the maxlength attribute. Defaults to false.
-    words - limit by characters or words, set this to true to limit by words. Defaults to false.
-  @license: Creative Commons License - ShareAlike http://creativecommons.org/licenses/by-sa/3.0/
-  @version: 1.2
-  @changes: code tidy via Ariel Flesler and fix when pasting over limit and including \t or \n
-*/
+
+  // @author: remy sharp / http://remysharp.com
+  // @params:
+  //   feedback - the selector for the element that gives the user feedback. Note that this will be relative to the form the plugin is run against.
+  //   hardLimit - whether to stop the user being able to keep adding characters. Defaults to true.
+  //   useInput - whether to look for a hidden input named 'maxlength' instead of the maxlength attribute. Defaults to false.
+  //   words - limit by characters or words, set this to true to limit by words. Defaults to false.
+  // @license: Creative Commons License - ShareAlike http://creativecommons.org/licenses/by-sa/3.0/
+  // @version: 1.2
+  // @changes: code tidy via Ariel Flesler and fix when pasting over limit and including \t or \n
+
 
 (function ($) {
 

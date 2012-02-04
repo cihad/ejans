@@ -1,55 +1,45 @@
-// This is a manifest file that'll be compiled into including all the files listed below.
-// Add new JavaScript/Coffee code in separate files in this directory and they'll automatically
-// be included in the compiled file accessible from http://example.com/assets/application.js
+// This is a manifest file that'll be compiled into application.js, which will include all the files
+// listed below.
+//
+// Any JavaScript/Coffee file within this directory, lib/assets/javascripts, vendor/assets/javascripts,
+// or vendor/assets/javascripts of plugins, if any, can be referenced here using a relative path.
+//
 // It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
 // the compiled file.
+//
+// WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
+// GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery
 //= require jquery_ujs
 //= require jquery.pjax
-//= require_tree .
-$(function() {
-  // Signin Modal
-  $( "#signin-modal" ).dialog({
-    autoOpen: false,
-    modal: true,
-    title: 'Sign in',
-    width: 300,
-    height: 300,
-    buttons: [
-    {
-        text: "Sign in", click: function() { $("#signin-form").submit(); },
-    }]
-  });
+//= require jquery-ui/jquery.ui.core
+//= require jquery-ui/jquery.ui.widget
+//= require jquery-ui/jquery.ui.mouse
+//= require jquery-ui/jquery.ui.sortable
+//= require jquery-ui/jquery.ui.datepicker
+//= require jquery-ui/jquery.ui.button
+//= require jquery-ui/jquery.effects.core
+//= require jquery-ui/jquery.effects.highlight
+//= require bootstrap/bootstrap-alerts
+//= require bootstrap/bootstrap-dropdown
+//= require bootstrap/bootstrap-modal
+//= require bootstrap/bootstrap-scrollspy
+//= require jquery-plugins/jquery.infieldlabel
+//= require jquery-plugins/jquery.maxlength
+//= require jquery-plugins/jquery.multiselect
+//= require jquery-plugins/jquery.tablesorter
 
-  $( ".signin" )
-    .click(function() {
-      $( "#signin-modal" ).dialog( "open" );
+$(document).ready(function() {
+  $(".signin").click(function() {
+      $( "#signin-modal" ).dialog("open");
   });
 
   // Submit Buttons
-  $( "input:submit, .add-line-item" ).button();
+  $("input:submit, .add-line-item").button();
 
   // Checkbox Buttons
-  $( ".styled-checkbox").button();
-
-  // Account menu
-  $(".account").click(function(e) {
-    e.preventDefault();
-    $("#account_menu").toggle();
-    $(".account").toggleClass("menu-open");
-  });
-
-  $("#account_menu").mouseup(function() {
-    return false
-  });
-
-  $(document).mouseup(function(e) {
-    if($(e.target).parent("a.account").length==0) {
-      $(".account").removeClass("menu-open");
-      $("#account_menu").hide();
-    }
-  });
+  $(".styled-checkbox").button();
   
   // Add filter form
   $(".add-line-item").click(function() {
@@ -59,19 +49,19 @@ $(function() {
   });
 
   $(".line-items").mouseup(function() { // Mouse Up Click
-    return false
+    return false;
   });
 
   // Sms field char count
   $('textarea.limited').maxlength({
-      'feedback' : '.chars-left' // note: looks within the current form
+    'feedback' : '.chars-left' // note: looks within the current form
   });
 
   // Pjax
   $('a.data-remote, .breadcrumbs a').pjax('[data-pjax-container]');
-  // $('[data-pjax-container]')
-  //   .bind('start.pjax', function() { $('[data-pjax-container]').fadeOut(400) })
-  //   .bind('end.pjax', function() { $('[data-pjax-container]').fadeIn(400) });
+  // // $('[data-pjax-container]')
+  // //   .bind('start.pjax', function() { $('[data-pjax-container]').fadeOut(400) })
+  // //   .bind('end.pjax', function() { $('[data-pjax-container]').fadeIn(400) });
 
   if (history && history.pushState) {
     $(".pagination a").live("click", function(e) {
@@ -79,6 +69,7 @@ $(function() {
       history.pushState(null, document.title, this.href); 
       e.preventDefault();
     });
+
     $(window).bind("popstate", function() {
       $.getScript(location.href);
     });
@@ -87,14 +78,15 @@ $(function() {
 });
 
 
-// Selection add/remove
-function remove_fields(link) {
+var add_fields, remove_fields;
+remove_fields = function(link) {
   $(link).prev("input[type=hidden]").val("1");
-  $(link).closest(".fields").hide();
-}
+  return $(link).closest(".fields").hide();
+};
 
-function add_fields(link, association, content) {
-  var new_id = new Date().getTime();
-  var regexp = new RegExp("new_" + association, "g")
-  $(link).parent().before(content.replace(regexp, new_id));
-}
+add_fields = function(link, association, content) {
+  var new_id, regexp;
+  new_id = new Date().getTime();
+  regexp = new RegExp("new_" + association, "g");
+  return $(link).parent().before(content.replace(regexp, new_id));
+};
