@@ -32,7 +32,7 @@ class ServicesController < ApplicationController
     @service = Service.new
     @service.build_service_price
 
-    3.times do
+    Service::FILTER_COUNT.times do
       filter = @service.filters.build
       5.times { filter.selections.build }
     end
@@ -41,7 +41,7 @@ class ServicesController < ApplicationController
   def edit
     @service = Service.find(params[:id])
 
-    form_count = 3 - (@service.filters.count)
+    form_count = Service::FILTER_COUNT - (@service.filters.count)
     form_count.times do
       filter = @service.filters.build
       5.times { filter.selections.new }
@@ -55,7 +55,7 @@ class ServicesController < ApplicationController
       redirect_to @service, notice: "Service was successfully created."
       system "rake thinking_sphinx:index"
     else
-      filters_count = 3 - params["service"]["filters_attributes"].select { |k, v| v["name"].present? }.count
+      filters_count = Service::FILTER_COUNT - params["service"]["filters_attributes"].select { |k, v| v["name"].present? }.count
       filters_count.times do
         filter = @service.filters.build
         5.times { filter.selections.build }
