@@ -55,7 +55,8 @@ class ServicesController < ApplicationController
       redirect_to @service, notice: "Service was successfully created."
       system "rake thinking_sphinx:index"
     else
-      3.times do
+      filters_count = 3 - params["service"]["filters_attributes"].select { |k, v| v["name"].present? }.count
+      filters_count.times do
         filter = @service.filters.build
         5.times { filter.selections.build }
       end
