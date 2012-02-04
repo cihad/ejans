@@ -59,9 +59,16 @@ $(document).ready(function() {
 
   // Pjax
   $('a.data-remote, .breadcrumbs a').pjax('[data-pjax-container]');
-  // // $('[data-pjax-container]')
-  // //   .bind('start.pjax', function() { $('[data-pjax-container]').fadeOut(400) })
-  // //   .bind('end.pjax', function() { $('[data-pjax-container]').fadeIn(400) });
+  // $('[data-pjax-container]')
+  //   .bind('start.pjax', function() { $('[data-pjax-container]').fadeOut(400) })
+  //   .bind('end.pjax', function() { $('[data-pjax-container]').fadeIn(400) });
+  // return $('form[method=get]:not([data-remote])').live('submit', function(event) {
+  //   event.preventDefault();
+  //   return $.pjax({
+  //     container: '[data-pjax-container]',
+  //     url: this.action + '?' + $(this).serialize()
+  //   });
+  // });
 
   if (history && history.pushState) {
     $(".pagination a").live("click", function(e) {
