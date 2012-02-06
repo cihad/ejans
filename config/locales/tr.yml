@@ -7,6 +7,7 @@ tr:
     show: 'Göster'
     edit: 'Düzenle'
     destroy: 'Sil'
+    update: 'Güncelle'
     selection: 'seçenek'
     selections: 'seçenekler'
     title: 'Başlık'
@@ -97,6 +98,8 @@ tr:
     show:
       insufficient_credit: 'Krediniz yetersiz olduğu için bu bildiriyi göremezsiniz.'
       buy_credit: 'Kredi almak için tıklayınız.'
+    service:
+      signin: 'Abone olmak için giriş yapın'
 
   payments:
     name: 'Ödemeler'

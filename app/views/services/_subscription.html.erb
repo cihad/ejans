@@ -1,25 +1,13 @@
 <div id="service-subscription" class="alert-message block-message warning in" style="display: none;">
-  <% if account_signed_in? %>
-    <%= render "subscription_form" %>
-  <% else %>
-    <div>
-      <% for filter in @service.filters %>
-        <span class="filter fields">
-          <%= collection_select :subscription, :selection_ids, filter.selections, :id, :label, {}, {:multiple => true, :id => "subscription_selection_ids_#{filter.id}" } %>
-        </span>
-      <% end %>
-      <button class="btn success" data-controls-modal="modal-from-dom" data-backdrop="true" data-keyboard="true"><%= t('global.subscribe') %></button>
-    </div>
-  <% end %>
+  <%= render "subscription_form" %>
 </div>
 
 <script type="text/javascript">
 $(function() {
   $(".filter select").multiselect({
     selectedList: 1,
-    header: false,
-    minWidth: 180,
-  });
+    minWidth: 350,
+  }).multiselectfilter();
 
   $("#subscription_email, #subscription_sms").button();
 

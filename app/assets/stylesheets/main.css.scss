@@ -211,6 +211,14 @@ ul.dropdown-menu li {
   form {
     display: inline-block;
   }
+
+  div {
+    margin-top:0;
+  }
+}
+
+.ui-multiselect-header {
+  margin: -3px -3px 5px !important;
 }
 
 #service-notification {

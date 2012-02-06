@@ -28,6 +28,7 @@
 //= require jquery-plugins/jquery.infieldlabel
 //= require jquery-plugins/jquery.maxlength
 //= require jquery-plugins/jquery.multiselect
+//= require jquery-plugins/jquery.multiselect.filter
 //= require jquery-plugins/jquery.tablesorter
 
 $(document).ready(function() {

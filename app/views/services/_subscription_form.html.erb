@@ -1,5 +1,4 @@
 <%= form_for(@subscription) do |f| %>
-
   <%= hidden_field_tag "subscription[service_id]", @service.id %>
 
   <% for filter in @service.filters %>
@@ -23,8 +22,15 @@
 
   <div class="alert-actions row">
     <div class="span5 offset2">
-      <%= f.submit t("global.subscribe"), :class => "btn success span4" %>
+      <% if account_signed_in? %>
+        <% if @subscription.new_record? %>
+          <%= f.submit t("global.subscribe"), :class => "btn span4" %>
+        <% else %>
+          <%= f.submit t("global.update"), :class => "btn success span4" %>
+        <% end %>
+      <% else %>
+        <button class="btn disabled" data-controls-modal="modal-from-dom" data-backdrop="true" data-keyboard="true"><%= t('subscriptions.service.signin') %></button>
+      <% end %>
     </div>
   </div>
-
 <% end %>

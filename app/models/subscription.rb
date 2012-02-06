@@ -13,7 +13,7 @@ class Subscription < ActiveRecord::Base
   after_commit :do_false
 
   # Validates
-  validate :filter_count
+  #validate :filter_count
 
   # When user creating subscription
   def valid_filter?(selection_ids)
@@ -64,14 +64,14 @@ class Subscription < ActiveRecord::Base
     self.notices.update_all :new => false
   end
 
-  def filter_count
-    selections = Selection.includes(:filter).find(selection_ids)
-    array = selections.inject([]) { |a, selection| a << selection.filter.id }
-    unless array.uniq.size == self.service.filters.size
-      errors[:base] << 'Please select minumum a item from each filter.'
-      false
-    end
-  end
+  # def filter_count
+  #   selections = Selection.includes(:filter).find(selection_ids)
+  #   array = selections.inject([]) { |a, selection| a << selection.filter.id }
+  #   unless array.uniq.size == self.service.filters.size
+  #     errors[:base] << 'Please select minumum a item from each filter.'
+  #     false
+  #   end
+  # end
 end
 # == Schema Information
 #
