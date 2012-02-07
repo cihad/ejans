@@ -23,8 +23,10 @@ after "deploy", "unicorn:restart"
 after "deploy:restart", "deploy:cleanup"
 before "deploy:update_code", "ts:stop"
 after "deploy:symlink", "ts:symlink"
+after "deploy:symlink", "deploy:restart_workers"
 after 'deploy', 'ts:start'
 after "deploy", "assets:precompile"
+
 
 # Copy the exact line. I really mean :user here
 # https://rvm.beginrescueend.com/integration/capistrano/
@@ -102,9 +104,18 @@ namespace :ts do
   end
 end
 
-namespace :resque do
+# https://gist.github.com/797301
+def run_remote_rake(rake_cmd)
+  rake_args = ENV['RAKE_ARGS'].to_s.split(',')
+  cmd = "cd #{fetch(:latest_release)} && #{fetch(:rake, "rake")} RAILS_ENV=#{fetch(:rails_env, "production")} #{rake_cmd}"
+  cmd += "['#{rake_args.join("','")}']" unless rake_args.empty?
+  run cmd
+  set :rakefile, nil if exists?(:rakefile)
+end
+
+namespace :deploy do
   desc "Restart Resque Workers"
-  task :work, :roles => :db do
-    run "cd #{current_path} && RAILS_ENV=production bundle exec rake resque:work QUEUE=*"
+  task :restart_workers, :roles => :db do
+    run_remote_rake "resque:restart_workers"
   end
 end
