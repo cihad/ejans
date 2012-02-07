@@ -10,27 +10,13 @@
   <%= content_tag :h2, t('search.no_service') %>
 <% end %>
 
-<% unless @services.count == 0 %>
-  <table class="zebra-striped">
-    <tr>
-      <th><%= t('global.title') %></th>
-      <th><%= t('global.description') %></th>
-      <th><%= t('global.actions') %></th>
-    </tr>
 
-    <% @services.each do |service| %>
-      <tr class="<%= cycle("odd", "even") %>">
-        <td><%= service.title %></td>
-        <td><%= truncate(service.description, :length => 40) %></td>
-        <td><%= link_to t('global.show'), service, :class => "data-remote" %>
-            <%= link_to t('global.selections'), selections_service_path(service), :class => "data-remote" %>
-            <%= link_to t('global.edit'), edit_service_path(service) %>
-            <%= link_to t('global.destroy'), service, confirm: 'Are you sure?', method: :delete %></td>
-      </tr>
-    <% end %>
-  </table>
+<% unless @services.count == 0 %>
+  <div id="services">
+    <ul class="page-list">
+      <%= render @services %>
+    </ul>
+  </div>
 <% else %>
   <%= render 'no_result' %>
 <% end %>
-
-<%= link_to t('services.new.new_service'), new_service_path %>

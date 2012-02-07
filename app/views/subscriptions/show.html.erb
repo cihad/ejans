@@ -6,23 +6,10 @@
 <%= content_tag :h2, page_name %>
 
 <div id="service-notice">
-  <ul class="notices">
-    <% @subscription.notices.each do |notice| %>
-      <li class="<%= notice.read? ? "read" : "unread" %>">
-        <%= link_to [notice.notification.service, notice.notification], :class => "data-remote" do %>
-          <% unless notice.sufficient_credit? %>
-            <%= content_tag :span, t('.insuffient_credit'), :class => "label warning" %>
-          <% else %>
-            <%= content_tag :span, t('global.new'), :class => "label success" if notice.new? %>
-            <%= notice.notification.sms %>
-          <% end %>
-        <% end %>
-      </li> 
-    <% end %>
+  <ul class="page-list">
+    <%= render @subscription.notices %>
   </ul>
 </div>
-
-<% @subscription.notices.where(:new => true).update_all(:new => false) %>
 
 <%= content_for(:left) do %>
   <%= render "devise/shared/user_menu" %>

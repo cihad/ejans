@@ -29,21 +29,21 @@
 <% end %>
 
 
-<li class="notice no-list-style <%= "active" if notification.active? %>" id="notification_<%= notification.id %>">
-  <% unless show %>
-    <div class="access-denied">
-      <%= content_tag :strong, message_title if message_title %>
-      <%= message_body %>
-      <div class="list-form">
-        <%= form_for Notice.new(:notification_id => notification.id), :remote => true do |f| %>
-          <%= f.hidden_field :notification_id %>
-          <%= f.submit "Add", :class => "btn small" %>
-        <% end %>
-      </div>
+<% unless show %>
+  <li class="access-denied <%= "active" if notification.active? %>" id="notification_<%= notification.id %>">
+    <%= content_tag :strong, message_title if message_title %>
+    <%= message_body %>
+    <div class="list-form">
+      <%= form_for Notice.new(:notification_id => notification.id), :remote => true do |f| %>
+        <%= f.hidden_field :notification_id %>
+        <%= f.submit "Add", :class => "btn small" %>
+      <% end %>
     </div>
-  <% else %>
-    <%= link_to service_notification_path(@service, notification), :class => "data-remote" do %>
-      <%= notification.sms %>
-    <% end %>
-  <% end %>
-</li>
+  </li>
+<% else %>
+  <li class="<%= "active" if notification.active? %>" id="notification_<%= notification.id %>">
+    <%= link_to notification.title, [@service, notification], class: "data-remote"  %>
+    <p class="desc"><%= truncate(notification.sms, :length => 100) %></p>
+    <%=  %>
+  </li>
+<% end %>

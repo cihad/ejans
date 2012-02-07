@@ -5,6 +5,7 @@ $serviceitembg: #DCEAF4;
 
 body {
   background: $bgcolor;
+  -webkit-font-smoothing: antialiased;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -167,6 +168,43 @@ ul.dropdown-menu li {
   }
 }
 
+
+// LISTS
+.page-list {
+  border-top: 1px solid darken($bordercolor, 5%);
+  @extend .margin-padding-zero;
+  margin: 10px -20px;
+
+  li {
+    @extend .nostyle-list;
+    border-bottom: 1px solid $bordercolor;
+    padding: 12px 20px;
+    @include transition(height .4s ease-out);
+    overflow: hidden;
+    position: relative;
+    height: 15px;
+    text-shadow: 0 1px 0 #fff;
+
+    a {
+      background: url(images/gray_arrow_right.png) right center no-repeat;
+      color: $grayDark;
+      text-decoration: none;
+      display: block;
+    }
+
+    p.desc {
+      margin-top: 10px;
+      color: $gray;
+    }
+
+    &:hover {
+      background: lighten($serviceitembg, 3%);
+      height: 50px;
+      border-top:1px solid #fcfcfc;
+    }
+  }
+}
+
 // SERVICE PAGES
 .statics-table {
   border-collapse: separate;
@@ -176,6 +214,7 @@ ul.dropdown-menu li {
   margin:0 0 0 -10px;
 
   td {
+    text-shadow: 0 1px 0 #fcfcfc;
     @include border-radius(2px);
     background: $serviceitembg;
     padding: 10px 15px;
@@ -223,67 +262,34 @@ ul.dropdown-menu li {
 
 #service-notification {
   margin-top: 30px;
+
   h3 {
-    border-bottom: 1px solid darken($bordercolor, 20%);
     line-height:1.6em;
     margin-bottom: 0;
   }
 
-  ul {
-    @extend .margin-padding-zero;
+  li.access-denied {
+    background: lighten($yellow, 40%);
+    color: $gray;
+    position: relative;
 
-    li.notice {
-      border-bottom: 1px solid darken($bordercolor, 10%);
-      @extend .nostyle-list;
-      text-shadow: 0 1px 0 #fff;
-
-      &:hover {
-        @include vertical-gradient(#f8f8f8, #eee);
-      }
-
-      &:active {
-        @include vertical-gradient(#eee, #f8f8f8);
-      }
-
-      a {
-        padding: 10px 20px 10px 0;
-        display: block;
-        background: url(images/gray_arrow_right.png) right center no-repeat;
-        color: $grayDark;
-
-        &:hover {
-          text-decoration: none;
-        }
-
-        &:active {
-          
-        }
-      }
-
-      .access-denied {
-        padding: 10px 20px 10px 0;
-        background: lighten($yellow, 40%);
-        color: $gray;
-        position: relative;
-
-        .list-form {
-          position: absolute;
-          right: 0;
-          top: 10px;
-          input[type=submit] {
-            width: auto;
-            padding: 3px;
-          }
-        }
-      }
-
-    }
-
-    .added {
-      a {
-        background: url('images/tick.png') right center no-repeat !important;
+    .list-form {
+      position: absolute;
+      right: 20px;
+      top: 10px;
+      input[type=submit] {
+        width: auto;
+        padding: 3px;
       }
     }
+
+    &:hover {
+      height: 15px;
+    }
+  }
+
+  .added a {
+    background: url('images/tick.png') right center no-repeat !important;
   }
 }
 

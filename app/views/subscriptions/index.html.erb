@@ -5,23 +5,10 @@
 <%= content_tag :h2, page_name %>
 
 <div id="service-notice">
-  <ul class="notices">
-    <% current_account.notices.each do |notice| %>
-      <li class="<%= notice.read? ? "read" : "unread" %>">
-        <%= link_to [notice.notification.service, notice.notification], :class => "data-remote" do %>
-          <% if notice.sufficient_credit? %>
-            <%= content_tag :span, t('global.new'), :class => "label success" if notice.new? %>
-            <%= notice.notification.sms %>
-          <% else %>
-            <span class="label warning"><%= t('subscriptions.show.insuffient_credit') %></span>
-          <% end %>
-        <% end %>
-      </li> 
-    <% end %>
+  <ul class="page-list">
+    <%= render current_account.notices %>
   </ul>
 </div>
-
-<%# current_account.notices.where(:new => true).update_all(:new => false) unless current_account.notices.where(:new => true).blank? %>
 
 <script type="text/javascript">
 $(function() {

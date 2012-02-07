@@ -1,7 +1,8 @@
 <% if @message %>
-  $('#notification_<%= @notification.id %> .access-denied').html("<%= @message %>")
+  $('#notification_<%= @notification.id %>').html("<%= @message %>")
 <% else %>
-  $('#notifications #notification_<%= @notification.id %>').html("<%=j link_to @notification.sms, service_notification_path(@notification.service, @notification), :class => "data-remote" %>")
+  $('#notification_<%= @notification.id %>').html("<%=j link_to @notification.sms, [@notification.service, @notification], :class => "data-remote" %><%=j content_tag :p, truncate(@notification.sms, :length => 100), :class => "desc" %>")
     .addClass("added")
+    .removeClass("access-denied")
     .animate({'background-color':'white'}, 1000);
 <% end %>

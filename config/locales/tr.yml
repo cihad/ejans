@@ -24,6 +24,7 @@ tr:
     email: 'Email'
     denied_access: 'Erişim reddedildi'
     insufficient_credit: 'Yeterli krediniz yok.'
+    new: 'yeni'
 
   account:
     signin: 'Giriş yap'

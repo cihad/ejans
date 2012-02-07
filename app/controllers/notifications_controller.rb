@@ -28,7 +28,7 @@ class NotificationsController < ApplicationController
 
   def create
     @notification = @service.notifications.new(params[:notification].merge(:notificationable => current_account))
-    selection_ids = params[:notification][:selection_ids]
+    selection_ids = params[:notification][:selection_ids].compact.reject(&:blank?)
     @subscription_count = selection_ids
 
     respond_to do |format|
@@ -54,7 +54,7 @@ class NotificationsController < ApplicationController
 
   def update
     @notification = Notification.find(params[:id])
-    selection_ids = params[:notification][:selection_ids]
+    selection_ids = params[:notification][:selection_ids].compact.reject(&:blank?)
 
     respond_to do |format|
       if @notification.valid_filter? selection_ids
