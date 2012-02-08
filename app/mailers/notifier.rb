@@ -1,6 +1,6 @@
 class Notifier < ActionMailer::Base
 
-  default from: "notifier@example.com"
+  default from: "notifier@ejans.com"
 
   def notification_email(notification, subscription)
     @notification = notification
@@ -10,4 +10,4 @@ class Notifier < ActionMailer::Base
     title = notification.title
     mail to: email, subject: @notification.title
   end
-end 
+end

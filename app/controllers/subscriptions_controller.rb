@@ -19,7 +19,7 @@ class SubscriptionsController < ApplicationController
     @account = current_account
     @subscription = Subscription.new(params[:subscription].merge(:account => @account))
     @service = @subscription.service
-    selection_ids = params[:subscription][:selection_ids].compact.reject(&:blank?)
+    selection_ids = params[:subscription][:selection_ids].compact.reject(&:blank?) unless params[:subscription][:selection_ids].nil?
 
     if @subscription.valid_filter? selection_ids or @service.filters.blank?
       if @subscription.save
@@ -35,9 +35,9 @@ class SubscriptionsController < ApplicationController
   def update
     @subscription = Subscription.find(params[:id])
     @service = @subscription.service
-    selection_ids = params[:subscription][:selection_ids].compact.reject(&:blank?)
+    selection_ids = params[:subscription][:selection_ids].compact.reject(&:blank?) unless params[:subscription][:selection_ids].nil?
 
-    if selection_ids.blank?
+    if selection_ids.blank? && @subscription.service.filters.count != 0
       @subscription.destroy
       redirect_to @service, alert: "Subscription was successfull destroyed. Please select minumum a item from each filter for be subscriber."
     else

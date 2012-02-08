@@ -64,4 +64,20 @@ Ejans::Application.configure do
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
+
+  config.action_mailer.default_url_options = { :host => "ejans.com" }
+
+  # set delivery method to :smtp, :sendmail or :test
+  config.action_mailer.delivery_method = :smtp
+
+  # these options are only needed if you choose smtp delivery
+  config.action_mailer.smtp_settings = {
+    address:              "smtp.gmail.com",
+    port:                 587,
+    domain:               "ejans.com",
+    authentication:       :login,
+    enable_starttls_auto: true,
+    user_name:            "cihadp@gmail.com",
+    password:             "chad1234"
+  }
 end

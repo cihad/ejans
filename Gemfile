@@ -12,7 +12,8 @@ gem 'friendly_id', '~> 4.0.0.beta14'
 gem 'cancan'
 gem 'thinking-sphinx', '2.0.10'
 
-gem 'resque'
+gem 'resque', :require => "resque/server"
+gem 'sinatra', '~> 1.2.6'
 gem 'roadie'
 
 
