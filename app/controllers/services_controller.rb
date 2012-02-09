@@ -52,7 +52,7 @@ class ServicesController < ApplicationController
     @service = Service.new(params[:service])
 
     if @service.save
-      redirect_to @service, notice: "Service was successfully created."
+      redirect_to selections_service_path(@service), notice: "Service was successfully created."
       system "rake thinking_sphinx:index"
     else
       filters_count = Service::FILTER_COUNT - params["service"]["filters_attributes"].select { |k, v| v["name"].present? }.count
