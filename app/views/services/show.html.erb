@@ -9,7 +9,7 @@
   <%= content_tag :h2, page_name %>
 
   <p>
-    <%= @service.description %>
+    <%= simple_format @service.description %>
   </p>
 
   <%= render "services/statics" %>
