@@ -30,7 +30,6 @@ Ejans::Application.routes.draw do
   resources :services do
     post :sort, :on => :collection
     get :selections, :on => :member
-    post :create_new_selection, :on => :collection
 
     resources :notifications, :except => :index do
       get :calculate, :on => :collection
@@ -38,7 +37,11 @@ Ejans::Application.routes.draw do
     end
   end
   resources :notices, :only => :create
+  resources :selections, :only => [:create, :destroy] do
+    post :multiple_add, on: :collection
+  end
   resources :comments, :only => [:create, :destroy]
+  resources :filters, :only => [:create, :destroy]
   resources :ideas, :only => [:create, :destroy]
 
   mount Resque::Server, :at => "/resque"

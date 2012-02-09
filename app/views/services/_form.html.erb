@@ -30,13 +30,13 @@
     <%= label_tag nil, t('services.new.add_filter'), :class => "span3" %>
     <span class="fields span8">
       <%= f.fields_for :filters do |builder| %>
-        <%= render "filter_fields", :f => builder %>
+        <%= render "filter_fields", {:f => builder, :service => @service}  %>
       <% end %>
     </span>
   </div>
 
   <%= f.fields_for :service_price do |builder| %>
-    <%= render "price_fields", :f => builder %>
+    <%= render "price_fields", f: builder %>
   <% end %>
   
   <div class="actions">

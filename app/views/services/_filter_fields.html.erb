@@ -10,7 +10,7 @@
     <%= f.fields_for :selections do |builder|   %>
       <%= render 'selection_fields', :f => builder %>
     <% end %>
-  <span><%= link_to_add_fields t('services.add_selection'), f, :selections %></span>
+    <span><%= link_to_add_fields t('services.add_selection'), f, :selections %></span>
   </div>
 
 </span>    

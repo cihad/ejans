@@ -1,10 +1,15 @@
 class Selection < ActiveRecord::Base
-  
+
+  attr_accessor :multiple_selections
+
   # Associations
   belongs_to :service
   belongs_to :filter
   has_and_belongs_to_many :notifications
   has_and_belongs_to_many :subscriptions, :join_table => "subscriptions_selections"
+
+  # Validations
+  validates :label, presence: true
 end
 # == Schema Information
 #
