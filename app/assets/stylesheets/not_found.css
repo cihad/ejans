@@ -1,0 +1,44 @@
+#rocket{
+  width:275px;
+  height:375px;
+  background:url('images/rocket.png') no-repeat;
+  margin:20px auto 20px;
+  position:relative;
+}
+
+/*  Two steam classes. */
+
+.steam1,
+.steam2 {
+  position: absolute;
+  bottom:78px;
+  left:50px;
+  width:80px;
+  height:80px;
+  background:url('images/steam.png') no-repeat;
+  opacity:0.8;
+}
+
+.steam2{
+   /* .steam2 shows the bottom part (dark version)
+  * of the background image.
+  */
+  background-position:left bottom;
+}
+
+hgroup{
+  /* Using the HTML4 hgroup element */
+  font-family:'Century Gothic',Calibri,'Myriad Pro',Arial,Helvetica,sans-serif;
+  text-align:center;
+}
+
+h1{
+  color:#76D7FB;
+  font-size:60px;
+  text-shadow:3px 3px 0 #3D606D;
+}
+
+h2{
+  font-size:18px;
+  padding:25px 0 0;
+}

@@ -26,6 +26,10 @@ tr:
     insufficient_credit: 'Yeterli krediniz yok.'
     new: 'yeni'
 
+  errors:
+    page_not_found: 'Sayfa Bulunamadı'
+    not_found_desc: 'Aradığınız sayfayı bulamıyoruz. Kaldırılmış veya adresi değiştirilmiş olabilir.'
+
   account:
     signin: 'Giriş yap'
     signout: 'Çıkış yap'
