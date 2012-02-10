@@ -63,6 +63,7 @@
 
   <% else %>
 
+    <% meta_description @notification.sms %>
     <%#= current_account.subscription(@notification.service).notice(@notification).update_attributes(:new => false, :read => true) if account_signed_in? && current_account.subscribing?(@notification.service) %>
     <%= content_tag :h2, page_name %>
     <ul id="selections-list">

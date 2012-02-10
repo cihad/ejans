@@ -1,5 +1,6 @@
 <% page_name = @service.title %>
-<%= title page_name %>
+<% title page_name %>
+<% meta_description @service.description %>
 <%
   breadcrumbs.add t('global.services'), services_path
   breadcrumbs.add @service.title

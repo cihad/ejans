@@ -4,6 +4,13 @@ module ApplicationHelper
     content_for(:title) { page_title }
   end
 
+  def meta_description(desc)
+    meta_tag = "<meta name=\"description\" content=\""
+    meta_tag += desc.truncate(160, :omission => "")
+    meta_tag += "\">"
+    content_for(:meta_tag) { meta_tag.html_safe }
+  end
+
   def body_class(classes)
     content_for(:body_class) { classes }
   end
