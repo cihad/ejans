@@ -2,7 +2,7 @@ class ServicesController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @services = Service.search(params[:search])
+    @services = Service.search(params[:search]).page(params[:page]).per(20)
   end
 
   def show

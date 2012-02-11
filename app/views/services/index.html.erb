@@ -12,10 +12,12 @@
 
 
 <% unless @services.count == 0 %>
-  <div id="services">
-    <ul class="page-list">
-      <%= render @services %>
-    </ul>
+  <ul class="page-list" id="services">
+    <%= render @services %>
+  </ul>
+
+  <div id="paginate">
+    <%= paginate @services %>
   </div>
 <% else %>
   <%= render 'no_result' %>
