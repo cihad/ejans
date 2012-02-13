@@ -27,7 +27,7 @@ allspan = content_for?(:left) ? '13' : '12'
 
     <%= render 'layouts/header' %>
 
-    <%= render 'home/slide' if (session[:slide] || Rails.env.development?) && !params[:search].present? %>
+    <%= render 'home/slide' if session[:slide] %>
 
     <div class="page">
       <div data-pjax-container>
