@@ -5,6 +5,7 @@ Ejans::Application.routes.draw do
   # Home
   root :to => 'services#index'
   get "home/index"
+  get "home/close_slide"
 
   # Admin
   namespace :admin do
@@ -16,7 +17,7 @@ Ejans::Application.routes.draw do
   end
 
   # Account
-  scope "accounts" do      
+  scope "accounts" do
     resources :subscriptions, :except => [:new, :edit] do
       put :multiple_update, :on => :collection
       get :edit, :on => :collection

@@ -53,6 +53,10 @@ class Account < ActiveRecord::Base
     roles.first.present? ? roles.first.name == role.to_s : false # roles self
   end
 
+  def admin?
+    roles.first.name == "admin"
+  end
+
 end
 # == Schema Information
 #

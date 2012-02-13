@@ -30,6 +30,7 @@
 //= require jquery-plugins/jquery.multiselect
 //= require jquery-plugins/jquery.multiselect.filter
 //= require jquery-plugins/jquery.tablesorter
+//= require slide
 
 $(document).ready(function() {
   $(".signin").click(function() {

@@ -25,10 +25,17 @@ tr:
     denied_access: 'Erişim reddedildi'
     insufficient_credit: 'Yeterli krediniz yok.'
     new: 'yeni'
+    be_user: 'Üye ol'
 
   errors:
     page_not_found: 'Sayfa Bulunamadı'
     not_found_desc: 'Aradığınız sayfayı bulamıyoruz. Kaldırılmış veya adresi değiştirilmiş olabilir.'
+
+  home:
+    slide:
+      what_does_it_do: 'Ne işe yarar?'
+      all_in_one: 'Hepsi bir arada'
+      easy: 'Kolay kullanım'
 
   account:
     signin: 'Giriş yap'

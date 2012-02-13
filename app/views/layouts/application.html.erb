@@ -27,9 +27,11 @@ allspan = content_for?(:left) ? '13' : '12'
 
     <%= render 'layouts/header' %>
 
-    <div id="page">
+    <%= render 'home/slide' if (session[:slide] || Rails.env.development?) && !params[:search].present? %>
+
+    <div class="page">
       <div data-pjax-container>
-        
+
         <div class="row">
           <% if breadcrumbs.items.size > 1 %>
           <div id="breadcrumb">

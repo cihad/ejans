@@ -1,0 +1,45 @@
+<div class="page" id="slide">
+  <div id="main">
+    <div id="gallery">
+      <div id="slides">
+        <div class="slide" id="slide-1">
+          <h1><%= t('.what_does_it_do') %></h1>
+          <% rand = Random.new.rand(1..4) %>
+          <% case rand %>
+          <% when 1 %>
+            <p>Özel Matematik öğretmeni arıyorsunuz. Ama nerden bulacağınızı bilmiyorsunuz. Hiç <%= link_to "Özel Matematik Öğretmeni Servisi", "/services/matematik-ozel-ders-servisi" %>'ni denediniz mi?</p>
+          <% when 2 %>
+            <p>İş arıyorusunuz. Fakat iş verenler sizin iş aradığınızı nerden bilecek? Hiç sitemizde alanınızla ilgili bir servis aradınız mı?</p>
+          <% when 3 %>
+            <p>Kamyonunuz var. Nakliyat işleri yapıyorsunuz. Kamyonun dolu dönmesi boş dönmesinden daha iyidir. <%= link_to "Şehirler Arası Nakliyat Servisi", "/services/sehirler-arasi-nakliyat-servisi" %>'ni denediniz mi?</p>
+          <% when 4 %>
+            <p>Okulu yeni bitirdiniz. En iyisi memur olmak! Memur ilanlarını nerden takip edeceğim diyorsanız <%= link_to "Memur adayları için kamu kurum ilanları servisi", "/services/memur-adaylari-icin-kamu-kurum-ilanlari-servisi" %> size göre.</p>
+          <% end %>
+        </div>
+        <div class="slide" id="slide-2">
+          <h1><%= t('.all_in_one') %></h1>
+          <p>İhtiyaca uygun servislerle gelişmeye devam ediyoruz.
+            Belki sizin de ilgilinizi çekecek bir servis vardır. Hiç yok mu? O zaman <a href="#">öneri gönder</a>in.</p>
+        </div>
+        <div class="slide" id="slide-3">
+          <h1><%= t('.easy') %></h1>
+          <p>Yapmanız gereken sadece servise abone olmak. Ve emailinize veya telefonunuza gelecek mesajları beklemek.</p>
+        </div>
+        <div class="slide" id="slide-4">
+          <h1>Üye ol</h1>
+          <p style="width:450px">Kullanmaya başlamak için <a href="#">üye ol</a>manız gerekiyor. Çoğu servis ücretsiz. Fakat rahat davranın diye yeni üyelere <%= Account::STARTER_CREDIT %> kredi veriyoruz.</p>
+        </div>
+      </div>
+
+      <div id="menu">
+        <ul>
+          <li class="menuItem"><span>1</span></li>
+          <li class="menuItem"><span>2</span></li>
+          <li class="menuItem"><span>3</span></li>
+          <li class="menuItem"><span><%= t('global.be_user').downcase %></span></li>
+          <li class="menuItem"><%= link_to "&times;".html_safe, home_close_slide_path, remote: true %></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
