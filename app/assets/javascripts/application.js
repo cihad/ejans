@@ -87,8 +87,8 @@ $(document).ready(function() {
 
   $('.tinymce').tinymce({
     theme : "advanced",
-    plugins : "fullscreen",
-    theme_advanced_buttons1 : "bold,italic,underline,strikethrough,justifyleft,justifycenter,justifyright,bullist,numlist,link,unlink,image,formatselect,fullscreen",
+    plugins : "fullscreen,table",
+    theme_advanced_buttons1 : "bold,italic,underline,strikethrough,justifyleft,justifycenter,justifyright,bullist,numlist,link,unlink,image,formatselect,fullscreen,code",
     theme_advanced_buttons2 : "",
     theme_advanced_buttons3 : "",
     theme_advanced_blockformats : "p,h1,h2,h3,h4,h5,h6,blockquote,dt,dd,code",
