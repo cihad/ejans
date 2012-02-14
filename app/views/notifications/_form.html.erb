@@ -29,7 +29,7 @@
   <div class="form-item textarea-field row">
     <%= f.label :sms, :class => "span3" %>
     <span class="span8">
-      <%= f.text_area :sms, :rows => "2", :maxlength => 160, :class => "limited span8 " %>
+      <%= f.text_area :sms, :rows => "2", :maxlength => 160, :class => "limited span8" %>
       <p class="right-align mini-font no-margin"><span class="chars-left pastelred">160</span> char left.</p>
     </span>
   </div>
@@ -100,7 +100,7 @@
   <div class="form-item textarea-field row">
     <%= f.label :description, t('global.description'), :class => "span3" %>
     <span class="span8">
-      <%= f.text_area :description, :rows => "10", :class => "span8" %>
+      <%= f.text_area :description, :rows => "20", :class => "span8 tinymce" %>
     </span>
   </div>
 

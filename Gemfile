@@ -15,7 +15,7 @@ gem 'thinking-sphinx', '2.0.10'
 gem 'resque', :require => "resque/server"
 gem 'sinatra', '~> 1.2.6'
 gem 'roadie'
-
+gem 'tinymce-rails'
 
 # Groups
 group :assets do
