@@ -8,18 +8,18 @@ class ServicesController < ApplicationController
   def show
     @service = Service.find(params[:id])
 
-    if @service.service_price.receiver_credit == 0
-      @notifications = @service.notifications.published.page(params[:page])
-    else
-      if account_signed_in? and current_account.subscribing?(@service)
-        subscription = current_account.subscription(@service)
-        selection_ids = subscription.selections.map(&:id)
-        @notifications = @service.which_notifications(selection_ids)
-      else
-        @notifications = @service.notifications.unavailable.page(params[:page])
-      end
-    end
-
+    # if @service.service_price.receiver_credit == 0
+    #   @notifications = @service.notifications.published.page(params[:page])
+    # else
+    #   if account_signed_in? and current_account.subscribing?(@service)
+    #     subscription = current_account.subscription(@service)
+    #     selection_ids = subscription.selections.map(&:id)
+    #     @notifications = @service.which_notifications(selection_ids)
+    #   else
+    #     @notifications = @service.notifications.unavailable.page(params[:page])
+    #   end
+    # end
+    @notifications = @service.notifications.page(params[:page])
     @subscription = current_account.subscription(@service) if account_signed_in?
     @subscription ||= @service.subscriptions.build
   end

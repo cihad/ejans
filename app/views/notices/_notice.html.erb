@@ -1,29 +1,12 @@
-<% if notice.sufficient_credit? %>
-  <li class="<%= notice.read? ? "read" : "unread" %>">
-    <% if notice.new? %>
-      <%= content_tag :span, t('global.new'), :class => "label warning" %>
-      <% notice.update_attributes(:new => false) %>
-    <% end %>
-    <% if notice.read? %>
-      <%= link_to notice.notification.title, [notice.notification.service, notice.notification] %>
-    <% else %>
-      <strong><%= link_to notice.notification.title, [notice.notification.service, notice.notification] %></strong>
-    <% end %>
-    <p class="desc"><%= notice.notification.sms %></p>
-  </li>
-<% else %>
-  <li class="access-denied">
-    <%= t('notifications.notification.insufficient_credit') %>
-    <% if notice.account.credit.credit >= notice.notification.service.receiver_credit %>
-      <%= t('notifications.notification.sufficient_credit') %>
-      <div class="list-form">
-        <%= form_for Notice.new(:notification_id => notification.id), :remote => true do |f| %>
-          <%= f.hidden_field :notification_id %>
-          <%= f.submit "Add", :class => "btn small" %>
-        <% end %>
-      </div>
-    <% else %>
-      <%= t('subscriptions.show.buy_credit') %>
-    <% end %>
-  </li>
-<% end %>
+<li class="<%= notice.read? ? "read" : "unread" %>">
+  <% if notice.new? %>
+    <%= content_tag :span, t('global.new'), :class => "label warning" %>
+    <% notice.update_attributes(:new => false) %>
+  <% end %>
+  <% if notice.read? %>
+    <%= link_to notice.notification.title, [notice.notification.service, notice.notification] %>
+  <% else %>
+    <strong><%= link_to notice.notification.title, [notice.notification.service, notice.notification] %></strong>
+  <% end %>
+  <p class="desc"><%= notice.notification.sms %></p>
+</li>

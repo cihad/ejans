@@ -1,49 +1,5 @@
-<% unless notification.free? %>
-  <% if account_signed_in? and current_account.subscribing?(@service) %>
-    <% subscription = current_account.subscription(@service) %>
-    <% if subscription.have_notice?(notification) %>
-      <% notice = subscription.notice(notification) %>
-      <% if notice.sufficient_credit? %>
-        <% show = true %>
-      <% else %>
-        <% show = false %>
-        <% form = current_account.credit.credit >= notification.service.service_price.receiver_credit %>
-        <% message_title = t('.insufficient_credit') %>
-        <% if current_account.credit.credit < notification.service.service_price.receiver_credit %>
-          <% message_body = t('subscriptions.show.buy_credit') %>
-        <% else %>
-          <% message_body = t('notifications.notification.sufficient_credit') %>
-        <% end %>
-      <% end %>
-    <% else %>
-      <% show = false %>
-      <% form = current_account.credit.credit >= notification.service.service_price.receiver_credit %>
-      <% message_body = t('notifications.notification.before_time') %>
-    <% end %>
-  <% else %>
-    <% show = false %>
-    <% message_body = t('notifications.notification.not_subscribing') %>
-  <% end %>
-<% else %>
-  <% show = true %>
-<% end %>
-
-
-<% unless show %>
-  <li class="access-denied <%= "active" if notification.active? %>" id="notification_<%= notification.id %>">
-    <%= content_tag :strong, message_title if message_title %>
-    <%= message_body %>
-    <div class="list-form">
-      <%= form_for Notice.new(:notification_id => notification.id), :remote => true do |f| %>
-        <%= f.hidden_field :notification_id %>
-        <%= f.submit "Add", :class => "btn small" %>
-      <% end %>
-    </div>
-  </li>
-<% else %>
-  <li class="<%= "active" if notification.active? %>" id="notification_<%= notification.id %>">
-    <%= link_to notification.title, [@service, notification], class: "data-remote"  %>
-    <p class="desc"><%= truncate(notification.sms, :length => 100) %></p>
-    <%=  %>
-  </li>
-<% end %>
+<li class="<%= "active" if notification.active? %>" id="notification_<%= notification.id %>">
+  <%= link_to notification.title, [@service, notification], class: "data-remote"  %>
+  <p class="desc"><%= truncate(notification.sms, :length => 100) %></p>
+  <%=  %>
+</li>
