@@ -1,4 +1,4 @@
-<% if @notification.active? %>
+<% if @notification.active? && @notification.service_price.receiver_credit != 0 %>
   <% if account_signed_in? and current_account.subscribing?(@service) %>
     <% subscription = current_account.subscription(@service) %>
     <% if subscription.have_notice?(@notification) %>
