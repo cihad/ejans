@@ -17,7 +17,6 @@
 <%
 contentspan = content_for?(:left) ? 'span9' : 'span12'
 allspan = content_for?(:left) ? '13' : '12'
-
 %>
 
 <body class="<%= content_for?(:right) or content_for?(:left) ? 'twoColumn' : 'oneColumn' %> <%= yield(:body_class) %>">
@@ -27,7 +26,7 @@ allspan = content_for?(:left) ? '13' : '12'
 
     <%= render 'layouts/header' %>
 
-    <%= render 'home/slide' if session[:slide] %>
+    <%= render 'home/slide' %>
 
     <div class="page">
       <div data-pjax-container>
