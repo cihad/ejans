@@ -2,9 +2,9 @@ require "resque/tasks"
 
 # Start a worker with proper env vars and output redirection
 def run_worker(queue, count = 1)
-  puts "Starting #{count} worker(s) with QUEUE:#{queue}"
-  ops = {:pgroup => true, :err => [(Rails.root + "log/resque_err").to_s, "a"], 
-                          :out => [(Rails.root + "log/resque_stdout").to_s, "a"]}
+  puts "Starting #{count} worker(s) with QUEUE: #{queue}"
+  ops = {:pgroup => true, :err => ["/var/www/ejans/shared/log/resque_err", "a"], 
+                          :out => ["/var/www/ejans/shared/log/resque_stdout", "a"]}
   env_vars = {"QUEUE" => queue.to_s}
   count.times {
     ## Using Kernel.spawn and Process.detach because regular system() call would
@@ -40,6 +40,6 @@ namespace :resque do
   
   desc "Start workers"
   task :start_workers => :environment do
-    run_worker("*")
+    run_worker("*", 1)
   end
 end

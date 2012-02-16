@@ -4,7 +4,7 @@ gem 'rails', '3.2.0'
 gem 'mysql2'
 gem 'jquery-rails'
 
-gem 'devise', '1.4.9'
+gem 'devise', '2.0.0'
 gem 'breadcrumbs', '~> 0.1.6'
 gem 'rack-pjax'
 gem 'kaminari'

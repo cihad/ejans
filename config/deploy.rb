@@ -23,7 +23,7 @@ after "deploy", "unicorn:restart"
 after "deploy:restart", "deploy:cleanup"
 before "deploy:update_code", "ts:stop" # Uncomment first_run
 after "deploy:symlink", "ts:symlink"
-after "deploy:symlink", "deploy:restart_workers" # Uncomment first_run
+#after "deploy:symlink", "deploy:restart_workers" # Uncomment first_run
 after 'deploy', 'ts:start'
 after "deploy", "assets:precompile"
 
@@ -107,8 +107,7 @@ end
 # https://gist.github.com/797301
 def run_remote_rake(rake_cmd)
   rake_args = ENV['RAKE_ARGS'].to_s.split(',')
-  cmd = "cd #{fetch(:latest_release)} && #{fetch(:rake, "rake")} RAILS_ENV=#{fetch(:rails_env, "production")} #{rake_cmd}"
-  cmd += "['#{rake_args.join("','")}']" unless rake_args.empty?
+  cmd = "cd #{current_path} && bundle exec rake RAILS_ENV=#{rails_env} #{rake_cmd}"
   run cmd
   set :rakefile, nil if exists?(:rakefile)
 end

@@ -16,6 +16,13 @@
     width: 340px;
   }
 
+  .field_with_errors {
+    display: block;
+    width: 100%;
+    float: none;
+    margin: 0;
+  }
+
   .tabs {
     margin: -21px -21px 20px;
     padding: 21px 21px 0;
