@@ -63,9 +63,10 @@
               <li class="dropdown user-dropdown">
                 <a href="#" class="dropdown-toggle"><%= truncate current_account.email, :length => 14 %></a>
                 <ul class="dropdown-menu">
-                  <li><%= link_to t('notices.all'), subscriptions_path %></li>
-                  <li><%= link_to t('global.edit'), edit_account_registration_path %></li>
-                  <li><%= link_to t('services.statics.settings'), edit_subscriptions_path %></li>
+                  <li><%= link_to t('notices.my'), subscriptions_path %></li>
+                  <li><%= link_to t('account.edit_email'), settings_email_path %></li>
+                  <li><%= link_to t('account.edit_password'), settings_password_path %></li>
+                  <li><%= link_to t('account.edit_subscriptions'), edit_subscriptions_path %></li>
                   <li class="divider"></li>
                   <li><%= link_to t('account.signout'), destroy_account_session_path, :method => :delete %></li>
                 </ul>

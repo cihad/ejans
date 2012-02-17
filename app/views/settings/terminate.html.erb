@@ -1,0 +1,10 @@
+<% page_name = t("account.terminate") %>
+<%= body_class "user-page" %>
+<%= content_tag :h2, page_name %>
+<% title page_name %>
+
+Unhappy? <%= link_to "Cancel my account", registration_path(:account), :confirm => "Are you sure?", :method => :delete, :class => "btn danger" %>
+
+<%= content_for(:left) do %>
+  <%= render "devise/shared/user_menu" %>
+<% end %>

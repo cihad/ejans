@@ -395,6 +395,25 @@ input:-webkit-autofill {
   @extend .clearfix;
 }
 
+.form-vertical {
+  padding-left: 20px;
+
+  .field_with_errors {
+    display: block !important;
+    margin: 0 !important;
+    float: none !important;
+
+    input {
+      margin: 0 !important;
+    }
+  }
+
+  label {
+    width: auto;
+    display: block;
+  }
+}
+
 .page-form {
 
   .title-field {
@@ -659,3 +678,12 @@ footer {
   border: 0;
 }
 //footer-->
+
+// User Page
+.user-page {
+  .field_with_errors {
+    input {
+      margin-left: -20px;
+    }
+  }
+}

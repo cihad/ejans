@@ -1,0 +1,30 @@
+<% page_name = t("account.edit_email") %>
+<%= body_class "user-page" %>
+<%= content_tag :h2, page_name %>
+<% title page_name  %>
+
+<div class="page-form">
+<%= form_for @account, :url => settings_update_email_path, :html => { :method => :put } do |f| %>
+  <% if @account.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@account.errors.count, "error") %> prohibited this account from being saved:</h2>
+
+      <ul>
+      <% @account.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-item email-field row form-vertical">
+    <%= f.label :email %>
+    <%= f.email_field :email  %>
+    <%= f.submit "Update" %>
+  </div>
+<% end %>
+</div>
+
+<%= content_for(:left) do %>
+  <%= render "devise/shared/user_menu" %>
+<% end %>

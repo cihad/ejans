@@ -26,6 +26,12 @@ Ejans::Application.routes.draw do
     resources :payments, :only => [:index, :new, :create] do
       get :history, :on => :collection
     end
+
+    get "settings/email", :to => "settings#email"
+    get "settings/password", :to => "settings#password"
+    get "settings/terminate", :to => "settings#terminate"
+    put "settings/update_email", :to => "settings#update_email"
+    put "settings/update_password", :to => "settings#update_password"
   end
 
   devise_for :accounts

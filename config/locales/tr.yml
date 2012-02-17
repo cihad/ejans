@@ -39,14 +39,16 @@ tr:
 
   account:
     signin: 'Giriş yap'
-    signout: 'Çıkış yap'
-    edit_account: 'Hesabı düzenle'
-    edit_subscriptions: 'Aboneliklerimi düzenle'
+    signout: 'Çıkış'
+    edit_email: 'Email adresim'
+    edit_password: 'Parolam'
+    terminate: 'Hesabımı kaldır'
+    edit_subscriptions: 'Aboneliklerim'
 
   notices:
     name: 'Bildiriler'
     no_notice: 'Yeni bildiri yok'
-    all: 'Bütün bildiriler'
+    my: 'Bildirilerim'
 
   services:
     name: 'Servisler'

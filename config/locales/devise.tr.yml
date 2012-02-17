@@ -35,14 +35,12 @@ tr:
       confirmed: 'Hesabınız başarıyla onaylandı. Şu anda giriş yapmış bulunuyorsunuz.'
     registrations:
       signed_up: 'Hoşgeldiniz! Kaydınız başarıyla tamamlandı.'
-      inactive_signed_up: 'Kaydınız başarıyla tamamlandı. Fakat, hesabınızın %{reason} olması nedeniyle giriş yapamıyorsunuz.'
+      signed_up_but_unconfirmed: 'Email adresinize onaylama linki içeren bir mesaj gönderdik. Lütfen hesabınızını aktif etmek için linki kullanın.'
+      signed_up_but_inactive: 'Başarılı kayıt oldunuz. Ancak hesabınızı henüz aktif yapmadığınız için oturum açamıyorsunuz.'
+      signed_up_but_locked: 'Başarılı kayıt oldunuz. Ancak hesabınız kitli olduğu için oturum açamıyorsunuz.'
       updated: 'Hesabınızı başarıyla güncellediniz.'
       update_needs_confirmation: 'Hesabınızı başarıyla güncellediniz, fakat email adresinizi onaylamamız gerekmektedir. Lütfen emailinizi kontrol edin ve email adresinizi onaylamak için onay linkine tıklayın.'
       destroyed: 'Güle güle! Hesabınız başarıyla kapatıldı. Sizi yakında tekrar görmeyi ümit ediyoruz.'
-      reasons:
-        inactive: 'pasif'
-        unconfirmed: 'onaylanmamış'
-        locked: 'kilitli'
     unlocks:
       send_instructions: 'Bir kaç dakika içinde hesabınızın kilitini nasıl kaldıracağınız hakkında bir email alacaksınız.'
       unlocked: 'Hesabınız başarıyla açıldı. Şu anda giriş yapmış bulunuyorsunuz.'
