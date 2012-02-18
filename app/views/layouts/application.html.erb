@@ -26,7 +26,9 @@ allspan = content_for?(:left) ? '13' : '12'
 
     <%= render 'layouts/header' %>
 
-    <%= render 'home/slide' %>
+    <%= render 'home/slide' unless  params[:controller] == "subscriptions" or
+                                params[:controller] == "settings" or
+                                params[:controller] == "payments" %>
 
     <div class="page">
       <div data-pjax-container>
