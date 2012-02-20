@@ -32,6 +32,8 @@ tr:
     not_found_desc: 'Aradığınız sayfayı bulamıyoruz. Kaldırılmış veya adresi değiştirilmiş olabilir.'
 
   home:
+    desc:
+      meta_description: 'Ejans.com, işiniz ve yaşantınız ile ilgili servisleri sayesinde size duymak istediklerinizi söyler.'
     slide:
       what_does_it_do: 'Ne işe yarar?'
       all_in_one: 'Hepsi bir arada'

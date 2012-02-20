@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html class="no-js">
 <head>
   <title><%= yield(:title) || "The Place to Buy Stuff" %> - Ejans.com</title>
   <meta name="robots" content="noindex">
   <%= stylesheet_link_tag    "application" %>
-  <%= javascript_include_tag "application" %>
+  <%= javascript_include_tag "application", "modernizr.custom" %>
   <%= yield(:head) %>
   <%= yield(:meta_tag) %>
   <%= csrf_meta_tags %>
