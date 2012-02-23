@@ -45,7 +45,7 @@
     <%= render @notification.comments %>
   </div>
 
-  <%= render 'comments/form', :notification => @notification %>
+  <%= render 'comments/form', :notification => @notification if account_signed_in? %>
 
   <%= link_to t('global.edit'), edit_service_notification_path(@service, @notification) %> |
   <%= link_to t('global.back'), @service %>
