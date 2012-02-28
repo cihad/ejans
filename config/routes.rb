@@ -3,7 +3,7 @@ Ejans::Application.routes.draw do
   match "/404", :to => "errors#not_found"
 
   # Home
-  root :to => 'services#index'
+  root :to => 'home#index'
   get "home/index"
   get "home/close_slide"
 
