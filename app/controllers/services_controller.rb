@@ -53,7 +53,6 @@ class ServicesController < ApplicationController
 
     if @service.save
       redirect_to selections_service_path(@service), notice: "Service was successfully created."
-      system "rake thinking_sphinx:index"
     else
       filters_count = Service::FILTER_COUNT - params["service"]["filters_attributes"].select { |k, v| v["name"].present? }.count
       filters_count.times do
@@ -69,7 +68,6 @@ class ServicesController < ApplicationController
 
     if @service.update_attributes(params[:service])
       redirect_to @service, notice: 'Service was successfully updated.'
-      system "rake thinking_sphinx:index"
     else
       form_count = 3 - (@service.filters.count)
         form_count.times do

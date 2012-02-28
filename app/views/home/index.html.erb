@@ -20,90 +20,14 @@
 
 
 <div id="home-services" class="clearfix">
-
-  <div class="swi">
-    <div class="ins">
-      <%= link_to "#" do %>
-        <span>Android Geliştiricileri Servisi</span>
-        <%= image_tag("thumbs/android-gelistiricileri.png", alt: "Acil Kan Servisi") %>
-      <% end %>
+  <% @services.each do |service| %>
+    <div class="swi">
+      <div class="ins">
+        <%= link_to service do %>
+          <span><%= service.title %></span>
+          <%= image_tag(service.image_url, alt: service.title) %>
+        <% end %>
+      </div>
     </div>
-  </div>
-
-  <div class="swi">
-    <div class="ins">
-      <%= link_to "#" do %>
-        <span>Makine Mühendisleri</span>
-        <%= image_tag("thumbs/makine-muhendisleri.png", alt: "Acil Kan Servisi") %>
-      <% end %>
-    </div>
-  </div>
-
-
-  <div class="swi">
-    <div class="ins">
-      <%= link_to "#" do %>
-        <span>Matematik Özel Ders Servisi</span>
-        <%= image_tag("thumbs/matematik-ozel-ders.png", alt: "Acil Kan Servisi") %>
-      <% end %>
-    </div>
-  </div>
-
-  <div class="swi">
-    <div class="ins">
-      <%= link_to "#" do %>
-        <span>Drupal</span>
-        <%= image_tag("thumbs/drupal.png", alt: "Acil Kan Servisi") %>
-      <% end %>
-    </div>
-  </div>
-
-
-  <div class="swi">
-    <div class="ins">
-      <%= link_to "#" do %>
-        <span>Nakliyat Servisi</span>
-        <%= image_tag("thumbs/nakliyat.png", alt: "Acil Kan Servisi") %>
-      <% end %>
-    </div>
-  </div>
-
-  <div class="swi">
-    <div class="ins">
-      <%= link_to "#" do %>
-        <span>Ruby Developer Servisi</span>
-        <%= image_tag("thumbs/ruby-developer.png", alt: "Acil Kan Servisi") %>
-      <% end %>
-    </div>
-  </div>
-
-
-  <div class="swi">
-    <div class="ins">
-      <%= link_to "#" do %>
-        <span>Front End Developer</span>
-        <%= image_tag("thumbs/front-end-developer.png", alt: "Acil Kan Servisi") %>
-      <% end %>
-    </div>
-  </div>
-
-  <div class="swi">
-    <div class="ins">
-      <%= link_to "#" do %>
-        <span>Joomla</span>
-        <%= image_tag("thumbs/joomla.png", alt: "Acil Kan Servisi") %>
-      <% end %>
-    </div>
-  </div>
-
-  <div class="swi">
-    <div class="ins">
-      <%= link_to "#" do %>
-        <span>Acil Kan Servisi</span>
-        <%= image_tag("thumbs/acil-kan.png", alt: "Acil Kan Servisi") %>
-      <% end %>
-    </div>
-  </div>
-
-
+  <% end %>
 </div>

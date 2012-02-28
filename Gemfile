@@ -16,6 +16,7 @@ gem 'resque', :require => "resque/server"
 gem 'sinatra', '~> 1.2.6'
 gem 'roadie'
 gem 'tinymce-rails'
+gem 'carrierwave'
 
 # Groups
 group :assets do

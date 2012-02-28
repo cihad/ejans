@@ -38,6 +38,8 @@ class Service < ActiveRecord::Base
     indexes selections.label, as: :selection_label
   end
 
+  mount_uploader :image, ServiceImageUploader
+
   def selections_map
     h = Hash.new { |hash, key| hash[key] = [] }
     selections.inject(h) { |hash, selection| hash[selection.filter.id] << selection.id; hash }

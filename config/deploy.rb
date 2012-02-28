@@ -25,6 +25,7 @@ before "deploy:update_code", "ts:stop" # Uncomment first_run
 after "deploy:symlink", "ts:symlink"
 #after "deploy:symlink", "deploy:restart_workers" # Uncomment first_run
 after 'deploy', 'ts:start'
+after "deploy", "uploads:symlink"
 after "deploy", "assets:precompile"
 
 
@@ -101,6 +102,16 @@ namespace :ts do
   desc "Link up Sphinx's indexes."
   task :symlink_sphinx_indexes, :roles => :app do
     run "ln -nfs #{shared_path}/db/sphinx #{current_path}/db/sphinx"
+  end
+end
+
+namespace :uploads do
+  desc "Symlink"
+  task :symlink do
+    run <<-CMD
+      rm -rf #{release_path}/public/uploads &&
+      ln -nfs #{shared_path}/uploads #{release_path}/public/uploads
+    CMD
   end
 end
 
