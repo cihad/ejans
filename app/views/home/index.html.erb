@@ -19,15 +19,15 @@
 </head>
 
 
-<div id="home-services" class="clearfix">
+<ul id="home-services" class="clearfix nostyle-list">
   <% @services.each do |service| %>
-    <div class="swi">
+    <li class="swi">
       <div class="ins">
         <%= link_to service do %>
           <span><%= service.title %></span>
           <%= image_tag(service.image_url, alt: service.title) %>
         <% end %>
       </div>
-    </div>
+    </li>
   <% end %>
 </div>

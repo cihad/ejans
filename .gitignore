@@ -7,4 +7,5 @@ config/*.conf
 config/deploy.rb
 config/sphinx.yml
 db/sphinx/*
+public/uploads/*
 

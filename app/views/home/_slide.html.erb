@@ -2,16 +2,22 @@
   <div id="gallery">
     <div id="slides">
       <div class="slide" id="slide-1">
-        <h1>Servisler</h1>
-        <p>Bir çok servisimiz var. Bunlar senin ihtiyaçların için oluşturuldu. Haydi seninle ilgili bir şey ara.</p>
+        <div class="slide-ins">
+          <h1>Servisler</h1>
+          <p>Bir çok servisimiz var. Bunlar senin ihtiyaçların için oluşturuldu. Haydi seninle ilgili bir şey ara.</p>
+        </div>
       </div>
       <div class="slide" id="slide-2">
-        <h1>Abone ol</h1>
-        <p>Servis buldun mu? Ne mutlu sana. Servise abone olursan bu servise gelecek bildirilerden anında haberdar olursun.</p>
+        <div class="slide-ins">
+          <h1>Abone ol</h1>
+          <p>Servis buldun mu? Ne mutlu sana. Servise abone olursan bu servise gelecek bildirilerden anında haberdar olursun.</p>
+        </div>
       </div>
       <div class="slide" id="slide-3">
-        <h1>Üye ol</h1>
-        <p>Yapmanız gereken sadece servise abone olmak. Ve emailinize veya telefonunuza gelecek mesajları beklemek.</p>
+        <div class="slide-ins">
+          <h1>Üye ol</h1>
+          <p>Yapmanız gereken sadece servise abone olmak. Ve emailinize veya telefonunuza gelecek mesajları beklemek.</p>
+        </div>
       </div>
     </div>
 
@@ -20,7 +26,9 @@
         <li class="menuItem"><span>Servisler</span></li>
         <li class="menuItem"><span>Abone ol</span></li>
         <li class="menuItem"><span>Üye ol</span></li>
-        <li class="menuItem"><span data-controls-modal="modal-from-dom" data-backdrop="true" data-keyboard="true">Giriş yap</span></li>
+        <% unless account_signed_in? %>
+          <li class="menuItem"><span data-controls-modal="modal-from-dom" data-backdrop="true" data-keyboard="true">Giriş yap</span></li>
+        <% end %>
       </ul>
     </div>
   </div>
