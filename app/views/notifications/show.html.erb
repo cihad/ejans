@@ -15,7 +15,7 @@
       <% if account_signed_in? and
             current_account.subscribing?(@notification.service) and
             current_account.subscription(@notification.service).selections.include?(selection) %>
-        <li class="active"  data-placement="above" rel='twipsy' title='<%= t('.selected') %>'>
+        <li class="active" data-original-title='<%= t('.selected') %>'>
           <%= selection.label %>
           <span>✓</span>
         </li>
@@ -53,8 +53,6 @@
 
 <script>
 $(function () {
-  $("[rel=twipsy]").twipsy({
-    live: true
-  })
+  $('.active').tooltip('hide')
 })
 </script>

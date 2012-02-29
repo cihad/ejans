@@ -11,8 +11,7 @@
 <!-- /HEAD -->
 
 <%
-contentspan = content_for?(:left) ? 'span9' : 'span12'
-allspan = content_for?(:left) ? '13' : '12'
+contentspan = content_for?(:left) ? 'span6' : 'span9'
 
 %>
 
@@ -27,7 +26,7 @@ allspan = content_for?(:left) ? '13' : '12'
         <div class="row">
 
 
-          <div class="span6">
+          <div class="span4">
             <section id="content">
               <%= render 'devise/shared/links' %>
               <%= render 'layouts/messages' %>

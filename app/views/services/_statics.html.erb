@@ -21,22 +21,22 @@
     <td>
       <% if account_signed_in? %>
         <% if current_account.subscribing?(@service) %>
-          <%= content_tag :span, t(".settings"), :class => "subscribe btn large success" %>
+          <span class="subscribe btn btn-success"><i class="icon-cog icon-white"></i> <%= t(".settings") %></span>
         <% else %>
-          <%= content_tag :span, t('.settings'), :class => "subscribe btn large default" %>
+        <span class="subscribe btn"><i class="icon-user"></i> <%= t("global.subscribe") %></span>
         <% end %>  
       <% else %>
-        <%= content_tag :span, t('global.subscribe'), :class => "subscribe btn large default" %>
+        <span class="subscribe btn"><i class="icon-user"></i> <%= t("global.subscribe") %></span>
       <% end %>
     </td>
 
     <td>
       <% if account_signed_in? %>
-        <a href="<%= new_service_notification_path(@service) %>" class="btn large">
-          <%= t('notifications.new.new_notification') %>
+        <a href="<%= new_service_notification_path(@service) %>" class="btn">
+          <i class="icon-share"></i> <%= t('notifications.new.new_notification') %>
         </a>
       <% else %>
-        <button class="btn large" data-controls-modal="modal-from-dom" data-backdrop="true" data-keyboard="true">New Notification</button>
+        <a class="btn" data-toggle="modal" href="#signin-modal"><i class="icon-share"></i> New Notification</a>
       <% end %>
     </td>
   </tr>

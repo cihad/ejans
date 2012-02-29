@@ -13,34 +13,34 @@
   <% end %>
 
   <div class="form-item title-field row ">
-    <%= f.label :title, t('global.title'), :class => "span3" %>
-    <span class="span8">
-      <%= f.text_field :title, :class => "span8" %>
+    <%= f.label :title, t('global.title'), :class => "span2" %>
+    <span class="span6">
+      <%= f.text_field :title, :class => "span6" %>
     </span>
   </div>
 
   <div class="form-item textarea-field row">
-    <%= f.label :description, t('global.description'), :class => "span3" %>
-    <span class="span8">
-      <%= f.text_area :description, :rows => "5", :class => "span8" %>
+    <%= f.label :description, t('global.description'), :class => "span2" %>
+    <span class="span6">
+      <%= f.text_area :description, :rows => "5", :class => "span6" %>
     </span>
   </div>
 
   <div class="form-item file-field row">
-    <%= f.label :image, t('global.description'), :class => "span3" %>
-    <span class="span8">
+    <%= f.label :image, t('global.description'), :class => "span2" %>
+    <span class="span6">
       <% if @service.image? %>
         <%= image_tag(@service.image_url) %>
         <%= f.check_box :remove_image %>
       <% end %>
-      <%= f.file_field :image, :class => "span8" %>
+      <%= f.file_field :image, :class => "span6" %>
       <%= f.hidden_field :image_cache %>
     </span>
   </div>
 
   <div class="form-item row" id="filters">
-    <%= label_tag nil, t('services.new.add_filter'), :class => "span3" %>
-    <span class="fields span8">
+    <%= label_tag nil, t('services.new.add_filter'), :class => "span2" %>
+    <span class="fields span6">
       <%= f.fields_for :filters do |builder| %>
         <%= render "filter_fields", {:f => builder, :service => @service}  %>
       <% end %>
@@ -51,7 +51,7 @@
     <%= render "price_fields", f: builder %>
   <% end %>
   
-  <div class="actions">
+  <div class="form-actions">
     <%= f.submit "Submit" %>
   </div>
 <% end %>

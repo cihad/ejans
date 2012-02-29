@@ -1,6 +1,6 @@
 <% page_name = "Forgot your password?" %>
 <% title page_name %>
-<%= body_class "small-page" %>
+<% body_class "small-page" %>
 
 <div class="page-form">
 <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post, :autocomplete => :off }) do |f| %>
@@ -11,7 +11,7 @@
 
       <p>
         <%= f.label :email %>
-        <%= f.email_field :email, :class => "span6" %>
+        <%= f.email_field :email, :class => "span4" %>
       </p>
 
       <p>

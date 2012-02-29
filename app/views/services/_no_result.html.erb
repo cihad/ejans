@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="span7">
+  <div class="span5">
     <p><%= t('search.description', :search => params[:search] ) %></p>
     <p><%= t('search.suggestions') %>:</p>
     <ul>
@@ -9,8 +9,8 @@
     </ul>
   </div>
 
-  <div class="span5">
-    <div class="alert-message block-message warning fade in" style="margin-top:-40px; margin-bottom: 0;">
+  <div class="span4">
+    <div class="alert alert-block alert-info" style="margin-top:-40px; margin-bottom: 0;">
       <h4><%= t('search.notice_me') %></h4>
       <p><%= t('search.notice_desc') %></p>
       <div class="alert-actions">
@@ -28,15 +28,15 @@
             <% end %>
 
             <% unless account_signed_in? %>
-              <div class="form-item text_field row">
-                <%= f.label :email, t('global.email'), :class => "span5" %>
-                <%= f.text_field :email, :class => "span4" %>
+              <div class="form-item text_field">
+                <%= f.label :email, t('global.email') %>
+                <%= f.text_field :email, :class => "span3" %>
               </div>
             <% end %>
 
-            <div class="form-item text_area row">
-              <%= f.label :suggestion, t('search.suggestion'), :class => "span5" %>
-              <%= f.text_area :suggestion, :rows => 4, :class => "span4" %>
+            <div class="form-item text_area">
+              <%= f.label :suggestion, t('search.suggestion') %>
+              <%= f.text_area :suggestion, :rows => 4, :class => "span3" %>
             </div>
 
             <%= f.submit t('search.submit'), :class => "btn" %>

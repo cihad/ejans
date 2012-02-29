@@ -13,31 +13,31 @@
   <% end %>
 
   <div class="form-item text-field row">
-    <%= label_tag nil, t("services.one"), :class => "span3" %>
-    <span class="span8">
-      <%= text_field_tag nil, nil, :placeholder => @service.title, :disabled => true, :class => "span8" %>
+    <%= label_tag nil, t("services.one"), :class => "span2" %>
+    <span class="span6">
+      <%= text_field_tag nil, nil, :placeholder => @service.title, :disabled => true, :class => "span6" %>
     </span>
   </div>
 
   <div class="form-item title-field row">
-    <%= f.label :title, t("notifications.title"), :class => "span3" %>
-    <span class="span8">
-      <%= f.text_field :title, :class => "span8" %>
+    <%= f.label :title, t("notifications.title"), :class => "span2" %>
+    <span class="span6">
+      <%= f.text_field :title, :class => "span6" %>
     </span>
   </div>
 
   <div class="form-item textarea-field row">
-    <%= f.label :sms, :class => "span3" %>
-    <span class="span8">
-      <%= f.text_area :sms, :rows => "2", :maxlength => 160, :class => "limited span8" %>
+    <%= f.label :sms, :class => "span2" %>
+    <span class="span6">
+      <%= f.text_area :sms, :rows => "2", :maxlength => 160, :class => "limited span6" %>
       <p class="right-align mini-font no-margin"><span class="chars-left pastelred">160</span> char left.</p>
     </span>
   </div>
 
   <% unless @service.filters.blank? %>
     <div class="form-item multi-select row" id="filters">
-      <%= label_tag nil, t("notifications.filters"), :class => "span3" %>
-      <span class="span8">
+      <%= label_tag nil, t("notifications.filters"), :class => "span2" %>
+      <span class="span6">
         <% for filter in @service.filters %>
           <span class="filter fields">
             <span class="fixed"><%= truncate(filter.name, :length => 20) %></span>
@@ -79,8 +79,8 @@
   </script>
 
   <div class="form-item info-field row">
-    <%= label_tag nil, t("notifications.price"), :class => "span3" %>
-    <span class="span8">
+    <%= label_tag nil, t("notifications.price"), :class => "span2" %>
+    <span class="span6">
       <span id="subscription_price">
         <%= @service.filters.blank? ? "#{(@service.service_price.sender_credit * @service.subscriptions.count)} #{t('global.credit')}" : t('global.free') %>
       </span>
@@ -91,20 +91,20 @@
   </div>
 
   <div class="form-item text-field row">
-    <%= f.label :available_until, t('notifications.show.available'),:class => "span3" %>
-    <span class="span8">
-      <%= f.text_field :available_until, :class => "span3" %>
+    <%= f.label :available_until, t('notifications.show.available'),:class => "span2" %>
+    <span class="span6">
+      <%= f.text_field :available_until, :class => "span2" %>
     </span>
   </div>
 
   <div class="form-item textarea-field row">
-    <%= f.label :description, t('global.description'), :class => "span3" %>
-    <span class="span8">
-      <%= f.text_area :description, :rows => "20", :class => "span8 tinymce" %>
+    <%= f.label :description, t('global.description'), :class => "span2" %>
+    <span class="span6">
+      <%= f.text_area :description, :rows => "20", :class => "span6 tinymce" %>
     </span>
   </div>
 
-  <div class="actions">
+  <div class="form-actions">
     <%= f.submit "Submit" %>
   </div>
 <% end %>

@@ -13,7 +13,7 @@
   }
 
   .container {
-    width: 340px;
+    width: 300px;
   }
 
   .field_with_errors {
@@ -23,7 +23,7 @@
     margin: 0;
   }
 
-  .tabs {
+  .nav-tabs {
     margin: -21px -21px 20px;
     padding: 21px 21px 0;
     background: lighten($grayLighter, 3%);
@@ -31,6 +31,7 @@
     border-style: solid;
     border-color: #ddd;
     @include border-radius(4px 4px 0 0);
+    font-size: .9em;
 
     a {
       color: $grayDark;
@@ -55,13 +56,8 @@
       }
     }
 
-    input {
-      font-size: 1.2em;
-      height: auto;
-    }
-
     input[type=submit] {
-      width: 343px;
+      width: 304px;
     }
   }
 }

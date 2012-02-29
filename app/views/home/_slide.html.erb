@@ -27,7 +27,7 @@
         <li class="menuItem"><span>Abone ol</span></li>
         <li class="menuItem"><span>Üye ol</span></li>
         <% unless account_signed_in? %>
-          <li class="menuItem"><span data-controls-modal="modal-from-dom" data-backdrop="true" data-keyboard="true">Giriş yap</span></li>
+          <li class="menuItem"><a data-toggle="modal" href="#signin-modal"><i class="icon-user"></i> Giriş yap</a></li>
         <% end %>
       </ul>
     </div>

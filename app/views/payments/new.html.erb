@@ -32,9 +32,9 @@
     <div class="alert-actions">
       <%= form_for @credit, :url => payments_path, :method => :post do |f| %>
         <%= hidden_field_tag :payment_type_selection, @payment_type_selection.id %>
-        <%= f.submit "OK", :class => "btn success span3" %>
+        <%= f.submit "OK", :class => "btn btn-success span3" %>
       <% end %>
-      <%= link_to "Cancel", subscriptions_path, :class => "btn default" %>
+      <%= link_to "Cancel", subscriptions_path, :class => "btn" %>
     </div>
 </div>
   

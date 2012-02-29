@@ -24,12 +24,12 @@
     <div class="span5 offset2">
       <% if account_signed_in? %>
         <% if @subscription.new_record? %>
-          <%= f.submit t("global.subscribe"), :class => "btn span4" %>
+          <%= f.submit t("global.subscribe"), :class => "btn span2" %>
         <% else %>
-          <%= f.submit t("global.update"), :class => "btn success span4" %>
+          <%= f.submit t("global.update"), :class => "btn btn-success span2" %>
         <% end %>
       <% else %>
-        <button class="btn disabled" data-controls-modal="modal-from-dom" data-backdrop="true" data-keyboard="true"><%= t('subscriptions.service.signin') %></button>
+        <a class="btn disabled" data-toggle="modal" href="#signin-modal"><%= t('subscriptions.service.signin') %></a>
       <% end %>
     </div>
   </div>

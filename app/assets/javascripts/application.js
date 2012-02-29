@@ -21,10 +21,10 @@
 //= require jquery-ui/jquery.ui.button
 //= require jquery-ui/jquery.effects.core
 //= require jquery-ui/jquery.effects.highlight
-//= require bootstrap/bootstrap-alerts
+//= require bootstrap/bootstrap-alert
 //= require bootstrap/bootstrap-dropdown
 //= require bootstrap/bootstrap-modal
-//= require bootstrap/bootstrap-scrollspy
+//= require bootstrap/bootstrap-tooltip
 //= require jquery-plugins/jquery.infieldlabel
 //= require jquery-plugins/jquery.maxlength
 //= require jquery-plugins/jquery.multiselect
@@ -34,12 +34,9 @@
 //= require slide
 
 $(document).ready(function() {
-  $(".signin").click(function() {
-      $( "#signin-modal" ).dialog("open");
-  });
 
   // Submit Buttons
-  $("input:submit, .add-line-item").button();
+  $(".add-line-item").button();
 
   // Checkbox Buttons
   $(".styled-checkbox").button();
@@ -65,13 +62,13 @@ $(document).ready(function() {
   // $('[data-pjax-container]')
   //   .bind('start.pjax', function() { $('[data-pjax-container]').fadeOut(400) })
   //   .bind('end.pjax', function() { $('[data-pjax-container]').fadeIn(400) });
-  // return $('form[method=get]:not([data-remote])').live('submit', function(event) {
-  //   event.preventDefault();
-  //   return $.pjax({
-  //     container: '[data-pjax-container]',
-  //     url: this.action + '?' + $(this).serialize()
-  //   });
-  // });
+  return $('form[method=get]:not([data-remote])').live('submit', function(event) {
+    event.preventDefault();
+    return $.pjax({
+      container: '[data-pjax-container]',
+      url: this.action + '?' + $(this).serialize()
+    });
+  });
 
   if (history && history.pushState) {
     $(".pagination a").live("click", function(e) {
@@ -100,6 +97,7 @@ $(document).ready(function() {
     entity_encoding : "raw",
   });
 
+  // Bootstrap
 });
 
 

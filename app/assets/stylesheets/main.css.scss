@@ -57,8 +57,14 @@ h2 {
   margin-bottom: 0;
 }
 
-.actions {
-  padding-left: 180px;
+.form-actions {
+  text-align: center;
+  margin: 0 -20px -38px;
+
+  input {
+    @extend .span3;
+    @extend .btn;
+  }
 }
 
 .edit_credit {
@@ -76,7 +82,7 @@ span.active {
 }
 
 .twoColumn .container {
-  width: 760px
+  width: 700px
 }
 
 .page {
@@ -88,24 +94,12 @@ span.active {
 }
 
 // HEADER
-.topbar-wrapper {
-  position: relative;
-  height: 40px;
-  margin: 40px 0 20px;
-}
-.topbar-wrapper .topbar {
-  position: absolute;
-  margin: 0 -20px;
-}
-.topbar-wrapper .topbar .topbar-inner {
-  padding-left: 20px;
-  padding-right: 20px;
-  @include border-radius(4px);
-  @include box-shadow(0 3px 3px #aaa);
+header {
+  margin: 20px -20px 0;
 }
 
 .notice-dropdown ul {
-  width: 400px;
+  width: 350px;
 }
 
 .nav > li {
@@ -125,7 +119,7 @@ span.active {
   font-weight: bold;
 }
 
-.topbar div > ul a.no-notice {
+ul a.no-notice {
   color: $gray;
 }
 
@@ -140,6 +134,20 @@ ul.dropdown-menu li {
     line-height: 1.2em;
     padding: 0 3px;
   }
+}
+
+.navbar-search {
+  margin-top: 7px;
+
+  .search-query {
+    padding: 2px 9px;
+    width: 180px;
+
+    &:focus, &.focused {
+      padding: 3px 10px;
+    }      
+  }
+
 }
 
 
@@ -241,6 +249,10 @@ ul.dropdown-menu li {
     margin-right: 0;
   }
 
+  .filter {
+    margin-bottom: 10px;
+  }
+
   .ui-multiselect-menu {
     margin-top: 2px;
   }
@@ -248,8 +260,9 @@ ul.dropdown-menu li {
   .label + .span3 {
     text-align: right; 
   }
-  form {
-    display: inline-block;
+
+  input[type="checkbox"] {
+    float: left;
   }
 
   div {
@@ -443,6 +456,10 @@ input:-webkit-autofill {
         margin-right: 5px;
       }
 
+      label.floated {
+        line-height:25px;
+      }
+
       .fixed {
         display: block;
         float: left;
@@ -467,8 +484,7 @@ input:-webkit-autofill {
       }
 
       .selection-fields {
-        
-        margin: 0 0 .5em;
+        @extend .clearfix;
         line-height: 1.7em;
            
         input {
@@ -620,23 +636,23 @@ ul.notices {
     }
 
     &:hover {
-      @include vertical-gradient(#fcfcfc, #f0f0f0);
+      @include gradient-vertical(#fcfcfc, #f0f0f0);
     }
 
     &:active {
-      @include vertical-gradient(#f0f0f0, #fcfcfc);
+      @include gradient-vertical(#f0f0f0, #fcfcfc);
     }
 
     &.unread {
-      @include vertical-gradient(lighten($yellow, 45%), lighten($yellow, 40%));
+      @include gradient-vertical(lighten($yellow, 45%), lighten($yellow, 40%));
       font-weight: bold; 
 
       &:hover {
-        @include vertical-gradient(lighten($yellow, 43%), lighten($yellow, 30%));
+        @include gradient-vertical(lighten($yellow, 43%), lighten($yellow, 30%));
       }
 
       &:active {
-       @include vertical-gradient(lighten($yellow, 30%), lighten($yellow, 43%));
+       @include gradient-vertical(lighten($yellow, 30%), lighten($yellow, 43%));
       }   
     }
   }
@@ -654,6 +670,7 @@ ul.notices {
 }
 .comment {
   margin-bottom: 10px; 
+  margin-right: -20px;
   .author {}
 
   .body {
@@ -665,7 +682,7 @@ ul.notices {
     .ins {
       @include border-radius(2px);
       background: #fff;
-      border: 1px solid $grayLight;
+      border: 1px solid #999;
       padding: 7px;
     }
   }

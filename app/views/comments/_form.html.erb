@@ -2,17 +2,17 @@
   <%= f.hidden_field :notification_id %>
   <div class="row comment">
 
-    <div class="span2 offset1">
+    <div class="span1 offset1">
       <div class="author">
         <%= current_account.email.split("@")[0] %>
       </div>
     </div>
 
-    <div class="span8">
+    <div class="span6">
       <div class="body">
         <div class="ins">
-          <%= f.text_area :body, :rows => 3, :class => "span7" %>
-          <%= f.submit %>
+          <%= f.text_area :body, :rows => 3, :class => "span5" %>
+          <%= f.submit nil, class: "btn" %>
         </div>
       </div>
     </div>
