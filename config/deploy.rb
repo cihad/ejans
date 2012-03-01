@@ -19,7 +19,6 @@ role :db,  domain, :primary => true
 default_environment["RAILS_ENV"] = 'production'
 
 after "deploy", "rvm:trust_rvmrc"
-after "deploy", "unicorn:restart"
 after "deploy:restart", "deploy:cleanup"
 before "deploy:update_code", "ts:stop" # Uncomment first_run
 after "deploy:symlink", "ts:symlink"
@@ -27,6 +26,7 @@ after "deploy:symlink", "ts:symlink"
 after 'deploy', 'ts:start'
 after "deploy", "uploads:symlink"
 after "deploy", "assets:precompile"
+after "deploy", "unicorn:restart"
 
 
 # Copy the exact line. I really mean :user here
