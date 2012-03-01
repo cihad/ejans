@@ -33,6 +33,8 @@
 //= require jquery-plugins/jquery.flipcounter
 //= require tinymce-jquery
 //= require slide
+//= require not_found
+//= require modernizr.custom
 
 $(document).ready(function() {
 
