@@ -3,7 +3,7 @@
 <head>
   <title><%= yield(:title) || "Untitled" %> - Ejans.com</title>
   <%= stylesheet_link_tag    "application" %>
-  <%= javascript_include_tag "application", "modernizr.custom" %>
+  <%= javascript_include_tag "application" %>
   <%= yield(:head) %>
   <%= yield(:meta_tag) %>
   <%= csrf_meta_tags %>
