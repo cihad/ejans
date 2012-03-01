@@ -30,6 +30,7 @@
 //= require jquery-plugins/jquery.multiselect
 //= require jquery-plugins/jquery.multiselect.filter
 //= require jquery-plugins/jquery.tablesorter
+//= require jquery-plugins/jquery.flipcounter
 //= require tinymce-jquery
 //= require slide
 

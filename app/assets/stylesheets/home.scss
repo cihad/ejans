@@ -16,7 +16,9 @@
   overflow:hidden;
 }
 
+
 .slide{
+  position: relative;
   float:left;
   width: 740px;
   height: 200px;
@@ -37,6 +39,33 @@
 .slide p {
   width: 300px;
   margin-top: 10px;
+}
+
+#counter {
+  position: absolute;
+  right: 30px;
+  top:30px;
+
+  #flip-counter {
+  }
+
+  #counter-left {
+    text-align: right;
+    float: left;
+    width: 100px;
+    margin: -3px 10px 0 0;
+  }
+
+  #counter-right {
+    float: right;
+    width: 200px;
+    p {
+      margin-top: 5px;
+    }
+  }
+
+
+
 }
 
 #gallery {
@@ -85,7 +114,7 @@ h2#subheading {
   line-height: 40px;
   text-align:center;
   font-size: 14px;
-  @include gradient-vertical(#fff, #fcfcfc);
+  @include gradient-vertical(#fff, #f7f7f7);
 
   div {
     background: #ffffff; /* Old browsers */
@@ -101,13 +130,13 @@ h2#subheading {
 }
 
 #home-services {
-  @include opacity(80);
+  @include opacity(0.8);
   padding: 30px 30px 0;
   margin: 0 -20px 0 0;
   @include transition(.6s linear all);
 
   &:hover {
-    @include opacity(100);
+    @include opacity(1);
     @include transition(.6s linear all);
   }
 
