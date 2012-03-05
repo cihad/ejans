@@ -405,7 +405,7 @@
 }
 
 // Gradients
-@mixin gradient-horizontal($startColor: #555, $endColor: #333) {
+@mixin gradient-horizontal($startColor: #555555, $endColor: #333333) {
   background-color: $endColor;
   background-image: -moz-linear-gradient(left, $startColor, $endColor); // FF 3.6+
   background-image: -ms-linear-gradient(left, $startColor, $endColor); // IE10
@@ -416,7 +416,7 @@
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$startColor}', endColorstr='#{$endColor}', GradientType=1); // IE9 and down
 }
-@mixin gradient-vertical($startColor: #555, $endColor: #333) {
+@mixin gradient-vertical($startColor: #555555, $endColor: #333333) {
   background-color: mix($startColor, $endColor, 60%);
   background-image: -moz-linear-gradient(top, $startColor, $endColor); // FF 3.6+
   background-image: -ms-linear-gradient(top, $startColor, $endColor); // IE10
@@ -427,7 +427,7 @@
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$startColor}', endColorstr='#{$endColor}', GradientType=0); // IE9 and down
 }
-@mixin gradient-directional($startColor: #555, $endColor: #333, $deg: 45deg) {
+@mixin gradient-directional($startColor: #555555, $endColor: #333333, $deg: 45deg) {
   background-color: $endColor;
   background-repeat: repeat-x;
   background-image: -moz-linear-gradient($deg, $startColor, $endColor); // FF 3.6+
@@ -447,7 +447,7 @@
   background-repeat: no-repeat;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$startColor}', endColorstr='#{$endColor}', GradientType=0); // IE9 and down, gets no color-stop at all for proper fallback
 }
-@mixin gradient-radial($innerColor: #555, $outerColor: #333)  {
+@mixin gradient-radial($innerColor: #555555, $outerColor: #333333)  {
   background-color: $outerColor;
   background-image: -webkit-gradient(radial, center center, 0, center center, 460, from($innerColor), to($outerColor));
   background-image: -webkit-radial-gradient(circle, $innerColor, $outerColor);
