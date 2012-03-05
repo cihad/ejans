@@ -107,7 +107,7 @@ h2#subheading {
   line-height: 40px;
   text-align:center;
   font-size: 14px;
-  @include gradient-vertical(#fff, #f7f7f7);
+  @include gradient-vertical($white, #f7f7f7);
 
   div {
     background: #ffffff; /* Old browsers */
