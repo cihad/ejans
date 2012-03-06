@@ -65,6 +65,7 @@ tr:
     label: 'Etiket'
     show:
       notifications: 'Servis Bildirileri'
+      no_notification: 'Hiç bildiri yok. İlk bildiriyi sen gönder. Servisin canlanmasına yardımcı ol'
     new:
       add_filter: 'Filtre ekle'
       new_service: 'Yeni Servis'
