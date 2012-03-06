@@ -1,4 +1,5 @@
 class CommentsController < ApplicationController
+  before_filter :authenticate_account!
 
   def create
     @comment = current_account.comments.new(params[:comment])

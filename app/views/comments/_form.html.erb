@@ -1,6 +1,6 @@
 <%= form_for Comment.new(:notification_id => notification.id), :remote => true do |f| %>
   <%= f.hidden_field :notification_id %>
-  <div class="row comment">
+  <div class="row comment <%= "self" if current_account == notification.notificationable %>">
 
     <div class="span1 offset1">
       <div class="author">

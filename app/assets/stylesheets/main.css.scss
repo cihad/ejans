@@ -687,6 +687,20 @@ ul.notices {
     }
   }
 
+  &.self {
+    .author {
+      color: darken($serviceitembg, 60%);
+    }
+
+    .body {
+      background: darken($serviceitembg, 10%);
+
+      .ins {
+        border: 1px solid darken($serviceitembg, 20%);
+      }
+    }
+  }
+
 }
 
 

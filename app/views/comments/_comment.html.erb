@@ -1,4 +1,4 @@
-<div class="row comment <%#= "notification_user" if comment.author == notification.account %>">
+<div class="row comment <%= "self" if comment.author == comment.notification.notificationable %>">
   <div class="span1 offset1">
     <div class="author">
       <%= comment.author.email.split("@")[0] %>

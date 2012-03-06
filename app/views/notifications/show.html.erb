@@ -37,19 +37,20 @@
     <%= t('global.created') %>: <strong><%= @notification.created_at %></strong><br>
     <%= t('.available') %>: <strong><%= @notification.available_until %></strong>
     <%= content_tag :span, "active", :class => "active" if @notification.active? %><br>
+    <%= @notification.notificationable.email.split("@")[0] if @notification.notificationable_type == "Account" %>
   </p>
-
-
-  <div id="comments">
-    <h3><%= t('comments.comment_title') %></h3>
-    <%= render @notification.comments %>
-  </div>
-
-  <%= render 'comments/form', :notification => @notification if account_signed_in? %>
-
-  <%= link_to t('global.edit'), edit_service_notification_path(@service, @notification) %> |
-  <%= link_to t('global.back'), @service %>
 </article>
+
+
+<div id="comments">
+  <h3><%= t('comments.comment_title') %></h3>
+  <%= render @notification.comments %>
+</div>
+
+<%= render 'comments/form', :notification => @notification if account_signed_in? %>
+
+<%= link_to t('global.edit'), edit_service_notification_path(@service, @notification) %> |
+<%= link_to t('global.back'), @service %>
 
 <script>
 $(function () {
