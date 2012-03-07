@@ -1,20 +1,18 @@
-<%= form_for Comment.new(:notification_id => notification.id), :remote => true do |f| %>
-  <%= f.hidden_field :notification_id %>
-  <div class="row comment <%= "self" if current_account == notification.notificationable %>">
-
-    <div class="span1 offset1">
-      <div class="author">
-        <%= current_account.email.split("@")[0] %>
-      </div>
+<div class="row comment <%= "self" if current_account == notification.notificationable %>">
+  <div class="span1 offset1">
+    <div class="author">
+      <%= current_account.email.split("@")[0] %>
     </div>
-
-    <div class="span6">
-      <div class="body">
-        <div class="ins">
+  </div>
+  <div class="span6">
+    <div class="body">
+      <div class="ins">
+        <%= form_for Comment.new(:notification_id => notification.id), :remote => true do |f| %>
+          <%= f.hidden_field :notification_id %>
           <%= f.text_area :body, :rows => 3, :class => "span5" %>
           <%= f.submit nil, class: "btn" %>
-        </div>
+        <% end %>
       </div>
     </div>
   </div>
-<% end %>
+</div>

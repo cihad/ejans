@@ -136,3 +136,4 @@ tr:
 
   comments:
     comment_title: 'Yorumlar'
+    signin_html: "Yorum yapabilmek için <a data-toggle=\"modal\" href=\"#signin-modal\">giriş</a> yapın."

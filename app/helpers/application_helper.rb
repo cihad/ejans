@@ -64,4 +64,8 @@ module ApplicationHelper
   def content_count(query, message = "")
     content_tag :span, "#{query} #{message}" if query != 0
   end
+
+  def yield_content!(content_key)
+    view_flow.content.delete(content_key)
+  end
 end
