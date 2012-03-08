@@ -33,14 +33,49 @@
     <%= sanitize @notification.description %>
   </p>
 
-  <p>
-    <%= t('global.created') %>: <strong><%= @notification.created_at %></strong><br>
-    <%= t('.available') %>: <strong><%= @notification.available_until %></strong>
-    <%= content_tag :span, "active", :class => "active" if @notification.active? %><br>
-    <%= @notification.notificationable.email.split("@")[0] if @notification.notificationable_type == "Account" %>
-  </p>
 </article>
 
+
+<table class="statics-table small">
+  <tbody><tr>
+    <td>
+      <div class="count">
+        <span><%= @notification.created_at.strftime("%d.%m.%Y")  %></span>
+      </div>
+      <div class="desc">
+        <span><%= t('.created_at') %></span>
+      </div>
+    </td>
+
+    <td>
+      <div class="count">
+        <span><%= @notification.available_until.strftime("%d.%m.%Y") %></span>
+      </div>
+      <div class="desc">
+        <span><%= t('.available') %></span>
+        <%= content_tag :span, "active", :class => "active" if @notification.active? %>
+      </div>
+    </td>
+
+    <td>
+      <div class="count">
+        <%= @notification.notificationable.email.split("@")[0] if @notification.notificationable_type == "Account" %>
+      </div>
+      <div class="desc">
+        <%= t('.author') %>
+      </div>
+    </td>
+
+    <td>
+      <div class="count">
+        0 <!-- goal -->
+      </div>
+      <div class="desc">
+        <%= t('.read') %>
+      </div>
+    </td>
+  </tr>
+</tbody></table>
 
 <div id="comments">
   <h3><%= t('comments.comment_title') %></h3>

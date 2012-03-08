@@ -102,10 +102,13 @@ tr:
       avarage_time: 'bildiride geçirilen ortalama süre'
       touched: 'kişi iletişime geçti'
     show:
-      available: 'Hangi tarihe kadar geçerli'
+      available: 'tarihine kadar geçerli'
       selected: 'Bu seçeneğe abonesiniz'
       add_my_account: 'Bildiriyi hesabıma ekle'
       insufficient_credit: 'Yetersiz kredi'
+      author: 'gönderen'
+      created_at: 'tarihinde eklendi'
+      read: 'okunma sayısı'
     notification:
       insufficient_credit: 'Bu bildiri size gönderildi. Krediniz yetersiz olduğu için bildiriyi alamadınız.'
       sufficient_credit: 'Şimdi yeterli krediniz var.'

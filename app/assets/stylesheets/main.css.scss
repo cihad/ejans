@@ -242,6 +242,12 @@ ul.dropdown-menu li {
   }
 
   .aLeft { text-align: left }
+
+  &.small {
+    .count {
+      font-size: 1.1em;
+    }
+  }
 }
 
 #service-subscription {
