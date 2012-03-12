@@ -16,6 +16,11 @@ h2 {
   margin-bottom: 15px;
 }
 
+label {
+  display: inline;
+  line-height: 1.3em;
+}
+
 // default
 .margin-padding-zero {
   margin: 0;
@@ -677,33 +682,36 @@ ul.notices {
 .comment {
   margin-bottom: 10px; 
   margin-right: -20px;
-  .author {}
+  .label { font-size: 9px; }
+  .author { font-size: 10px; }
 
   .body {
     @include border-radius(3px);
-    background: $grayLighter;
+    background: #ddd;
     padding: 4px;
     font-size: 11px;
 
     .ins {
       @include border-radius(2px);
       background: #fff;
-      border: 1px solid #999;
+      border: 1px solid #bbb;
       padding: 7px;
     }
   }
 
-  &.self {
-    .author {
-      color: darken($serviceitembg, 60%);
-    }
-
+  &.owner {
+    .author { color: darken($serviceitembg, 60%); }
     .body {
-      background: darken($serviceitembg, 10%);
+      background: darken($serviceitembg, 5%);
+      .ins { border: 1px solid darken($serviceitembg, 15%); }
+    }
+  }
 
-      .ins {
-        border: 1px solid darken($serviceitembg, 20%);
-      }
+  &.private {
+    .author { color: darken($green, 20%); }
+    .body {
+      background: lighten($green, 35%);
+      .ins { border: 1px solid lighten($green, 15%); }
     }
   }
 

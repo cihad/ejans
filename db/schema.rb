@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120227162827) do
+ActiveRecord::Schema.define(:version => 20120310143241) do
 
   create_table "accounts", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false
@@ -45,10 +45,13 @@ ActiveRecord::Schema.define(:version => 20120227162827) do
     t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "private",         :default => false
+    t.integer  "parent_id"
   end
 
   add_index "comments", ["author_id"], :name => "index_comments_on_author_id"
   add_index "comments", ["notification_id"], :name => "index_comments_on_notification_id"
+  add_index "comments", ["parent_id"], :name => "index_comments_on_parent_id"
 
   create_table "credit_histories", :force => true do |t|
     t.integer  "credit_id"
