@@ -3,6 +3,7 @@ class CommentsController < ApplicationController
 
   def create
     @comment = current_account.comments.new(params[:comment])
+    @comments = @comment.notification.comments.where(parent_id: nil)
 
     respond_to do |format|
       if @comment.save

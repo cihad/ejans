@@ -1,23 +1,26 @@
 <% if !comment.private? || (comment.private? && (current_account == comment.author || current_account == comment.notification.notificationable)) %>  
-<div class="row comment <%= "owner" if o = comment.author == comment.notification.notificationable %> <%= "private" if p = comment.private? %>">
-  <div class="span1 offset1">
-    <div class="author">
-      <%= comment.author.email.split("@")[0] %>
-      <%= content_tag :span, "owner", class: "label label-info" if o %>
-      <%= content_tag :span, "private", class: "label label-success" if p %>
+  <div id="comment_<%= comment.id %>" class="row comment <%= "owner" if o = comment.author == comment.notification.notificationable %> <%= "private" if p = comment.private? %>">
+    <div class="span1 offset1">
+      <div class="author">
+        <%= comment.author.email.split("@")[0] %>
+        <%= content_tag :span, "owner", class: "label label-info" if o %>
+        <%= content_tag :span, "private", class: "label label-success" if p %>
+      </div>
     </div>
-  </div>
-  <div class="span6">
-    <div class="body">
-      <div class="ins">
-      <%= simple_format comment.body %>
-      <%= comment.created_at %>
+    <div class="span6">
+      <div class="body">
+        <div class="ins">
+          <%= simple_format comment.body %>
+          <%= comment.created_at %>
 
-      <% if comment.comments.exists? %>
-        <%= render comment.comments %>
-      <% end %>
+          <% if comment.private? %>
+            <div class="answers">
+              <%= render partial: "comments/answer", collection: comment.comments %>
+              <%= render partial: "comments/answer_form", locals: {notification: comment.notification, parent_id: comment.id} %>
+            </div>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>
-</div>
 <% end %>

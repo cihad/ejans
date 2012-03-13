@@ -50,7 +50,9 @@ Ejans::Application.routes.draw do
   resources :selections, :only => [:create, :destroy] do
     post :multiple_add, on: :collection
   end
+
   resources :comments, :only => [:create, :destroy]
+
   resources :filters, :only => [:create, :destroy]
   resources :ideas, :only => [:create, :destroy]
 

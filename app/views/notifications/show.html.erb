@@ -79,7 +79,9 @@
 
 <div id="comments">
   <h3><%= t('comments.comment_title') %></h3>
-  <%= render @notification.comments %>
+  <div class="comments-ins">
+    <%= render @comments %>
+  </div>
 </div>
 
 <% if account_signed_in? %>

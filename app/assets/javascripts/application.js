@@ -60,31 +60,7 @@ $(document).ready(function() {
     'feedback' : '.chars-left' // note: looks within the current form
   });
 
-  // Pjax
-  $('a.data-remote, .breadcrumbs a').pjax('[data-pjax-container]');
-  // $('[data-pjax-container]')
-  //   .bind('start.pjax', function() { $('[data-pjax-container]').fadeOut(400) })
-  //   .bind('end.pjax', function() { $('[data-pjax-container]').fadeIn(400) });
-  return $('form[method=get]:not([data-remote])').live('submit', function(event) {
-    event.preventDefault();
-    return $.pjax({
-      container: '[data-pjax-container]',
-      url: this.action + '?' + $(this).serialize()
-    });
-  });
-
-  if (history && history.pushState) {
-    $(".pagination a").live("click", function(e) {
-      $.getScript(this.href);
-      history.pushState(null, document.title, this.href); 
-      e.preventDefault();
-    });
-
-    $(window).bind("popstate", function() {
-      $.getScript(location.href);
-    });
-  }
-
+  // TinyMCE
   $('.tinymce').tinymce({
     theme : "advanced",
     plugins : "fullscreen,table",
@@ -97,10 +73,45 @@ $(document).ready(function() {
     theme_advanced_statusbar_location : "bottom",
     theme_advanced_toolbar_location : "external",
     theme_advanced_resizing : true,
-    entity_encoding : "raw",
+    entity_encoding : "raw"
   });
 
-  // Bootstrap
+  // Pagination
+  if (history && history.pushState) {
+    $(".pagination a").live("click", function(e) {
+      $.getScript(this.href);
+      history.pushState(null, document.title, this.href); 
+      e.preventDefault();
+    });
+
+    $(window).bind("popstate", function() {
+      $.getScript(location.href);
+    });
+  }
+
+  // Pjax
+  $('a.data-remote, .breadcrumbs a').pjax('[data-pjax-container]');
+  // $('[data-pjax-container]')
+  //   .bind('start.pjax', function() { $('[data-pjax-container]').fadeOut(400) })
+  //   .bind('end.pjax', function() { $('[data-pjax-container]').fadeIn(400) });
+  $('form[method=get]:not([data-remote])').live('submit', function(event) {
+    event.preventDefault();
+    return $.pjax({
+      container: '[data-pjax-container]',
+      url: this.action + '?' + $(this).serialize()
+    });
+  });
+
+  // Comment Form
+  $('input#comment_private').change(function() { 
+    if ($(this).attr("checked")) {
+      $('.comment-form').addClass("private");
+      $('.comment-form .author').append("<span class='label label-success'>private</span>")
+      return;
+    }
+    $('.comment-form').removeClass("private");
+    $('.comment-form .label-success').remove();
+  });
 });
 
 

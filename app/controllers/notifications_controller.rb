@@ -4,6 +4,7 @@ class NotificationsController < ApplicationController
 
   def show
     @notification = Notification.find(params[:id])
+    @comments = @notification.comments.where(parent_id: nil)
 
     if account_signed_in?
       if notice = current_account.notices.find_by_notification_id(params[:id])

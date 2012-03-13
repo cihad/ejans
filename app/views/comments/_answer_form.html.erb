@@ -1,0 +1,8 @@
+<div class="answer answer-form clearfix">
+  <%= form_for Comment.new(notification_id: notification.id, parent_id: parent_id), :remote => true do |f| %>
+    <%= f.hidden_field :notification_id %>
+    <%= f.hidden_field :parent_id %>
+    <%= f.text_area :body, :rows => 1, class: "span4" %>
+    <%= f.submit t("comments.answer"), class: "btn btn-small" %>
+  <% end %>
+</div>
