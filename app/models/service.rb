@@ -7,9 +7,9 @@ class Service < ActiveRecord::Base
   
   has_many :filters, :dependent => :destroy
   accepts_nested_attributes_for :filters,
-          :limit => FILTER_COUNT,
-          :allow_destroy => true,
-          :reject_if => proc { |attributes| attributes['name'].blank? }
+    :limit => FILTER_COUNT,
+    :allow_destroy => true,
+    :reject_if => proc { |attributes| attributes['name'].blank? }
 
   has_many :selections, :through => :filters
 
@@ -20,6 +20,9 @@ class Service < ActiveRecord::Base
 
   has_many :subscriptions
   has_many :accounts, :through => :subscriptions
+
+  has_many :google_alert_feeds, dependent: :destroy
+  accepts_nested_attributes_for :google_alert_feeds, :allow_destroy => true
 
   # Validates
   validates_associated :filters

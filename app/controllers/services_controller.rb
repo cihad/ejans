@@ -7,18 +7,6 @@ class ServicesController < ApplicationController
 
   def show
     @service = Service.find(params[:id])
-
-    # if @service.service_price.receiver_credit == 0
-    #   @notifications = @service.notifications.published.page(params[:page])
-    # else
-    #   if account_signed_in? and current_account.subscribing?(@service)
-    #     subscription = current_account.subscription(@service)
-    #     selection_ids = subscription.selections.map(&:id)
-    #     @notifications = @service.which_notifications(selection_ids)
-    #   else
-    #     @notifications = @service.notifications.unavailable.page(params[:page])
-    #   end
-    # end
     @notifications = @service.notifications.page(params[:page])
     @subscription = current_account.subscription(@service) if account_signed_in?
     @subscription ||= @service.subscriptions.build
@@ -31,6 +19,7 @@ class ServicesController < ApplicationController
   def new
     @service = Service.new
     @service.build_service_price
+    3.times { @service.google_alert_feeds.build }
 
     Service::FILTER_COUNT.times do
       filter = @service.filters.build
@@ -40,7 +29,7 @@ class ServicesController < ApplicationController
 
   def edit
     @service = Service.find(params[:id])
-
+    3.times { @service.google_alert_feeds.build }
     form_count = Service::FILTER_COUNT - (@service.filters.count)
     form_count.times do
       filter = @service.filters.build
@@ -50,10 +39,10 @@ class ServicesController < ApplicationController
 
   def create
     @service = Service.new(params[:service])
-
     if @service.save
       redirect_to selections_service_path(@service), notice: "Service was successfully created."
     else
+      3.times { @service.google_alert_feeds.build }
       filters_count = Service::FILTER_COUNT - params["service"]["filters_attributes"].select { |k, v| v["name"].present? }.count
       filters_count.times do
         filter = @service.filters.build

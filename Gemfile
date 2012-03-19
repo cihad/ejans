@@ -17,6 +17,7 @@ gem 'sinatra', '~> 1.2.6'
 gem 'roadie'
 gem 'tinymce-rails'
 gem 'carrierwave'
+gem 'nokogiri'
 
 # Groups
 group :assets do

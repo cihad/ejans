@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120310143241) do
+ActiveRecord::Schema.define(:version => 20120319083915) do
 
   create_table "accounts", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false
@@ -80,6 +80,16 @@ ActiveRecord::Schema.define(:version => 20120310143241) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "google_alert_feeds", :force => true do |t|
+    t.integer  "service_id"
+    t.string   "feed_url"
+    t.string   "search_key"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "google_alert_feeds", ["service_id"], :name => "index_google_alert_feeds_on_service_id"
 
   create_table "ideas", :force => true do |t|
     t.integer  "account_id"

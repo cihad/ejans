@@ -42,7 +42,7 @@
     <%= label_tag nil, t('services.new.add_filter'), :class => "span2" %>
     <span class="fields span6">
       <%= f.fields_for :filters do |builder| %>
-        <%= render "filter_fields", {:f => builder, :service => @service}  %>
+        <%= render "filter_fields", { f: builder, service: @service}  %>
       <% end %>
     </span>
   </div>
@@ -50,6 +50,16 @@
   <%= f.fields_for :service_price do |builder| %>
     <%= render "price_fields", f: builder %>
   <% end %>
+
+
+<div class="form-item textarea-field row">
+    <%= label_tag nil, "Feeds", :class => "span2" %>
+    <span class="span6">
+      <%= f.fields_for :google_alert_feeds do |builder| %>
+        <%= render "feeds", f: builder %>
+      <% end %>
+    </span>
+  </div>
   
   <div class="form-actions">
     <%= f.submit "Submit" %>
