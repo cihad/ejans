@@ -32,6 +32,7 @@ group :development do
   gem 'faker'
   gem 'capistrano'
   gem 'populator'
+  gem 'railroady'
 end
 
 group :production do
