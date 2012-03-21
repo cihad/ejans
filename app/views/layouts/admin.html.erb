@@ -12,7 +12,7 @@
 <body class="admin-page">
   <style>
     .container {
-      width: 1060px;
+      width: 1020px;
     }
   </style>
   <!-- Container -->
@@ -20,21 +20,11 @@
 
     <%= render 'layouts/header' %>
 
-    <div id="page">
+    <div class="page">
       <div data-pjax-container>
-        
         <div class="row">
-          <% if breadcrumbs.items.size != 1 %>
-          <div id="breadcrumb">
-            <%= breadcrumbs.render %>
-          </div>
-          <!-- /Breadcrumb -->
-          <% end %>
-          
-
-
           <% if content_for?(:left) %>
-          <div class="span4">
+          <div class="span3">
             <aside id="left">
               <%= yield :left %>
             </aside>
@@ -42,16 +32,13 @@
           <!-- /aside left -->
           <% end %>
 
-          <div class="span14">
+          <div class="span10">
             <section id="content">
               <%= render 'layouts/messages' %>
                 <%= yield %>
             </section>
           </div>
           <!-- /Content -->
-
-
-
       </div>
     </div>
     <!-- /Page -->
@@ -63,10 +50,6 @@
 
   <%= render 'layouts/signin' %>
   <%= yield :bottom %>
-
-  <%#= debug(request) if Rails.env.development? %>
-  <%#= debug(session) if Rails.env.development? %>
-  <%#= debug(params) if Rails.env.development? %>
 
 </body>
 </html>

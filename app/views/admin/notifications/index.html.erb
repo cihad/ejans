@@ -5,15 +5,15 @@
 
 <%= content_tag :h2, page_name %>
 
-<table class="condensed-table zebra-striped" id="sortable">
+<table class="table table-striped" id="sortable">
   <thead>
     <tr>
-      <th class="header ">ID</th>
-      <th class="header red">Title</th>
-      <th class="header yellow">Service</th>
-      <th class="header blue">Published_at</th>
-      <th class="header">Actions</th>
-      <th class="header green">Published</th>
+      <th>ID</th>
+      <th>Title</th>
+      <th>Service</th>
+      <th>Published_at</th>
+      <th>Actions</th>
+      <th>Published</th>
     </tr>
   </thead>
 
@@ -21,8 +21,8 @@
   <% @notifications.each do |notification| %>
     <tr>
     <td><%= notification.id %></td>
-    <td><%= notification.title %></td>
-    <td><%= notification.service.title %></td>
+    <td><%= truncate(notification.title, length: 30) %></td>
+    <td><%= truncate(notification.service.title, length: 20) %></td>
     <td><%= notification.published_at %></td>
     <td>
       <%= link_to "view", [notification.service, notification] %>
@@ -33,7 +33,7 @@
       <% if notification.published? %>
         ✓
       <% else %>
-        <%= link_to "Publish", publish_admin_notification_path(notification), confirm: "Are you sure?", method: :put, :class => "btn danger small" %>
+        <%= link_to "Publish", publish_admin_notification_path(notification), confirm: "Are you sure?", method: :put, :class => "btn btn-danger small" %>
       <% end %>
     </td>
     </tr>

@@ -22,7 +22,9 @@ class Service < ActiveRecord::Base
   has_many :accounts, :through => :subscriptions
 
   has_many :google_alert_feeds, dependent: :destroy
-  accepts_nested_attributes_for :google_alert_feeds, :allow_destroy => true
+  accepts_nested_attributes_for :google_alert_feeds,
+    :allow_destroy => true,
+    :reject_if => proc { |attributes| attributes['feed_url'].blank? or attributes['search_key'].blank? }
 
   # Validates
   validates_associated :filters

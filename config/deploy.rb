@@ -115,6 +115,14 @@ namespace :uploads do
   end
 end
 
+namespace :es do 
+  desc "Get links"
+  task :get do 
+    cmd = "cd #{current_path} && bundle exec rake bot"
+    run cmd
+  end
+end
+
 # https://gist.github.com/797301
 def run_remote_rake(rake_cmd)
   rake_args = ENV['RAKE_ARGS'].to_s.split(',')

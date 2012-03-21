@@ -1,22 +1,18 @@
 Ejans::Application.routes.draw do
-  # 404
   match "/404", :to => "errors#not_found"
-
-  # Home
   root :to => 'home#index'
   get "home/index"
   get "home/close_slide"
 
-  # Admin
   namespace :admin do
     resources :roles
     resources :payment_types
     resources :notifications, :only => [:index, :update] do
       put :publish, :on => :member
     end
+    resources :external_sources, :only => [:index, :new, :destroy]
   end
 
-  # Account
   scope "accounts" do
     resources :subscriptions, :except => [:new, :edit] do
       put :multiple_update, :on => :collection
@@ -36,7 +32,6 @@ Ejans::Application.routes.draw do
 
   devise_for :accounts
 
-  # Service
   resources :services do
     post :sort, :on => :collection
     get :selections, :on => :member

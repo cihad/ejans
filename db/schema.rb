@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120319083915) do
+ActiveRecord::Schema.define(:version => 20120319121640) do
 
   create_table "accounts", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false
@@ -73,6 +73,15 @@ ActiveRecord::Schema.define(:version => 20120319083915) do
   end
 
   add_index "credits", ["creditable_id"], :name => "index_credits_on_creditable_id"
+
+  create_table "external_sources", :force => true do |t|
+    t.integer  "google_alert_feed_id"
+    t.string   "url"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
+  end
+
+  add_index "external_sources", ["google_alert_feed_id"], :name => "index_external_sources_on_google_alert_feed_id"
 
   create_table "filters", :force => true do |t|
     t.integer  "service_id"
