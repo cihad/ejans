@@ -1,3 +1,22 @@
+# == Schema Information
+#
+# Table name: notifications
+#
+#  id                    :integer(4)      not null, primary key
+#  service_id            :integer(4)
+#  title                 :string(255)
+#  sms                   :string(255)
+#  description           :text
+#  created_at            :datetime
+#  updated_at            :datetime
+#  published             :boolean(1)      default(FALSE)
+#  published_at          :datetime
+#  slug                  :string(255)
+#  notificationable_id   :integer(4)
+#  notificationable_type :string(255)
+#  available_until       :date
+#
+
 class Notification < ActiveRecord::Base
 
   require 'resque'
@@ -30,10 +49,16 @@ class Notification < ActiveRecord::Base
     :length => { :maximum => SMS_LENGTH }
 
   # validate :available_until_date_cannot_be_in_the_past
+  # def available_until_date_cannot_be_in_the_past
+  #   if available_until < Date.today
+  #     errors.add(:available_until, "can't be in the past")
+  #   end
+  # end
 
-  def available_until_date_cannot_be_in_the_past
-    if available_until < Date.today
-      errors.add(:available_until, "can't be in the past")
+  validate :filter_count
+  def filter_count
+    if service.filters.count != 0 && selections.map(&:filter_id).uniq.count != service.filters.count
+      errors.add :base, "Please select minumum a item from each filter."
     end
   end
 
@@ -116,37 +141,4 @@ class Notification < ActiveRecord::Base
     subscription_count = subscription_count(selections)
     return self.service.service_price.sender_credit * subscription_count
   end
-
-  def valid_filter?(selection_ids)
-    if selection_ids.nil?
-      false
-    else
-      array = selection_ids.inject([]) do |a, id|
-                a << Selection.find(id).filter_id
-                a
-              end
-
-      array.uniq.size == self.service.filters.size ? true : false
-    end
-  end
-
 end
-# == Schema Information
-#
-# Table name: notifications
-#
-#  id                    :integer(4)      not null, primary key
-#  service_id            :integer(4)
-#  title                 :string(255)
-#  sms                   :string(255)
-#  description           :text
-#  created_at            :datetime
-#  updated_at            :datetime
-#  published             :boolean(1)      default(FALSE)
-#  published_at          :datetime
-#  slug                  :string(255)
-#  notificationable_id   :integer(4)
-#  notificationable_type :string(255)
-#  available_until       :date
-#
-

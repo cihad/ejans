@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: credits
+#
+#  id              :integer(4)      not null, primary key
+#  creditable_id   :integer(4)
+#  creditable_type :string(255)
+#  credit          :integer(4)
+#
+
 class Credit < ActiveRecord::Base
   # Associations
   belongs_to :creditable, :polymorphic => true

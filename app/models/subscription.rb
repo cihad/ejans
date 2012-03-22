@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: subscriptions
+#
+#  id         :integer(4)      not null, primary key
+#  account_id :integer(4)
+#  service_id :integer(4)
+#  email      :boolean(1)      default(FALSE)
+#  sms        :boolean(1)      default(FALSE)
+#  active     :boolean(1)      default(TRUE)
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 class Subscription < ActiveRecord::Base
 
   # Associations
@@ -73,17 +87,3 @@ class Subscription < ActiveRecord::Base
   #   end
   # end
 end
-# == Schema Information
-#
-# Table name: subscriptions
-#
-#  id         :integer(4)      not null, primary key
-#  account_id :integer(4)
-#  service_id :integer(4)
-#  email      :boolean(1)      default(FALSE)
-#  sms        :boolean(1)      default(FALSE)
-#  active     :boolean(1)      default(TRUE)
-#  created_at :datetime
-#  updated_at :datetime
-#
-

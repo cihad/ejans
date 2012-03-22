@@ -1,9 +1,3 @@
-class Role < ActiveRecord::Base
-
-  # Associations
-  has_and_belongs_to_many :accounts
-  
-end
 # == Schema Information
 #
 # Table name: roles
@@ -14,3 +8,9 @@ end
 #  updated_at :datetime
 #
 
+class Role < ActiveRecord::Base
+
+  # Associations
+  has_and_belongs_to_many :accounts
+  
+end

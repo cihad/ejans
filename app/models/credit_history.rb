@@ -1,7 +1,3 @@
-class CreditHistory < ActiveRecord::Base
-  belongs_to :credit
-  belongs_to :credit_datable, :polymorphic => true
-end
 # == Schema Information
 #
 # Table name: credit_histories
@@ -16,3 +12,7 @@ end
 #  updated_at          :datetime
 #
 
+class CreditHistory < ActiveRecord::Base
+  belongs_to :credit
+  belongs_to :credit_datable, :polymorphic => true
+end

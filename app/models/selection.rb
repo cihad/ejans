@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: selections
+#
+#  id         :integer(4)      not null, primary key
+#  filter_id  :integer(4)
+#  label      :string(255)
+#  created_at :datetime
+#  updated_at :datetime
+#  position   :integer(4)
+#
+
 class Selection < ActiveRecord::Base
 
   attr_accessor :multiple_selections
@@ -11,15 +23,3 @@ class Selection < ActiveRecord::Base
   # Validations
   validates :label, presence: true
 end
-# == Schema Information
-#
-# Table name: selections
-#
-#  id         :integer(4)      not null, primary key
-#  filter_id  :integer(4)
-#  label      :string(255)
-#  created_at :datetime
-#  updated_at :datetime
-#  position   :integer(4)
-#
-

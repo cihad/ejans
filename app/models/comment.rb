@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: comments
+#
+#  id              :integer(4)      not null, primary key
+#  notification_id :integer(4)
+#  author_id       :integer(4)
+#  body            :text
+#  created_at      :datetime
+#  updated_at      :datetime
+#  private         :boolean(1)      default(FALSE)
+#  parent_id       :integer(4)
+#
+
 class Comment < ActiveRecord::Base
 
   # Associations

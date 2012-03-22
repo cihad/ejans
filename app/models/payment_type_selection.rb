@@ -1,9 +1,3 @@
-class PaymentTypeSelection < ActiveRecord::Base
-
-  # Assocations
-  belongs_to :payment_type
-
-end
 # == Schema Information
 #
 # Table name: payment_type_selections
@@ -17,3 +11,9 @@ end
 #  updated_at      :datetime
 #
 
+class PaymentTypeSelection < ActiveRecord::Base
+
+  # Assocations
+  belongs_to :payment_type
+
+end

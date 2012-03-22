@@ -29,45 +29,28 @@ class NotificationsController < ApplicationController
 
   def create
     @notification = @service.notifications.new(params[:notification].merge(:notificationable => current_account))
-    selection_ids = params[:notification][:selection_ids].compact.reject(&:blank?)
-    @subscription_count = selection_ids
 
     respond_to do |format|
-      if @notification.valid_filter? selection_ids
-        if @notification.save
-          format.html { redirect_to @service, notice: 'Notification was successfully created.' }
-          format.json { render json: @notification, status: :created, location: @notification }
-          format.js
-        else
-          format.html { render action: "new" }
-          format.json { render json: @notification.errors, status: :unprocessable_entity }
-          format.js
-        end
+      if @notification.save
+        format.html { redirect_to @service, notice: 'Notification was successfully created.' }
+        format.json { render json: @notification, status: :created, location: @notification }
       else
-        flash.now[:alert] = 'Please select minumum a item from each filter.'
         format.html { render action: "new" }
-        format.js
+        format.json { render json: @notification.errors, status: :unprocessable_entity }
       end
-      # format.html { render action: "new" }
-      # format.js
     end
   end
 
   def update
     @notification = Notification.find(params[:id])
-    selection_ids = params[:notification][:selection_ids].compact.reject(&:blank?)
 
     respond_to do |format|
-      if @notification.valid_filter? selection_ids
-        if @notification.update_attributes(params[:notification])
-          format.html { redirect_to [@service, @notification], notice: 'Notification was successfully updated.' }
-          format.json { head :ok }
-        else
-          format.html { render action: "edit" }
-          format.json { render json: @notification.errors, status: :unprocessable_entity }
-        end
+      if @notification.update_attributes(params[:notification])
+        format.html { redirect_to [@service, @notification], notice: 'Notification was successfully updated.' }
+        format.json { head :ok }
       else
-        format.html { render action: "edit", alert: 'Please select minumum a item from each filter.' }
+        format.html { render action: "edit" }
+        format.json { render json: @notification.errors, status: :unprocessable_entity }
       end
     end
   end
