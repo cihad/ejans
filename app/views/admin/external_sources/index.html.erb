@@ -20,7 +20,7 @@
         <td><%= es.id %></td>
         <td><%= es.google_alert_feed.service.title %></td>
         <td><%= es.google_alert_feed.search_key %></td>
-        <td><%= es.url %></td>
+        <td><%= link_to(truncate(es.url, length: 30), es.url) %></td>
         <td>
           <%= link_to "add", new_admin_external_source_path %>
           <%= link_to "destroy", [:admin, es], confirm: "Are you sure?", method: :delete %>

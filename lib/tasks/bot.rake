@@ -10,13 +10,14 @@ task :bot => :environment do
     feed_url = feed.feed_url
     xml_doc  = Nokogiri::XML(open(feed_url))
     xml_doc.css("entry link").each do |source|
-      source_url = URI.unescape(source[:href])
-      begin
-        ExternalSource.find_by_url(source_url)
+      source_url = source[:href].split("http://www.google.com/url?sa=X&q=").last.split("&ct=ga&cad=").first
+      source_url = URI.unescape(source_url)
+      if ExternalSource.find_by_url(source_url)
         next
-      rescue
-        ext_source = ExternalSource.new
-        ext_source.url = source_url
+      else
+        ext_source            = ExternalSource.new
+        ext_source.url        = source_url
+        ext_source.google_url = source[:href]
         ext_source.google_alert_feed_id = feed.id
         ext_source.save
         temp += 1
