@@ -12,7 +12,7 @@
   <div style="padding-bottom: 10px; margin-bottom: 10px; border-bottom: 10px solid #ccc; ">
     <%= content_tag :h3 do %>
       <%= filter.name %>
-      <%= content_tag :span, pluralize(filter.selections.count, 'selection'), :class => "label success" %>
+      <%= content_tag :span, pluralize(filter.selections.count, 'selection'), :class => "label label-success" %>
     <% end %>
 
     <ul class="sortable selections" data-update-url="<%= sort_services_url %>" id="filter_<%= filter.id %>">

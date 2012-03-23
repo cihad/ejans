@@ -16,6 +16,8 @@
 //= require jquery-ui/jquery.ui.core
 //= require jquery-ui/jquery.ui.widget
 //= require jquery-ui/jquery.ui.mouse
+//= require jquery-ui/jquery.ui.position
+//= require jquery-ui/jquery.ui.autocomplete
 //= require jquery-ui/jquery.ui.sortable
 //= require jquery-ui/jquery.ui.datepicker
 //= require jquery-ui/jquery.ui.button
@@ -58,6 +60,13 @@ $(document).ready(function() {
   // Sms field char count
   $('textarea.limited').maxlength({
     'feedback' : '.chars-left' // note: looks within the current form
+  });
+
+  // Selections
+  $('.selection_filter_id').each(function () {
+    $(this).autocomplete({
+      source: $(this).data('autocomplete-source')
+    });
   });
 
   // TinyMCE
