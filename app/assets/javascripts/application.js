@@ -72,7 +72,7 @@ $(document).ready(function() {
   // TinyMCE
   $('.tinymce').tinymce({
     theme : "advanced",
-    plugins : "fullscreen,table,paste",
+    plugins : "fullscreen,table,paste,advimage",
     theme_advanced_buttons1 : "bold,italic,underline,strikethrough,justifyleft,justifycenter,justifyright,bullist,numlist,link,unlink,image,formatselect,fullscreen,code,pastetext",
     theme_advanced_buttons2 : "",
     theme_advanced_buttons3 : "",
