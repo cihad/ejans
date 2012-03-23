@@ -56,7 +56,7 @@
     $(".filter select").multiselect({
       selectedList: 1,
       minWidth: 290,
-    }).change(function () {
+    }).multiselectfilter().change(function () {
 
       var str = "";
       $("select option:selected").each(function () {
