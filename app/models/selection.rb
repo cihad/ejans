@@ -22,4 +22,15 @@ class Selection < ActiveRecord::Base
 
   # Validations
   validates :label, presence: true
+
+  after_destroy :destroy_notifications
+  after_destroy :destroy_subscriptions
+
+  def destroy_notifications
+    self.notifications.destroy_all
+  end
+
+  def destroy_notifications
+    self.subscriptions.destroy_all
+  end
 end
