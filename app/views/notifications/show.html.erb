@@ -25,13 +25,8 @@
     <% end %>
   </ul>
 
-  <p style="font-weight: bold">
-    <i><%= @notification.sms %></i>
-  </p>
 
-  <p>
-    <%= sanitize @notification.description %>
-  </p>
+  <%= sanitize @notification.description %>
 
 </article>
 
