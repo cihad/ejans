@@ -1,0 +1,39 @@
+// NOTIFICATION PAGES
+ul#selections-list {
+  @extend .margin-padding-zero;
+  margin-bottom: 20px;
+  @extend .clearfix;
+
+  li {
+    float:left;
+    display: inline-block;
+    padding: 0 7px;
+    font-size: .9em;
+    margin: 0 5px 5px 0;
+    @include border-radius(3px);
+    background: $grayLighter;
+
+
+    &.active {
+      background: lighten($green, 30%);
+      padding-right: 5px;
+      color: darken($green, 20%);
+
+
+      span {
+        color: $green;
+      }
+
+    }
+
+    &#more {
+      cursor: pointer;
+      background: darken($grayLighter, 10%);
+    }
+  }
+
+}
+
+#subscription_price {
+  line-height: 2.2em;
+}

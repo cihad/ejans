@@ -5,9 +5,9 @@
   breadcrumbs.add @service.title, service_path(@service)
   breadcrumbs.add page_name
 %>
+<% meta_description @notification.sms %>
 
 <article>
-  <% meta_description @notification.sms %>
   <%#= current_account.subscription(@notification.service).notice(@notification).update_attributes(:new => false, :read => true) if account_signed_in? && current_account.subscribing?(@notification.service) %>
   <%= content_tag :h1, page_name %>
   <ul id="selections-list">
@@ -15,20 +15,40 @@
       <% if account_signed_in? and
             current_account.subscribing?(@notification.service) and
             current_account.subscription(@notification.service).selections.include?(selection) %>
-        <li class="active" data-original-title='<%= t('.selected') %>'>
+        <li class="selection active" data-original-title='<%= t('.selected') %>'>
           <%= selection.label %>
           <span>✓</span>
         </li>
       <% else %>
-        <li><%= selection.label %></li>
+        <li class="selection"><%= selection.label %></li>
       <% end %>
     <% end %>
+    <li id="more"><span>+</span></li>
   </ul>
 
-
   <%= sanitize @notification.description %>
-
 </article>
+
+<%= javascript_tag do %>
+jQuery(function($) {
+  var visible = 5, $lis = $('.selection'), listlength = $lis.length, $more = $('#more');
+  function showUpToIndex(index) {
+    $lis.hide();
+    $lis.slice(0, index).show();
+  }
+
+  if(visible >= listlength) $more.hide();
+  showUpToIndex(visible);
+  $more.toggle(
+    function () {
+      showUpToIndex(listlength);
+    },
+    function () {
+      showUpToIndex(visible);
+    }
+  );
+});
+<% end %>
 
 
 <table class="statics-table small">
