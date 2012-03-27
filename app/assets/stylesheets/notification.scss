@@ -1,6 +1,7 @@
 // NOTIFICATION PAGES
 ul#selections-list {
   @extend .margin-padding-zero;
+  margin-top: 10px;
   margin-bottom: 20px;
   @extend .clearfix;
 

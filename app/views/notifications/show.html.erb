@@ -10,21 +10,23 @@
 <article>
   <%#= current_account.subscription(@notification.service).notice(@notification).update_attributes(:new => false, :read => true) if account_signed_in? && current_account.subscribing?(@notification.service) %>
   <%= content_tag :h1, page_name %>
-  <ul id="selections-list">
-    <% @notification.selections.each do |selection| %>
-      <% if account_signed_in? and
-            current_account.subscribing?(@notification.service) and
-            current_account.subscription(@notification.service).selections.include?(selection) %>
-        <li class="selection active" data-original-title='<%= t('.selected') %>'>
-          <%= selection.label %>
-          <span>✓</span>
-        </li>
-      <% else %>
-        <li class="selection"><%= selection.label %></li>
+  <% unless @notification.selections.empty? %>
+    <ul id="selections-list">
+      <% @notification.selections.each do |selection| %>
+        <% if account_signed_in? and
+              current_account.subscribing?(@notification.service) and
+              current_account.subscription(@notification.service).selections.include?(selection) %>
+          <li class="selection active" data-original-title='<%= t('.selected') %>'>
+            <%= selection.label %>
+            <span>✓</span>
+          </li>
+        <% else %>
+          <li class="selection"><%= selection.label %></li>
+        <% end %>
       <% end %>
-    <% end %>
-    <li id="more"><span>+</span></li>
-  </ul>
+      <li id="more"><span>+</span></li>
+    </ul>
+  <% end %>
 
   <%= sanitize @notification.description %>
 </article>
