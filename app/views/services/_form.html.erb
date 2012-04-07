@@ -38,9 +38,9 @@
     </span>
   </div>
 
-  <div class="form-item row" id="filters">
+  <div class="form-item row group">
     <%= label_tag nil, t('services.new.add_filter'), :class => "span2" %>
-    <span class="fields span6">
+    <span class="span6">
       <%= f.fields_for :filters do |builder| %>
         <%= render "filter_fields", { f: builder, service: @service}  %>
       <% end %>

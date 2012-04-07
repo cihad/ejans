@@ -55,5 +55,11 @@ $(document).ready(function(){
     }
   });
 
+  $('.selection_filter_id').each(function () {
+    $(this).autocomplete({
+      source: $(this).data('autocomplete-source')
+    });
+  });
+
 });
 </script>

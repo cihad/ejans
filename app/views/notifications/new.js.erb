@@ -1,0 +1,26 @@
+<% if @show %>
+  <% form_for [@service, @notification] do |f| %>
+    <% @service_fields = f.fields_for :services_notifications, child_index: "new_service" do |sn| %>
+      <% render "service_selections", f: sn %>
+    <% end %>
+  <% end %>
+
+  var new_id, regexp;
+  new_id = new Date().getTime();
+  regexp = new RegExp("new_service", "g");
+
+  $("#services").append("<%= escape_javascript(@service_fields)%>".replace(regexp, new_id))
+
+  $(".add-group-item").click(function() {
+    $(this).parent().parent().find(".group-item-body").toggle();
+    $(this).toggleClass("open");
+    $(this).parent().parent().toggleClass("opened-group-item");
+  });
+
+  $(".group-item-body-fields select").multiselect({
+    selectedList: 1,
+    minWidth: 300,
+  }).multiselectfilter();
+
+  $("#service")[0].reset();
+<% end %>

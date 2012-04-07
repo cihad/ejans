@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120322104732) do
+ActiveRecord::Schema.define(:version => 20120404161634) do
 
   create_table "accounts", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false
@@ -127,7 +127,6 @@ ActiveRecord::Schema.define(:version => 20120322104732) do
   add_index "notices", ["subscription_id"], :name => "index_notices_on_subscription_id"
 
   create_table "notifications", :force => true do |t|
-    t.integer  "service_id"
     t.string   "title"
     t.string   "sms"
     t.text     "description"
@@ -141,7 +140,6 @@ ActiveRecord::Schema.define(:version => 20120322104732) do
     t.date     "available_until"
   end
 
-  add_index "notifications", ["service_id"], :name => "index_notifications_on_service_id"
   add_index "notifications", ["slug"], :name => "index_notifications_on_slug", :unique => true
 
   create_table "notifications_selections", :id => false, :force => true do |t|
@@ -202,6 +200,24 @@ ActiveRecord::Schema.define(:version => 20120322104732) do
   end
 
   add_index "services", ["slug"], :name => "index_services_on_slug", :unique => true
+
+  create_table "services_notifications", :force => true do |t|
+    t.integer  "notification_id"
+    t.integer  "service_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "services_notifications", ["notification_id"], :name => "index_services_notifications_on_notification_id"
+  add_index "services_notifications", ["service_id"], :name => "index_services_notifications_on_service_id"
+
+  create_table "services_notifications_selections", :id => false, :force => true do |t|
+    t.integer "services_notification_id"
+    t.integer "selection_id"
+  end
+
+  add_index "services_notifications_selections", ["selection_id"], :name => "services_notification_selection_id_index"
+  add_index "services_notifications_selections", ["services_notification_id"], :name => "services_notification_id_index"
 
   create_table "subscriptions", :force => true do |t|
     t.integer  "account_id"

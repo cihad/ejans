@@ -12,13 +12,6 @@
     </div>
   <% end %>
 
-  <div class="form-item text-field row">
-    <%= label_tag nil, t("services.one"), :class => "span2" %>
-    <span class="span6">
-      <%= text_field_tag nil, nil, :placeholder => @service.title, :disabled => true, :class => "span6" %>
-    </span>
-  </div>
-
   <div class="form-item title-field row">
     <%= f.label :title, t("notifications.title"), :class => "span2" %>
     <span class="span6">
@@ -34,48 +27,74 @@
     </span>
   </div>
 
-  <% unless @service.filters.blank? %>
-    <div class="form-item multi-select row" id="filters">
-      <%= label_tag nil, t("notifications.filters"), :class => "span2" %>
-      <span class="span6">
-        <% for filter in @service.filters %>
-          <span class="filter fields">
-            <span class="fixed"><%= truncate(filter.name, :length => 20) %></span>
-            <%= collection_select :notification, :selection_ids, filter.selections, :id, :label, {}, {:multiple => true, :id => "notification_selection_ids_#{filter.id}"} %>
-          </span>
+  <div class="form-item multi-select row group" id="filters">
+    <%= label_tag nil, t("global.services"), :class => "span2" %>
+    <div class="span6">
+      <div id="services">
+        <%= f.fields_for :services_notifications do |sn| %>
+          <% render "service_selections", f: sn %>
         <% end %>
+      </div>
+      <span class="group-item fields">
+        <span class="group-item-header">
+          <%= text_field_tag "service", nil, data: { autocomplete_source: services_path } %>
+          <%= link_to "Add", new_service_notification_path, remote: true, class: "btn", id: "add-service" %>
+        </span>
       </span>
     </div>
-  <% end %>
+  </div>
 
-  <script type="text/javascript">
-  $(function() {
+  <script>
+  $(document).ready(function(){
+    function addService( title ) {
+      $( "#add-service" ).attr("href", "<%= new_service_notification_path(@service, service_title: "") %>" + title )
+    }
 
-    var target = $("#target");
-
-    $(".filter select").multiselect({
-      selectedList: 1,
-      minWidth: 290,
-    }).multiselectfilter().change(function () {
-
-      var str = "";
-      $("select option:selected").each(function () {
-        str += $(this).val() + "+";
-      });
-
-      target.attr(
-        'href', "<%= calculate_service_notifications_path(@service) %>?selection_ids=" + str
-      );
-    }).trigger('change');
-
-    target.live("click", function() {
-      $("#subscription_price").html("<%= t('global.loading') %>");
-      $.getScript(this.href);
-      return false;
+    $("#service").autocomplete({
+      source: $("#service").data('autocomplete-source'),
+      select: function( event, ui ) {
+        addService( ui.item.value );
+      }
     });
 
-    $( "#notification_available_until" ).datepicker({ minDate: -1, maxDate: "+1M", dateFormat: "yy-mm-dd" });
+    $(".group-item-body-fields select").multiselect({
+      selectedList: 1,
+      minWidth: 300,
+    }).multiselectfilter();
+
+
   });
+  </script>
+
+
+  <script type="text/javascript">
+  // $(function() {
+
+  //   var target = $("#target");
+
+  //   $(".filter select").multiselect({
+  //     selectedList: 1,
+  //     minWidth: 290,
+  //   }).multiselectfilter().change(function () {
+
+  //     var str = "";
+  //     $("select option:selected").each(function () {
+  //       str += $(this).val() + "+";
+  //     });
+
+  //     target.attr(
+  //       'href', "<%= calculate_service_notifications_path(@service) %>?selection_ids=" + str
+  //     );
+  //   }).trigger('change');
+
+  //   target.live("click", function() {
+  //     $("#subscription_price").html("<%= t('global.loading') %>");
+  //     $.getScript(this.href);
+  //     return false;
+  //   });
+
+  //   $( "#notification_available_until" ).datepicker({ minDate: -1, maxDate: "+1M", dateFormat: "yy-mm-dd" });
+  // });
   </script>
 
   <div class="form-item info-field row">

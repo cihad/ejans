@@ -62,6 +62,8 @@ tr:
     credit_notification: 'bildiri başına kredi'
     filter_name: 'Filtre adı'
     add_selection: 'Seçenek ekle'
+    add_group_item: 'Seçenek ekle'
+    delete_group_item: 'Sil'
     label: 'Etiket'
     show:
       notifications: 'Servis Bildirileri'
@@ -141,3 +143,17 @@ tr:
     comment_title: 'Yorumlar'
     signin_html: "Yorum yapabilmek için <a data-toggle=\"modal\" href=\"#signin-modal\">giriş</a> yapın."
     answer: "cevapla"
+
+  activerecord:
+    errors:
+      models:
+        notification:
+          attributes:
+            title:
+              blank: "alanı boş bırakılamaz."
+            sms:
+              blank: "alanına 160 karakter ile bildiriyi özetleyen bir metin girin."
+            description:
+              blank: "alanı boş bırakılamaz."
+            available_until:
+              blank: "alanı boş bırakılamaz."

@@ -40,17 +40,18 @@
 
 $(document).ready(function() {
 
-  // Submit Buttons
-  $(".add-line-item").button();
-
   // Checkbox Buttons
   $(".styled-checkbox").button();
   
   // Add filter form
-  $(".add-line-item").click(function() {
-    $(this).parent().parent().find(".line-items").toggle();
+  $(".add-group-item").click(function() {
+    $(this).parent().parent().find(".group-item-body").toggle();
     $(this).toggleClass("open");
-    $(this).parent().parent().toggleClass("opened-filters");
+    $(this).parent().parent().toggleClass("opened-group-item");
+  });
+
+  $(".delete-group-item").click(function() {
+    $(this).parent().parent().remove();
   });
 
   $(".line-items").mouseup(function() { // Mouse Up Click
@@ -60,13 +61,6 @@ $(document).ready(function() {
   // Sms field char count
   $('textarea.limited').maxlength({
     'feedback' : '.chars-left' // note: looks within the current form
-  });
-
-  // Selections
-  $('.selection_filter_id').each(function () {
-    $(this).autocomplete({
-      source: $(this).data('autocomplete-source')
-    });
   });
 
   // TinyMCE
@@ -122,14 +116,12 @@ $(document).ready(function() {
   });
 });
 
-
-var add_fields, remove_fields;
-remove_fields = function(link) {
+function remove_fields (link) {
   $(link).prev("input[type=hidden]").val("1");
   return $(link).closest(".fields").hide();
 };
 
-add_fields = function(link, association, content) {
+function add_fields (link, association, content) {
   var new_id, regexp;
   new_id = new Date().getTime();
   regexp = new RegExp("new_" + association, "g");

@@ -409,8 +409,8 @@ input:-webkit-autofill {
     }
   }
 
-  #filters {
-    .filter {
+  .group {
+    .group-item {
       margin-bottom: 5px;
       display: block;
       padding: 10px;
@@ -439,11 +439,22 @@ input:-webkit-autofill {
         float: right;
       }
 
-      .filter-header {
+
+      .group-item-header {
         display: block;
+        position: relative;
       }
 
-      .line-items {
+      .action-btn {
+        float: right;
+        margin-left: 3px;
+      }
+
+      .filter {
+        margin-bottom: 10px;
+      } 
+
+      .group-item-body {
         display: none;
         @include border-radius(0 0 4px 4px);
         margin: 10px -10px -10px;
@@ -452,7 +463,7 @@ input:-webkit-autofill {
         background: lighten($serviceitembg, 6%);
       }
 
-      .selection-fields {
+      .group-item-body-fields {
         @extend .clearfix;
         line-height: 1.7em;
            
@@ -468,10 +479,10 @@ input:-webkit-autofill {
       }
     }
 
-    .opened-filters {
+    .opened-group-item {
         background: $serviceitembg;
 
-      .line-items {
+      .group-item-body {
         background: lighten($serviceitembg, 4%);
       }
     }

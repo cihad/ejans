@@ -1,21 +1,19 @@
 <% page_name = @notification.title %>
 <% title page_name %>
-<%
-  breadcrumbs.add t("global.services"), services_path
-  breadcrumbs.add @service.title, service_path(@service)
-  breadcrumbs.add page_name
-%>
+
 <% meta_description @notification.sms %>
 
 <article>
   <%#= current_account.subscription(@notification.service).notice(@notification).update_attributes(:new => false, :read => true) if account_signed_in? && current_account.subscribing?(@notification.service) %>
   <%= content_tag :h1, page_name %>
-  <% unless @notification.selections.empty? %>
-    <ul id="selections-list">
-      <% @notification.selections.each do |selection| %>
+
+  <% @notification.services_notifications.each do |sn| %>
+    <ul class="selections-list">
+      <li class="service"><%= link_to sn.service.title, [sn.service] %></li>
+      <% sn.selections.each do |selection| %>
         <% if account_signed_in? and
-              current_account.subscribing?(@notification.service) and
-              current_account.subscription(@notification.service).selections.include?(selection) %>
+              current_account.subscribing?(sn.service) and
+              current_account.subscription(sn.service).selections.include?(selection) %>
           <li class="selection active" data-original-title='<%= t('.selected') %>'>
             <%= selection.label %>
             <span>✓</span>
@@ -34,21 +32,26 @@
 <%= javascript_tag do %>
 jQuery(function($) {
   var visible = 5, $lis = $('.selection'), listlength = $lis.length, $more = $('#more');
-  function showUpToIndex(index) {
-    $lis.hide();
-    $lis.slice(0, index).show();
+
+  function showUpToIndex(selections, index) {
+    selections.hide();
+    selections.slice(0, index).show();
   }
 
-  if(visible >= listlength) $more.hide();
-  showUpToIndex(visible);
-  $more.toggle(
-    function () {
-      showUpToIndex(listlength);
-    },
-    function () {
-      showUpToIndex(visible);
-    }
-  );
+  $('.selections-list').each(function(i) {
+    var $selections = $(this).find('.selection') ,listlength = $selections.length, $more = $('#more', this)
+    if(visible >= listlength) $more.hide();
+    showUpToIndex($selections, visible);  
+    $more.toggle(
+      function () {
+        showUpToIndex($selections, listlength);
+      },
+      function () {
+        showUpToIndex($selections, visible);
+      }
+    );
+
+  });
 });
 <% end %>
 

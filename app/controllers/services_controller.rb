@@ -2,7 +2,12 @@ class ServicesController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @services = Service.search(params[:search]).page(params[:page]).per(20)
+    if params[:term].present?
+      @services = Service.order(:title).where("title like ?", "%#{params[:term]}%")
+      render json: @services.map(&:title)
+    else
+      @services = Service.search(params[:search]).page(params[:page]).per(20)
+    end
   end
 
   def show

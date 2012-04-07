@@ -1,16 +1,19 @@
 Ejans::Application.routes.draw do
-  match "/404", :to => "errors#not_found"
   root :to => 'home#index'
+  match "/404", :to => "errors#not_found"
   get "home/index"
-  get "home/close_slide"
 
-  namespace :admin do
-    resources :roles
-    resources :payment_types
-    resources :notifications, :only => [:index, :update] do
-      put :publish, :on => :member
+  match "/services/:service_id/notifications/:id" => redirect("/service/%{service_id}/%{id}")
+  resources :services, path: 'services', only: :index
+  resources :services, path: 'service'
+  resources :services, path: 'service', only: []  do
+    post :sort, on: :collection
+    get :selections, on: :member
+
+    resources :notifications, path: '', except: :index do
+      get :calculate, on: :collection
+      get :statistics, on: :member
     end
-    resources :external_sources, :only => [:index, :new, :destroy]
   end
 
   scope "accounts" do
@@ -32,15 +35,6 @@ Ejans::Application.routes.draw do
 
   devise_for :accounts
 
-  resources :services do
-    post :sort, :on => :collection
-    get :selections, :on => :member
-
-    resources :notifications, :except => :index do
-      get :calculate, :on => :collection
-      get :statistics, :on => :member
-    end
-  end
   resources :notices, :only => :create
   resources :selections, :only => [:create, :destroy] do
     post :multiple_add, on: :collection
@@ -50,6 +44,15 @@ Ejans::Application.routes.draw do
 
   resources :filters, :only => [:create, :destroy]
   resources :ideas, :only => [:create, :destroy]
+
+  namespace :admin do
+    resources :roles
+    resources :payment_types
+    resources :notifications, :only => [:index, :update] do
+      put :publish, :on => :member
+    end
+    resources :external_sources, :only => [:index, :new, :destroy]
+  end
 
   mount Resque::Server, :at => "/resque"
 

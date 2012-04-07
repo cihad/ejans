@@ -14,44 +14,39 @@ class NotificationsController < ApplicationController
   end
 
   def new
-    @notification = Notification.new(:service => @service)
+    @notification = Notification.new
+    @notification.services_notifications.build(service_id: @service.id)
 
-    respond_to do |format|
-      format.html
-      format.js
+    if params[:service_title].present?
+      @notification = Notification.new
+      @service = Service.find_by_title(params[:service_title])
+      @notification.services_notifications.build(service_id: @service.id)
+      @show = true
+      respond_to { |format| format.js }
     end
   end
 
-  # GET /notifications/1/edit
   def edit
     @notification = Notification.find(params[:id])
   end
 
   def create
-    @notification = @service.notifications.new(params[:notification].merge(:notificationable => current_account))
+    @notification = Notification.new(params[:notification].merge(:notificationable => current_account))
 
-    respond_to do |format|
-      if @notification.save
-        format.html { redirect_to @service, notice: 'Notification was successfully created.' }
-        format.json { render json: @notification, status: :created, location: @notification }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @notification.errors, status: :unprocessable_entity }
-      end
+    if @notification.save
+      redirect_to @service, notice: 'Notification was successfully created.'
+    else
+      render action: "new"
     end
   end
 
   def update
     @notification = Notification.find(params[:id])
 
-    respond_to do |format|
-      if @notification.update_attributes(params[:notification])
-        format.html { redirect_to [@service, @notification], notice: 'Notification was successfully updated.' }
-        format.json { head :ok }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @notification.errors, status: :unprocessable_entity }
-      end
+    if @notification.update_attributes(params[:notification])
+      redirect_to [@service, @notification], notice: 'Notification was successfully updated.'
+    else
+      render action: "edit"
     end
   end
 

@@ -18,7 +18,6 @@ class Service < ActiveRecord::Base
   
   # Associations
   belongs_to :owner, :foreign_key => "owner_id", :class_name => "Account"
-  
   has_many :filters, :dependent => :destroy
   accepts_nested_attributes_for :filters,
     :limit => FILTER_COUNT,
@@ -30,7 +29,8 @@ class Service < ActiveRecord::Base
   has_one :service_price, :dependent => :destroy
   accepts_nested_attributes_for :service_price, :allow_destroy => true
 
-  has_many :notifications, :dependent => :destroy
+  has_many :services_notifications, dependent: :destroy
+  has_many :notifications, through: :services_notifications
 
   has_many :subscriptions
   has_many :accounts, :through => :subscriptions
@@ -38,7 +38,8 @@ class Service < ActiveRecord::Base
   has_many :google_alert_feeds, dependent: :destroy
   accepts_nested_attributes_for :google_alert_feeds,
     :allow_destroy => true,
-    :reject_if => proc { |attributes| attributes['feed_url'].blank? or attributes['search_key'].blank? }
+    :reject_if => proc { |attributes| attributes['feed_url'].blank? or
+      attributes['search_key'].blank? }
 
   # Validates
   validates_associated :filters
