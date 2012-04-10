@@ -22,12 +22,14 @@
     <tr>
     <td><%= notification.id %></td>
     <td><%= truncate(notification.title, length: 30) %></td>
-    <td><%= truncate(notification.service.title, length: 20) %></td>
+    <td><%= notification.services.map(&:title).map { |title| truncate(title, length: 20) }.join(", ") %></td>
     <td><%= notification.published_at %></td>
     <td>
-      <%= link_to "view", [notification.service, notification] %>
-      <%= link_to "edit", edit_service_notification_path(notification.service, notification) %>
-      <%= link_to "destroy", [notification.service, notification], confirm: "Are you sure?", method: :delete %>
+      <% notification.services. each_index do |x| %>
+        <%= link_to x, [notification.services[x], notification] %> -
+      <% end %>
+      <%= link_to "edit", edit_service_notification_path(notification.services.first, notification) %>
+      <%= link_to "destroy", [notification.services.first, notification], confirm: "Are you sure?", method: :delete %>
     </td>
     <td>
       <% if notification.published? %>

@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <title>RailsCasts Weekly</title>
+  <title>Ejans.com Notifier</title>
   <style type="text/css">
     #outlook a{padding:0;} /* Force Outlook to provide a "view in browser" button. */
     body{width:100% !important;} .ReadMsgBody{width:100%;} .ExternalClass{width:100%;} /* Force Hotmail to display emails at full width */
@@ -12,7 +12,7 @@
     body{margin:0; padding:0;}
     img{border:0; height:auto; line-height:100%; outline:none; text-decoration:none;}
     table td{border-collapse:collapse;}
-    #backgroundTable{height:100% !important; margin:0; padding:0; width:100% !important;}
+    #backgroundTable{height:100% !important; margin:0; padding:0 30px; width:100% !important;}
 
 
     body, #backgroundTable{
@@ -51,20 +51,19 @@
         <tr>
           <td valign="top" class="preheaderContent">
             <h2 style="margin-top: 0; font-weight: normal;"><%= @notification.title %></h2>
-            <p>
-              <strong><i><%= @notification.sms %></i></strong>
-            </p>
 
-            <p>
-              <%= @notification.description.truncate(500) %>
-            </p>
+            <%= sanitize @notification.description %>
 
             <p style="text-align:center; font-size: 14px">
-              <a href="<%= service_notification_url(@notification.service, @notification) %>">devamını ve yorumları okumak için tıklayınız!</a>
+              <a href="<%= service_notification_url(@subscriptions.first.service, @notification) %>">devamını ve yorumları okumak için tıklayınız!</a>
             </p>
 
             <p>
-              <i><strong>Not!</strong> Bu bildiri size <a href="<%= service_url(@notification.service) %>"><%= @notification.service.title %></a> servisine abone olmanız nedeniyle gönderilmiştir.</i>
+              <i><strong>Not!</strong> Bu bildiri size 
+                <% @subscriptions.each do |subscription| %>
+                  "<%= link_to subscription.service.title, service_url(subscription.service) %>"
+                <% end %> 
+                servis(ler)ine abone olmanız nedeniyle gönderilmiştir.</i>
             </p>
           </td>
         </tr>

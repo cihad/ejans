@@ -59,29 +59,5 @@ class Service < ActiveRecord::Base
   end
 
   mount_uploader :image, ServiceImageUploader
-
-  def selections_map
-    h = Hash.new { |hash, key| hash[key] = [] }
-    selections.inject(h) { |hash, selection| hash[selection.filter.id] << selection.id; hash }
-  end
-
-  def selections_map_by_selection_ids(selections_ids)
-    h = Hash.new { |hash, key| hash[key] = [] }
-    selections = Selection.includes(:filter).find(selection_ids)
-    selections.inject(h) { |hash, selection| hash[selection.filter.id] << selection.id; hash }
-  end
-
-  def selected_notification_by_selection_ids?(notification, selection_ids = [])
-    notification_selections_map = notification.selections_map
-    selections_map_by_selection_ids(selection_ids).inject([]) do |a, filter_selection|
-      filter_id, selection_ids = filter_selection
-      a << (selection_ids & notification_selections_map[filter_id]).present?
-      a
-    end.all? { |v| v == true }
-  end
-
-  def which_notifications(selection_ids = [])
-    self.notifications.published.select { |notification| selected_notification_by_selection_ids?(notification, selection_ids) }
-  end
 end
 #

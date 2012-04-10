@@ -127,6 +127,7 @@ tr:
     name: 'Ödemeler'
     
   search:
+    do: "Ara"
     no_service: 'Servis bulunamadı'
     description: 'Aradığınız - %{search} - ile ilgili bir sonuç bulunamadı.'
     suggestion: 'Öneri'

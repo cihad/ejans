@@ -2,11 +2,11 @@ class Notifier < ActionMailer::Base
 
   default from: "notifier@ejans.com"
 
-  def notification_email(notification, subscription)
+  def notification_email(notification, subscriptions)
     @notification = notification
-    @subscription = subscription
+    @subscriptions = subscriptions
 
-    email = subscription.account.email
+    email = subscriptions.first.account.email
     title = notification.title
     mail to: email, subject: @notification.title
   end

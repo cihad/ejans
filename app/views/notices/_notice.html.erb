@@ -6,7 +6,7 @@
   <% if notice.read? %>
     <%= link_to notice.notification.title, [notice.notification.service, notice.notification] %>
   <% else %>
-    <strong><%= link_to notice.notification.title, [notice.notification.service, notice.notification] %></strong>
+    <strong><%= link_to notice.notification.title, [notice.subscriptions.first.service, notice.notification] %></strong>
   <% end %>
   <p class="desc"><%= notice.notification.sms %></p>
 </li>

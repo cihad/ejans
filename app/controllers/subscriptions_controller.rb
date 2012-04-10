@@ -21,12 +21,8 @@ class SubscriptionsController < ApplicationController
     @service = @subscription.service
     selection_ids = params[:subscription][:selection_ids].compact.reject(&:blank?) unless params[:subscription][:selection_ids].nil?
 
-    if @subscription.valid_filter? selection_ids or @service.filters.blank?
-      if @subscription.save
-        redirect_to @service, notice: "Subscription was successfully created."
-      else
-        render action: "new"
-      end
+    if @subscription.save
+      redirect_to @service, notice: "Subscription was successfully created."
     else
       redirect_to @service, alert: 'Please select minumum a item from each filter.'
     end
@@ -41,10 +37,8 @@ class SubscriptionsController < ApplicationController
       @subscription.destroy
       redirect_to @service, alert: "Subscription was successfull destroyed. Please select minumum a item from each filter for be subscriber."
     else
-      if @subscription.valid_filter? selection_ids or @service.filters.blank?
-        if @subscription.update_attributes(params[:subscription])
-          redirect_to @service, notice: "Subscription was successfully updated."
-        end
+      if @subscription.update_attributes(params[:subscription])
+        redirect_to @service, notice: "Subscription was successfully updated. #{params[:subscription]}"
       else
         redirect_to @service, alert: 'Please select minumum a item from each filter.'
       end

@@ -22,4 +22,10 @@ class ServicesNotification < ActiveRecord::Base
 
   # Validates
   validates :service_id, presence: true
+
+  def potential_subscriptions
+    service.subscriptions.inject([]) do |array, subscription|
+      array << subscription if self.matching?(subscription)
+    end
+  end
 end

@@ -17,14 +17,9 @@
 #
 
 class Notification < ActiveRecord::Base
-
   require 'resque'
 
   SMS_LENGTH = 160
-
-  # Callbacks
-  after_destroy :destroy_selections
-  after_update :send_notification
 
   # Associations
   has_many :services_notifications
@@ -66,8 +61,8 @@ class Notification < ActiveRecord::Base
     end
   end
 
-  validate :same_service
-  def same_service
+  validate :not_existing_same_service
+  def not_existing_same_service
     if services_notifications.map(&:service_id).count != services_notifications.map(&:service_id).uniq.count
       errors.add :base, "Same service"
     end
@@ -83,73 +78,40 @@ class Notification < ActiveRecord::Base
 
   # Methods
   def active?
-    self.available_until > Date.today - 1 ? true : false
+    available_until > Date.today - 1 ? true : false
   end
 
   def passive?
-    !self.active?
+    not self.active?
   end
 
   def free?
     self.passive? || (service.service_price.receiver_credit == 0)
   end
 
+  after_destroy :destroy_selections
   def destroy_selections
     self.selections.destroy_all
   end
 
+  after_update :send_notification
   def send_notification
     self.add_notification_to_subscriptions if self.published_changed? && self.published == true
   end
 
-  def selections_map
-    h = Hash.new { |hash, key| hash[key] = [] }
-    self.selections.inject(h) { |hash, selection| hash[selection.filter.id] << selection.id; hash }
-  end
-
-  def selections_map_by_selection_ids(selections)
-    h = Hash.new { |hash, key| hash[key] = [] }
-    selections = Selection.find(selections).includes(:filter)
-    selections.inject(h) { |hash, selection| hash[selection.filter.id] << selection.id; hash }
-  end
-
-  def selected_subscription?(subscription)
-    subscription_selections_map = subscription.selections_map
-    selections_map.inject([]) do |a, filter_selection|
-      filter_id, selection_ids = filter_selection
-      a << (selection_ids & subscription_selections_map[filter_id]).present?
-      a
-    end.all? { |v| v == true }
-  end
-
-  def selected_subscription_by_selection_ids?(subscription, selection_ids = [])
-    subscription_selections_map = subscription.selections_map
-    selections_map_by_selection_ids(selections).inject([]) do |a, filter_selection|
-      filter_id, selection_ids = filter_selection
-      a << (selection_ids & subscription_selections_map[filter_id]).present?
-      a
-    end.all? { |v| v == true }
-  end
-
-  def subscriptions
-    self.service.subscriptions.select { |subscription| selected_subscription?(subscription) }
-  end
-
-  def which_subscriptions_by_selection_ids(selections = [])
-    self.service.subscriptions.select { |subscription| selected_subscription_by_selection_ids?(subscription, selections) }
-  end
-
-  # Native method
   def add_notification_to_subscriptions
     Resque.enqueue(SendNotification, self.id)
   end
 
-  def subscription_count(selections = [])
-    which_subscriptions_by_selection_ids(selections).count
+  # return [SubscriptionObject1, SubscriptionObject2, ...]
+  def potential_subscriptions
+    services_notifications.inject([]) do |array, sn|
+      array << sn.potential_subscriptions
+    end.flatten
   end
 
-  def subscription_price(selections = [])
-    subscription_count = subscription_count(selections)
-    return self.service.service_price.sender_credit * subscription_count
+  # return { AccountObject1 => [SubscriptionObject1, ...], ...}
+  def potential_accounts_with_subscriptions
+    potential_subscriptions.group_by { |s| s.account }
   end
 end
