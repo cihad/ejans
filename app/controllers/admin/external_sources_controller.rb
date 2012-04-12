@@ -8,7 +8,8 @@ module Admin
       if @external_source = ExternalSource.where(view: false).last
         @external_source.update_attributes(view: true)
         @service = @external_source.google_alert_feed.service
-        @notification = Notification.new(service: @service)
+        @notification = Notification.new
+        @notification.services_notifications.build(service_id: @service.id)
       else
         render "new"
       end
