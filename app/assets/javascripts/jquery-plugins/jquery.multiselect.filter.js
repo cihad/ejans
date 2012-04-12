@@ -19,7 +19,7 @@
 	$.widget("ech.multiselectfilter", {
 		
 		options: {
-			label: "Filter:",
+			label: "",
 			width: null, /* override default width set in css file (px). null will inherit */
 			placeholder: "Enter keywords",
 			autoReset: false
