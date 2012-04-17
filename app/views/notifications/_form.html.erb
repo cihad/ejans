@@ -32,7 +32,7 @@
     <div class="span6">
       <div id="services">
         <%= f.fields_for :services_notifications do |sn| %>
-          <% render "service_selections", f: sn %>
+          <% render "notifications/service_selections", f: sn %>
         <% end %>
       </div>
       <span class="group-item fields">
