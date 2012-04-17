@@ -12,7 +12,7 @@ class ServicesController < ApplicationController
 
   def show
     @service = Service.find(params[:id])
-    @notifications = @service.notifications.page(params[:page])
+    @notifications = @service.notifications.order("created_at DESC").page(params[:page])
     @subscription = current_account.subscription(@service) if account_signed_in?
     @subscription ||= @service.subscriptions.build
   end
