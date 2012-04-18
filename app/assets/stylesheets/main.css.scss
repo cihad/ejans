@@ -27,6 +27,10 @@ label {
 .inline-list {
   @extend .nostyle-list;
   display: inline;
+
+  li {
+    display: inline;
+  }
 }
 
 .pastelred {
@@ -516,7 +520,15 @@ ul.notices {
 // FOOTER
 //<!--footer
 footer {
+  padding: 10px 0;
   border: 0;
+  ul {
+    float: right;
+    a {
+      color: #aaa;
+      padding-left: 10px;
+    }
+  }
 }
 //footer-->
 

@@ -38,6 +38,10 @@ tr:
       what_does_it_do: 'Ne işe yarar?'
       all_in_one: 'Hepsi bir arada'
       easy: 'Kolay kullanım'
+    index:
+      about: "Hakkımızda"
+      contact: "İletişim"
+      feedback: "Geri bilirim ve destek"
 
   account:
     signin: 'Giriş yap'

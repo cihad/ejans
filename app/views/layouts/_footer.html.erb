@@ -1,3 +1,9 @@
 <footer>
+  <ul class="inline-list">
+    <li><%= link_to t("home.index.about"), "#" %></li>
+    <li><%= link_to t("home.index.contact"), "#" %></li>
+    <li><%= link_to t("home.index.feedback"), "javascript:UserVoice.showPopupWidget();" %></li>
+  </ul>
+  <p>&copy; <%= Time.new.strftime("%Y") %> Ejans</p>
 </footer>
 <!-- /footer -->
