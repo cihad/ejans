@@ -69,16 +69,6 @@ jQuery(function($) {
 
     <td>
       <div class="count">
-        <span><%= @notification.available_until.strftime("%d.%m.%Y") %></span>
-      </div>
-      <div class="desc">
-        <span><%= t('.available') %></span>
-        <%= content_tag :span, "active", :class => "active" if @notification.active? %>
-      </div>
-    </td>
-
-    <td>
-      <div class="count">
         <%= @notification.notificationable.email.split("@")[0] if @notification.notificationable_type == "Account" %>
       </div>
       <div class="desc">

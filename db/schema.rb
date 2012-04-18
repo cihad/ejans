@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120410133120) do
+ActiveRecord::Schema.define(:version => 20120418125454) do
 
   create_table "accounts", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false
@@ -143,7 +143,6 @@ ActiveRecord::Schema.define(:version => 20120410133120) do
     t.string   "slug"
     t.integer  "notificationable_id"
     t.string   "notificationable_type"
-    t.date     "available_until"
   end
 
   add_index "notifications", ["slug"], :name => "index_notifications_on_slug", :unique => true
