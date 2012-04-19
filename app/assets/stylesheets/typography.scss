@@ -10,8 +10,9 @@ h2 {
   margin-bottom: 15px;
 }
 
-article {
+article, #tinymce {
   color: black;
+  font-size: 13px;
 
   & > :first-child {
     margin-top: 0 !important;
