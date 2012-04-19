@@ -45,7 +45,14 @@ tr:
 
   account:
     signin: 'Giriş yap'
+    signup: 'Üye ol'
+    signin_signup: 'Giriş yap & Üye ol'
     signout: 'Çıkış'
+    password: 'Parola'
+    password_confirmation: 'Parola tekrar'
+    email: 'Eposta'
+    remember_me: 'hatırla beni'
+    forgot_password: 'Parolanızı mı unuttunuz?'
     edit_email: 'Email adresim'
     edit_password: 'Parolam'
     terminate: 'Hesabımı kaldır'

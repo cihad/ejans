@@ -1,28 +1,19 @@
-<div class="modal hide fade" id="signin-modal" style="margin-left:-160px; width: 340px;">
+<div class="modal hide fade" id="signin-modal" style="margin-left:-210px; width: 440px;">
   <div class="modal-header">
     <a class="close" data-dismiss="modal">×</a>
-    <h3>Sign in</h3>
+    <ul id="tab" class="nav nav-tabs sign-tab">
+      <li class="active"><a href="#signin" data-toggle="tab"><%= t "account.signin" %></a></li>
+      <li><a href="#signup" data-toggle="tab"><%= t "account.signup" %></a></li>
+    </ul>
   </div>
   <div class="modal-body">
-    <%= form_for "account", :url => account_session_path, :html => { :id => "signin-form" } do |f| %>
-        <p>
-          <%= f.label :email %>
-          <%= f.text_field :email, :class => "span4" %>
-        </p>
-
-        <p>
-          <%= f.label :password %>
-          <%= f.password_field :password, :class => "span4" %>
-        </p>
-
-        <p>
-          <%= f.check_box :remember_me %>
-          <%= f.label :remember_me %>
-        </p>
-  </div>
-  <div class="modal-footer">
-    <%= f.submit 'Sign in', :class => "btn btn-primary" %>
-    <%= link_to "Forgot your password?", new_password_path('account'), :class => "btn" %>
-    <% end %>
+    <div id="myTabContent" class="tab-content">
+      <div class="tab-pane fade in active" id="signin">
+        <%= render "shared/signin_form" %>
+      </div>
+      <div class="tab-pane fade" id="signup">
+        <%= render "shared/signup_form" %>
+      </div>
+    </div>
   </div>
 </div>

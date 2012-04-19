@@ -4,49 +4,15 @@
     <div class="container">
       <%= link_to "ejans.com", root_path, class: "brand" %>
 
-      <%= form_tag services_path, method: :get, class: "navbar-search pull-left" do %>
-        <%= text_field_tag :search, params[:search], class: "search-query", placeholder: t('search.do') %>
-      <% end %>
+      <%= render 'layouts/search_form' %>
 
       <ul class="nav pull-right">
         <% if account_signed_in? %>
-          <li class="dropdown notice-dropdown"> 
-            <% new_notices = current_account.notices.where(:new => true) %>
-            <% if new_notices and new_notices.count > 0 %>
-              <span class="notice-tooltip"><%= new_notices.count %></span>
-              <a href="#" class="dropdown-toggle no-notice" data-toggle="dropdown"><%= t('notices.name') %></a>
-            <% else %>    
-              <a href="#" class="dropdown-toggle no-notice" data-toggle="dropdown"><%= t('notices.no_notice') %></a>
-            <% end %>
-
-            <ul class="dropdown-menu">
-              <% notices = current_account.notices.unread %>
-              <% if notices.present? %>
-                <% notices.each do |notice| %>
-                  <li><%= link_to truncate(notice.notification.title, :length => 25), 
-                        [notice.subscriptions.first.service, notice.notification] %>
-                    <%= content_tag :span, "new", :class => "label success" if notice.new? %>
-                  </li>
-                <% end %>
-              <% else %>
-                <li><%= link_to "Nothing unread notice.", "#" %><li>
-              <% end %>
-            </ul>
-          </li>
+          <%= render 'layouts/notices_menu' %>
           <li class="divider-vertical"></li>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= current_account.email.split("@")[0] %> <b class="caret"></b></a>
-            <ul class="dropdown-menu">
-              <li><%= link_to t('notices.my'), subscriptions_path %></li>
-              <li><%= link_to t('account.edit_email'), settings_email_path %></li>
-              <li><%= link_to t('account.edit_password'), settings_password_path %></li>
-              <li><%= link_to t('account.edit_subscriptions'), edit_subscriptions_path %></li>
-              <li class="divider"></li>
-              <li><%= link_to t('account.signout'), destroy_account_session_path, :method => :delete %></li>
-            </ul>
-          </li>
+          <%= render 'layouts/account_menu' %>
         <% else %>
-          <li><a data-toggle="modal" href="#signin-modal">Sign in</a></li>
+          <li><a data-toggle="modal" href="#signin-modal"><%= t('account.signin_signup') %></a></li>
         <% end %>
       </ul>
     </div>

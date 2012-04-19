@@ -27,6 +27,7 @@
 //= require bootstrap/bootstrap-dropdown
 //= require bootstrap/bootstrap-modal
 //= require bootstrap/bootstrap-tooltip
+//= require bootstrap/bootstrap-tab
 //= require jquery-plugins/jquery.infieldlabel
 //= require jquery-plugins/jquery.maxlength
 //= require jquery-plugins/jquery.multiselect

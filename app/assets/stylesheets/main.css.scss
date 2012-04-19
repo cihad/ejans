@@ -41,14 +41,26 @@ label {
   color: $orange;
 }
 
-.modal {
-  border: 1px solid $grayLighter;
-  @include border-radius(4px);
-  @include box-shadow(0 1px 2px #ccc);
+.modal-header {
+  padding-bottom: 0;
+  background: $grayLighter;
+  border-bottom: 1px solid #DDD;
+  @include border-radius(4px 4px 0 0);
 }
-.modal-backdrop {
-  background: $white;
+
+.modal-body {
+  padding: 40px 68px;
 }
+
+.modal-footer {
+  margin: 0 -15px -15px;
+}
+
+.sign-tab {
+  border-bottom: 0;
+  margin-bottom: 0;
+}
+
 
 .border-radius {
   @include border-radius(4px);

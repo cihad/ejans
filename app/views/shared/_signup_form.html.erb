@@ -1,0 +1,20 @@
+<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:autocomplete => :off}) do |f| %>
+  <p>
+    <%= f.label :email, t('account.email') %>
+    <%= f.email_field :email, :class => "span4" %>
+  </p>
+
+  <p>
+    <%= f.label :password, t('account.password') %>
+    <%= f.password_field :password, :class => "span4" %>
+  </p>
+
+  <p>
+    <%= f.label :password_confirmation, t('account.password_confirmation') %>
+    <%= f.password_field :password_confirmation, :class => "span4" %>
+  </p>
+
+  <p>
+    <%= f.submit t('account.signup'), :class => "span2 btn btn-primary" %>
+  </p>
+<% end %>
