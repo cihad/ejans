@@ -58,6 +58,16 @@ article, #tinymce {
     margin-bottom: 0;
   }
 
+  ul li > :last-child,
+  ol li > :last-child {
+    margin-bottom: 0;
+  }
+
+  ul li > :first-child,
+  ol li > :first-child {
+    margin-top: 0;
+  }
+
   h1,
   h2,
   h3,
@@ -98,4 +108,14 @@ article, #tinymce {
     color: #777;
   }
 
+  table {
+    @extend .table;
+    @extend .table-striped;
+    @extend .table-bordered;
+    @extend .table-condensed;
+  }
+}
+
+#tinymce {
+  background: #fff;
 }

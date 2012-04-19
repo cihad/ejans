@@ -68,7 +68,7 @@ $(document).ready(function() {
   $('.tinymce').tinymce({
     theme : "advanced",
     plugins : "lists,fullscreen,table,paste,advimage",
-    theme_advanced_buttons1 : "bold,italic,underline,strikethrough,outdent,indent,bullist,numlist,link,unlink,image,formatselect,fullscreen,code,pastetext",
+    theme_advanced_buttons1 : "bold,italic,underline,strikethrough,bullist,numlist,outdent,indent,link,unlink,visualaid,image,formatselect,fullscreen,code,pastetext",
     theme_advanced_buttons2 : "",
     theme_advanced_buttons3 : "",
     theme_advanced_blockformats : "p,h1,h2,h3,h4,h5,h6,blockquote,dt,dd,code",
@@ -77,7 +77,7 @@ $(document).ready(function() {
     theme_advanced_statusbar_location : "bottom",
     theme_advanced_resizing : true,
     entity_encoding : "raw",
-    content_css : "/assets/typography.css"
+    content_css : "/assets/application.css"
   });
 
   // Pagination

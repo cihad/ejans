@@ -25,8 +25,8 @@
       <li id="more"><span>+</span></li>
     </ul>
   <% end %>
-
-  <%= sanitize @notification.description %>
+  
+  <%= format_desc @notification.description %>
 </article>
 
 <%= javascript_tag do %>
