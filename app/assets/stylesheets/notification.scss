@@ -14,19 +14,6 @@ ul.selections-list {
     @include border-radius(3px);
     background: $grayLighter;
 
-
-    &.active {
-      background: lighten($green, 30%);
-      padding-right: 5px;
-      color: darken($green, 20%);
-
-
-      span {
-        color: $green;
-      }
-
-    }
-
     &#more {
       cursor: pointer;
       background: darken($grayLighter, 10%);

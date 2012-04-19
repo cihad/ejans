@@ -1,4 +1,4 @@
-<li class="<%= "active" if notification.active? %>" id="notification_<%= notification.id %>">
+<li id="notification_<%= notification.id %>">
   <%= link_to notification.title, [@service, notification], class: "data-remote"  %>
   <p class="desc"><%= truncate(notification.sms, :length => 100) %></p>
   <%=  %>

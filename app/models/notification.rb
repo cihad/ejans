@@ -77,16 +77,8 @@ class Notification < ActiveRecord::Base
   
 
   # Methods
-  def active?
-    available_until > Date.today - 1 ? true : false
-  end
-
-  def passive?
-    not self.active?
-  end
-
   def free?
-    self.passive? || (service.service_price.receiver_credit == 0)
+    service.service_price.receiver_credit == 0
   end
 
   after_destroy :destroy_selections
