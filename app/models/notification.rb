@@ -13,7 +13,6 @@
 #  slug                  :string(255)
 #  notificationable_id   :integer(4)
 #  notificationable_type :string(255)
-#  available_until       :date
 #
 
 class Notification < ActiveRecord::Base
@@ -36,20 +35,9 @@ class Notification < ActiveRecord::Base
   # Scope
   scope :published, where(published: true)
   scope :unpublished, where(published: false)
-  scope :available, where("available_until > ?", Date.today - 1)
-  scope :unavailable, where("available_until < ?", Date.today)
-
   # Validates
-  validates :title, :sms, :description, :available_until,
-    presence: true
+  validates :title, :sms, :description, presence: true
   validates :sms, presence: true, length: { maximum: SMS_LENGTH }
-
-  # validate :available_until_date_cannot_be_in_the_past
-  # def available_until_date_cannot_be_in_the_past
-  #   if available_until < Date.today
-  #     errors.add(:available_until, "can't be in the past")
-  #   end
-  # end
 
   validate :filter_count
   def filter_count
