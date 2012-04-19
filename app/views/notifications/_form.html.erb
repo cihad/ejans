@@ -44,8 +44,8 @@
     </div>
   </div>
 
-  <script>
-  $(document).ready(function(){
+  
+  <%= javascript_tag do %>
     function addService( title ) {
       $( "#add-service" ).attr("href", "<%= new_service_notification_path(@service, service_title: "") %>" + title )
     }
@@ -61,53 +61,7 @@
       selectedList: 1,
       minWidth: 300,
     }).multiselectfilter();
-
-
-  });
-  </script>
-
-
-  <script type="text/javascript">
-  // $(function() {
-
-  //   var target = $("#target");
-
-  //   $(".filter select").multiselect({
-  //     selectedList: 1,
-  //     minWidth: 290,
-  //   }).multiselectfilter().change(function () {
-
-  //     var str = "";
-  //     $("select option:selected").each(function () {
-  //       str += $(this).val() + "+";
-  //     });
-
-  //     target.attr(
-  //       'href', "<%= calculate_service_notifications_path(@service) %>?selection_ids=" + str
-  //     );
-  //   }).trigger('change');
-
-  //   target.live("click", function() {
-  //     $("#subscription_price").html("<%= t('global.loading') %>");
-  //     $.getScript(this.href);
-  //     return false;
-  //   });
-
-  //   $( "#notification_available_until" ).datepicker({ minDate: -1, maxDate: "+1M", dateFormat: "yy-mm-dd" });
-  // });
-  </script>
-
-  <div class="form-item info-field row">
-    <%= label_tag nil, t("notifications.price"), :class => "span2" %>
-    <span class="span6">
-      <span id="subscription_price">
-        <%= @service.filters.blank? ? "#{(@service.service_price.sender_credit * @service.subscriptions.count)} #{t('global.credit')}" : t('global.free') %>
-      </span>
-      <% if @service.filters.present? %>
-        <%= link_to "Refresh", "", :id => "target", :class => "btn small", :style => "float:right;" %>
-      <% end %>
-    </span>
-  </div>
+  <% end %>
 
   <div class="form-item textarea-field row">
     <%= f.label :description, t('global.description'), :class => "span2" %>
