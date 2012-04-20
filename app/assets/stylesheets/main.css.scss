@@ -180,7 +180,7 @@ ul.dropdown-menu li {
     float:left;
     line-height: 1.2em;
     padding: 0 15px 0 10px;
-    background: url("images/chevron.gif") 100% 50% no-repeat;
+    background: url(image-path("images/chevron.gif")) 100% 50% no-repeat;
     &.first {
       padding-left: 20px;
     }
@@ -208,7 +208,7 @@ ul.dropdown-menu li {
     text-shadow: 0 1px 0 #fff;
 
     a {
-      background: url(images/gray_arrow_right.png) right center no-repeat;
+      background: url(image-path("images/gray_arrow_right.png")) right center no-repeat;
       color: $grayDark;
       text-decoration: none;
       display: block;
@@ -494,7 +494,7 @@ ul.notices {
       display: block;
       padding: 10px 20px 10px 0;
       color: $grayDark;
-      background: url("images/gray_arrow_right.png") 100% center no-repeat;
+      background: url(image-path("images/gray_arrow_right.png")) 100% center no-repeat;
 
       &:hover {
         text-decoration: none;

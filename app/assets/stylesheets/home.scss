@@ -6,7 +6,7 @@
 #slide {
   margin:-20px -20px 0;
   border-bottom: 1px solid #ddd;
-  background: #EFF8FC url("images/slide_back.jpg");
+  background: #EFF8FC url(image-path("images/slide_back.jpg"));
   @include box-shadow(inset 0 1px 0 #fff);
   @include border-radius(4px 4px 0 0);
 }
