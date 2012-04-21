@@ -133,6 +133,7 @@ tr:
       buy_credit: 'Kredi almak için tıklayınız.'
     service:
       signin: 'Abone olmak için giriş yapın'
+    minimum_select: 'Abonelik için en az bir tane seçin.'
 
   payments:
     name: 'Ödemeler'
