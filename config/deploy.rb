@@ -109,8 +109,7 @@ namespace :uploads do
   desc "Symlink"
   task :symlink do
     run <<-CMD
-      rm -rf #{release_path}/public/uploads &&
-      ln -nfs #{shared_path}/uploads #{release_path}/public/uploads
+      rm -rf #{release_path}/public/uploads && ln -nfs #{shared_path}/uploads #{release_path}/public/uploads
     CMD
   end
 end
