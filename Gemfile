@@ -33,8 +33,19 @@ group :development do
   gem 'capistrano'
   gem 'populator'
   gem 'railroady'
+  gem 'libnotify'
 end
 
 group :production do
   gem 'unicorn', '4.1.1'
+end
+
+group :test, :development do
+  gem 'rspec-rails'
+end
+
+group :test do
+  gem 'factory_girl_rails'
+  gem 'capybara'
+  gem 'guard-rspec'
 end

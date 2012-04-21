@@ -1,12 +1,6 @@
 require File.expand_path('../boot', __FILE__)
 
-# Pick the frameworks you want:
-require "active_record/railtie"
-require "action_controller/railtie"
-require "action_mailer/railtie"
-require "active_resource/railtie"
-require "sprockets/railtie"
-# require "rails/test_unit/railtie"
+require 'rails/all'
 
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
@@ -57,6 +51,6 @@ module Ejans
     # For Devise and Heroku
     config.assets.initialize_on_precompile = false
 
-    config.exceptions_app = self.routes
+    #config.exceptions_app = self.routes
   end
 end
