@@ -9,7 +9,7 @@
 
 <div class="block" id="user-menu">
   <ul>
-    <%= menu_item "#{t('payments.name')} #{content_count(current_account.credit.credit, t('global.credit'))}".html_safe, payments_path %>
+    <%= menu_item "#{t('payments.name')} #{count_tag(current_account.credit.credit, t('global.credit'))}".html_safe, payments_path %>
     <%= menu_item t('account.edit_subscriptions'), edit_subscriptions_path %>
     <%= menu_item t('account.edit_email'), settings_email_path %>
     <%= menu_item t('account.edit_password'), settings_password_path %>

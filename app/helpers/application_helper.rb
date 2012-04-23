@@ -45,7 +45,7 @@ module ApplicationHelper
     link_to_function(name, "add_fields(this, \"#{association}\", \"#{escape_javascript(fields)}\")")
   end
 
-  def content_count(count, message = "")
+  def count_tag(count, message = "")
     content_tag :span, "#{count} #{message}" unless query == 0
   end
 
