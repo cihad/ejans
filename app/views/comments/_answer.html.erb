@@ -1,6 +1,6 @@
 <div class="answer clearfix <%= "odd" if answer_counter % 2 == 0 %>">
   <div class="author">
-    <strong><%= answer.author.email.split("@")[0] %>:</strong>
+    <strong><%= author_email_name(answer) %>:</strong>
   </div>
   <%= simple_format answer.body %>
 </div>

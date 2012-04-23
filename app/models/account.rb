@@ -80,4 +80,8 @@ class Account < ActiveRecord::Base
   def owner_notification?(notification)
     self == notification.notificationable
   end
+
+  def email_name
+    email.split("@")[0]
+  end
 end

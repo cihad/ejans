@@ -37,4 +37,12 @@ class Comment < ActiveRecord::Base
       error[:base] << "Cannot create child comment unless parent private"
     end
   end
+
+  def author_email_name
+    author.email_name
+  end
+
+  def notification_owner?
+    author == notification.notificationable
+  end
 end
