@@ -107,7 +107,7 @@ end
 
 namespace :uploads do
   desc "Symlink"
-  task :symlink do
+  task :symlink, :except => { :no_release => true } do
     run <<-CMD
       rm -rf #{release_path}/public/uploads && ln -nfs #{shared_path}/uploads #{release_path}/public/uploads
     CMD
