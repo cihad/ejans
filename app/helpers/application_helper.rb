@@ -45,17 +45,6 @@ module ApplicationHelper
     link_to_function(name, "add_fields(this, \"#{association}\", \"#{escape_javascript(fields)}\")")
   end
 
-  def fade_effect(selector, speed, opacity)
-    javascript_tag "$(function() {
-      $(\"#{selector.to_s}\").fadeTo(\"#{speed}\", #{opacity});
-      $(\"#{selector.to_s}\").hover(function(){
-        $(this).fadeTo(\"#{speed}\", 1.0);
-      },function(){
-        $(this).fadeTo(\"#{speed}\", #{opacity});
-      });
-    });"
-  end
-
   def content_count(count, message = "")
     content_tag :span, "#{count} #{message}" unless query == 0
   end
