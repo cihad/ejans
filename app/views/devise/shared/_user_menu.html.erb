@@ -1,20 +1,19 @@
 <div class="block" id="user-menu">
   <ul>
-    <%= menu_list "#{t('notifications.all')} #{content_count(current_account.notices.where(:read => false).count)}".html_safe, subscriptions_path, nil, true %>
-
+    <%= subscription_menu_item(current_account) %>
     <% current_account.subscriptions.each do |subscription| %>
-      <%= menu_list "#{truncate(subscription.service.title, :length => 30)} #{content_count(subscription.notices.where(:read => false).count)}".html_safe, subscription, nil, true %>
+      <%= subscription_menu_item(subscription) %>
     <% end %>
   </ul>
 </div>
 
 <div class="block" id="user-menu">
   <ul>
-    <%= menu_list "#{t('payments.name')} #{content_count(current_account.credit.credit, t('global.credit'))}".html_safe, payments_path %>
-    <%= menu_list t('account.edit_subscriptions'), edit_subscriptions_path %>
-    <%= menu_list t('account.edit_email'), settings_email_path %>
-    <%= menu_list t('account.edit_password'), settings_password_path %>
-    <%= menu_list t('account.terminate'), settings_terminate_path %>
-    <%= menu_list t('account.signout'), destroy_account_session_path, "delete" %>
+    <%= menu_item "#{t('payments.name')} #{content_count(current_account.credit.credit, t('global.credit'))}".html_safe, payments_path %>
+    <%= menu_item t('account.edit_subscriptions'), edit_subscriptions_path %>
+    <%= menu_item t('account.edit_email'), settings_email_path %>
+    <%= menu_item t('account.edit_password'), settings_password_path %>
+    <%= menu_item t('account.terminate'), settings_terminate_path %>
+    <%= menu_item t('account.signout'), destroy_account_session_path, "delete" %>
   </ul>
 </div>

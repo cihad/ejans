@@ -24,18 +24,13 @@ module ApplicationHelper
     content_for(:head) { javascript_include_tag(*args) }
   end
 
-  def menu_list(text, path, method = "", data_remote = false)
-    li_class = ""
-
-    if current_page?(path)
-      li_class = "active"
-    end
-
-    if data_remote
-      li_class += " data-remote"
-    end
-
-    content_tag :li, link_to(text, path, :method => method, :class => "#{li_class}" ), :class => li_class
+  def menu_item(title, path, options = {})
+    data_remote = options.delete(:data_remote)
+    classes = []
+    classes << "data-remote" if data_remote
+    classes << list_class = "active" if current_page?(path)
+    options[:class] = classes.join(" ")
+    content_tag :li, link_to(title, path, options), class: list_class
   end
 
   def link_to_remove_fields(name, f)
@@ -61,8 +56,8 @@ module ApplicationHelper
     });"
   end
 
-  def content_count(query, message = "")
-    content_tag :span, "#{query} #{message}" if query != 0
+  def content_count(count, message = "")
+    content_tag :span, "#{count} #{message}" unless query == 0
   end
 
   def yield_content!(content_key)

@@ -18,6 +18,7 @@
 #
 
 class Account < ActiveRecord::Base
+  include Ejans::Noticable
 
   STARTER_CREDIT = 100
 

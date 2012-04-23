@@ -14,6 +14,7 @@
 
 class Subscription < ActiveRecord::Base
   include Ejans::Selectable
+  include Ejans::Noticable
 
   # Associations
   belongs_to :account
@@ -51,7 +52,7 @@ class Subscription < ActiveRecord::Base
   def access_notification?(notification)
     self.have_notice?(notification) ? self.notice(notification).sufficient_credit? : false
   end
-
+  
   private
   def not_new!
     self.notices.update_all(new: false)
