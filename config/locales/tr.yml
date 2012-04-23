@@ -26,6 +26,8 @@ tr:
     insufficient_credit: 'Yeterli krediniz yok.'
     new: 'yeni'
     be_user: 'Üye ol'
+    sign_in: 'Giriş yap'
+    sign_up_in: 'Üyelik & Giriş'
 
   errors:
     page_not_found: 'Sayfa Bulunamadı'
@@ -36,8 +38,11 @@ tr:
       meta_description: 'Ejans.com, işiniz ve yaşantınız ile ilgili servisleri sayesinde size duymak istediklerinizi söyler.'
     slide:
       what_does_it_do: 'Ne işe yarar?'
-      all_in_one: 'Hepsi bir arada'
-      easy: 'Kolay kullanım'
+      services: 'İlgi alanına giren servise abone oluyorsun. İşin hakkındaki duyuruları, etkinlikleri, teklifleri, iş ilanlarını bu servis ile takip edebilirsin. Bu da senin güncel kalmanı sağlar.'
+      filters: 'Filtreler'
+      filters_desc: 'Servise abone olurken istediğin filtrelemeyi yaparak sadece senin ile ilgili bildirileri eposta ile alabilirsin. Böylece seninle ilgili olmayan bildirilerle seni rahatsız etmeyiz.'
+      notification: 'Bildiri'
+      notification_desc: 'Servislere bildiri göndererek istediğiniz kitleye ulaşabilirsiniz. Bunun için servis sayfasındaki "Yeni bildiri" bağlantısını kullanarak formu doldurmanız yeterlidir.'
     index:
       about: "Hakkımızda"
       contact: "İletişim"

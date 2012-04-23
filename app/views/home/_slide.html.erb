@@ -12,14 +12,14 @@
           </div>
           <div class="plane_line" id="dashed_line_1"></div>
           <div class="plane_line" id="dashed_line_2"></div>
-          <h1>Servisler</h1>
-          <p>Bir çok servisimiz var. Bunlar senin ihtiyaçların için oluşturuldu. Haydi seninle ilgili bir şey ara.</p>
+          <h1><%= t('home.slide.what_does_it_do') %></h1>
+          <p><%= t('home.slide.services') %></p>
         </div>
       </div>
       <div class="slide" id="slide-2">
         <div class="slide-ins">
-          <h1>Abone ol</h1>
-          <p>Servis buldun mu? Ne mutlu sana. Servise abone olursan bu servise gelecek bildirilerden anında haberdar olursun.</p>
+          <h1><%= t('home.slide.filters') %></h1>
+          <p><%= t('home.slide.filters_desc') %></p>
           <div class="plane_line" id="dashed_line_3"></div>
           <%= image_tag "images/mail.png", id: "mail" %>
           <div class="plane_line" id="dashed_line_3"></div>
@@ -27,19 +27,19 @@
       </div>
       <div class="slide" id="slide-3">
         <div class="slide-ins">
-          <h1>Üye ol</h1>
-          <p>Yapmanız gereken sadece servise abone olmak. Ve emailinize veya telefonunuza gelecek mesajları beklemek.</p>
+          <h1><%= t('home.slide.notification') %></h1>
+          <p><%= t('home.slide.notification_desc') %></p>
         </div>
       </div>
     </div>
 
     <div id="menu">
       <ul>
-        <li class="menuItem"><span>Servisler</span></li>
-        <li class="menuItem"><span>Abone ol</span></li>
-        <li class="menuItem"><span>Üye ol</span></li>
+        <li class="menuItem"><span><%= t('home.slide.what_does_it_do') %></span></li>
+        <li class="menuItem"><span><%= t('home.slide.filters') %></span></li>
+        <li class="menuItem"><span><%= t('home.slide.notification') %></span></li>
         <% unless account_signed_in? %>
-          <li class="menuItem"><a data-toggle="modal" href="#signin-modal"><i class="icon-user"></i> Giriş yap</a></li>
+          <li class="menuItem"><a data-toggle="modal" href="#signin-modal"><i class="icon-user"></i> <%= t('global.sign_up_in') %></a></li>
         <% end %>
       </ul>
     </div>
