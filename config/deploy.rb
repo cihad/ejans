@@ -25,7 +25,7 @@ after "deploy:symlink", "ts:symlink"
 #after "deploy:symlink", "deploy:restart_workers" # Uncomment first_run
 after 'deploy', 'ts:start'
 after "deploy", "uploads:symlink"
-#after "deploy", "assets:precompile"
+after "deploy", "assets:precompile"
 after "deploy", "unicorn:restart"
 
 
