@@ -9,6 +9,10 @@ class Ability
     elsif user.role? :authenticated
       can :read, [Service, Notification]
       can :manage, Subscription
+      can :create, Notification
+      can :update, Notification do |notification|
+        user.owner_notification?(notification)
+      end
     else
       can :read, [Service, Notification]
     end

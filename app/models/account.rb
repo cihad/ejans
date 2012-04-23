@@ -76,4 +76,7 @@ class Account < ActiveRecord::Base
     roles.first.name == "admin"
   end
 
+  def owner_notification?(notification)
+    self == notification.notificationable
+  end
 end
