@@ -18,6 +18,7 @@ gem 'roadie'
 gem 'tinymce-rails'
 gem 'carrierwave'
 gem 'nokogiri'
+gem 'rails-i18n'
 
 # Groups
 group :assets do

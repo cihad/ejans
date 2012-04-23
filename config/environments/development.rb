@@ -51,4 +51,6 @@ Ejans::Application.configure do
     user_name:            "cihadp@gmail.com",
     password:             "chad1234"
   }
+
+  config.i18n.available_locales = :tr
 end

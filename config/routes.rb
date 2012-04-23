@@ -52,6 +52,7 @@ Ejans::Application.routes.draw do
       put :publish, :on => :member
     end
     resources :external_sources, :only => [:index, :new, :destroy]
+    resources :accounts, only: [:index]
   end
 
   mount Resque::Server, :at => "/resque"
