@@ -25,6 +25,14 @@ class Comment < ActiveRecord::Base
   validate :not_private_self
   validate :not_send_parent_unless_private
 
+  def notification_owner?
+    author == notification.notificationable
+  end
+  
+  def author_email_name
+    author.email_name
+  end
+
   private
   def not_private_self
     if private && author_id && notification.notificationable == author
@@ -36,13 +44,5 @@ class Comment < ActiveRecord::Base
     if parent_id && !parent.private?
       error[:base] << "Cannot create child comment unless parent private"
     end
-  end
-
-  def author_email_name
-    author.email_name
-  end
-
-  def notification_owner?
-    author == notification.notificationable
   end
 end
