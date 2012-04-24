@@ -1,5 +1,5 @@
 module CommentsHelper
-  def comment_date(comment = comment)
+  def comment_date(comment)
     l comment.created_at, format: :short
   end
 
