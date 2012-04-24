@@ -1,9 +1,9 @@
 module TagsHelper
   def span_with_label(content, options = {})
     classes = []
-    classes = "label"
+    classes << "label"
     classes << options.delete(:class)
-    options[:class] = classes
+    options[:class] = classes.join(" ")
     content_tag :span, content, options
   end
 
