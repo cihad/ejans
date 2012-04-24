@@ -1,7 +1,8 @@
-<div class="row comment comment-form <%= "owner" if current_account == notification.notificationable %>">
+<div class="row comment comment-form <%= "owner" if o = current_account == notification.notificationable %>">
   <div class="span1 offset1">
     <div class="author">
-      <%= current_account.email.split("@")[0] %>
+      <%= current_account.email_name %>
+      <%= label_info "owner" if o  %>
     </div>
   </div>
   <div class="span6">
