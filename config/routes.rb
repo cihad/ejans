@@ -4,7 +4,7 @@ Ejans::Application.routes.draw do
   get "home/index"
 
   match "/services/:service_id/notifications/:id" => redirect("/service/%{service_id}/%{id}")
-  resources :services, path: 'services', only: :index
+  resources :services, path: 'services', only: [:index, :create]
   resources :services, path: 'service'
   resources :services, path: 'service', only: []  do
     post :sort, on: :collection
