@@ -14,6 +14,6 @@
     <%= menu_item t('account.edit_email'), settings_email_path %>
     <%= menu_item t('account.edit_password'), settings_password_path %>
     <%= menu_item t('account.terminate'), settings_terminate_path %>
-    <%= menu_item t('account.signout'), destroy_account_session_path, "delete" %>
+    <%= menu_item t('account.signout'), destroy_account_session_path, method: :delete %>
   </ul>
 </div>

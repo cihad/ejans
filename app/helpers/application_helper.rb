@@ -46,6 +46,6 @@ module ApplicationHelper
   end
 
   def count_tag(count, message = "")
-    content_tag :span, "#{count} #{message}" unless query == 0
+    content_tag :span, "#{count} #{message}" unless count == 0
   end
 end
