@@ -133,9 +133,19 @@
   color: #666;
 }
 
+#menu ul li:hover span,
+#menu ul li a {
+  @include gradient-vertical(darken($white, 2%), darken($grayLighter, 2%));
+}
+
 #menu li.act span {
   position: relative;
-  top: 2px;
+  top: 1px;
+  @include gradient-vertical(darken($grayLighter, 5%), darken($white, 5%));
+}
+
+#menu li.act:hover span {
+  @include gradient-vertical(darken($grayLighter, 5%), darken($white, 5%));
 }
 
 h2#subheading {  
