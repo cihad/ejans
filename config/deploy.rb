@@ -22,7 +22,7 @@ after "deploy", "rvm:trust_rvmrc"
 after "deploy:restart", "deploy:cleanup"
 before "deploy:update_code", "ts:stop" # Uncomment first_run
 after "deploy:symlink", "ts:symlink"
-#after "deploy:symlink", "deploy:restart_workers" # Uncomment first_run
+after "deploy:symlink", "deploy:restart_workers" # Uncomment first_run
 after 'deploy', 'ts:start'
 after "deploy", "uploads:symlink"
 after "deploy", "assets:precompile"
