@@ -2,7 +2,7 @@
 <% title page_name %>
 
 <% meta_description @notification.sms %>
-
+<% conanical_url service_notification_path(@notification.services_notifications.first.service ,@notification) if @notification.services_notifications.count > 1 %>
 <article>
   <%#= current_account.subscription(@notification.service).notice(@notification).update_attributes(:new => false, :read => true) if account_signed_in? && current_account.subscribing?(@notification.service) %>
   <%= content_tag :h1, page_name %>

@@ -11,6 +11,13 @@ module ApplicationHelper
     content_for(:meta_tag) { meta_tag.html_safe }
   end
 
+  def conanical_url(path)
+    link = "<link rel=\"canonical\" href=\""
+    link += path
+    link += "\">"
+    content_for(:meta_tag) { link.html_safe }
+  end
+
   def body_class(classes)
     content_for(:body_class) { classes }
   end
