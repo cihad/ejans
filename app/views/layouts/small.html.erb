@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title><%= yield(:title) || "The Place to Buy Stuff" %> - Synchronize.me</title>
+  <title><%= full_title(yield(:title)) %></title>
   <meta name="robots" content="noindex">
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>

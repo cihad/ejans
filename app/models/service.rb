@@ -52,10 +52,12 @@ class Service < ActiveRecord::Base
   friendly_id :title, :use => :slugged
 
   # Sphinx Search Engine
-  define_index do
-    indexes description
-    indexes title
-    indexes selections.label, as: :selection_label
+  if respond_to? :define_index
+    define_index do
+      indexes title
+      indexes description
+      indexes selections.label, as: :selection_label
+    end
   end
 
   mount_uploader :image, ServiceImageUploader

@@ -1,4 +1,4 @@
-# == Schema Information
+  # == Schema Information
 #
 # Table name: accounts
 #
@@ -31,15 +31,18 @@ class Account < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me
 
   # Associations
-  has_many :own_services, :foreign_key => "owner_id", :class_name => "Service"
-  has_many :subscriptions
-  has_many :notices, :through => :subscriptions
-  has_many :services, :through => :subscriptions
-  has_one :credit, :as => :creditable
-  has_and_belongs_to_many :roles, :limit => 1
-  has_many :notifications, :as => :notificationable
+  has_many :own_services, foreign_key: "owner_id",
+                          class_name: "Service",
+                          dependent: :destroy
+  has_many :subscriptions, dependent: :destroy
+  has_many :notices, through: :subscriptions, dependent: :destroy
+  has_many :services, through: :subscriptions
+  has_one :credit, as: :creditable
+  has_and_belongs_to_many :roles, limit: 1
+  has_many :notifications, as: :notificationable, dependent: :destroy
   has_many :ideas
-  has_many :comments, :foreign_key => "author_id", :class_name => "Comment"
+  has_many :comments, foreign_key: "author_id", class_name: "Comment",
+                      dependent: :destroy
 
   # Callbacks
   after_create :add_starter_credit
@@ -66,7 +69,7 @@ class Account < ActiveRecord::Base
   end
 
   def subscribing?(service)
-    self.subscriptions.find_by_service_id(service.id) ? true : false
+    subscriptions.find_by_service_id(service.id) ? true : false
   end
 
   def role?(role)

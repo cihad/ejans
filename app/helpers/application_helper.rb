@@ -1,7 +1,6 @@
 module ApplicationHelper
-
-  def title(page_title)
-    content_for(:title) { page_title }
+  def full_title(page_title)
+    page_title.empty? ? "Ejans.com" : "#{page_title} - Ejans.com"
   end
 
   def meta_description(desc)

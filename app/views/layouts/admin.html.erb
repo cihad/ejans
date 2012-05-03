@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title><%= yield(:title) || "The Place to Buy Stuff" %> - Ejans.com</title>
+  <title><%= title(yield(:title))</title>
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application", "jquery.tablesorter", "jquery.tablesorter.pager" %>
   <%= csrf_meta_tags %>

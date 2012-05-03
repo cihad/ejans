@@ -25,6 +25,9 @@ tr:
       signed_in: 'Başarılı giriş.'
       signed_out: 'Başarılı çıkış.'
     passwords:
+      forget: 'Parolanızı mı unuttunuz?'
+      new_password: 'Yeni parola'
+      send_new: 'Parola sıfırlama talimatlarını gönder'
       send_instructions: 'Bir kaç dakika içinde parolanızı nasıl sıfırlayacağız hakkında bir email alacaksınız.'
       updated: 'Parolanız başarıyla değiştirildi. Şu anda giriş yapmış bulunuyorsunuz.'
       updated_not_active: 'Parolanız başarıyla değiştirildi.'

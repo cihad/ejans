@@ -14,7 +14,6 @@
 class Notice < ActiveRecord::Base
 
   # Associations
-  belongs_to :account
   has_and_belongs_to_many :subscriptions, join_table: "notices_subscriptions"
   belongs_to :notification
 

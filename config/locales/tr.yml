@@ -44,6 +44,7 @@ tr:
       notification: 'Bildiri'
       notification_desc: 'Servislere bildiri göndererek istediğiniz kitleye ulaşabilirsiniz. Bunun için servis sayfasındaki "Yeni bildiri" bağlantısını kullanarak formu doldurmanız yeterlidir.'
     index:
+      title: "Anasayfa"
       about: "Hakkımızda"
       contact: "İletişim"
       feedback: "Geri bilirim ve destek"
