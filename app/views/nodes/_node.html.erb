@@ -1,0 +1,21 @@
+<tr>
+  <td><%= node.title %></td>
+  <td><%= l node.created_at, format: :short %></td>
+  <td>
+    <%= link_to [node.node_type, node], class: "btn" do %>
+      <%= content_tag :i, nil, class: "icon-eye-open" %>
+      <%= t('global.show') %>
+    <% end %>
+    <%= link_to edit_node_type_node_path(node.node_type, node), class: "btn " do %>
+      <%= content_tag :i, nil, class: "icon-pencil" %>
+      <%= t('global.edit') %>
+    <% end %>
+    <%= link_to [node.node_type, node],
+                confirm: "Are you sure?",
+                method: :delete, class: "btn " do
+                %>
+      <%= content_tag :i, nil, class: "icon-trash" %>
+      <%= t('global.destroy') %>
+    <% end %>
+    </td> 
+</tr>

@@ -1,0 +1,45 @@
+ <table class="table table-form">
+    <tr>
+      <th>Type</th>
+      <td>
+        <%= @fc.type %>
+      </td>
+    </tr>
+
+    <tr>
+      <th>Label</th>
+      <td><%= @fc.label %></td>
+    </tr>
+
+    <tr>
+      <th>Required</th>
+      <td><%= @fc.required %></td>
+    </tr>
+
+    <tr>
+      <th>Help</th>
+      <td><%= @fc.help %></td>
+    </tr>
+
+    <tr>
+      <th>Sort</th>
+      <td><%= @fc.sort %></td>
+    </tr>
+
+    <tr>
+      <th>Filter</th>
+      <td><%= @fc.filter %></td>
+    </tr>
+
+    <%= render "features/integer_feature_configuration" %>
+
+    <tr>
+      <th>Actions</th>
+      <td>
+        <%= link_to t('global.edit'), edit_node_type_features_feature_configuration_path(@node_type, @fc) %>
+        <%= link_to t('global.destory'), node_type_features_feature_configuration_path(@node_type, @fc),
+              confirm: "Are you sure?",
+              method: :delete %>
+      </td>
+    </tr>
+  </table>

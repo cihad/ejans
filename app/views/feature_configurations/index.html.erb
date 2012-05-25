@@ -1,0 +1,50 @@
+<table class="table table-striped sortable">
+  <thead>
+    <tr>
+      <th>&nbsp;</th>
+      <th>Label</th>
+      <th>Type</th>
+      <th>Required?</th>
+      <th>Sort</th>
+      <th>Filter</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  
+  <tbody data-update-url="<%= sort_features_url %>">
+    <% @fcs.each do |fc| %>
+      <tr class="feature_configuration" id="feature_configuration_<%= fc.id %>">
+        <td><span class="handle">[drag]</span></td>
+        <td><%= link_to fc.label, node_type_features_feature_configuration_path(@node_type, fc) %></td>
+        <td><%= fc.type %></td>
+        <td><%= fc.required %></td>
+        <td><%= fc.sort %></td>
+        <td><%= fc.filter %></td>
+        <td>
+          <%= link_to t('global.edit'), edit_node_type_features_feature_configuration_path(@node_type, fc) %>
+          <%= link_to t('global.destroy'), node_type_features_feature_configuration_path(@node_type, fc),
+                confirm: "Are you sure?",
+                method: :delete %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+
+  <%= javascript_tag do %>
+    $('.sortable tbody').sortable({
+      axis: 'y',
+      handle: ".handle",
+      update: function() {
+        return $.post($(this).data('update-url'), $(this).sortable('serialize'));
+      }
+    });
+  <% end %>
+</table>
+
+<% %w[integer string list boolean image date].each do |type| %>
+  <%= link_to new_node_type_features_feature_configuration_path(@node_type, type: type),
+        class: "btn" do %>
+    <%= content_tag :i, nil, class: "icon-plus" %>
+    <%= type.humanize %>
+  <% end %>
+<% end %>

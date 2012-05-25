@@ -82,7 +82,7 @@ contentspan = content_for?(:left) ? 'span6' : 'span9'
 
   <%#= debug(request) if Rails.env.development? %>
   <%#= debug(session) if Rails.env.development? %>
-  <%#= debug(params) if Rails.env.development? %>
+  <%= debug(params) if Rails.env.development? %>
 
   <%= render 'shared/analytics' if Rails.env.production? %>
   <%= render 'shared/uservoice' %>

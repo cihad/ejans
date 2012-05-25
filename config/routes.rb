@@ -55,6 +55,17 @@ Ejans::Application.routes.draw do
     resources :accounts, only: [:index]
   end
 
+  resources :node_types do
+    namespace :features do
+      resources :feature_configurations
+    end
+    resources :nodes
+  end
+
+  resources :features, only: [] do 
+    post :sort, on: :collection
+  end
+
   mount Resque::Server, :at => "/resque"
 
   # The priority is based upon order of creation:

@@ -1,0 +1,22 @@
+.table-form {
+  th, td {
+    border: 0;
+    vertical-align: middle;
+  }
+
+  th {
+    text-align: right;
+    label {
+      font-weight: bold;
+    }
+  }
+
+  tr:hover td,
+  tr:hover th {
+    background: #fff !important;
+  }
+
+  select, input {
+    margin-bottom: 0;
+  }
+}

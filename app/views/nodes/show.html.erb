@@ -1,0 +1,21 @@
+<% page_name = @node.title %>
+<% provide :title, page_name %>
+
+<% meta_description @node.title %>
+
+<%= page_title @node.title %>
+
+<table class="table table-form">
+  <% @node.features.each do |feature| %>
+    <%= feature_view(feature) %>
+  <% end %>
+
+  <%= form_item_layout do %>  
+    <%= form_label_layout do %>
+      Actions:
+    <% end %>
+    <%= form_value_layout do %>
+      <%= link_to t('global.edit'), edit_node_type_node_path(@node_type, @node) %>
+    <% end %>
+  <% end %>
+</table>
