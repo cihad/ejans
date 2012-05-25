@@ -14,7 +14,7 @@
 <!-- /HEAD -->
 
 <%
-contentspan = content_for?(:left) ? 'span6' : 'span9'
+contentspan = content_for?(:left) ? 'span9' : 'span12'
 %>
 
 <body class="<%= content_for?(:right) or content_for?(:left) ? 'twoColumn' : 'oneColumn' %> <%= yield(:body_class) %>">

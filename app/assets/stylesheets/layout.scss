@@ -1,0 +1,11 @@
+// LAYOUT
+.oneColumn .container {
+}
+
+.page {
+  margin: 0 -21px;
+  padding: 20px;
+  @include border-radius;
+  background: #fff;
+  border: 1px solid $bordercolor;
+}

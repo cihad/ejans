@@ -5,6 +5,7 @@ $serviceitembg: #DCEAF4;
 
 body {
   background: $bgcolor;
+  padding-top: 45px;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -33,14 +34,6 @@ label {
   }
 }
 
-.pastelred {
-  color: $red;
-}
-
-.orange {
-  color: $orange;
-}
-
 .modal-header {
   padding-bottom: 0;
   background: $grayLighter;
@@ -66,10 +59,6 @@ label {
   @include border-radius(4px);
 }
 
-.clearfix {
-  margin-bottom: 0;
-}
-
 .form-actions {
   text-align: center;
   margin: 0 -20px -38px;
@@ -82,23 +71,6 @@ label {
 
 .edit_credit {
   display: inline;
-}
-
-// LAYOUT
-.oneColumn .container {
-  width: 700px;
-}
-
-.twoColumn .container {
-  width: 700px
-}
-
-.page {
-  margin: 0 -21px;
-  padding: 20px;
-  @include border-radius;
-  background: #fff;
-  border: 1px solid $bordercolor;
 }
 
 // HEADER
