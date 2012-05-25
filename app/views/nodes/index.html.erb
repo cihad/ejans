@@ -1,4 +1,4 @@
-<%= content_tag :h2, "Nodes" %>
+<%= content_tag :h2, @node_type.name %>
 
 <%= form_tag node_type_nodes_path, method: :get, class: "well form-inline" do %>
   <% @node_type.filters.each do |filter| %>
