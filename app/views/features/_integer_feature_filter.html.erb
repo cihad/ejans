@@ -1,8 +1,10 @@
-<%= label_tag feature.label %>
-<% case feature.filter_type %>
-<% when :number_field %>
-  <%= number_field_tag feature.machine_name, params["#{feature.machine_name}"], { class: "input-small" } %>
-<% when :range_with_number_field, :range_with_slider %>
-  <%= number_field_tag feature.min_machine_name, params["#{feature.min_machine_name}"], { class: "input-small" } %> - 
-  <%= number_field_tag feature.max_machine_name, params["#{feature.max_machine_name}"], { class: "input-small" } %>
-<% end %>
+<td>
+  <%= label_tag "#{feature.label}:" %>
+  <% case feature.filter_type %>
+  <% when :number_field %>
+    <%= number_field_tag feature.machine_name, params["#{feature.machine_name}"], { class: "input-mini" } %>
+  <% when :range_with_number_field, :range_with_slider %>
+    <%= number_field_tag feature.min_machine_name, params["#{feature.min_machine_name}"], { class: "input-mini", placeholder: "min" } %> - 
+    <%= number_field_tag feature.max_machine_name, params["#{feature.max_machine_name}"], { class: "input-mini", placeholder: "max" } %>
+  <% end %>
+</td>
