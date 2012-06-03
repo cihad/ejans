@@ -1,12 +1,17 @@
 class Node
   include Mongoid::Document
   include Mongoid::Timestamps
+
+  # Fields
   field :title
+
+  # Associations
   belongs_to :node_type
   embeds_many :features, class_name: "Features::Feature"
   accepts_nested_attributes_for :features
   validates_associated :features
 
+  # Associations builer (used by the controller)
   def build_assoc!
     node_type.feature_configurations.each do |fea_conf|
       if self.features.map(&:feature_configuration_id).include?(fea_conf.id)

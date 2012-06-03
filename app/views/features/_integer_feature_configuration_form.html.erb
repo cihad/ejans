@@ -1,3 +1,19 @@
-<%= simple_select field, :filter_type, Features::IntegerFeatureConfiguration::FILTER_TYPES %>
-<%= simple_number_field field, :minumum %>
+<%= simple_select field, :filter_type, Features::IntegerFeatureConfiguration::FILTER_TYPES, form_item_layout: { class: "filter-options" } %>
+
+<%= simple_select field, :view_type, Features::IntegerFeatureConfiguration::VIEW_TYPES %>
+  
+<% Features::IntegerFeatureConfiguration.fields_for_options.each do |name, value| %>
+  <% classes = Features::IntegerFeatureConfiguration.view_types_for_options[name].join(" ") %>
+  <% if value[:choices].present? %>
+    <%= send("simple_#{value[:field]}", field, name, value[:choices], form_item_layout: { class: classes } ) %>
+  <% else %>
+    <%= send("simple_#{value[:field]}", field, name, form_item_layout: { class: classes }) %>
+  <% end %>
+<% end %>
+
+<%= simple_number_field field, :minumum, data: { options_for: "da" } %>
 <%= simple_number_field field, :maximum %>
+
+
+<%= check_box_option_for("filter") %>
+<%= select_option_for "#features_feature_configuration_integer_feature_configuration_attributes_view_type" %>

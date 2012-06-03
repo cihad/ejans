@@ -29,4 +29,12 @@ module FeaturesHelper
     end
   end
 
+  def check_box_option_for(selector)
+    javascript_tag "new CheckBoxOption( $('[data-toggle=#{selector}]'))"
+  end
+
+  def select_option_for(selector)
+    javascript_tag "new SelectOption( '#{selector}' )"
+  end
+
 end

@@ -31,6 +31,7 @@
 //= require jquery-plugins/jquery.infieldlabel
 //= require jquery-plugins/jquery.maxlength
 //= require jquery-plugins/jquery.multiselect
+//= require jquery-plugins/jquery.formoption
 //= require jquery-plugins/jquery.multiselect.filter
 //= require jquery-plugins/jquery.tablesorter
 //= require jquery-plugins/jquery.flipcounter

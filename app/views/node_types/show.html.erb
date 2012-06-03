@@ -24,18 +24,39 @@
     <td>
       <%= link_to "edit", edit_node_type_path(@node_type), class: "btn" %>
       <%= link_to "add node", new_node_type_node_path(@node_type), class: "btn" %>
-      <%= link_to "show features", node_type_features_feature_configurations_path(@node_type), class: "btn" %>
       <%= link_to "show nodes", node_type_nodes_path(@node_type), class: "btn" %>
     </td>
   </tr>
   <tr>
     <th>Add new field</th>
     <td>
-      <% %w[integer string list boolean image date].each do |type| %>
+      <%= link_to node_type_features_feature_configurations_path(@node_type), class: "btn btn-primary"  do %>
+        <%= content_tag :i, nil, class: "icon-eye-open icon-white" %>
+        show features
+      <% end %>
+      <% Features::Feature::FEATURE_TYPES.each do |type| %>
         <%= link_to new_node_type_features_feature_configuration_path(@node_type, type: type),
               class: "btn" do %>
           <%= content_tag :i, nil, class: "icon-plus" %>
-          <%= type.humanize %>
+          <%= type.to_s.humanize %>
+        <% end %>
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <th>Add new view</th>
+    <td>
+      <%= link_to node_type_views_views_path(@node_type), class: "btn btn-primary"  do %>
+        <%= content_tag :i, nil, class: "icon-eye-open icon-white" %>
+        show views
+      <% end %>
+      <% Views::NodeViews::View::VIEW_TYPES.each do |type| %>
+        <% unless type == :node %>
+          <%= link_to new_node_type_views_view_path(@node_type, type: type),
+                class: "btn" do %>
+            <%= content_tag :i, nil, class: "icon-plus" %>
+            <%= type.to_s.humanize %>
+          <% end %>
         <% end %>
       <% end %>
     </td>

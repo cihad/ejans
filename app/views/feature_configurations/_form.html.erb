@@ -2,9 +2,9 @@
   <table class="table table-form">
     <%= simple_text_field f, :label %>
     <%= simple_check_box f, :required %>
-    <%= simple_text_area f, :help, rows: 3 %>
+    <%= simple_text_area f, :help, input: { rows: 3 } %>
     <%= simple_check_box f, :sort %>
-    <%= simple_check_box f, :filter %>
+    <%= simple_check_box f, :filter, input: { data: { toggle: "filter" } } %>
     <%= f.send(:fields_for, "#{@fc.type}") do |field| %>
       <%= render "features/#{@fc.type}_form", field: field %>
     <% end %>

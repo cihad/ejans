@@ -11,7 +11,7 @@ class FeatureConfigurationsController < ApplicationController
   end
 
   def new
-    if %w[integer string].any? {|type| type == params[:type] }
+    if Features::Feature::FEATURE_TYPES.any? {|type| type == params[:type] }
       feature = "features/#{params[:type].classify}_feature_configuration".camelize.constantize
       @fc = @node_type.feature_configurations.build
       @fc.send("build_#{params[:type]}_feature_configuration")
