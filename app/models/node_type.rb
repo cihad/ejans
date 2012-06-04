@@ -13,7 +13,7 @@ class NodeType
   # Associations
   has_many :nodes
   has_many :feature_configurations, class_name: "Features::FeatureConfiguration"
-  has_many :views, class_name: "Views::NodeViews::View"
+  has_many :views, class_name: "Views::View"
 
   # Methods
   # Feature configurations with selected filter
@@ -26,23 +26,20 @@ class NodeType
     filters.collect(&:configuration_object)
   end
 
-  # Queries array with hashes
-  # [{}, {}, ...]
-  def queries(params)
-    filters_configuration_objects.inject([]) do |a, fco|
-      fco.filter_query(params).each do |query|
-        a << query
-      end
-      a
-    end 
+  # Results by param filters
+  # query(params).selector => {:price => { "$gte" => 100, $lte => "200"}}
+  def filter(params = {})
+    nodes.send(:where, query(params).selector)
   end
 
-  # Results by param filters
-  def filter(params = {})
-    results = nodes
-    queries(params).each do |query|
-      results = results.send(:where, query)
-    end
-    results
+  private
+  # return OriginObject
+  # #<NodeQuery:0xc2ad8dc @serializers={}, @driver=:moped, @aliases={}, @selector={}, @options={}, @strategy=nil, @negating=nil> 
+  def query(params)
+    node_query = NodeQuery.new
+    filters_configuration_objects.each do |fco|
+      node_query = node_query.send(:where, fco.filter_query(params))
+    end 
+    node_query
   end
 end

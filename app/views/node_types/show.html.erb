@@ -50,7 +50,7 @@
         <%= content_tag :i, nil, class: "icon-eye-open icon-white" %>
         show views
       <% end %>
-      <% Views::NodeViews::View::VIEW_TYPES.each do |type| %>
+      <% Views::View::VIEW_TYPES.each do |type| %>
         <% unless type == :node %>
           <%= link_to new_node_type_views_view_path(@node_type, type: type),
                 class: "btn" do %>

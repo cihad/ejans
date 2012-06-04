@@ -1,7 +1,7 @@
 <%= form_for [@node_type, @view] do |f| %>
   <table class="table table-form">
     <%= f.send(:fields_for, "#{@view.type}") do |field| %>
-      <%= render "views/#{@view.type}_form", field: field %>
+      <%#= render "views/#{@view.type}_form", field: field %>
     <% end %>
     <%= simple_submit f %>
   </table>

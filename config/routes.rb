@@ -59,9 +59,13 @@ Ejans::Application.routes.draw do
     namespace :features do
       resources :feature_configurations
     end
+
     namespace :views do
-      resources :views
+      resources :views do
+        post :sort, on: :collection
+      end
     end
+
     resources :nodes
   end
 

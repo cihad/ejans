@@ -151,19 +151,18 @@ module Features
       case filter_type
       when :number_field
         if params["#{machine_name}"].present?
-          value = params["#{machine_name}"].to_i
-          [{ :"#{where}" => value }]
+          value = Integer(params["#{machine_name}"])
+          NodeQuery.new.where(:"#{where}" => value).selector
         else
-          [{}]
+          {}
         end
       when :range_with_number_field, :range_with_slider
         if params["#{machine_name}_min"].present? or params["#{machine_name}_max"].present?
-          value_min = params["#{machine_name}_min"].present? ? params["#{machine_name}_min"].to_i : minumum
-          value_max = params["#{machine_name}_max"].present? ? params["#{machine_name}_max"].to_i : maximum
-          [{ :"#{where}".gte => value_min }, 
-           { :"#{where}".lte => value_max }]
+          value_min = params["#{machine_name}_min"].present? ? Integer(params["#{machine_name}_min"]) : minumum
+          value_max = params["#{machine_name}_max"].present? ? Integer(params["#{machine_name}_max"]) : maximum
+          NodeQuery.new.between( :"#{where}" => value_min..value_max).selector
         else
-          [{}]
+          {}
         end
       end
     end
@@ -171,9 +170,10 @@ module Features
 
     private
     def where
-      "features."
-      + "#{feature_configuration.feature_type}."
-      + "#{feature_configuration.value_name}"
+      where = "features."
+      where += "#{feature_configuration.feature_type}."
+      where += "#{feature_configuration.value_name}"
+      where
     end
 
     protected

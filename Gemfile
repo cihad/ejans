@@ -19,8 +19,7 @@ gem 'tinymce-rails'
 gem 'carrierwave'
 gem 'nokogiri'
 gem 'rails-i18n'
-gem "mongoid", "~> 2.4"
-gem "bson_ext", "~> 1.5"
+gem "mongoid", "~> 3.0.0.rc"
 
 # Groups
 group :assets do
