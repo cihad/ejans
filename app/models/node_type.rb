@@ -15,6 +15,13 @@ class NodeType
   has_many :feature_configurations, class_name: "Features::FeatureConfiguration"
   has_many :views, class_name: "Views::View"
 
+  # Callbacks
+  after_save :create_node_view
+
+  def create_node_view
+    self.views.create(type: :node, position: 0)
+  end
+
   # Methods
   # Feature configurations with selected filter
   def filters
@@ -29,7 +36,16 @@ class NodeType
   # Results by param filters
   # query(params).selector => {:price => { "$gte" => 100, $lte => "200"}}
   def filter(params = {})
-    nodes.send(:where, query(params).selector)
+    nodes
+      .includes(features: :feature_configuration)
+      .send(:where, query(params).selector)
+      .page(params[:page])
+  end
+
+  Views::View::VIEW_TYPES.each do |view_type|
+    define_method(:"#{view_type}_features") do
+      views.includes(features: :feature_configuration).find_by(type: view_type).features
+    end
   end
 
   private

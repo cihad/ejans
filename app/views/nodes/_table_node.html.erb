@@ -1,0 +1,14 @@
+<tr>
+  <td>
+    <%= node.title %>
+  </td>
+  <% @node_type.table_features.each do |feature| %>
+    <td>
+      <%= feature_view(node.find_value_by_views_feature(feature)) %>
+    </td> 
+  <% end %>
+
+  <td>
+    <%= link_to "show", node_type_node_path(@node_type, node) %>
+  </td>
+</tr>

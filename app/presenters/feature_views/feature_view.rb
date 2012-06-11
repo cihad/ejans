@@ -11,6 +11,14 @@ module FeatureViews
       feature.feature_configuration
     end
 
+    def machine_name
+      feature_configuration.machine_name
+    end
+
+    def configuration_object
+      feature_configuration.configuration_object
+    end
+
     def type
       feature_configuration.feature_type
     end
@@ -25,6 +33,10 @@ module FeatureViews
 
     def self.feature_presenter_class(feature)
       "FeatureViews::#{feature.feature_configuration.feature_type.camelize}View".constantize
+    end
+
+    def feature_tag(&block)
+      @template.content_tag :span, class: "feature_#{machine_name}", &block
     end
   end
 end

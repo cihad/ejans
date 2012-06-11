@@ -1,3 +1,30 @@
 <% title = "Views" %>
 <% provide :title, title %>
 <%= content_tag :h1, title %>
+
+<table class="table sortable">
+  <tbody data-update-url="<%= sort_node_type_views_views_url %>">
+    <% @views.each do |view| %>
+      <tr class="view" id="view_<%= view.id %>">
+        <td><span class="handle">[drag]</span></td>
+        <td><%= view.type %></td>
+        <td>
+          <%= link_to "edit", edit_node_type_views_view_path(@node_type, view) %>
+        </td>
+        <td>
+          <%= link_to "destroy", node_type_views_view_path(@node_type, view), method: :delete, confirm: "Are you sure?" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+
+  <%= javascript_tag do %>
+    $('.sortable tbody').sortable({
+      axis: 'y',
+      handle: ".handle",
+      update: function() {
+        return $.post($(this).data('update-url'), $(this).sortable('serialize'));
+      }
+    });
+  <% end %>
+</table>

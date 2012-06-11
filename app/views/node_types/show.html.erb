@@ -51,11 +51,11 @@
         show views
       <% end %>
       <% Views::View::VIEW_TYPES.each do |type| %>
-        <% unless type == :node %>
+        <% unless @node_type.views.map(&:type).include?(type) %>
           <%= link_to new_node_type_views_view_path(@node_type, type: type),
                 class: "btn" do %>
             <%= content_tag :i, nil, class: "icon-plus" %>
-            <%= type.to_s.humanize %>
+            <%= type %>
           <% end %>
         <% end %>
       <% end %>

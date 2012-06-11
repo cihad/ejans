@@ -1,0 +1,10 @@
+<li class="node" id="node_<% node.id %>">
+  <div class="field">
+    <%= node.title %>
+  </div>
+  <% @node_type.list_features.each do |feature| %>
+    <div class="field">
+      <%= feature_view(node.find_value_by_views_feature(feature)) %>
+    </div> 
+  <% end %>
+</li>

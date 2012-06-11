@@ -1,0 +1,11 @@
+.grid-view {
+  .node {
+    margin-bottom: 20px; 
+    .node-ins {
+      border:1px solid #bbb;
+      padding: 10px;
+      @include border-radius(3px);
+      @include box-shadow(0 1px 2px #ccc);
+    }
+  }
+}

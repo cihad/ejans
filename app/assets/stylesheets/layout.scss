@@ -2,10 +2,14 @@
 .oneColumn .container {
 }
 
+.container {
+  width: 940px;
+}
+
 .page {
-  margin: 0 -21px;
-  padding: 20px;
+  margin: 0 -31px;
+  padding: 30px;
   @include border-radius;
   background: #fff;
-  border: 1px solid $bordercolor;
+  border: 1px solid #999;
 }

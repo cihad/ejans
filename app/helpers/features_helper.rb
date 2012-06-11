@@ -29,6 +29,10 @@ module FeaturesHelper
     end
   end
 
+  def view_for(view, options = {})
+    NodePresenter.new(view).view_tag(&block)
+  end
+
   def check_box_option_for(selector)
     javascript_tag "new CheckBoxOption( $('[data-toggle=#{selector}]'))"
   end

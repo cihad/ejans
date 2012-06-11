@@ -1,0 +1,10 @@
+.sortable-list {
+  @extend .nostyle-list;
+  li {
+    padding: 3px 5px 3px 0;
+    border: 1px solid $bordercolor;
+    margin-bottom: 3px;
+    background: $white;
+    color: $grayDark;
+  }
+}

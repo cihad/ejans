@@ -1,0 +1,16 @@
+<div class="span2" id="view-links">
+  <div class="btn-group" style="float:right">
+    <% @node_type.views.each do |view| %>
+      <%= link_to "#{request.fullpath}&view=#{view.type}", class: "btn" do %>
+        <% case view.type %>
+        <% when :list %>
+          <%= content_tag :i, nil, class: "icon-list" %>
+        <% when :table %>
+          <%= content_tag :i, nil, class: "icon-th-list" %>
+        <% when :node %>
+          <%= content_tag :i, nil, class: "icon-th-large" %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

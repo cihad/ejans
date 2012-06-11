@@ -1,10 +1,7 @@
 .filter-form {
-  margin: 0 -20px;
-  padding: 10px 20px;
-  background: $serviceitembg;
-
   td {
     padding-right: 10px;
+    vertical-align: bottom;
   }
   
   label {
@@ -14,9 +11,8 @@
   input[type="number"] {
     @extend .btn-mini;
   }
+}
 
-  .btn-filter {
-    margin-top: 21px;
-  }
-
+#view-links {
+  padding-top: 21px;
 }

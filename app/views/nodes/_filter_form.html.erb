@@ -1,0 +1,13 @@
+<%= form_tag node_type_nodes_path(), method: :get, class: "filter-form form-inline span9" do %>
+  <table>
+    <tr>
+      <% @node_type.filters.each do |filter| %>
+        <%= filter_for(filter) %>
+      <% end %>
+      <td>
+        <%= hidden_field_tag "view", params[:view] %>
+        <%= submit_tag "Filter", class: "btn btn-mini btn-success" %>
+      </td>
+    </tr>
+  </table>
+<% end %>

@@ -1,18 +1,20 @@
 <%= content_tag :h1, @node_type.name %>
 
-<%= form_tag node_type_nodes_path, method: :get, class: "filter-form form-inline" do %>
-  <table>
-    <tr>
-      <% @node_type.filters.each do |filter| %>
-        <%= filter_for(filter) %>
-      <% end %>
-      <td>
-        <%= submit_tag "Filter", class: "btn btn-mini btn-success btn-filter" %>
-      </td>
-    </tr>
-  </table>
+<div class="row" id="controls">
+  <%= render 'filter_form' %>
+
+  <div class="span3" id="view-links">
+    <div class="btn-group" style="float:right">
+      <% presenter = ViewPresenter.new(params.clone, self) %>
+      <%= presenter.view_links %>
+    </div>
+  </div>
+</div>
+
+<%= presenter.view_tag do %>
+  <% @nodes.each do |node| %>
+    <%= render "nodes/#{presenter.current_view_type}_node", node: node %>
+  <% end %>
 <% end %>
 
-<table class="table table-form">
-  <%= render @nodes %>
-</table>
+<%= paginate @nodes %>

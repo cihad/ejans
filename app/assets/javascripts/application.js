@@ -81,21 +81,10 @@ $(document).ready(function() {
     content_css : "/assets/application.css"
   });
 
-  // Pagination
-  if (history && history.pushState) {
-    $(".pagination a").live("click", function(e) {
-      $.getScript(this.href);
-      history.pushState(null, document.title, this.href); 
-      e.preventDefault();
-    });
-
-    $(window).bind("popstate", function() {
-      $.getScript(location.href);
-    });
-  }
+  
 
   // Pjax
-  $('a.data-remote, .breadcrumbs a').pjax('[data-pjax-container]');
+  $('a.data-remote, .breadcrumbs a, .pagination a').pjax('[data-pjax-container]');
   // $('[data-pjax-container]')
   //   .bind('start.pjax', function() { $('[data-pjax-container]').fadeOut(400) })
   //   .bind('end.pjax', function() { $('[data-pjax-container]').fadeIn(400) });

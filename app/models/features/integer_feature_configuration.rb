@@ -12,6 +12,9 @@ module Features
     field :suffix, type: String
 
     # Fields
+    field :locale, type: Symbol
+    field :significant, type: Boolean
+
     VIEW_TYPES = [ :number_to_currency,
                   :number_to_human,
                   :number_to_human_size,
@@ -19,10 +22,9 @@ module Features
                   :number_to_phone,
                   :number_with_delimiter,
                   :number_with_precision]
-    field :locale, type: Symbol
-    field :significant, type: Boolean
     field :view_type, type: Symbol
-    field :precision, type: Integer
+
+    field :precision, type: Integer, default: 2
     field :unit, type: String
     field :units, type: Symbol
     field :separator, type: String
