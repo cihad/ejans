@@ -1,11 +1,7 @@
 <div class="modal-backdrop fade in"></div>
-<div class="modal" id="nodeModal">
+<div class="modal" id="node-modal">
   <div class="modal-header">
-    <%= link_to node_type_nodes_path(@node_type), class: "data-remote" do %>
-      <%= button_tag type: 'button', class: 'close' do %>
-        &times;
-      <% end %>
-    <% end %>
+    <%= link_to_modal_close %>
     <h3><%= node.title %></h3>
   </div>
   <div class="modal-body">

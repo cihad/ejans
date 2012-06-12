@@ -9,6 +9,6 @@
   <% end %>
 
   <td>
-    <%= link_to "show", "#myModal", class: "popup-node", data: { pjax: node_type_nodes_url(@node_type, node_id: node), toggle: "modal" } %>
+    <%= link_to_modal_node("show", node) %>
   </td>
 </tr>
