@@ -33,26 +33,6 @@ label {
   }
 }
 
-.modal-header {
-  padding-bottom: 0;
-  background: $grayLighter;
-  border-bottom: 1px solid #DDD;
-  @include border-radius(4px 4px 0 0);
-}
-
-.modal-body {
-  padding: 40px 68px;
-}
-
-.modal-footer {
-  margin: 0 -15px -15px;
-}
-
-.sign-tab {
-  border-bottom: 0;
-  margin-bottom: 0;
-}
-
 
 .border-radius {
   @include border-radius(4px);

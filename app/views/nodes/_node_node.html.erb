@@ -1,3 +1,25 @@
 <div class="node">
-  <h2><%= node.title %></h2>
+  <table class="table table-form">  
+    <% node.features.each do |feature| %>
+      <% feature_view(feature) do |f| %>
+        <%= form_item_layout do %>  
+          <%= form_label_layout do %>
+            <%= f.label %>
+          <% end %>
+          <%= form_value_layout do %>
+            <%= f.value %>
+          <% end %>
+      <% end %>    
+      <% end %>
+    <% end %>
+
+    <%= form_item_layout do %>  
+      <%= form_label_layout do %>
+        Actions:
+      <% end %>
+      <%= form_value_layout do %>
+        <%= link_to t('global.edit'), edit_node_type_node_path(@node_type, node) %>
+      <% end %>
+    <% end %>
+  </table>
 </div>

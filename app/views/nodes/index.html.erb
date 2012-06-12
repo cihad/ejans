@@ -1,5 +1,11 @@
 <%= content_tag :h1, @node_type.name %>
 
+<div data-pjax-popup>
+  <% if @node %>
+    <%= render 'node_modal', node: @node %>
+  <% end %>
+</div>
+
 <div class="row" id="controls">
   <%= render 'filter_form' %>
 
