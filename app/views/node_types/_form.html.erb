@@ -2,8 +2,8 @@
   <table class="table table-form">
     <%= simple_text_field f, :name %>
     <%= simple_text_field f, :title_label %>
-    <%= simple_text_area f, :title_help, rows: 3 %>
-    <%= simple_text_area f, :description, rows: 3 %>
+    <%= simple_text_area f, :title_help, input: { rows: 3 } %>
+    <%= simple_text_area f, :description, input: { rows: 3 } %>
     <%= simple_text_field f, :description_label %>
     <%= simple_submit f %>
   </table>

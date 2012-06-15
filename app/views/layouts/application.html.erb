@@ -22,6 +22,8 @@ contentspan = content_for?(:left) ? 'span9' : 'span12'
   <!-- Container -->
   <div class="container">
 
+  <%= yield :top %>
+
     <%= render 'layouts/header' %>
 
     <div class="page">

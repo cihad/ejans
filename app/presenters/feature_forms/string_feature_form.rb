@@ -5,23 +5,23 @@ module FeatureForms
     end
 
     def text_field?
-      configuration_object.row == 1 ? true : false
+      child.row == 1 ? true : false
     end
 
     def row
-      configuration_object.row
+      child.row
     end
 
     def max
-      configuration_object.maximum_length
+      child.maximum_length
     end
 
     def min
-      configuration_object.minumum_length
+      child.minumum_length
     end
 
     def default_value
-      configuration_object.default_value
+      child.default_value
     end
   end
 end

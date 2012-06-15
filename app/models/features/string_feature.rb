@@ -1,26 +1,13 @@
 module Features
   class StringFeature
     include Mongoid::Document
+    include Ejans::Features::FeatureAbility
+    include Ejans::Features::SingleValueFeature
+
     embedded_in :feature, class_name: "Features::Feature"
     
     def self.add_value(name)
       field :"#{name}", type: String
-    end
-
-    def value
-      self.send(configuration.value_name)
-    end
-
-    def configuration
-      feature.feature_configuration
-    end
-
-    def type_configuration
-      configuration.configuration_object
-    end
-
-    def required?
-      configuration.required?
     end
 
     def max

@@ -23,12 +23,12 @@ module FeatureForms
       object.feature_configuration
     end
 
-    def configuration_object
-      feature_configuration.configuration_object
+    def child
+      feature_configuration.child
     end
 
-    def feature_object
-      object.feature_object
+    def child_feature
+      object.child_feature
     end
 
     def type

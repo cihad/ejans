@@ -17,8 +17,8 @@
       feature.feature_configuration = fea_conf
       feature.send("build_#{fea_conf.feature_type}")
     end
-    feature.feature_object.class.add_value(fea_conf.value_name)
-    feature.feature_object.send("#{fea_conf.value_name}=", rand(1000))
+    feature.child.class.add_value(fea_conf.value_name)
+    feature.child.send("#{fea_conf.value_name}=", rand(1000))
   end
   node.save
 end

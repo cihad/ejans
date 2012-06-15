@@ -29,7 +29,10 @@ class Node
         feature.feature_configuration = fea_conf
         feature.send("build_#{fea_conf.feature_type}")
       end
-      feature.feature_object.class.add_value(fea_conf.value_name)
+
+      unless fea_conf.value_name == "list_feature_value_0"
+        feature.child.class.add_value(fea_conf.value_name)
+      end
     end
   end
 end

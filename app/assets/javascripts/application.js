@@ -110,6 +110,18 @@ $(document).ready(function() {
     });
   });
 
+  $('a.pjax_modal').live('click', function(e) {
+    e.preventDefault();
+    return $.pjax({
+      container: '[data-pjax-modal]',
+      url: $(this).attr('href'),
+      data: {
+        _pjax: true,
+        _pjax_return: 'data-pjax-modal',
+      }
+    });
+  });
+
   $('#myModal').modal('show');
 
   // Comment Form

@@ -52,14 +52,6 @@ class ViewsController < ApplicationController
     # render :js => "console.log('')"
   end
 
-  def feature_sort
-    @view = @node_type.views.find(params[:id])
-    params[:feature].each_with_index do |id, index|
-      @view.features.find(id).update_attribute(:position, index+1)
-    end
-    render :js => "alert('Hello');"
-  end
-
   private
   def node_type
     @node_type = NodeType.find(params[:node_type_id])

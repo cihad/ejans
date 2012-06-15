@@ -4,9 +4,9 @@ module Features
 
     # Associations
     embedded_in :node
-    belongs_to :feature_configuration, class_name: "Features::FeatureConfiguration", autosave: true
+    belongs_to :feature_configuration, class_name: "Features::FeatureConfiguration"
 
-    FEATURE_TYPES = [:integer, :string]
+    FEATURE_TYPES = [:integer, :string, :list]
     FEATURE_TYPES.each do |feature_type|
       embeds_one :"#{feature_type}_feature", class_name: "Features::#{feature_type.to_s.camelize}Feature"
       accepts_nested_attributes_for :"#{feature_type}_feature"
@@ -25,7 +25,7 @@ module Features
 
     # Feature's Feature Object
     # => #<Features::IntegerFeature _id:...>
-    def feature_object
+    def child
       send(type)
     end
 
@@ -35,7 +35,7 @@ module Features
     # result:
     # => 10
     def value
-      feature_object.value
+      child.value
     end
 
     private

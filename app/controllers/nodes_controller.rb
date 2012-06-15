@@ -13,7 +13,6 @@ class NodesController < ApplicationController
   def new
     @node = @node_type.nodes.build
     @node.build_assoc!
-    # render :inline => "<%= @node.features.first.feature_object.value %>"
   end
 
   def edit

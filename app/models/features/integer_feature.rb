@@ -1,30 +1,20 @@
 module Features
   class IntegerFeature
     include Mongoid::Document
+    include Ejans::Features::FeatureAbility
+    include Ejans::Features::SingleValueFeature
+
+    # Associations
     embedded_in :feature, class_name: "Features::Feature"
 
+    # Validates
     validate :presence_value
     validate :not_greater_than_maximum
     validate :not_less_than_minumum
 
+    # Singleton Methods
     def self.add_value(name)
       field :"#{name}", type: Integer
-    end
-
-    def value
-      self.send(configuration.value_name)
-    end
-
-    def configuration
-      feature.feature_configuration
-    end
-
-    def type_configuration
-      configuration.configuration_object
-    end
-
-    def required?
-      configuration.required?
     end
 
     def min

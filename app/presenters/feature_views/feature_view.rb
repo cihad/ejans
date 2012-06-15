@@ -15,8 +15,8 @@ module FeatureViews
       feature_configuration.machine_name
     end
 
-    def configuration_object
-      feature_configuration.configuration_object
+    def child
+      feature_configuration.child
     end
 
     def type

@@ -18,7 +18,7 @@ module Features
     # Associations
     belongs_to :node_type
 
-    FEATURE_TYPES = [:integer, :string]
+    FEATURE_TYPES = [:integer, :string, :list]
     FEATURE_TYPES.each do |feature_type|
       embeds_one :"#{feature_type}_feature_configuration",
         class_name: "Features::#{feature_type.to_s.camelize}FeatureConfiguration"
@@ -31,7 +31,7 @@ module Features
     after_destroy :delete_features_from_nodes
 
     # => #<Features::IntegerFeatureConfiguration _id: ...>
-    def configuration_object
+    def child
       self.send(type)
     end
     

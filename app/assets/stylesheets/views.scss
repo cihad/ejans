@@ -1,6 +1,10 @@
 tr {
-  &.read td, &.read:hover td {
-    background-color: #fffbd3 !important;
+  &.read td {
+    background-color: #fffbe5;
+  }
+  
+  &.read:hover td {
+    background-color: #fff9d8 !important;
   }
 }
 

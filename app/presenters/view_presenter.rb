@@ -40,6 +40,7 @@ class ViewPresenter
 
   # => 
   def view_links
+    params.delete(:node_id)
     links = node_type.views.inject("") do |output, view|
               unless view.type == :node
                 current_class = "active" if view.type == current_view_type
@@ -48,7 +49,8 @@ class ViewPresenter
                 end
                 output
               end
-            end.html_safe
+            end
+    links.html_safe if links
   end
 
   # => "icon-th-list"

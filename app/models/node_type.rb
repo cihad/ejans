@@ -29,8 +29,8 @@ class NodeType
   end
 
   # Feature configurations' configurations
-  def filters_configuration_objects
-    filters.collect(&:configuration_object)
+  def filters_children
+    filters.collect(&:child)
   end
 
   # Results by param filters
@@ -53,7 +53,7 @@ class NodeType
   # #<NodeQuery:0xc2ad8dc @serializers={}, @driver=:moped, @aliases={}, @selector={}, @options={}, @strategy=nil, @negating=nil> 
   def query(params)
     node_query = NodeQuery.new
-    filters_configuration_objects.each do |fco|
+    filters_children.each do |fco|
       node_query = node_query.send(:where, fco.filter_query(params))
     end 
     node_query

@@ -1,6 +1,8 @@
 module Features
   class IntegerFeatureConfiguration
     include Mongoid::Document
+    include Ejans::Features::FeatureConfigurationAbility
+    include Ejans::Features::SingleValueFeatureConfiguration
 
     FILTER_TYPES = [:number_field, :range_with_number_field, :range_with_slider]
 
@@ -56,24 +58,18 @@ module Features
 
       def options_for_view_types
         {
-          number_to_currency:     [ :locale, :precision, :unit,
-                                    :separator, :delimiter],
-
-          number_to_human:        [ :locale, :precision, :significant,
-                                    :delimiter, :units],
-
-          number_to_human_size:   [ :locale, :precision, :separator,
-                                    :delimiter, :prefix],
-
-          number_to_percentage:   [ :locale, :precision, :separator,
-                                    :delimiter],
-
-          number_to_phone:        [ :area_code, :delimiter, :country_code],
-
-          number_with_delimiter:  [ :locale, :delimiter, :separator],
-
-          number_with_precision:  [ :locale, :precision, :significant,
-                                    :separator, :delimiter]
+          number_to_currency:   [ :locale, :precision, :unit,
+                                  :separator, :delimiter],
+          number_to_human:      [ :locale, :precision, :significant,
+                                  :delimiter, :units],
+          number_to_human_size: [ :locale, :precision, :separator,
+                                  :delimiter, :prefix],
+          number_to_percentage: [ :locale, :precision, :separator,
+                                  :delimiter],
+          number_to_phone:      [ :area_code, :delimiter, :country_code],
+          number_with_delimiter:[ :locale, :delimiter, :separator],
+          number_with_precision:[ :locale, :precision, :significant,
+                                  :separator, :delimiter]
         }
       end
 
@@ -136,13 +132,8 @@ module Features
       end
     end
 
-    # Object Methods
     def type
       "Integer"
-    end
-
-    def machine_name
-      feature_configuration.machine_name
     end
 
     def filterable?
@@ -167,15 +158,6 @@ module Features
           {}
         end
       end
-    end
-
-
-    private
-    def where
-      where = "features."
-      where += "#{feature_configuration.feature_type}."
-      where += "#{feature_configuration.value_name}"
-      where
     end
 
     protected

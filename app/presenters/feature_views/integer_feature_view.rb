@@ -11,12 +11,12 @@ module FeatureViews
     end
 
     def view_type
-      configuration_object.view_type
+      child.view_type
     end
 
     def pres
       Features::IntegerFeatureConfiguration.options_for_view_types[view_type].inject({}) do |a, opt|
-        a[opt] = configuration_object.send(opt) unless opt.nil?
+        a[opt] = child.send(opt) unless opt.nil?
         a
       end
     end

@@ -12,7 +12,7 @@ module FeatureFilters
     end
 
     def filter_type
-      feature_configuration.configuration_object.filter_type
+      feature_configuration.child.filter_type
     end
 
     def to_s

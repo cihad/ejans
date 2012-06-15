@@ -1,0 +1,12 @@
+<div class="modal-backdrop fade in"></div>
+<div class="modal fade in" id="pjaxModal">
+  <div class="modal-header">
+    <%= link_to close_path, class: "pjax_modal" do %>
+      <button type="button" class="close" data-dismiss="modal">×</button>
+    <% end %>
+    <h3><%= title %></h3>
+  </div>
+  <div class="modal-body">
+    <%= yield %>
+  </div>
+</div>

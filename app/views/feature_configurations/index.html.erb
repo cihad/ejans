@@ -11,7 +11,7 @@
     </tr>
   </thead>
   
-  <tbody data-update-url="<%= sort_features_url %>">
+  <tbody data-update-url="<%= sort_node_type_features_feature_configurations_url(@node_type) %>">
     <% @fcs.each do |fc| %>
       <tr class="feature_configuration" id="feature_configuration_<%= fc.id %>">
         <td><span class="handle">[drag]</span></td>

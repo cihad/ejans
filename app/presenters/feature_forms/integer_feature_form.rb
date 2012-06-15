@@ -5,19 +5,19 @@ module FeatureForms
     end
     
     def maximum
-      configuration_object.maximum
+      child.maximum
     end
 
     def minumum
-      configuration_object.minumum
+      child.minumum
     end
 
     def filter?
-      configuration_object.filter?
+      child.filter?
     end
 
     def filter_type
-      configuration_object.filter_type
+      child.filter_type
     end
 
   end
