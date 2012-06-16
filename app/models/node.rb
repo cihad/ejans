@@ -30,8 +30,16 @@ class Node
         feature.send("build_#{fea_conf.feature_type}")
       end
 
-      unless fea_conf.value_name == "list_feature_value_0"
-        feature.child.class.add_value(fea_conf.value_name)
+      feature.child.class.add_value(fea_conf.value_name)
+    end
+  end
+
+  after_initialize :build_values
+
+  def build_values
+    unless new_record?
+      node_type.feature_configurations.each do |fea_conf|
+        fea_conf.add_value_to_feature!
       end
     end
   end

@@ -5,10 +5,17 @@ module Features
     include Ejans::Features::MultipleValueFeature
 
     embedded_in :feature, class_name: "Features::Feature"
-    has_and_belongs_to_many :list_items, class_name: "Features::ListItem", inverse_of: nil
+
+    def self.add_value(name)
+      has_and_belongs_to_many :"#{name}", class_name: "Features::ListItem"
+    end
 
     def max
-      type_configuration.maximum_select
+      child_configuration.maximum_select
+    end
+
+    def value
+      send(parent.feature_configuration.value_name).map(&:name).join(', ')
     end
 
     validate :presence_value

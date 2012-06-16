@@ -23,6 +23,10 @@ module FeatureForms
       object.feature_configuration
     end
 
+    def value_name
+      feature_configuration.value_name
+    end
+
     def child
       feature_configuration.child
     end

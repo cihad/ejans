@@ -11,11 +11,11 @@ module Features
     end
 
     def max
-      type_configuration.maximum_length
+      child_configuration.maximum_length
     end
 
     def min
-      type_configuration.minumum_length
+      child_configuration.minumum_length
     end
 
     validate :presence_value

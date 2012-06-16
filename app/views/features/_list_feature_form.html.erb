@@ -4,7 +4,8 @@
       <%= f.label feature.value, feature.label %>
     <% end %>
     <%= form_value_layout do %>
-      <%= f.collection_select :list_item_ids, feature.child.list_items, :id, :name, {}, multiple: true %>  
+      <%#= feature.value_name %>
+      <%= f.collection_select feature.list_item_ids_name, feature.child.list_items, :id, :name, {}, multiple: true %>
       <%= feature.form_element.hidden_field :feature_configuration_id %>
     <% end %>
   <% end %>

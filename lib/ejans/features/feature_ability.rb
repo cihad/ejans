@@ -9,7 +9,7 @@ module Ejans
         feature.feature_configuration
       end
 
-      def type_configuration
+      def child_configuration
         configuration.child
       end
 

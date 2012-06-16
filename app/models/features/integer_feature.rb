@@ -18,11 +18,11 @@ module Features
     end
 
     def min
-      type_configuration.minumum
+      child_configuration.minumum
     end
 
     def max
-      type_configuration.maximum
+      child_configuration.maximum
     end
 
     private

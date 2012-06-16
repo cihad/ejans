@@ -8,6 +8,7 @@ class NodesController < ApplicationController
 
   def show
     @node = @node_type.nodes.find(params[:id])
+    @node.build_assoc!
   end
 
   def new

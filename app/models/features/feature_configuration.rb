@@ -50,6 +50,14 @@ module Features
       arr.join("_")
     end
 
+    def feature_class
+      "Features::#{feature_type.classify}".constantize
+    end
+
+    def add_value_to_feature!
+      feature_class.add_value(value_name)
+    end
+
     # if label = "Price"
     # => "price"
     def machine_name
@@ -64,12 +72,36 @@ module Features
     def assign_value_name
       unless value_name
         value_names = node_type.feature_configurations.map(&:value_name)
-        name = "#{feature_type.downcase}_value_0"
-        while value_names.include?(name)
-          name = name.next
+        if feature_type == "list_feature"
+          name_prefix = 0
+          while value_names.include?(name = "#{number_to_english[name_prefix]}_list_items")
+            name_prefix = name_prefix.next
+          end
+        else
+          name = "#{feature_type.downcase}_value_0"
+          while value_names.include?(name)
+            name = name.next
+          end
         end
+
         self.value_name = name
       end
+    end
+
+    def number_to_english
+      {
+        0 => "zero",
+        1 => "one",
+        2 => "two",
+        3 => "three",
+        4 => "four",
+        5 => "five",
+        6 => "six",
+        7 => "seven",
+        8 => "eight",
+        9 => "nine",
+        10 => "ten"
+      }
     end
 
     # TODO
