@@ -8,7 +8,7 @@
     display: block;
   }
 
-  input[type="number"] {
+  input[type="number"], select {
     @extend .btn-mini;
   }
 }

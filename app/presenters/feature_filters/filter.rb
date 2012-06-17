@@ -11,8 +11,16 @@ module FeatureFilters
       feature_configuration.feature_type
     end
 
+    def child
+      feature_configuration.child
+    end
+
     def filter_type
-      feature_configuration.child.filter_type
+      child.filter_type
+    end
+
+    def machine_name
+      feature_configuration.machine_name.to_sym
     end
 
     def to_s

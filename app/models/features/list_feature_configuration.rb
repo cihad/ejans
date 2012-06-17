@@ -35,7 +35,8 @@ module Features
 
     def filter_query(params = {})
       if params["#{machine_name}"].present?
-        NodeQuery.new.in(:"#{where}" => value).selector
+        list_item_ids = Features::ListItem.find(params["#{machine_name}"]).map(&:id)
+        NodeQuery.new.in(:"#{where}" => list_item_ids).selector
       else
         {}
       end
@@ -44,8 +45,8 @@ module Features
     private
     def where
       where = "features."
-      where += "#{parent_feature_configuration.feature_type}."
-      where += "#{parent_feature_configuration.value_name.singularize}_ids"
+      where += "#{parent.feature_type}."
+      where += "#{parent.value_name.singularize}_ids"
       where
     end
   end

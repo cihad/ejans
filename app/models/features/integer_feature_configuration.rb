@@ -140,7 +140,7 @@ module Features
       true
     end
 
-    def filter_query(params = {})
+    def filter_query(params = ActiveSupport::HashWithIndifferentAccess.new)
       case filter_type
       when :number_field
         if params["#{machine_name}"].present?

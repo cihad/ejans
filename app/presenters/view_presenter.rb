@@ -41,16 +41,18 @@ class ViewPresenter
   # => 
   def view_links
     params.delete(:node_id)
-    links = node_type.views.inject("") do |output, view|
-              unless view.type == :node
-                current_class = "active" if view.type == current_view_type
-                output += @template.link_to @template.url_for(params.merge(view: view.type)), class: "btn data-remote #{current_class}" do
-                  @template.content_tag :i, nil, class: view_icon(view)
+    if node_type.views.count > 1
+      links = node_type.views.inject("") do |output, view|
+                unless view.type == :node
+                  current_class = "active" if view.type == current_view_type
+                  output += @template.link_to @template.url_for(params.merge(view: view.type)), class: "btn data-remote #{current_class}" do
+                    @template.content_tag :i, nil, class: view_icon(view)
+                  end
+                  output
                 end
-                output
               end
-            end
-    links.html_safe if links
+      links.html_safe if links
+    end
   end
 
   # => "icon-th-list"
