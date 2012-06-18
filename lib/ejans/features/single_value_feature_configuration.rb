@@ -8,8 +8,8 @@ module Ejans
       private
       def where
         where = "features."
-        where += "#{parent_feature_configuration.feature_type}."
-        where += "#{parent_feature_configuration.value_name}"
+        where += "#{parent.feature_type}."
+        where += "#{parent.value_name}"
         where
       end
     end

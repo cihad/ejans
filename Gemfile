@@ -36,6 +36,7 @@ group :development do
   gem 'populator'
   gem 'railroady'
   gem 'libnotify'
+  gem 'pry'
 end
 
 group :production do

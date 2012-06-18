@@ -1,0 +1,16 @@
+<%= Date.new.change(year: 2000).at_end_of_year %>
+<%= simple_select field, :filter_type, Features::DateFeatureConfiguration::FILTER_TYPES, form_item_layout: { class: "filter-options" } %>
+
+<%= simple_select field, :date_type, Features::DateFeatureConfiguration::DATE_TYPES %>
+
+<%= simple_select field, :start_date_type, Features::DateFeatureConfiguration::START_DATE_TYPES %>
+<%= simple_number_field field, :x_years_ago, form_item_layout: { class: "x_years_ago" } %>
+<%= simple_number_field field, :spesific_start_date, form_item_layout: { class: "spesific_start_date" } %>
+
+<%= simple_select field, :end_date_type, Features::DateFeatureConfiguration::END_DATE_TYPES %>
+<%= simple_number_field field, :now_or_near, form_item_layout: { class: "now_or_near" } %>
+<%= simple_number_field field, :spesific_end_date, form_item_layout: { class: "spesific_end_date" } %>
+
+<%= select_option_for "#features_feature_configuration_date_feature_configuration_attributes_start_date_type" %>
+<%= select_option_for "#features_feature_configuration_date_feature_configuration_attributes_end_date_type" %>
+<%= check_box_option_for("filter") %>
