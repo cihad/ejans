@@ -1,0 +1,69 @@
+<%= feature.form_element.fields_for :image_feature do |f| %>
+  <%= form_item_layout do %>
+    <%= form_label_layout do %>
+      <%= f.label feature.value, feature.label %>
+    <% end %>
+    <%= form_value_layout do %>
+      <div>
+        <%= link_to "#add-image", class: "btn btn-success btn-mini add-image" do %>
+          <%= content_tag :i, nil, class: "icon-white icon-plus" %>
+          Add image
+        <% end %>
+      </div>
+
+      <%= content_tag :ul, class: "inline-list images", data: { update_url: sort_features_images_url } do %>
+        <% @node.images.each do |image| %>
+          <%= render "images/image", mustache: image_for_mustache(image, @node) %>
+        <% end %>
+      <% end %>
+
+      <script id="template" type="text/html">
+        <%= render 'images/image' %>
+      </script>
+
+      <%= javascript_tag do %>
+        (function() {
+          $('.add-image').on('click', function(e) {
+            e.preventDefault();
+            $('#features_image_image').click();
+            $('#features_image_image').change(function() {
+              var view = {
+                uploaded: false
+              };
+              var template = $('#template').html();
+              var output = Mustache.render(template, view);
+              $('.images').append(output);
+              $(this).closest('form').submit();
+            })
+          });
+
+          $('.images').sortable({
+            handle: '.handle-move',
+            update: function() {
+              return $.post($(this).data('update-url'), $(this).sortable('serialize'));
+            }
+          });
+
+        })();
+      <% end %>
+
+      <style type="text/css">
+        .loading { width: 106px; height: 82px; z-index: 2; left: 0; top: 0; position: absolute; background: url(<%= asset_path("images/ajax-loader.gif")%>) center center no-repeat;}
+        .handle-move { cursor: move; }
+        .on-hover { position: absolute; bottom: 5px; right: 5px; }
+        .images { list-style-type: none; margin: 0; padding: 0; }
+        .not-uploaded, .images li { list-style-type: none; margin: 3px 3px 3px 0; padding: 5px; float: left; width: 96px; height: 72px; text-align: right; background: #f0f0f0; position: relative; }
+      </style>
+      
+    <% end %>
+  <% end %>
+<% end %>
+
+<% javascript 'jquery.remotipart' %>
+<% javascript 'mustache' %>
+
+<% content_for :top do %>
+  <div id="hidden-form" style="display: none">
+    <%= render 'images/form' %>
+  </div>
+<% end %>
