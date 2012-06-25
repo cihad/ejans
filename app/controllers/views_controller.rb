@@ -1,5 +1,7 @@
 class ViewsController < ApplicationController
   before_filter :node_type, except: [:sort]
+  include ControllerHelper
+  
 
   def index
     @views = @node_type.views
@@ -44,12 +46,7 @@ class ViewsController < ApplicationController
   end
 
   def sort
-    params[:view].each_with_index do |id, index|
-      view = Views::View.find(id)
-      view.update_attribute(:position, index+1)
-    end
-    render nothing: true
-    # render :js => "console.log('')"
+    sort_fields params[:view], Views::View
   end
 
   private

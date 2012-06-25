@@ -1,6 +1,8 @@
 module Views
   class FeaturesController < ApplicationController
     before_filter :view
+    include ControllerHelper
+
 
     def destroy
       feature = @view.features.find(params[:id])
@@ -9,12 +11,7 @@ module Views
     end
 
     def sort
-      params[:feature].each_with_index do |id, index|
-        feature = @view.features.find(id)
-        feature.update_attribute(:position, index+1)
-      end
-      # render nothing: true
-      render js: "console.log('#{params[:feature]}')"
+      sort_fields params[:feature], @view.features
     end
 
     private

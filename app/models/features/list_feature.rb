@@ -1,6 +1,7 @@
 module Features
   class ListFeature
     include Mongoid::Document
+    # parent, configuration, child_configuration, required?
     include Ejans::Features::FeatureAbility
     include Ejans::Features::MultipleValueFeature
 

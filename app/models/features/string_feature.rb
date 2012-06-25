@@ -1,6 +1,7 @@
 module Features
   class StringFeature
     include Mongoid::Document
+    # parent, configuration, child_configuration, required?
     include Ejans::Features::FeatureAbility
     include Ejans::Features::SingleValueFeature
 

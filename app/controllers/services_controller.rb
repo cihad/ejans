@@ -1,5 +1,6 @@
 class ServicesController < ApplicationController
   load_and_authorize_resource
+  include ControllerHelper
 
   def index
     if params[:term].present?
@@ -59,7 +60,7 @@ class ServicesController < ApplicationController
 
   def update
     @service = Service.find(params[:id])
-
+    
     if @service.update_attributes(params[:service])
       redirect_to @service, notice: 'Service was successfully updated.'
     else
@@ -79,10 +80,7 @@ class ServicesController < ApplicationController
   end
 
   def sort
-    params[:selection].each_with_index do |id, index|
-      Selection.update_all({position: index+1}, {id: id})
-    end
-    render nothing: true
+    sort_fields params[:selection], Selection
   end
 
   def create_new_selection

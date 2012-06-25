@@ -9,7 +9,7 @@
 <% end %>
 
 <% content_for :top do %>
-  <% modal("List items", :edit_list_items) do %>
+  <% pjax_modal("List items", :edit_list_items) do %>
     <ul>
       <% @fc.child.list_items.each do |list_item| %>
         <%= content_tag :li do %>

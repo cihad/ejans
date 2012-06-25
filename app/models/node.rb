@@ -1,4 +1,4 @@
-class Node
+class Node  
   include Mongoid::Document
   include Mongoid::Timestamps
 
@@ -9,7 +9,7 @@ class Node
 
   # Associations
   belongs_to :node_type
-  embeds_many :features, class_name: "Features::Feature"
+  embeds_many :features, class_name: "Features::Feature", cascade_callbacks: true
   accepts_nested_attributes_for :features
   validates_associated :features
 
@@ -19,28 +19,45 @@ class Node
       .find_by(:feature_configuration_id => fc.id)
   end
 
+  def delete_image(img)
+    images.delete(img)
+  end
+
+  def images
+    child_image_feature.send(feature_with_image.feature_configuration.value_name)
+  end
+
+  def add_images(params)
+    images = params[:features_image][:image].inject([]) do |images, image|
+      image = Features::Image.new({ image: image })
+      image.node = self
+      images << image if image.save
+    end
+
+    self.images << images
+    images
+  end
+
+  def feature_with_image
+    features.detect { |fea| fea.type == "image_feature" }
+  end
+
+  def child_image_feature
+    feature_with_image.image_feature
+  end
+
   # Associations builer (used by the controller)
   def build_assoc!
     node_type.feature_configurations.each do |fea_conf|
-      if self.features.map(&:feature_configuration_id).include?(fea_conf.id)
-        feature = self.features.where(feature_configuration_id: fea_conf.id.to_s).first
-      else
-        feature = self.features.build
-        feature.feature_configuration = fea_conf
-        feature.send("build_#{fea_conf.feature_type}")
-      end
-
-      feature.child.class.add_value(fea_conf.value_name)
+      fea_conf.child.build_assoc!(self)
     end
   end
 
   after_initialize :build_values
 
   def build_values
-    unless new_record?
-      node_type.feature_configurations.each do |fea_conf|
-        fea_conf.add_value_to_feature!
-      end
+    node_type.feature_configurations.each do |fea_conf|
+      fea_conf.add_value_to_feature!
     end
   end
 end

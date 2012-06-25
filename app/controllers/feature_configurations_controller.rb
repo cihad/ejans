@@ -1,6 +1,6 @@
 class FeatureConfigurationsController < ApplicationController
   before_filter :node_type
-  helper_method :sort_fields
+  include ControllerHelper
 
   def index
     @fcs = @node_type.feature_configurations
@@ -60,17 +60,10 @@ class FeatureConfigurationsController < ApplicationController
 
   def sort
     sort_fields(params[:feature_configuration], Features::FeatureConfiguration)
-    render js: "console.log('#{params[:feature_configuration]}')"
   end
 
   private
   def node_type
     @node_type = NodeType.find(params[:node_type_id])
-  end
-
-  def sort_fields(param, model, position_field = :position)
-    param.each_with_index do |id, index|
-      model.find(id).update_attribute(position_field, index+1)
-    end
   end
 end

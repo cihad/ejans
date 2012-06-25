@@ -2,6 +2,7 @@ module Features
   class DateFeature
     include Mongoid::Document
     include Mongoid::MultiParameterAttributes
+    # parent, configuration, child_configuration, required?
     include Ejans::Features::FeatureAbility
     include Ejans::Features::SingleValueFeature
 

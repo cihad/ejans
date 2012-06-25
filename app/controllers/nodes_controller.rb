@@ -8,12 +8,12 @@ class NodesController < ApplicationController
 
   def show
     @node = @node_type.nodes.find(params[:id])
-    @node.build_assoc!
   end
 
   def new
-    @node = @node_type.nodes.build
+    @node = Node.new(node_type: @node_type)
     @node.build_assoc!
+    @node.save
   end
 
   def edit
@@ -23,7 +23,6 @@ class NodesController < ApplicationController
 
   def create
     @node = @node_type.nodes.build(params[:node])
-
     if @node.save
       redirect_to node_type_node_path(@node_type, @node),
         notice: 'Node was successfully created.'
@@ -34,7 +33,6 @@ class NodesController < ApplicationController
 
   def update
     @node = @node_type.nodes.find(params[:id])
-
     if @node.update_attributes(params[:node])
       redirect_to [@node_type, @node], notice: 'Node was successfully updated.'
     else

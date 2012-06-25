@@ -81,8 +81,6 @@ $(document).ready(function() {
     content_css : "/assets/application.css"
   });
 
-  
-
   // Pjax
   $('a.data-remote, .breadcrumbs a, .pagination a').pjax('[data-pjax-container]');
   // $('[data-pjax-container]')

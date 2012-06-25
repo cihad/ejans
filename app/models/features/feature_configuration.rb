@@ -18,7 +18,7 @@ module Features
     # Associations
     belongs_to :node_type
 
-    FEATURE_TYPES = [:integer, :string, :list, :date]
+    FEATURE_TYPES = [:integer, :string, :list, :date, :image]
     FEATURE_TYPES.each do |feature_type|
       embeds_one :"#{feature_type}_feature_configuration",
         class_name: "Features::#{feature_type.to_s.camelize}FeatureConfiguration"
@@ -72,9 +72,15 @@ module Features
     def assign_value_name
       unless value_name
         value_names = node_type.feature_configurations.map(&:value_name)
-        if feature_type == "list_feature"
+        case feature_type
+        when "list_feature"
           name_prefix = 0
           while value_names.include?(name = "#{number_to_english[name_prefix]}_list_items")
+            name_prefix = name_prefix.next
+          end
+        when "image_feature"
+          name_prefix = 0
+          while value_names.include?(name = "#{number_to_english[name_prefix]}_images")
             name_prefix = name_prefix.next
           end
         else
@@ -83,7 +89,6 @@ module Features
             name = name.next
           end
         end
-
         self.value_name = name
       end
     end

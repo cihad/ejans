@@ -76,6 +76,12 @@ Ejans::Application.routes.draw do
 
   resources :list_items, only: [:create]
 
+  namespace :features do
+    resources :images do
+      post :sort, on: :collection
+    end
+  end
+
   # for View Features
   namespace :views do
     resources :view, only: [] do
