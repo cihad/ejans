@@ -17,19 +17,17 @@
           <%= link_to "Sil", views_view_feature_path(@view, feature), method: :delete, confirm: "Are you sure?" %>
         </li>
       <% end %>
-      <% unless @view.features.count == @node_type.feature_configurations.count %>
-        <li>
-          <%= form_for [@node_type, @view] do |f| %>
-            <%= f.select :conf_id,
-                          @node_type
-                            .feature_configurations
-                            .map { |conf| [conf.label, conf.id] unless @view.features.map(&:feature_configuration_id).include?(conf.id) }
-                            .compact %>
-            <%= f.submit %>
-          <% end %>
-        </li>
-      <% end %>
     </ul>
+    <% unless @view.features.count == @node_type.feature_configurations.count %>
+      <%= form_for [@node_type, @view] do |f| %>
+        <%= f.select :conf_id,
+                      @node_type
+                        .feature_configurations
+                        .map { |conf| [conf.label, conf.id] unless @view.features.map(&:feature_configuration_id).include?(conf.id) }
+                        .compact %>
+        <%= f.submit "Add feature" %>
+      <% end %>
+    <% end %>
     <%= javascript_tag do %>
       $('.sortable-list').sortable({
         axis: 'y',
