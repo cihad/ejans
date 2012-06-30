@@ -25,7 +25,7 @@
                         .feature_configurations
                         .map { |conf| [conf.label, conf.id] unless @view.features.map(&:feature_configuration_id).include?(conf.id) }
                         .compact %>
-        <%= f.submit "Add feature" %>
+        <%= f.submit "Add feature", class: "btn" %>
       <% end %>
     <% end %>
     <%= javascript_tag do %>
