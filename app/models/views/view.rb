@@ -3,6 +3,8 @@ module Views
     include Mongoid::Document
     include Mongoid::Timestamps
 
+    attr_accessor :conf_id
+
     # Fields
     field :position, type: Integer
     field :type, type: Symbol
@@ -17,6 +19,10 @@ module Views
 
     # Scopes
     default_scope order_by([:position, :asc])
+
+    def conf_id=(id)
+      self.features.build(feature_configuration_id: Features::FeatureConfiguration.find(id).id, position: 10)
+    end
 
     def build_assoc!
       node_type.feature_configurations.each_with_index do |fc, i|

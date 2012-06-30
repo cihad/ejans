@@ -6,7 +6,7 @@ module Features
     embedded_in :node
     belongs_to :feature_configuration, class_name: "Features::FeatureConfiguration"
 
-    FEATURE_TYPES = [:integer, :string, :list, :date, :image]
+    FEATURE_TYPES = [:integer, :string, :list, :date, :image, :place]
     FEATURE_TYPES.each do |feature_type|
       embeds_one :"#{feature_type}_feature", class_name: "Features::#{feature_type.to_s.camelize}Feature", cascade_callbacks: true
       accepts_nested_attributes_for :"#{feature_type}_feature"

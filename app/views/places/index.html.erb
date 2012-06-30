@@ -1,0 +1,13 @@
+<%= link_to_pjax_modal "Add new country", parent_place_id: "new" %>
+
+<ul>
+<% Place.top_places.each do |place| %>
+  <li>Name: <%= place.name %>
+      <%= link_to_pjax_modal "Add new place", parent_place_id: place.id %>
+    </li>
+<% end %>
+</ul>
+
+<%= pjax_modal "New Place", :parent_place_id do %>
+  <%= render 'form' %>
+<% end %>

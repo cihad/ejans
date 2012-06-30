@@ -3,11 +3,10 @@ module Views
     before_filter :view
     include ControllerHelper
 
-
     def destroy
       feature = @view.features.find(params[:id])
       feature.destroy
-      redirect_to @view.node_type, notice: "Yeeappp!"
+      redirect_to edit_node_type_views_view_path(@view.node_type, @view), notice: "Yeeappp!"
     end
 
     def sort

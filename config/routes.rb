@@ -82,6 +82,8 @@ Ejans::Application.routes.draw do
     end
   end
 
+  resources :places
+
   # for View Features
   namespace :views do
     resources :view, only: [] do

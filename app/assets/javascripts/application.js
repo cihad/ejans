@@ -95,21 +95,9 @@ $(document).ready(function() {
     });
   });
 
-  $('a.popup-node').live('click', function(e) {
-    e.preventDefault();
-    $(this).closest('tr').addClass('read');
-    return $.pjax({
-      container: '[data-pjax-popup]',
-      url: $(this).attr('href'),
-      data: {
-        _pjax: true,
-        _pjax_return: 'data-pjax-popup',
-      }
-    });
-  });
-
   $('a.pjax_modal').live('click', function(e) {
     e.preventDefault();
+    console.log($(this).attr('href'));
     return $.pjax({
       container: '[data-pjax-modal]',
       url: $(this).attr('href'),

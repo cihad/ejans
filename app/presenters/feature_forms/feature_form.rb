@@ -32,7 +32,7 @@ module FeatureForms
     end
 
     def child_feature
-      object.child_feature
+      object.child
     end
 
     def type

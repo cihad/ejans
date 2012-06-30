@@ -4,7 +4,7 @@
     <%= label_tag "List items" %>
   <% end %>
   <%= form_value_layout do %>
-    <%= link_to_modal "edit list_items", edit_list_items: true %>
+    <%= link_to_pjax_modal "edit list_items", edit_list_items: true %>
   <% end %>
 <% end %>
 

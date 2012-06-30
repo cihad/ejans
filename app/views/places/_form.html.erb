@@ -1,0 +1,27 @@
+<%= form_for @parent_place do |f| %>
+  <table>
+    <% unless @parent_place.top_place? %>
+      <%= form_item_layout do %>
+        <%= form_label_layout do %>
+          Parent Place
+        <% end %>
+        <%= form_value_layout do %>
+          <span class="input-xlarge uneditable-input"><%= @parent_place.name %></span>
+        <% end %>
+      <% end %>
+    <% else %>
+      <%= simple_text_field f, :name %>
+
+      <%= simple_text_field f, :hierarchy %>
+    <% end %>
+
+    <%= f.fields_for :child_places do |place| %>
+      <%= simple_text_field place, :name %>
+    <% end %>
+
+    <%= simple_text_area f, :childs %>
+
+    <%= simple_submit f %>
+  </table>
+
+<% end %>

@@ -24,22 +24,12 @@ module ModalHelper
 
   def link_to_pjax_modal(title, prm = {})
     prms = delete_param!
-    link_to(title, url_for(prms.merge(prm)), class: "pjax_modal")
-  end
-
-  def link_to_pjax_modal_node(title, node, &block)
-    link_to title,
-      url_for(params.merge(node_id: node.id)),
-      class: "popup-node",
-      &block
+    link_to(title, url_for(prms.merge(prm)), class: "btn btn-mini pjax_modal")
   end
 
   def link_to_pjax_modal_close
-    prms = params.clone
-    prms.delete(:node_id)
-    prms.delete(:_pjax_return)
-    prms.delete(:_pjax)
-     link_to url_for(prms), class: "popup-node" do
+    close_path = delete_param!(:node_id)
+    link_to url_for(close_path), class: "pjax_modal" do
       button_tag type: 'button', class: 'close' do
         concat("&times;".html_safe)
       end
