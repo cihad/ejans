@@ -11,7 +11,11 @@ class ViewsController < ApplicationController
     if Views::View::VIEW_TYPES.include?(params[:type].to_sym)
       @view = @node_type.views.build(type: params[:type])
       @view.build_assoc!
-      redirect_to edit_node_type_views_view_path(@node_type, @view)
+      if @view.valid?
+        redirect_to edit_node_type_views_view_path(@node_type, @view)
+      else
+        redirect_to @node_type
+      end
     else
       redirect_to @node_type, alert: "Oooooooooooops! Try again!"
     end

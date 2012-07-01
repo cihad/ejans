@@ -20,6 +20,8 @@ module Views
     # Scopes
     default_scope order_by([:position, :asc])
 
+    validate :view_count
+
     def conf_id=(id)
       self.features.build(feature_configuration_id: Features::FeatureConfiguration.find(id).id, position: 10)
     end
@@ -31,6 +33,13 @@ module Views
         feature.position = i+1
       end
       self.save if new_record?
+    end
+
+    private
+    def view_count
+      if self.node_type.views.count >= 3
+        errors.add(:base, "Views sayisi 3'ten buyuk olamaz.")
+      end
     end
   end
 end
