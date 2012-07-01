@@ -1,0 +1,16 @@
+<%= tab_item "Dashboard", @node_type %>
+<%= dropdown_tab "Configurations" do %>
+  <%= tab_item "Configurations", edit_node_type_path(@node_type) %>
+  <%= tab_item "New Node Type", new_node_type_path %>
+  <%= content_tag :li, nil, class: "divider" %>
+  <%= tab_item "Delete Node Type", node_type_path(@node_type), link_to: { confirm: "Are you sure?", method: :delete } %>
+<% end %>
+
+<%= dropdown_tab "Features" do %>
+  <%= tab_item "Index", node_type_features_feature_configurations_path(@node_type) %>
+  <%= content_tag :li, nil, class: "divider" %>
+  <% @node_type.feature_configurations.each do |conf| %>
+    <%= tab_item conf.label, edit_node_type_features_feature_configuration_path(@node_type, conf) %>    
+  <% end %>
+<% end %>
+<%= tab_item "Views", node_type_views_views_path(@node_type) %>

@@ -54,4 +54,8 @@ module ApplicationHelper
   def count_tag(count, message = "")
     content_tag :span, "#{count} #{message}" unless count == 0
   end
+
+  def merge_classes(options1 = {}, options2 = {})
+    options1.merge(options2) { |k, o, n| o + " " + n }
+  end
 end
