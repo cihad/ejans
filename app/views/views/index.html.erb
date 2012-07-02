@@ -10,10 +10,8 @@
         <td><span class="handle">[drag]</span></td>
         <td><%= view.type %></td>
         <td>
-          <%= link_to "edit", edit_node_type_views_view_path(@node_type, view) %>
-        </td>
-        <td>
-          <%= link_to "destroy", node_type_views_view_path(@node_type, view), method: :delete, confirm: "Are you sure?" %>
+          <%= link_to "edit", edit_node_type_views_view_path(@node_type, view), class: "btn btn-mini" %>
+          <%= link_to "destroy", node_type_views_view_path(@node_type, view), method: :delete, confirm: "Are you sure?", class: "btn btn-mini" %>
         </td>
       </tr>
     <% end %>
@@ -27,5 +25,13 @@
         return $.post($(this).data('update-url'), $(this).sortable('serialize'));
       }
     });
+  <% end %>
+
+  <%= form_for [@node_type, @node_type.views.build], url: new_node_type_views_view_path, method: :get  do |f| %>
+    <tr>
+      <td></td>
+      <td><%= f.select :type, Views::View::VIEW_TYPES.select { |v| !@node_type.views.map(&:type).include?(v) }.map { |v| [v.to_s.humanize, v] } %></td>
+      <td><%= f.submit "Add new view", class: "btn" %></td>
+    </tr>
   <% end %>
 </table>
