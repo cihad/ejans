@@ -13,4 +13,11 @@
     <%= tab_item conf.label, edit_node_type_features_feature_configuration_path(@node_type, conf) unless conf.new_record? %>
   <% end %>
 <% end %>
-<%= tab_item "Views", node_type_views_views_path(@node_type) %>
+<%= dropdown_tab "Views" do %>
+  <%= tab_item "Index", node_type_views_views_path(@node_type) %>
+  <%= content_tag :li, nil, class: "divider" %>
+  <% @node_type.views.each do |view| %>
+    <%= tab_item view.type.to_s.humanize,
+          edit_node_type_views_view_path(@node_type, view) unless view.new_record? %>
+  <% end %>
+<% end %>
