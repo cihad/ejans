@@ -44,7 +44,7 @@ class NodeType
 
   Views::View::VIEW_TYPES.each do |view_type|
     define_method(:"#{view_type}_features") do
-      views.includes(features: :feature_configuration).find_by(type: view_type).features
+      views.includes(features: :feature_configuration).where(type: view_type).first.features
     end
   end
 

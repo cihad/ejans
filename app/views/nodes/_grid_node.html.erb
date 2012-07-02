@@ -3,7 +3,7 @@
     <div class="field">
       <%= node.title %>
     </div>
-    <% @node_type.list_features.each do |feature| %>
+    <% @node_type.grid_features.each do |feature| %>
       <div class="field">
         <%= feature_view(node.find_value_by_views_feature(feature)) %>
       </div> 

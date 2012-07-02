@@ -12,6 +12,7 @@ module FeaturesHelper
   def feature_view(feature)
     presenter_class = FeatureViews::FeatureView.feature_presenter_class(feature)
     presenter = presenter_class.new(feature, self)
+
     if block_given?
       yield presenter
     else

@@ -8,7 +8,6 @@ module Views
     # Fields
     field :position, type: Integer
     field :type, type: Symbol
-    field :style, type: String
 
     VIEW_TYPES = [:flat, :list, :table, :grid, :node]
 
@@ -32,7 +31,6 @@ module Views
         feature.feature_configuration = fc
         feature.position = i+1
       end
-      self.save if new_record?
     end
 
     private

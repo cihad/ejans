@@ -14,9 +14,8 @@ class Node
   validates_associated :features
 
   def find_value_by_views_feature(feature)
-    fc = feature.feature_configuration
-    features
-      .find_by(:feature_configuration_id => fc.id)
+    fcid = feature.feature_configuration_id
+    features.where(feature_configuration_id: fcid).first
   end
 
   def delete_image(img)

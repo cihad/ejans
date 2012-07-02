@@ -25,4 +25,18 @@
   <% end %>
 <% end %>
 
+<%= javascript_tag do %>
+  // Equalize column heights
+  var tallest = 0;
+
+  $('.node-ins').each(function(){
+    var thisHeight = $(this).outerHeight();
+    console.log(thisHeight);
+    if (thisHeight > tallest) tallest = thisHeight;
+  }).css({
+    'overflow': 'auto',
+    'height': tallest
+  });
+<% end %>
+
 <%= paginate @nodes %>

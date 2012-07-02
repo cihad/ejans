@@ -8,7 +8,7 @@ module FeatureViews
 
     def images
       feature.value.inject("") do |acc, img|
-        acc << @template.image_tag(img.image_url, width: 200)
+        acc << @template.image_tag(img.image_url, width: 200, height: 200)
         acc
       end
     end
