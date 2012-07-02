@@ -1,66 +1,107 @@
 <%= tab_navigation %>
 
-<table class="table table-form">
-  <tr>
-    <th>Name</th>
-    <td><%= @node_type.name %></td>
-  </tr>
-  <tr>
-    <th>Title label</th>
-    <td><%= @node_type.title_label %></td>
-  </tr>
-  <tr>
-    <th>Title help</th>
-    <td><%= @node_type.title_help %></td>
-  </tr>
-  <tr>
-    <th>Description</th>
-    <td><%= @node_type.desc %></td>
-  </tr>
-  <tr>
-    <th>Description label</th>
-    <td><%= @node_type.desc_label %></td>
-  </tr>
-  <tr>
-    <th>Actions</th>
-    <td>
-      <%= link_to "edit", edit_node_type_path(@node_type), class: "btn" %>
-      <%= link_to "add node", new_node_type_node_path(@node_type), class: "btn" %>
-      <%= link_to "show nodes", node_type_nodes_path(@node_type), class: "btn" %>
-    </td>
-  </tr>
-  <tr>
-    <th>Add new field</th>
-    <td>
-      <%= link_to node_type_features_feature_configurations_path(@node_type), class: "btn btn-primary"  do %>
-        <%= content_tag :i, nil, class: "icon-eye-open icon-white" %>
-        show features
-      <% end %>
-      <% Features::Feature::FEATURE_TYPES.each do |type| %>
-        <%= link_to new_node_type_features_feature_configuration_path(@node_type, type: type),
-              class: "btn" do %>
-          <%= content_tag :i, nil, class: "icon-plus" %>
-          <%= type.to_s.humanize %>
-        <% end %>
-      <% end %>
-    </td>
-  </tr>
-  <tr>
-    <th>Add new view</th>
-    <td>
-      <%= link_to node_type_views_views_path(@node_type), class: "btn btn-primary"  do %>
-        <%= content_tag :i, nil, class: "icon-eye-open icon-white" %>
-        show views
-      <% end %>
-      <% Views::View::VIEW_TYPES.each do |type| %>
-        <% unless @node_type.views.map(&:type).include?(type) %>
-          <%= link_to new_node_type_views_view_path(@node_type, type: type),
-                class: "btn" do %>
-            <%= content_tag :i, nil, class: "icon-plus" %>
-            <%= type %>
+<div class="row" id="dasboard">
+  <div class="span4 widget">
+    <div class="thumbnail">
+      <div class="header">
+        <h4>İstatistikler</h4>
+      </div>
+      <div class="caption">
+        <table class="table" width="100%">
+          <thead>
+            <tr>
+              <th>Node sayısı</th>
+              <td><%= @node_type.nodes.count %></td> 
+            </tr>
+          </thead>
+          <tr>
+            <th>Yayındaki node sayısı</th>
+            <td><%= "#TODO" %></td> 
+          </tr>
+          <tr>
+            <th>Onay bekleyen node sayısı</th>
+            <td><%= "#TODO" %></td> 
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="span4 widget">
+    <div class="thumbnail">
+      <div class="header">
+        <h4>Son Nodes</h4>
+      </div>
+      <div class="caption">
+        <table class="table" width="100%">
+          <% @node_type.nodes.each do |n| %>
+            <tr>
+              <td><%= link_to n.title, [@node_type, n] %></td>
+              <td><%= link_to "edit", edit_node_type_node_path(@node_type, n) %></td>
+            </tr>
           <% end %>
-        <% end %>
-      <% end %>
-    </td>
-  </tr>
-</table>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="span4 widget">
+    <div class="thumbnail">
+      <div class="header">
+        <h4>Onay bekleyen nodeler</h4>
+      </div>
+      <div class="caption">
+        <table class="table" width="100%">
+          <tr>
+            <td>#TODO</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="span4 widget">
+    <div class="thumbnail">
+      <div class="header">
+        <h4>En çok görüntülenenler</h4>
+      </div>
+      <div class="caption">
+        <table class="table" width="100%">
+          <tr>
+            <td>#TODO</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="span4 widget">
+    <div class="thumbnail">
+      <div class="header">
+        <h4>Eklenme sayısı</h4>
+      </div>
+      <div class="caption">
+        <table class="table" width="100%">
+          <tr>
+            <td>#TODO</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="span4 widget">
+    <div class="thumbnail">
+      <div class="header">
+        <h4>Ziyaret Sayısı</h4>
+      </div>
+      <div class="caption">
+        <table class="table" width="100%">
+          <tr>
+            <td>#TODO</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

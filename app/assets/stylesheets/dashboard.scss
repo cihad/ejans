@@ -1,0 +1,11 @@
+#dasboard {
+  
+  .thumbnail h4 {
+    margin: -4px;
+    padding: 7px 13px;
+    border-bottom: 1px solid $grayLighter;
+    @include gradient-vertical(#fff, #f0f0f0);
+  }
+
+  .widget { margin-bottom: 20px; }
+}

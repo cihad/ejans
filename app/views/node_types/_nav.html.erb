@@ -1,4 +1,4 @@
-<%= tab_item "Dashboard", @node_type %>
+<%= tab_item "#{@node_type.name} Dashboard", @node_type %>
 <%= dropdown_tab "Configurations" do %>
   <%= tab_item "Configurations", edit_node_type_path(@node_type) %>
   <%= tab_item "New Node Type", new_node_type_path %>
