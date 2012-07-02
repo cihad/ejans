@@ -1,4 +1,5 @@
 <%= tab_item "#{@node_type.name} Dashboard", @node_type %>
+
 <%= dropdown_tab "Configurations" do %>
   <%= tab_item "Configurations", edit_node_type_path(@node_type) %>
   <%= tab_item "New Node Type", new_node_type_path %>
@@ -13,6 +14,7 @@
     <%= tab_item conf.label, edit_node_type_features_feature_configuration_path(@node_type, conf) unless conf.new_record? %>
   <% end %>
 <% end %>
+
 <%= dropdown_tab "Views" do %>
   <%= tab_item "Index", node_type_views_views_path(@node_type) %>
   <%= content_tag :li, nil, class: "divider" %>
@@ -20,4 +22,9 @@
     <%= tab_item view.type.to_s.humanize,
           edit_node_type_views_view_path(@node_type, view) unless view.new_record? %>
   <% end %>
+<% end %>
+
+<%= dropdown_tab "Nodes" do %>
+  <%= tab_item "Show", node_type_nodes_path(@node_type) %>
+  <%= tab_item "Add new node", new_node_type_node_path(@node_type) %>
 <% end %>
