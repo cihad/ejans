@@ -11,23 +11,13 @@ class FeatureConfigurationsController < ApplicationController
   end
 
   def new
-    if Features::Feature::FEATURE_TYPES.any? {|type| type == params[:type].to_sym }
-      feature = "features/#{params[:type].classify}_feature_configuration".camelize.constantize
-      @fc = @node_type.feature_configurations.build
-      conf = @fc.send("build_#{params[:type]}_feature_configuration")
-      if params[:type] == "list"
-        3.times { conf.list_items.build }
-      end
-    else
-      redirect_to :back, notice: "no feature"
-    end
+    @fc = @node_type.feature_configurations.build(params[:features_feature_configuration])
+    3.times { @fc.child.list_items.build } if @fc.type == "list_feature"
   end
 
   def edit
     @fc = @node_type.feature_configurations.find(params[:id])
-    if @fc.feature_type == "list_feature"
-      3.times { @fc.child.list_items.build }
-    end
+    3.times { @fc.child.list_items.build } if @fc.feature_type == "list_feature"
   end
 
   def create

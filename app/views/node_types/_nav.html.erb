@@ -10,7 +10,7 @@
   <%= tab_item "Index", node_type_features_feature_configurations_path(@node_type) %>
   <%= content_tag :li, nil, class: "divider" %>
   <% @node_type.feature_configurations.each do |conf| %>
-    <%= tab_item conf.label, edit_node_type_features_feature_configuration_path(@node_type, conf) %>    
+    <%= tab_item conf.label, edit_node_type_features_feature_configuration_path(@node_type, conf) unless conf.new_record? %>
   <% end %>
 <% end %>
 <%= tab_item "Views", node_type_views_views_path(@node_type) %>

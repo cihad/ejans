@@ -50,6 +50,11 @@ module Features
       arr.join("_")
     end
 
+    def feature_type=(type)
+      self.send("build_#{type}_feature_configuration")
+    end
+
+    # => Features::IntegerFeature
     def feature_class
       "Features::#{feature_type.classify}".constantize
     end

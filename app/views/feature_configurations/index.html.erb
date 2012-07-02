@@ -30,7 +30,20 @@
         </td>
       </tr>
     <% end %>
+
   </tbody>
+
+  <%= form_for [@node_type, @node_type.feature_configurations.build], url: new_node_type_features_feature_configuration_path, method: :get  do |f| %>
+    <tr>
+      <td></td>
+      <td><%= f.text_field :label, placeholder: "Label" %></td>
+      <td><%= f.select :feature_type, Features::FeatureConfiguration::FEATURE_TYPES.map { |f| [f.to_s.humanize, f]} %></td>
+      <td><%= f.check_box :required %></td>
+      <td><%= f.check_box :sort %></td>
+      <td><%= f.check_box :filter %></td>
+      <td><%= f.submit "New feature" %></td>
+    </tr>
+  <% end %>
 
   <%= javascript_tag do %>
     $('.sortable tbody').sortable({
@@ -42,11 +55,3 @@
     });
   <% end %>
 </table>
-
-<% %w[integer string list boolean image date].each do |type| %>
-  <%= link_to new_node_type_features_feature_configuration_path(@node_type, type: type),
-        class: "btn" do %>
-    <%= content_tag :i, nil, class: "icon-plus" %>
-    <%= type.humanize %>
-  <% end %>
-<% end %>

@@ -174,9 +174,11 @@ module Features
 
     protected
     def empty_fields
-      self.class.non_fields_for_view_types[view_type].each do |field|
-        default_val = self.class.default_value(field)
-        self.send("#{field}=", default_val)
+      if view_type
+        self.class.non_fields_for_view_types[view_type].each do |field|
+          default_val = self.class.default_value(field)
+          self.send("#{field}=", default_val)
+        end
       end
     end
   end
