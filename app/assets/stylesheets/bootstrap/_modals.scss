@@ -23,7 +23,7 @@
 }
 
 .modal-backdrop, .modal-backdrop.fade.in {
-  @include opacity(0.8);
+  @include opacity(0.5);
 }
 
 // Base modal

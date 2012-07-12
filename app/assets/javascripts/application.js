@@ -95,7 +95,7 @@ $(document).ready(function() {
     });
   });
 
-  $('a.pjax_modal').live('click', function(e) {
+  $('a.pjax_modal').on('click', function(e) {
     e.preventDefault();
     console.log($(this).attr('href'));
     return $.pjax({

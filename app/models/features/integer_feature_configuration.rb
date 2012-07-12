@@ -10,8 +10,6 @@ module Features
     field :minumum, type: Integer
     field :maximum, type: Integer
     field :filter_type, type: Symbol
-    field :prefix, type: String
-    field :suffix, type: String
 
     # Fields
     field :locale, type: Symbol
@@ -27,21 +25,17 @@ module Features
     field :view_type, type: Symbol
 
     field :precision, type: Integer, default: 2
-    field :unit, type: String
+    field :unit, type: String, default: "$"
     field :units, type: Symbol
     field :separator, type: String
     field :delimiter, type: String
-    field :unit, type: String
+    field :prefix, type: String
     UNIT_TYPES = [:distance]
     field :area_code, type: Boolean
     field :country_code, type: Integer
 
     # Associations
-    embedded_in :feature_view
     belongs_to :feature_configuration, class_name: "Features::FeatureConfiguration"
-
-    # Associations
-    embedded_in :feature_configuration, class_name: "Features::FeatureConfiguration"
 
     before_validation :empty_fields
 
@@ -120,7 +114,7 @@ module Features
       end
 
       def internal_object(field)
-        self.fields.select { |k,v| k == field.to_s }.first.last
+        self.fields[field.to_s]
       end
 
       def field_type(field)

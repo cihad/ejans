@@ -33,13 +33,9 @@ group :assets do
 end
 
 group :development do
-  gem 'annotate', :git => 'git://github.com/ctran/annotate_models.git'
-  gem 'faker'
   gem 'capistrano'
   gem 'populator'
-  gem 'railroady'
   gem 'libnotify'
-  gem 'pry'
 end
 
 group :production do
@@ -47,13 +43,12 @@ group :production do
 end
 
 group :test, :development do
+  gem 'faker'
   gem 'rspec-rails'
+  gem 'pry'
+  gem 'guard-rspec'
 end
 
 group :test do
-  gem 'factory_girl_rails'
-  gem 'capybara'
-  gem 'guard-rspec'
-  gem 'guard-spork', '0.7.1'
-  gem 'spork', '~> 1.0rc'
+  gem "fabrication"
 end

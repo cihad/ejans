@@ -6,17 +6,20 @@ class NodeType
   field :name, type: String
   field :title_label, type: String
   field :title_help, type: String
-  field :description, type: String, as: 'desc'
-  field :description_label, type: String, as: 'desc_label'
-  field :description_help, type: String
+  field :description, type: String
 
   # Associations
   has_many :nodes
-  has_many :feature_configurations, class_name: "Features::FeatureConfiguration"
+  has_many :feature_configurations,
+    class_name: "Features::FeatureConfiguration",
+    dependent: :destroy
   has_many :views, class_name: "Views::View"
 
   # Callbacks
   after_save :create_node_view
+
+  # Validates
+  validates :name, presence: true
 
   def create_node_view
     self.views.create(type: :node, position: 0)

@@ -23,7 +23,6 @@ module Features
     field :spesific_end_date, type: Integer
 
     # Associations
-    embedded_in :feature_view
     belongs_to :feature_configuration, class_name: "Features::FeatureConfiguration"
 
     # Callbacks

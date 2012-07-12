@@ -8,17 +8,11 @@ module Features
     field :maximum_select, type: Integer
 
     # Associations
-    has_many :list_items, class_name: "Features::ListItem", autosave: true
+    has_many :list_items, class_name: "Features::ListItem"
     accepts_nested_attributes_for :list_items,
       reject_if: ->(attrs){ attrs[:name].blank? }
 
-
-    embedded_in :feature_view
     belongs_to :feature_configuration, class_name: "Features::FeatureConfiguration"
-
-    # Class Methods
-    class << self
-    end
 
     # Object Methods
     def build_assoc!(node)

@@ -5,6 +5,6 @@ class Location
   field :location, type: Array
 
   # Associations
-  embeedded_in :locationable, polymorphic: true
+  embedded_in :locationable, polymorphic: true
 
 end

@@ -8,7 +8,6 @@ module Features
     field :maximum_image, type: Integer
     
     # Associations
-    embedded_in :feature_view
     belongs_to :feature_configuration, class_name: "Features::FeatureConfiguration"
 
     def build_assoc!(node)
