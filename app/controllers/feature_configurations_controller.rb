@@ -12,16 +12,15 @@ class FeatureConfigurationsController < ApplicationController
 
   def new
     @fc = @node_type.feature_configurations.build(params[:features_feature_configuration])
-    3.times { @fc.child.list_items.build } if @fc.type == "list_feature"
   end
 
   def edit
     @fc = @node_type.feature_configurations.find(params[:id])
-    3.times { @fc.child.list_items.build } if @fc.feature_type == "list_feature"
   end
 
   def create
     @fc = @node_type.feature_configurations.build(params[:features_feature_configuration])
+    binding.pry
     if @fc.save
       redirect_to @node_type,
         notice: 'Feature configuration was successfully created.'
@@ -32,14 +31,12 @@ class FeatureConfigurationsController < ApplicationController
 
   def update
     @fc = @node_type.feature_configurations.find(params[:id])
-
     if @fc.update_attributes(params[:features_feature_configuration])
       redirect_to @node_type,
         notice: 'Feature configuration was successfully updated.'
     else
       render action: "edit"
     end
-    # render js: "#{params[:features_feature_configuration]}"
   end
 
   def destroy

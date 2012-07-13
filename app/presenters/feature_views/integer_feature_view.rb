@@ -2,7 +2,7 @@ module FeatureViews
   class IntegerFeatureView < FeatureView
     def value
       feature_tag do
-        @template.send(view_type, plain_value, pres)
+        pres
       end
     end
 
@@ -10,15 +10,22 @@ module FeatureViews
       feature.value
     end
 
-    def view_type
-      child.view_type
+    def prefix
+      child.prefix
+    end
+
+    def suffix
+      child.suffix
+    end
+
+    def thousand_marker
+      child.thousand_marker
     end
 
     def pres
-      Features::IntegerFeatureConfiguration.options_for_view_types[view_type].inject({}) do |a, opt|
-        a[opt] = child.send(opt) unless opt.nil?
-        a
-      end
+      @template.content_tag(:span, prefix, class: "prefix") +
+      @template.number_with_delimiter(plain_value, delimiter: thousand_marker) +
+      @template.content_tag(:span, suffix, class: "suffix")
     end
   end
 end

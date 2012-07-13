@@ -19,6 +19,5 @@ module FeatureForms
     def filter_type
       child.filter_type
     end
-
   end
 end

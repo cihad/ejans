@@ -8,7 +8,7 @@ module Features
     field :level, type: Integer
 
     # Associations
-    belongs_to :feature_configuration, class_name: "Features::FeatureConfiguration"
+    embedded_in :feature_configuration, class_name: "Features::FeatureConfiguration"
     belongs_to :top_place, class_name: "Place"
 
     def build_assoc!(node)

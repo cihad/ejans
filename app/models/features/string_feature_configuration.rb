@@ -24,7 +24,7 @@ module Features
 
 
     # Associations
-    belongs_to :feature_configuration, class_name: "Features::FeatureConfiguration"
+    embedded_in :feature_configuration, class_name: "Features::FeatureConfiguration"
 
     # Methods
     def build_assoc!(node)

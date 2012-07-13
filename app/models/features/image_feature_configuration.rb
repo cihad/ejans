@@ -8,7 +8,7 @@ module Features
     field :maximum_image, type: Integer
     
     # Associations
-    belongs_to :feature_configuration, class_name: "Features::FeatureConfiguration"
+    embedded_in :feature_configuration, class_name: "Features::FeatureConfiguration"
 
     def build_assoc!(node)
       if node.features.map(&:feature_configuration).include?(parent)

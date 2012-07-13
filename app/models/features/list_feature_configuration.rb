@@ -12,7 +12,7 @@ module Features
     accepts_nested_attributes_for :list_items,
       reject_if: ->(attrs){ attrs[:name].blank? }
 
-    belongs_to :feature_configuration, class_name: "Features::FeatureConfiguration"
+    embedded_in :feature_configuration, class_name: "Features::FeatureConfiguration"
 
     # Object Methods
     def build_assoc!(node)

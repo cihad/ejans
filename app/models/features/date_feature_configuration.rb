@@ -23,7 +23,7 @@ module Features
     field :spesific_end_date, type: Integer
 
     # Associations
-    belongs_to :feature_configuration, class_name: "Features::FeatureConfiguration"
+    embedded_in :feature_configuration, class_name: "Features::FeatureConfiguration"
 
     # Callbacks
     before_validation :empty_fields

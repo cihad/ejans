@@ -24,8 +24,8 @@ ActiveRecord::Schema.define(:version => 20120418125454) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                            :null => false
+    t.datetime "updated_at",                                            :null => false
   end
 
   add_index "accounts", ["email"], :name => "index_accounts_on_email", :unique => true
@@ -43,8 +43,8 @@ ActiveRecord::Schema.define(:version => 20120418125454) do
     t.integer  "notification_id"
     t.integer  "author_id"
     t.text     "body"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
     t.boolean  "private",         :default => false
     t.integer  "parent_id"
   end
@@ -59,8 +59,8 @@ ActiveRecord::Schema.define(:version => 20120418125454) do
     t.string   "credit_datable_type"
     t.integer  "credit_quantity"
     t.decimal  "price",               :precision => 5, :scale => 2
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                        :null => false
+    t.datetime "updated_at",                                        :null => false
   end
 
   add_index "credit_histories", ["credit_datable_id"], :name => "index_credit_histories_on_credit_datable_id"
@@ -88,8 +88,8 @@ ActiveRecord::Schema.define(:version => 20120418125454) do
   create_table "filters", :force => true do |t|
     t.integer  "service_id"
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "google_alert_feeds", :force => true do |t|
@@ -107,8 +107,8 @@ ActiveRecord::Schema.define(:version => 20120418125454) do
     t.string   "search_string"
     t.text     "suggestion"
     t.string   "email"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   add_index "ideas", ["account_id"], :name => "index_ideas_on_account_id"
@@ -116,8 +116,8 @@ ActiveRecord::Schema.define(:version => 20120418125454) do
   create_table "notices", :force => true do |t|
     t.integer  "notification_id"
     t.boolean  "read",              :default => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
     t.boolean  "new",               :default => true
     t.boolean  "sufficient_credit", :default => true
   end
@@ -136,8 +136,8 @@ ActiveRecord::Schema.define(:version => 20120418125454) do
     t.string   "title"
     t.string   "sms"
     t.text     "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
     t.boolean  "published",             :default => false
     t.datetime "published_at"
     t.string   "slug"
@@ -160,29 +160,29 @@ ActiveRecord::Schema.define(:version => 20120418125454) do
     t.integer  "credit"
     t.decimal  "price",           :precision => 10, :scale => 0
     t.boolean  "active",                                         :default => true
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                                       :null => false
+    t.datetime "updated_at",                                                       :null => false
   end
 
   create_table "payment_types", :force => true do |t|
     t.string   "name"
     t.text     "description"
     t.boolean  "active"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "roles", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "selections", :force => true do |t|
     t.integer  "filter_id"
     t.string   "label"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
     t.integer  "position"
   end
 
@@ -190,16 +190,16 @@ ActiveRecord::Schema.define(:version => 20120418125454) do
     t.integer  "service_id"
     t.integer  "sender_credit",   :default => 0
     t.integer  "receiver_credit", :default => 0
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
   end
 
   create_table "services", :force => true do |t|
     t.integer  "owner_id"
     t.string   "title"
     t.text     "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
     t.string   "slug"
     t.string   "image"
   end
@@ -230,8 +230,8 @@ ActiveRecord::Schema.define(:version => 20120418125454) do
     t.boolean  "email",      :default => true
     t.boolean  "sms",        :default => false
     t.boolean  "active",     :default => true
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
   end
 
   add_index "subscriptions", ["account_id"], :name => "index_subscriptions_on_account_id"
