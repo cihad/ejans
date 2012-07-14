@@ -2,16 +2,16 @@ module Features
   class StringFeatureConfiguration
     include Mongoid::Document
     include Ejans::Features::FeatureConfigurationAbility
-    include Ejans::Features::SingleValueFeatureConfiguration
 
-    FILTER_TYPES = [:plain, :simple, :extended]
+    TEXT_FORMATS = [:plain, :simple, :extended]
     
     # Fields
     field :row, type: Integer, default: 1
-    field :maximum_length, type: Integer
     field :minumum_length, type: Integer
-    field :default_value, type: String
-    field :filter_type, type: Symbol
+    field :maximum_length, type: Integer
+    field :text_format, type: Symbol
+
+    validates :text_format, inclusion: { in: TEXT_FORMATS }
 
     # Associations
     embedded_in :feature_configuration, class_name: "Features::FeatureConfiguration"

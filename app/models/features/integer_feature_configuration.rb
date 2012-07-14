@@ -2,7 +2,6 @@ module Features
   class IntegerFeatureConfiguration
     include Mongoid::Document
     include Ejans::Features::FeatureConfigurationAbility
-    include Ejans::Features::SingleValueFeatureConfiguration
 
     # Fields
     FILTER_TYPES = [:number_field, :range_with_number_field]

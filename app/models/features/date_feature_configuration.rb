@@ -3,7 +3,6 @@ module Features
     require 'active_support'
     include Mongoid::Document
     include Ejans::Features::FeatureConfigurationAbility
-    include Ejans::Features::SingleValueFeatureConfiguration
 
     # Fields
     field :date_type, type: Symbol

@@ -2,7 +2,6 @@ module Features
   class ListFeatureConfiguration
     include Mongoid::Document
     include Ejans::Features::FeatureConfigurationAbility
-    include Ejans::Features::MultipleValueFeatureConfiguration
 
     # Fields
     field :maximum_select, type: Integer

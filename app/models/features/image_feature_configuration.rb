@@ -2,7 +2,6 @@ module Features
   class ImageFeatureConfiguration
     include Mongoid::Document
     include Ejans::Features::FeatureConfigurationAbility
-    include Ejans::Features::SingleValueFeatureConfiguration
 
     # Fields
     field :maximum_image, type: Integer

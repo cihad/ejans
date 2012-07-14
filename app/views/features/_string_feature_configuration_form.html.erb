@@ -1,4 +1,4 @@
 <%= simple_number_field field, :row %>
 <%= simple_number_field field, :maximum_length %>
 <%= simple_number_field field, :minumum_length %>
-<%= simple_text_field field, :default_value %>
+<%= simple_select field, :text_format, Features::StringFeatureConfiguration::TEXT_FORMATS %>

@@ -4,7 +4,6 @@ module Features
     include Mongoid::MultiParameterAttributes
     # parent, configuration, child_configuration, required?
     include Ejans::Features::FeatureAbility
-    include Ejans::Features::SingleValueFeature
 
     # Associations
     embedded_in :feature, class_name: "Features::Feature"

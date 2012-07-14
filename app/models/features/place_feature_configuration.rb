@@ -2,7 +2,6 @@ module Features
   class PlaceFeatureConfiguration
     include Mongoid::Document
     include Ejans::Features::FeatureConfigurationAbility
-    include Ejans::Features::SingleValueFeatureConfiguration
 
     # Fields
     field :level, type: Integer

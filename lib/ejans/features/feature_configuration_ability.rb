@@ -19,6 +19,14 @@ module Ejans
       def machine_name
         parent.machine_name
       end
+
+      private
+      def where
+        where = "features."
+        where += "#{parent.feature_type}."
+        where += "#{parent.value_name}"
+        where
+      end
     end
   end
 end

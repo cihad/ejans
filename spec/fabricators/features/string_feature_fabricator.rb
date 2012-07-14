@@ -1,3 +1,10 @@
+Fabricator :string_fc, class_name: "Features::StringFeatureConfiguration" do
+  row 2
+  minimum_length 100
+  maximum_length 1_000
+  text_format :plain
+end
+
 Fabricator :aciklama_fc, class_name: "Features::FeatureConfiguration" do
   label     "Aciklama"
   required  true
