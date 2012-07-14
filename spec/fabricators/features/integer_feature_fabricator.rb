@@ -1,18 +1,10 @@
-Fabricator :integer_feature_configuration, class_name: "Features::IntegerFeatureConfiguration" do
+Fabricator :integer_fc, class_name: "Features::IntegerFeatureConfiguration" do
+  filter_type :number_field
   minumum 0
   maximum 1_000_000
-  filter_type :number_field
-  locale :tr
-  significant true
-  view_type :number_to_currency
-  precision 3
-  unit "$"
-  units :distance
-  separator ","
-  delimiter "."
-  prefix "prefix"
-  area_code true
-  country_code 1
+  prefix "text for prefix"
+  suffix "text for suffix"
+  thousand_marker :none
 end
 
 Fabricator :fiyat_fc, class_name: "Features::FeatureConfiguration" do
