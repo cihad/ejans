@@ -4,11 +4,12 @@
 <%= simple_select field, :date_type, Features::DateFeatureConfiguration::DATE_TYPES %>
 
 <%= simple_select field, :start_date_type, Features::DateFeatureConfiguration::START_DATE_TYPES %>
-<%= simple_number_field field, :x_years_ago, form_item_layout: { class: "x_years_ago" } %>
+<%= simple_number_field field, :x_years_ago_start, form_item_layout: { class: "x_years_ago_start" } %>
 <%= simple_number_field field, :spesific_start_date, form_item_layout: { class: "spesific_start_date" } %>
 
 <%= simple_select field, :end_date_type, Features::DateFeatureConfiguration::END_DATE_TYPES %>
-<%= simple_number_field field, :now_or_near, form_item_layout: { class: "now_or_near" } %>
+<%= simple_number_field field, :x_years_ago_end, form_item_layout: { class: "x_years_ago_end" } %>
+<%= simple_number_field field, :x_years_later_end, form_item_layout: { class: "x_years_later_end" } %>
 <%= simple_number_field field, :spesific_end_date, form_item_layout: { class: "spesific_end_date" } %>
 
 <%= select_option_for "#features_feature_configuration_date_feature_configuration_attributes_start_date_type" %>

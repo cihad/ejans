@@ -30,17 +30,18 @@ module Features
       "List"
     end
 
-    def machine_name
-      feature_configuration.machine_name
-    end
-
     def filterable?
       true
     end
 
+    def machine_name
+      feature_configuration.machine_name
+    end
+
+
     def filter_query(params = {})
-      if params["#{machine_name}"].present?
-        list_item_ids = Features::ListItem.find(params["#{machine_name}"]).map(&:id)
+      if params[machine_name].present?
+        list_item_ids = Features::ListItem.find(params[machine_name]).map(&:id)
         NodeQuery.new.in(:"#{where}" => list_item_ids).selector
       else
         {}

@@ -1,3 +1,7 @@
+Fabricator :image_fc, class_name: "Features::ImageFeatureConfiguration" do
+  maximum_image 10
+end
+
 Fabricator :fotograflar_fc, class_name: "Features::FeatureConfiguration" do
   label     "Fotograflar"
   required  false

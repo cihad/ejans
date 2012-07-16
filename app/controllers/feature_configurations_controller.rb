@@ -20,7 +20,6 @@ class FeatureConfigurationsController < ApplicationController
 
   def create
     @fc = @node_type.feature_configurations.build(params[:features_feature_configuration])
-    binding.pry
     if @fc.save
       redirect_to @node_type,
         notice: 'Feature configuration was successfully created.'

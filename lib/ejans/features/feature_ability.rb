@@ -16,6 +16,10 @@ module Ejans
       def required?
         configuration.required?
       end
+
+      def value
+        self.send(configuration.value_name)
+      end
     end
   end
 end
