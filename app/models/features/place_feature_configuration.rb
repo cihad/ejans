@@ -23,11 +23,11 @@ module Features
     end
 
     def level_names
-      top_place.bottom_level_names
+      top_place.bottom_level_names.first(level+1)
     end
 
     def level_machine_names
-      top_place.bottom_level_machine_names
+      top_place.bottom_level_machine_names.first(level+1)
     end
 
     def form_level_names
@@ -44,7 +44,7 @@ module Features
 
     # Object Methods
     def type
-      "City"
+      "Place"
     end
 
     def filterable?

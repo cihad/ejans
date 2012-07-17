@@ -1,3 +1,11 @@
+Fabricator :place_fc, class_name: "Features::PlaceFeatureConfiguration" do
+  level 3
+
+  after_build do |place_fc|
+    place_fc.top_place = Fabricate.build(:place)
+  end
+end
+
 Fabricator :mahalle_fc, class_name: "Features::FeatureConfiguration" do
   label "Mahalle"
   required true

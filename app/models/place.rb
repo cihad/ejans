@@ -27,7 +27,7 @@ class Place
     top_hierarchy.first
   end
 
-  # [#<Place1>, #<Place2>, #<Place3>]
+  # [#<Place1>, #<Place2>, #<Place3>, #<SELF>]
   def top_hierarchy
     return [self] if top_place?
     [parent_place.top_hierarchy, self].flatten

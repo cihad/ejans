@@ -1,3 +1,19 @@
+Fabricator :place, class_name: "Place" do
+  name { sequence(:name) { |i| "#{i}" } }
+  hierarchy "ulke, sehir, ilce, mahalle"
+
+  after_build do |place|
+    place.child_places.push([
+      Fabricate.build(:child_place),
+      Fabricate.build(:child_place)
+    ])
+  end
+end
+
+Fabricator :child_place, class_name: "Place" do
+  name { sequence(:name) { |i| "#{i}" } }
+end
+
 Fabricator :turkiye, class_name: "Place" do
   name "Turkiye"
 

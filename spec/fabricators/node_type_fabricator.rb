@@ -1,8 +1,8 @@
 Fabricator :node_type do
-  name { Faker::Lorem.words }
-  title_label { Faker::Lorem.words(1) }
-  title_description { Faker::Lorem.sentences }
-  description { Faker::Lorem.paragraph }
+  name "Node Type Name"
+  title_label "Title label"
+  title_description "Title description"
+  description "Description"
 end
 
 Fabricator :emlak, class_name: "NodeType" do
