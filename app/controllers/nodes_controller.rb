@@ -3,11 +3,15 @@ class NodesController < ApplicationController
 
   def index
     @nodes = @node_type.filter(params)
-    @node = Node.find(params[:node_id]) if params[:node_id]
+    if params[:node_id]
+      @node = Node.find(params[:node_id])
+      @node.build_assoc!
+    end
   end
 
   def show
     @node = @node_type.nodes.find(params[:id])
+    @node.build_assoc!
   end
 
   def new

@@ -13,12 +13,20 @@ module Ejans
         configuration.child
       end
 
+      def value_name
+        configuration.value_name.to_sym
+      end
+
       def required?
         configuration.required?
       end
 
+      def add_error(field = :base, message = "")
+        errors.add(field, message)
+      end
+
       def value
-        self.send(configuration.value_name)
+        self.send(value_name)
       end
     end
   end

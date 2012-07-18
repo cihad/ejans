@@ -11,7 +11,6 @@ class Node
   belongs_to :node_type
   embeds_many :features, class_name: "Features::Feature", cascade_callbacks: true
   accepts_nested_attributes_for :features
-  validates_associated :features
 
   def find_value_by_views_feature(feature)
     fcid = feature.feature_configuration_id
@@ -52,11 +51,18 @@ class Node
     end
   end
 
-  after_initialize :build_values
-
-  def build_values
+  def node_type=(node_type)
+    self.node_type_id = node_type.id
     node_type.feature_configurations.each do |fea_conf|
       fea_conf.add_value_to_feature!
     end
   end
+
+  # after_initialize :build_values
+
+  # def build_values
+  #   node_type.feature_configurations.each do |fea_conf|
+  #     fea_conf.add_value_to_feature!
+  #   end
+  # end
 end
