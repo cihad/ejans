@@ -14,7 +14,7 @@ module Features
       send(parent.feature_configuration.value_name)
     end
 
-    def self.add_value(name, options)
+    def self.add_value(name)
       has_and_belongs_to_many :"#{name}",
         class_name: "Features::Image"
     end
