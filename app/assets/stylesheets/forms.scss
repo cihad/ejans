@@ -66,16 +66,6 @@ input:-webkit-autofill {
 .form-vertical {
   padding-left: 20px;
 
-  .field_with_errors {
-    display: block !important;
-    margin: 0 !important;
-    float: none !important;
-
-    input {
-      margin: 0 !important;
-    }
-  }
-
   label {
     width: auto;
     display: block;
@@ -199,10 +189,5 @@ input:-webkit-autofill {
 }
 
 .field_with_errors {
-  label {
-    color: $red;
-  }
-  input, textarea {
-    border-color: $red;
-  }
+  @extend .control-group.error;
 }

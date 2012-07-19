@@ -9,6 +9,7 @@
           <%= content_tag :i, nil, class: "icon-white icon-plus" %>
           Add image
         <% end %>
+        <%= content_tag :span, "En fazla #{feature.maximum_image} resim ekleyebilirsiniz." %>
       </div>
 
       <%= content_tag :ul, class: "inline-list images", data: { update_url: sort_features_images_url } do %>

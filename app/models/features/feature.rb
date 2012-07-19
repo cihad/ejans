@@ -10,8 +10,7 @@ module Features
     FEATURE_TYPES = [:integer, :string, :list, :date, :image, :place]
     FEATURE_TYPES.each do |feature_type|
       embeds_one :"#{feature_type}_feature",
-        class_name: "Features::#{feature_type.to_s.camelize}Feature",
-        cascade_callbacks: true
+        class_name: "Features::#{feature_type.to_s.camelize}Feature"
       accepts_nested_attributes_for :"#{feature_type}_feature"
     end
 

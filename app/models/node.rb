@@ -1,4 +1,4 @@
-class Node  
+class Node
   include Mongoid::Document
   include Mongoid::Timestamps
 
@@ -6,11 +6,23 @@ class Node
 
   # Fields
   field :title
+  field :published, type: Boolean, default: false
+  field :approved, type: Boolean, default: false
+
+  # Scopes
+  scope :queue, where(published: true, approved: false)
+  scope :unpublished, where(published: false)
+  scope :publishing, where(published: true, approved: true)
 
   # Associations
   belongs_to :node_type
-  embeds_many :features, class_name: "Features::Feature", cascade_callbacks: true
+  embeds_many :features, class_name: "Features::Feature"
   accepts_nested_attributes_for :features
+
+  def publish=(value)
+    self.published = true
+    self.approved = false
+  end
 
   def find_value_by_views_feature(feature)
     fcid = feature.feature_configuration_id
@@ -21,6 +33,7 @@ class Node
     images.delete(img)
   end
 
+  # [<Features::Image..>, <Features::Image..>, ...]
   def images
     child_image_feature.send(feature_with_image.feature_configuration.value_name)
   end
@@ -36,10 +49,12 @@ class Node
     images
   end
 
+  # <Features::Feature...>
   def feature_with_image
     features.detect { |fea| fea.type == "image_feature" }
   end
 
+  # <Features::ImageFeature...>
   def child_image_feature
     feature_with_image.image_feature
   end
@@ -53,16 +68,13 @@ class Node
 
   def node_type=(node_type)
     self.node_type_id = node_type.id
-    node_type.feature_configurations.each do |fea_conf|
-      fea_conf.add_value_to_feature!
-    end
+    build_assoc!
   end
 
-  # after_initialize :build_values
+  after_initialize :build_values
 
-  # def build_values
-  #   node_type.feature_configurations.each do |fea_conf|
-  #     fea_conf.add_value_to_feature!
-  #   end
-  # end
+  private
+  def build_values
+    build_assoc! if node_type
+  end
 end

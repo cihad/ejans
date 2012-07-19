@@ -21,8 +21,9 @@ module Ejans
         configuration.required?
       end
 
-      def add_error(field = :base, message = "")
-        errors.add(field, message)
+      def add_error(attr, message = "")
+        errors.add(attr, message)
+        feature.node.errors.add(:base, message)
       end
 
       def value

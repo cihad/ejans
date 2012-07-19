@@ -4,6 +4,7 @@
       <h2><%= pluralize(@node.errors.count, "error") %> prohibited this node from being saved:</h2>
 
       <ul>
+      <% @node.errors.messages.delete(:features) %>
       <% @node.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
@@ -19,6 +20,9 @@
       <%= feature_form_for(ftr) %>
     <% end %>
 
-    <%= simple_submit f %>
+    <%= checkbox_group nil do %>
+      <%= f.submit "Save", class: "btn" %>
+      <%= f.submit "Publish", class: "btn", name: "node[publish]" unless @node.published? %>
+    <% end %>
   </table>
 <% end %>

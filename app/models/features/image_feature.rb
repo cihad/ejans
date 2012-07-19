@@ -8,21 +8,21 @@ module Features
     embedded_in :feature, class_name: "Features::Feature"
 
     # Validates
-    # validate :presence_value
+    validate :maximum_image
 
     def value
       send(parent.feature_configuration.value_name)
     end
 
-    # Singleton Methods
-    def self.add_value(name)
-      has_and_belongs_to_many :"#{name}", class_name: "Features::Image"
+    def self.add_value(name, options)
+      has_and_belongs_to_many :"#{name}",
+        class_name: "Features::Image"
     end
 
     private
-    def presence_value
-      if required? and value.blank?
-        errors.add(:base, "Not should cihaaaaaddd!!")
+    def maximum_image
+      if send(configuration.value_name).size > child_configuration.maximum_image
+        add_error("Maximum image")
       end
     end
   end

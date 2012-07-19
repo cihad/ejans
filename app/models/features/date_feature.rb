@@ -19,19 +19,19 @@ module Features
     private
     def presence_value
       if required? and not_defined?
-        add_error(value_name)
+        add_error(value_name, "#{configuration.label.parameterize} alani bos birakilamaz.")
       end
     end
 
     def start_and_end_date
-      if value.year < child_configuration.start_year or
-         value.year > child_configuration.end_year
-        add_error(value_name)
+      if !not_defined? && (value.year < child_configuration.start_year or
+         value.year > child_configuration.end_year)
+        add_error("Baslangic tarihinden kucuk ve bitis tarihinden kucuk olamaz")
       end
     end
 
     def not_defined?
-      value == Date.new(1) || value.blank?
+      value.blank? or value == Date.new(1) 
     end
   end
 end

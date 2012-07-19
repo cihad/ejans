@@ -15,24 +15,16 @@ class NodesController < ApplicationController
   end
 
   def new
-    @node = Node.new(node_type: @node_type)
-    @node.build_assoc!
-    @node.save
+    unless @node = @node_type.nodes.unpublished.first
+      @node = Node.new(node_type: @node_type)
+      @node.build_assoc!
+      @node.save(validate: false)
+    end
   end
 
   def edit
     @node = @node_type.nodes.find(params[:id])
     @node.build_assoc!
-  end
-
-  def create
-    @node = @node_type.nodes.build(params[:node])
-    if @node.save
-      redirect_to node_type_node_path(@node_type, @node),
-        notice: 'Node was successfully created.'
-    else
-      render action: "new"
-    end
   end
 
   def update

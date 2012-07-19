@@ -22,6 +22,7 @@ describe Features::DateFeature do
     feature.date_feature
   end
 
+  it { should respond_to :value }
   it { should respond_to feature_configuration.value_name.to_sym }
   it { should be_valid }
 

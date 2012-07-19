@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Features::DateFeature do
+describe Features::ImageFeature do
   let(:node_type) { Fabricate(:node_type) }
   let(:node) { Fabricate.build(:node) }
   let(:feature) { Fabricate.build(:feature) }
@@ -8,45 +8,41 @@ describe Features::DateFeature do
   let(:image_fc) { Fabricate.build(:image_fc) }
 
   before do
-    feature_configuration.date_feature_configuration = image_fc
+    feature_configuration.image_feature_configuration = image_fc
     node_type.feature_configurations << feature_configuration
     feature_configuration.save
     node.node_type = node_type
     feature.feature_configuration = feature_configuration
     node.features << feature
     image_feature = feature.image_feature = Fabricate.build(:image_feature)
-    image_feature.send("#{feature_configuration.value_name}=", 11.years.ago.to_date)
   end
 
   subject do
-    feature.date_feature
+    feature.image_feature
   end
 
+  specify { subject.class.should respond_to(:add_value) }
+  it { should respond_to :value }
   it { should respond_to feature_configuration.value_name.to_sym }
   it { should be_valid }
 
-  # context "should be exists field by value_name" do 
-  #   let(:fields) { subject.class.fields }
-  #   specify do
-  #     fields[feature_configuration.value_name].should_not be_nil
-  #   end
+  context "should be exists has_and_belongs_to_many association by value_name" do 
+    specify do
+      subject.class.
+        reflect_on_association(subject.configuration.value_name).
+        should_not be_nil
+    end
 
-  #   specify do
-  #     fields[feature_configuration.value_name].options[:type].should == Date
-  #   end
+    specify do
+      subject.class.
+        reflect_on_association(subject.configuration.value_name).
+        name.should == subject.configuration.value_name.to_sym
+    end
+  end
 
-  #   specify do
-  #     fields[feature_configuration.value_name].name.should == feature_configuration.value_name
-  #   end
-  # end
-
-  # specify do
-  #   subject.feature.should == feature
-  # end
-
-  # specify do
-  #   subject.class.should respond_to :add_value
-  # end
+  specify do
+    subject.feature.should == feature
+  end
 
   # context "#validations" do
   #   context "when date is null" do
