@@ -29,24 +29,9 @@ class Node
     features.where(feature_configuration_id: fcid).first
   end
 
-  def delete_image(img)
-    images.delete(img)
-  end
-
   # [<Features::Image..>, <Features::Image..>, ...]
   def images
     child_image_feature.send(feature_with_image.feature_configuration.value_name)
-  end
-
-  def add_images(params)
-    images = params[:features_image][:image].inject([]) do |images, image|
-      image = Features::Image.new({ image: image })
-      image.node = self
-      images << image if image.save
-    end
-
-    self.images << images
-    images
   end
 
   # <Features::Feature...>

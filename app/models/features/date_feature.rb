@@ -19,7 +19,7 @@ module Features
     private
     def presence_value
       if required? and not_defined?
-        add_error(value_name, "#{configuration.label.parameterize} alani bos birakilamaz.")
+        add_error("#{configuration.label.parameterize} alani bos birakilamaz.")
       end
     end
 
