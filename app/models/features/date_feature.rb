@@ -1,20 +1,13 @@
 module Features
-  class DateFeature
+  class DateFeature < Feature
     include Mongoid::Document
     include Mongoid::MultiParameterAttributes
-    include Ejans::Features::FeatureAbility
-
-    # Associations
-    embedded_in :feature, class_name: "Features::Feature"
 
     # Validates
     validate :presence_value
     validate :start_and_end_date
 
-    # Singleton Methods
-    def self.add_value(name)
-      field :"#{name}", type: Date
-    end
+    field :value, as: @@key, type: Date
 
     private
     def presence_value

@@ -1,8 +1,9 @@
 module Features
-  class DateFeatureConfiguration
+  class DateFeatureConfiguration < FeatureConfiguration
     require 'active_support'
     include Mongoid::Document
-    include Ejans::Features::FeatureConfigurationAbility
+    include Ejans::Features::Filterable
+    include Ejans::Features::Sortable
 
     # Fields
     field :date_type, type: Symbol
@@ -21,9 +22,6 @@ module Features
     field :x_years_ago_end, type: Integer, default: 0
     field :x_years_later_end, type: Integer, default: 0
     field :spesific_end_date, type: Date
-
-    # Associations
-    embedded_in :feature_configuration, class_name: "Features::FeatureConfiguration"
 
     # Callbacks
     before_validation :empty_fields
@@ -51,24 +49,14 @@ module Features
     end
 
     def build_assoc!(node)
-      if node.features.map(&:feature_configuration).include?(parent)
-        feature = node.features.where(feature_configuration_id: parent.id.to_s).first
+      Features::DateFeature.add_key(key_name)
+      if node.features.map(&:feature_configuration).include?(self)
+        feature = node.features.where(feature_configuration_id: self.id.to_s).first
       else
-        feature = node.features.build
-        feature.feature_configuration = parent
-        feature.send("build_#{feature_type}")
+        feature = node.features.build({}, Features::DateFeature)
+        feature.feature_configuration = self
       end
 
-      feature.child.class.add_value(value_name)
-    end
-
-    # Object Methods
-    def type
-      "Date"
-    end
-
-    def filterable?
-      true
     end
 
     def now_year

@@ -42,4 +42,9 @@ module FeaturesHelper
     javascript_tag "new SelectOption( '#{selector}' )"
   end
 
+  def to_feature_name(class_name)
+    name = class_name.to_s.demodulize.titleize.split(' ')
+    name.pop(2)
+    name.join(' ')
+  end
 end

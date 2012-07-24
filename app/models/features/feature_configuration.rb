@@ -2,99 +2,87 @@ module Features
   class FeatureConfiguration
     include Mongoid::Document
 
-    # Fields
+    attr_accessor :feature_type
+
     field :label, type: String
+    field :key_name, type: Symbol
     field :required, type: Boolean
-    field :help, type: String
-    field :sort, type: Boolean
-    field :filter, type: Boolean
-    field :filter_weight, type: Integer
-    field :value_name, type: String
+    field :help_text, type: String
     field :position, type: Integer
 
-    # Scopes
     default_scope order_by([:position, :asc])
 
-    # Associations
     belongs_to :node_type
 
-    FEATURE_TYPES = [:integer, :string, :list, :date, :image, :place]
-    FEATURE_TYPES.each do |feature_type|
-      embeds_one :"#{feature_type}_feature_configuration",
-        class_name: "Features::#{feature_type.to_s.camelize}FeatureConfiguration"
-      accepts_nested_attributes_for :"#{feature_type}_feature_configuration"
-    end
+    before_save :assign_key_name
 
-    # => self.value_name = "integer_value_name"
-    before_save :assign_value_name
-    # TODO
-    after_destroy :delete_features_from_nodes
-
-    # => #<Features::IntegerFeatureConfiguration _id: ...>
-    def child
-      self.send(type)
-    end
-    
-    # => "integer_feature_configuration"
-    def type
-      self.reflect_on_all_associations(:embeds_one).map(&:key).inject("") do |s, assoc|
-        s << assoc if self.send(assoc)
-        s
+    def self.feature_types
+      subclasses.map do |name|
+        to_feature(name)
       end
     end
 
-    # => "integer_feature"
+    def self.to_feature(class_name)
+      name = class_name.to_s.demodulize.titleize.split(' ')
+      name.pop(2)
+      name.join
+    end
+
+    def self.humanize(class_name)
+      to_feature(class_name).titleize
+    end
+
+    def self.param_name(type_class)
+      type_class.to_s.underscore.sub('/', '_')
+    end
+
+    def self.options_for_types
+      subclasses.map { |class_name| [humanize(class_name), class_name]  }
+    end
+
     def feature_type
-      arr = type.split("_")
-      arr.pop
-      arr.join("_")
+      self.class.humanize(self.class)
     end
 
-    def feature_type=(type)
-      self.send("build_#{type}_feature_configuration")
+    def partial_name
+      "features/#{feature_type.underscore}/configuration_form"
     end
 
-    # => Features::IntegerFeature
-    def feature_class
-      "Features::#{feature_type.classify}".constantize
-    end
-
-    def add_value_to_feature!
-      feature_class.add_value(value_name)
-    end
-
-    # if label = "Price"
-    # => "price"
     def machine_name
       label.parameterize("_")
     end
     
     private
+    def where
+      "features." + key_name
+    end
 
-    # => self.value_name = "integer_value_0"
-    # other example:
-    # => self.value_name = "string_value_1"
-    def assign_value_name
-      unless value_name
-        value_names = node_type.feature_configurations.map(&:value_name)
-        case feature_type
-        when "list_feature"
-          name_prefix = 0
-          while value_names.include?(name = "#{number_to_english[name_prefix]}_list_items")
-            name_prefix = name_prefix.next
-          end
-        when "image_feature"
-          name_prefix = 0
-          while value_names.include?(name = "#{number_to_english[name_prefix]}_images")
-            name_prefix = name_prefix.next
-          end
-        else
-          name = "#{feature_type.downcase}_value_0"
-          while value_names.include?(name)
-            name = name.next
-          end
+    def assign_key_name
+      unless key_name
+        key_names = node_type.feature_configurations.map(&:key_name)
+        # case feature_type
+        # when "list_feature"
+        #   name_prefix = 0
+        #   while value_names.include?(name = "#{number_to_english[name_prefix]}_list_items")
+        #     name_prefix = name_prefix.next
+        #   end
+        # when "image_feature"
+        #   name_prefix = 0
+        #   while value_names.include?(name = "#{number_to_english[name_prefix]}_images")
+        #     name_prefix = name_prefix.next
+        #   end
+        # else
+        #   name = "#{feature_type.downcase}_value_0"
+        #   while value_names.include?(name)
+        #     name = name.next
+        #   end
+        # end
+
+        name = "#{feature_type.downcase}_value_0"
+        while key_names.include?(name)
+          name = name.next
         end
-        self.value_name = name
+        self.key_name = name.to_sym
       end
     end
 
@@ -112,10 +100,6 @@ module Features
         9 => "nine",
         10 => "ten"
       }
-    end
-
-    # TODO
-    def delete_features_from_nodes
     end
   end
 end

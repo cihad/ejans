@@ -47,7 +47,7 @@ class Node
   # Associations builer (used by the controller)
   def build_assoc!
     node_type.feature_configurations.each do |fea_conf|
-      fea_conf.child.build_assoc!(self)
+      fea_conf.build_assoc!(self)
     end
   end
 

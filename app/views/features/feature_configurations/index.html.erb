@@ -1,5 +1,4 @@
 <%= tab_navigation %>
-
 <table class="table table-striped sortable">
   <thead>
     <tr>
@@ -7,8 +6,6 @@
       <th>Label</th>
       <th>Type</th>
       <th>Required?</th>
-      <th>Sort</th>
-      <th>Filter</th>
       <th>Actions</th>
     </tr>
   </thead>
@@ -18,10 +15,8 @@
       <tr class="feature_configuration" id="feature_configuration_<%= fc.id %>">
         <td><span class="handle">[drag]</span></td>
         <td><%= link_to fc.label, node_type_features_feature_configuration_path(@node_type, fc) %></td>
-        <td><%= fc.type %></td>
+        <td><%= fc.feature_type %></td>
         <td><%= fc.required %></td>
-        <td><%= fc.sort %></td>
-        <td><%= fc.filter %></td>
         <td>
           <%= link_to t('global.edit'), edit_node_type_features_feature_configuration_path(@node_type, fc) %>
           <%= link_to t('global.destroy'), node_type_features_feature_configuration_path(@node_type, fc),
@@ -33,14 +28,16 @@
 
   </tbody>
 
-  <%= form_for [@node_type, @node_type.feature_configurations.build], url: new_node_type_features_feature_configuration_path, method: :get  do |f| %>
+
+  <%= form_for [@node_type, @node_type.feature_configurations.build],
+        url: new_node_type_features_feature_configuration_path,
+        method: :get  do |f| %>
     <tr>
       <td></td>
       <td><%= f.text_field :label, placeholder: "Label" %></td>
-      <td><%= f.select :feature_type, Features::FeatureConfiguration::FEATURE_TYPES.map { |f| [f.to_s.humanize, f]} %></td>
+      <td><%= select_tag "_type",
+                options_for_select(Features::FeatureConfiguration.options_for_types) %></td>
       <td><%= f.check_box :required %></td>
-      <td><%= f.check_box :sort %></td>
-      <td><%= f.check_box :filter %></td>
       <td><%= f.submit "New feature" %></td>
     </tr>
   <% end %>

@@ -25,6 +25,15 @@ class NodeType
     self.views.create(type: :node, position: 0)
   end
 
+  def build_configuration(params)
+    type = params[:_type].safe_constantize if params[:_type]
+    if Features::FeatureConfiguration.subclasses.include?(type)
+      parameters = params[Features::FeatureConfiguration.param_name(type)] || {}
+      binding.pry
+      self.feature_configurations.build(parameters, type)
+    end
+  end
+
   # Methods
   # Feature configurations with selected filter
   def filters
