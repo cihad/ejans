@@ -1,22 +1,23 @@
 module Features
-  class ImageFeature
+  class ImageFeature < Feature
     include Mongoid::Document
-    # parent, configuration, child_configuration, required?
-    include Ejans::Features::FeatureAbility
 
-    # Associations
-    embedded_in :feature, class_name: "Features::Feature"
+    def self.set_key(key_name)
+      has_and_belongs_to_many :"#{key_name}",
+        class_name: "Features::Image"
+    end
 
     def add_images(params)
       params.inject([]) do |new_images, img|
         image = Features::Image.new({ image: img })
-        image.node = feature.node
+        image.node = node
         # Validation Maximum Image Size
-        if value.size < child_configuration.maximum_image
+        if value.size < conf.maximum_image
           new_images << image
           value << image
           image.save
         end
+        node.save
         new_images
       end
     end
@@ -27,12 +28,7 @@ module Features
     end
 
     def value
-      send(parent.feature_configuration.value_name)
-    end
-
-    def self.add_value(name)
-      has_and_belongs_to_many :"#{name}",
-        class_name: "Features::Image"
+      send(conf.key_name)
     end
   end
 end

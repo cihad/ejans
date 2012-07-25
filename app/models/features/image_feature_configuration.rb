@@ -1,33 +1,17 @@
 module Features
-  class ImageFeatureConfiguration
+  class ImageFeatureConfiguration < FeatureConfiguration
     include Mongoid::Document
-    include Ejans::Features::FeatureConfigurationAbility
 
-    # Fields
     field :maximum_image, type: Integer
-    
-    # Associations
-    embedded_in :feature_configuration, class_name: "Features::FeatureConfiguration"
 
     def build_assoc!(node)
-      if node.features.map(&:feature_configuration).include?(parent)
-        feature = node.features.where(feature_configuration_id: parent.id.to_s).first
+      Features::ImageFeature.set_key(key_name)
+      if node.features.map(&:feature_configuration).include?(self)
+        feature = node.features.where(feature_configuration_id: self.id.to_s).first
       else
-        feature = node.features.build
-        feature.feature_configuration = parent
-        feature.send("build_#{feature_type}")
+        feature = node.features.build({}, Features::ImageFeature)
+        feature.feature_configuration = self
       end
-
-      feature.child.class.add_value(value_name)
-    end
-
-    # Object Methods
-    def type
-      "Image"
-    end
-
-    def filterable?
-      false
     end
   end
 end

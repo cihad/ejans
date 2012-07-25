@@ -29,7 +29,6 @@ class NodeType
     type = params[:_type].safe_constantize if params[:_type]
     if Features::FeatureConfiguration.subclasses.include?(type)
       parameters = params[Features::FeatureConfiguration.param_name(type)] || {}
-      binding.pry
       self.feature_configurations.build(parameters, type)
     end
   end

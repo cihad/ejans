@@ -31,17 +31,12 @@ class Node
 
   # [<Features::Image..>, <Features::Image..>, ...]
   def images
-    child_image_feature.send(feature_with_image.feature_configuration.value_name)
+    feature_with_image.send(feature_with_image.conf.key_name)
   end
 
   # <Features::Feature...>
   def feature_with_image
-    features.detect { |fea| fea.type == "image_feature" }
-  end
-
-  # <Features::ImageFeature...>
-  def child_image_feature
-    feature_with_image.image_feature
+    features.detect { |fea| fea._type == "Features::ImageFeature" }
   end
 
   # Associations builer (used by the controller)

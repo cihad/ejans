@@ -23,6 +23,6 @@ class ImagesController < ApplicationController
   end
 
   def feature
-    @feature = @node.child_image_feature
+    @feature = @node.feature_with_image
   end
 end

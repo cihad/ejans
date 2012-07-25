@@ -3,7 +3,6 @@ module Features
     require 'active_support'
     include Mongoid::Document
     include Ejans::Features::Filterable
-    include Ejans::Features::Sortable
 
     # Fields
     field :date_type, type: Symbol
