@@ -11,7 +11,7 @@ module FeatureViews
     end
 
     def pretty_value
-      case child.date_type
+      case conf.date_type
       when :year
         plain_value.year
       when :year_month

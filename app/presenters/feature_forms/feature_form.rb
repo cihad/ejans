@@ -1,54 +1,38 @@
 module FeatureForms
   class FeatureForm
-    attr_accessor :feature
+    attr_reader :form_builder
 
-    def initialize(feature_form_element, template)
-      self.feature = feature_form_element
+    def initialize(form_builder, template)
+      @form_builder = form_builder
       @template = template
     end
 
-    def form_element
-      feature
+    def feature
+      form_builder.object
     end
 
-    def object
-      feature.object
+    def conf
+      feature.feature_configuration
     end
 
-    def object_class
-      object.class
-    end
-
-    def feature_configuration
-      object.feature_configuration
-    end
-
-    def value_name
-      feature_configuration.value_name
-    end
-
-    def child
-      feature_configuration.child
-    end
-
-    def child_feature
-      object.child
-    end
-
-    def type
-      feature_configuration.feature_type
+    def key_name
+      conf.key_name
     end
 
     def label
-      feature_configuration.label.to_s
+      conf.label
     end
 
     def to_s
-      @template.render "features/#{type}_form", feature: self
+      @template.render "#{conf.partial_dir}/form", feature: self
     end
 
-    def self.form_presenter_class(form_element)
-      "FeatureForms::#{form_element.object.feature_configuration.feature_type.camelize}Form".constantize
-    end
+    def self.form_presenter_class(form_builder)
+      ( 
+        "FeatureForms::" +
+        Features::Feature.to_feature(form_builder.object.class) +
+        "FeatureForm"
+      ).safe_constantize
+    end 
   end
 end

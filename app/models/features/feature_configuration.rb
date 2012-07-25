@@ -44,8 +44,8 @@ module Features
       self.class.humanize(self.class)
     end
 
-    def partial_name
-      "features/#{feature_type.underscore}/configuration_form"
+    def partial_dir
+      "features/#{feature_type.underscore}"
     end
 
     def machine_name

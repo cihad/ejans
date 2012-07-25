@@ -1,19 +1,15 @@
 module FeatureForms
-  class DateFeatureForm < FeatureForm
-    def value
-      feature_configuration.value_name.to_sym
-    end
-    
+  class DateFeatureForm < FeatureForm 
     def start_year
-      child.start_year
+      conf.start_year
     end
 
     def end_year
-      child.end_year
+      conf.end_year
     end
 
     def prompt
-      case child.date_type
+      case conf.date_type
       when :year
         { year: "Select year", month: false, day: false }
       when :year_month
@@ -24,7 +20,7 @@ module FeatureForms
     end
 
     def discards
-      case child.date_type
+      case conf.date_type
       when :year
         { discard_month: true, discard_day: true }
       when :year_month
@@ -36,7 +32,7 @@ module FeatureForms
 
     [:year, :month, :day].each do |time|
       define_method(:"discard_#{time}") do
-        if child.date_type.to_s.split("_").include?(time.to_s)
+        if conf.date_type.to_s.split("_").include?(time.to_s)
           false
         else
           true

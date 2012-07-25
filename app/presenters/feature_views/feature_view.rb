@@ -7,32 +7,28 @@ module FeatureViews
 
     attr_accessor :feature
 
-    def feature_configuration
-      feature.feature_configuration
+    def conf
+      feature.conf
     end
 
     def machine_name
-      feature_configuration.machine_name
-    end
-
-    def child
-      feature_configuration.child
+      conf.machine_name
     end
 
     def type
-      feature_configuration.feature_type
+      conf.feature_type
     end
 
     def to_s
-      @template.render "features/#{type.downcase}_view", feature: self
+      @template.render "features/#{conf.partial_dir}/view", feature: self
     end
 
     def label
-      feature_configuration.label
+      conf.label
     end
 
     def self.feature_presenter_class(feature)
-      "FeatureViews::#{feature.feature_configuration.feature_type.camelize}View".constantize
+      "FeatureViews::#{feature.feature_configuration.feature_type.camelize}FeatureView".constantize
     end
 
     def feature_tag(&block)

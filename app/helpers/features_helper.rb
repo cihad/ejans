@@ -1,12 +1,7 @@
 module FeaturesHelper
-  def feature_form_for(feature_form_element)
-    object_class = FeatureForms::FeatureForm.form_presenter_class(feature_form_element)
-    presenter = object_class.new(feature_form_element, self)
-    if block_given?
-      yield presenter
-    else
-      presenter
-    end
+  def feature_form_for(form_builder)
+    object_class = FeatureForms::FeatureForm.form_presenter_class(form_builder)
+    object_class.new(form_builder, self)
   end
 
   def feature_view(feature)

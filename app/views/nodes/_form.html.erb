@@ -16,8 +16,8 @@
     <%= f.hidden_field :node_type_id %>
     <%= simple_text_field f, :title %>
 
-    <%= f.fields_for :features do |ftr| %>
-      <%= feature_form_for(ftr) %>
+    <%= f.fields_for :features do |form_builder| %>
+      <%= feature_form_for(form_builder) %>
     <% end %>
 
     <%= checkbox_group nil do %>

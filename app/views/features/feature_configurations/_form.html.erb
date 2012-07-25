@@ -13,7 +13,7 @@
     <%= simple_text_area f, :help_text, input: { rows: 3 } %> 
     <%#= simple_check_box f, :sort %>
     <%#= simple_check_box f, :filter, input: { data: { toggle: "filter" } } %>
-    <%= render @fc.partial_name, f: f %>
+    <%= render "#{@fc.partial_dir}/configuration_form", f: f %>
     <%= simple_submit f %>
   </table>
 <% end %>
