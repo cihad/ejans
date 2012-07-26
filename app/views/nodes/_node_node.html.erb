@@ -1,13 +1,13 @@
 <div class="node">
   <table class="table table-form">  
     <% node.features.each do |feature| %>
-      <% feature_view(feature) do |f| %>
+      <% feature_view(feature) do |feature| %>
         <%= form_item_layout do %>  
           <%= form_label_layout do %>
-            <%= f.label %>
+            <%= feature.label %>
           <% end %>
           <%= form_value_layout do %>
-            <%= f.value %>
+            <%= feature.value %>
           <% end %>
       <% end %>    
       <% end %>

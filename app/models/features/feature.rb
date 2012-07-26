@@ -16,10 +16,6 @@ module Features
       name.join
     end
 
-    def value
-      send(conf.key_name)
-    end
-
     def required?
       feature_configuration.required?
     end

@@ -1,7 +1,7 @@
 module Features
-  class ListFeatureConfiguration
+  class ListFeatureConfiguration < FeatureConfiguration
     include Mongoid::Document
-    include Ejans::Features::FeatureConfigurationAbility
+    include Ejans::Features::Filterable
 
     # Fields
     field :maximum_select, type: Integer
@@ -11,31 +11,15 @@ module Features
     accepts_nested_attributes_for :list_items,
       reject_if: ->(attrs){ attrs[:name].blank? }
 
-    embedded_in :feature_configuration, class_name: "Features::FeatureConfiguration"
-
     # Object Methods
     def build_assoc!(node)
-      if node.features.map(&:feature_configuration).include?(parent)
-        feature = node.features.where(feature_configuration_id: parent.id.to_s).first
+      Features::ListFeature.set_key(key_name)
+      if node.features.map(&:feature_configuration).include?(self)
+        feature = node.features.where(feature_configuration_id: self.id.to_s).first
       else
-        feature = node.features.build
-        feature.feature_configuration = parent
-        feature.send("build_#{feature_type}")
+        feature = node.features.build({}, Features::ListFeature)
+        feature.feature_configuration = self
       end
-
-      feature.child.class.add_value(value_name)
-    end
-
-    def type
-      "List"
-    end
-
-    def filterable?
-      true
-    end
-
-    def machine_name
-      feature_configuration.machine_name
     end
 
 
@@ -50,10 +34,8 @@ module Features
 
     private
     def where
-      where = "features."
-      where += "#{parent.feature_type}."
-      where += "#{parent.value_name.singularize}_ids"
-      where
+      "features." +
+      "#{conf.key_name.singularize}_ids"
     end
   end
 end

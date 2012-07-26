@@ -12,6 +12,10 @@ module Features
       field :"#{key_name}", type: Integer
     end
 
+    def value
+      send(conf.key_name)
+    end
+
     def min
       conf.minumum
     end

@@ -11,6 +11,10 @@ module Features
       field key_name, type: Date
     end
 
+    def value
+      send(conf.key_name)
+    end
+
     private
     def presence_value
       if required? and not_defined?

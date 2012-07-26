@@ -7,6 +7,10 @@ module Features
         class_name: "Features::Image"
     end
 
+    def value
+      send(conf.key_name)
+    end
+
     def add_images(params)
       params.inject([]) do |new_images, img|
         image = Features::Image.new({ image: img })
@@ -25,10 +29,6 @@ module Features
     def delete_image(image)
       value.delete(image)
       image.destroy
-    end
-
-    def value
-      send(conf.key_name)
     end
   end
 end

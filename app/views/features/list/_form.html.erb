@@ -1,0 +1,9 @@
+<%= form_item_layout do %>
+  <%= form_label_layout do %>
+    <%= feature.form_builder.label feature.form_key, feature.label %>
+  <% end %>
+  <%= form_value_layout do %>
+    <%= feature.form_builder.collection_select feature.list_item_ids_name, feature.conf.list_items, :id, :name, {}, multiple: true %>
+    <%= feature.form_builder.hidden_field :feature_configuration_id %>
+  <% end %>
+<% end %>
