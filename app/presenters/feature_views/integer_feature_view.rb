@@ -11,15 +11,15 @@ module FeatureViews
     end
 
     def prefix
-      child.prefix
+      conf.prefix
     end
 
     def suffix
-      child.suffix
+      conf.suffix
     end
 
     def thousand_marker
-      child.thousand_marker
+      conf.thousand_marker
     end
 
     def pres

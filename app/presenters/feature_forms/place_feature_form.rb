@@ -1,15 +1,15 @@
 module FeatureForms
   class PlaceFeatureForm < FeatureForm
     def value
-      :"#{feature_configuration.value_name}_ids"
+      :"#{key_name}_ids"
     end
 
     def level
-      child.level
+      conf.level
     end
 
     def top_place
-      child.top_place
+      conf.top_place
     end
 
     def tree
@@ -17,7 +17,7 @@ module FeatureForms
     end
 
     def place_ids_name
-      :"#{value_name.singularize}_ids"
+      :"#{key_name.singularize}_ids"
     end
   end
 end

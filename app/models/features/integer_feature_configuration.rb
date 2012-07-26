@@ -1,12 +1,10 @@
 module Features
-  class IntegerFeatureConfiguration
+  class IntegerFeatureConfiguration < FeatureConfiguration
     include Mongoid::Document
-    include Ejans::Features::FeatureConfigurationAbility
+    include Ejans::Features::Filterable
 
-    # Fields
     FILTER_TYPES = [:number_field, :range_with_number_field]
     field :filter_type, type: Symbol
-
     field :minumum, type: Integer
     field :maximum, type: Integer
     field :prefix, type: String
@@ -14,31 +12,16 @@ module Features
     field :thousand_marker, type: Symbol
     THOUSAND_MARKERS = [:none, :decimal_point, :comma, :space]
 
-    # Validatations
-    validates :filter_type, inclusion: { in: FILTER_TYPES }
-
-    # Associations
-    embedded_in :feature_configuration, class_name: "Features::FeatureConfiguration"
-
+    validates :filter_type, inclusion: { in: FILTER_TYPES + [nil] }
 
     def build_assoc!(node)
-      if node.features.map(&:feature_configuration).include?(parent)
-        feature = node.features.where(feature_configuration_id: parent.id.to_s).first
+      Features::IntegerFeature.set_key(key_name)
+      if node.features.map(&:feature_configuration).include?(self)
+        feature = node.features.where(feature_configuration_id: self.id.to_s).first
       else
-        feature = node.features.build
-        feature.feature_configuration = parent
-        feature.send("build_#{feature_type}")
+        feature = node.features.build({}, Features::IntegerFeature)
+        feature.feature_configuration = self
       end
-
-      feature.child.class.add_value(value_name)
-    end
-
-    def type
-      "Integer"
-    end
-
-    def filterable?
-      true
     end
 
     def filter_query(params = {})

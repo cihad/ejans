@@ -1,6 +1,6 @@
 <%= form_item_layout do %>
   <%= form_label_layout do %>
-    <%= feature.form_builder.label feature.value, feature.label %>
+    <%= feature.form_builder.label feature.form_key, feature.label %>
   <% end %>
   <%= form_value_layout do %>
     <div>
@@ -16,6 +16,8 @@
         <%= render "images/image", mustache: image_for_mustache(image, @node) %>
       <% end %>
     <% end %>
+
+    <%= feature.form_builder.hidden_field :feature_configuration_id %>
 
     <script id="template" type="text/html">
       <%= render 'images/image' %>

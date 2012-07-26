@@ -16,8 +16,8 @@ module Features
       name.join
     end
 
-    def conf
-      feature_configuration
+    def value
+      send(conf.key_name)
     end
 
     def required?

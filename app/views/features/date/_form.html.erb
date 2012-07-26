@@ -1,9 +1,9 @@
 <%= form_item_layout do %>
   <%= form_label_layout do %>
-    <%= feature.form_builder.label :value, feature.label %>
+    <%= feature.form_builder.label feature.form_key, feature.label %>
   <% end %>
   <%= form_value_layout do %>
-    <%= feature.form_builder.date_select :value,
+    <%= feature.form_builder.date_select feature.form_key,
           start_year: feature.start_year,
           end_year: feature.end_year,
           prompt: feature.prompt,

@@ -1,23 +1,19 @@
 module FeatureForms
   class IntegerFeatureForm < FeatureForm
-    def value
-      feature_configuration.value_name.to_sym
-    end
-    
     def maximum
-      child.maximum
+      conf.maximum
     end
 
     def minumum
-      child.minumum
+      conf.minumum
     end
 
     def filter?
-      child.filter?
+      conf.filter?
     end
 
     def filter_type
-      child.filter_type
+      conf.filter_type
     end
   end
 end

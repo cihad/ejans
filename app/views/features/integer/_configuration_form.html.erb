@@ -1,0 +1,22 @@
+<%= simple_check_box f,
+      :filter,
+      input: { data: { toggle: "filter" } } %>
+      
+<%= simple_select f,
+      :filter_type,
+      f.object.class::FILTER_TYPES,
+      form_item_layout: { class: "filter-options" } %>
+
+<%= check_box_option_for("filter") %>
+
+<%= simple_number_field f, :minumum %>
+
+<%= simple_number_field f, :maximum %>
+
+<%= simple_text_field f, :prefix %>
+
+<%= simple_text_field f, :suffix %>
+
+<%= simple_select f,
+      :thousand_marker,
+      f.object.class::THOUSAND_MARKERS %>

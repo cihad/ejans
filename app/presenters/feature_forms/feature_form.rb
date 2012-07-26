@@ -19,6 +19,10 @@ module FeatureForms
       conf.key_name
     end
 
+    def form_key
+      key_name
+    end
+
     def label
       conf.label
     end

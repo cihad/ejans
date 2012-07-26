@@ -8,7 +8,7 @@ module Features
     validate :start_and_end_date
 
     def self.set_key(key_name)
-      field key_name, as: :value, type: Date
+      field key_name, type: Date
     end
 
     private

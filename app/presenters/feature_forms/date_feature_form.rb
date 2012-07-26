@@ -1,5 +1,5 @@
 module FeatureForms
-  class DateFeatureForm < FeatureForm 
+  class DateFeatureForm < FeatureForm
     def start_year
       conf.start_year
     end
