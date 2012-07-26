@@ -9,7 +9,7 @@ module FeatureForms
     end
 
     def max
-      comf.maximum_length
+      conf.maximum_length
     end
 
     def min

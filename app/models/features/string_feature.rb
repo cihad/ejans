@@ -1,23 +1,18 @@
 module Features
-  class StringFeature
+  class StringFeature < Feature
     include Mongoid::Document
-    # parent, configuration, child_configuration, required?
-    include Ejans::Features::FeatureAbility
-    include Ejans::Features::SingleValueFeature
 
-    embedded_in :feature, class_name: "Features::Feature"
-    
-    def self.add_value(name)
-      field :"#{name}", type: String
+    def self.set_key(key_name)
+      field :"#{key_name}", type: String
     end
 
-    def max
-      child_configuration.maximum_length
+    def value
+      send(key_name)
     end
 
-    def min
-      child_configuration.minumum_length
-    end
+    delegate :maximum_length, :minumum_length, to: :feature_configuration
+    alias :max :maximum_length
+    alias :min :minumum_length
 
     validate :presence_value
     validate :not_greater_than_maximum_length
@@ -26,19 +21,19 @@ module Features
     private
     def presence_value
       if required? and value.blank?
-        errors.add(:base, "Not should cihaaaaaddd!!")
+        add_error("#{key_name} bos birakilamaz.")
       end
     end
 
     def not_less_than_minumum_length
       if min and value.size < min
-        errors.add(:base, "asfdasd")
+        add_error("#{min} degerinden kucuk olamaz.")
       end
     end
 
     def not_greater_than_maximum_length
       if max and value.size > max
-        errors.add(:base, "asfdasd")
+        add_error("#{max} degerinden buyuk olamaz.")
       end
     end
   end

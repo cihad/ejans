@@ -1,0 +1,9 @@
+<%= simple_number_field f, :row %>
+
+<%= simple_number_field f, :maximum_length %>
+
+<%= simple_number_field f, :minumum_length %>
+
+<%= simple_select f,
+      :text_format,
+      f.object.class::TEXT_FORMATS %>
