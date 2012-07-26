@@ -1,25 +1,18 @@
 module Features
-  class PlaceFeatureConfiguration
+  class PlaceFeatureConfiguration < FeatureConfiguration
     include Mongoid::Document
-    include Ejans::Features::FeatureConfigurationAbility
 
-    # Fields
     field :level, type: Integer
-
-    # Associations
-    embedded_in :feature_configuration, class_name: "Features::FeatureConfiguration"
     belongs_to :top_place, class_name: "Place"
 
     def build_assoc!(node)
-      if node.features.map(&:feature_configuration).include?(parent)
-        feature = node.features.where(feature_configuration_id: parent.id.to_s).first
+      Features::PlaceFeature.set_key(key_name)
+      if node.features.map(&:feature_configuration).include?(self)
+        feature = node.features.where(feature_configuration_id: self.id.to_s).first
       else
-        feature = node.features.build
-        feature.feature_configuration = parent
-        feature.send("build_#{feature_type}")
+        feature = node.features.build({}, Features::PlaceFeature)
+        feature.feature_configuration = self
       end
-
-      feature.child.class.add_value(value_name)
     end
 
     def level_names
@@ -67,10 +60,8 @@ module Features
 
     private
     def where
-      where = "features."
-      where += "#{parent.feature_type}."
-      where += "#{parent.value_name}_ids"
-      where
+      "features." +
+      "#{key_name}_ids"
     end
   end
 end

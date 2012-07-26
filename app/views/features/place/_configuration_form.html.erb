@@ -1,0 +1,5 @@
+<%= simple_number_field f, :level %>
+
+<%= simple_select f,
+      :top_place,
+      Place.top_places.map { |p| [p.name, p.id]} %>

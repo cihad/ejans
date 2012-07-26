@@ -7,6 +7,7 @@ module Features
       class_name: "Features::FeatureConfiguration"
 
     alias :conf :feature_configuration
+    delegate :key_name, to: :feature_configuration
 
     before_save :define_feature_configuration
 
@@ -15,6 +16,7 @@ module Features
       name.pop
       name.join
     end
+
 
     def required?
       feature_configuration.required?

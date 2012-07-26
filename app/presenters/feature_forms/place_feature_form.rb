@@ -17,7 +17,7 @@ module FeatureForms
     end
 
     def place_ids_name
-      :"#{key_name.singularize}_ids"
+      :"#{key_name.to_s.singularize}_ids"
     end
   end
 end

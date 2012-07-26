@@ -1,25 +1,22 @@
 module Features
-  class PlaceFeature
+  class PlaceFeature < Feature
     include Mongoid::Document
-    # parent, configuration, child_configuration, required?
-    include Ejans::Features::FeatureAbility
-    include Ejans::Features::SingleValueFeature
 
-    # Associations
-    embedded_in :feature, class_name: "Features::Feature"
-
-    # Validates
     validate :presence_value
 
     # Singleton Methods
-    def self.add_value(name)
-      has_and_belongs_to_many :"#{name}", class_name: "Place", inverse_of: nil
+    def self.set_key(key_name)
+      has_and_belongs_to_many :"#{key_name}", class_name: "Place", inverse_of: nil
+    end
+
+    def value
+      send(key_name)
     end
 
     private
     def presence_value
       if required? and value.blank?
-        errors.add(:base, "Not should cihaaaaaddd!!")
+        add_error("#{key_name} bos birakilamaz.")
       end
     end
   end

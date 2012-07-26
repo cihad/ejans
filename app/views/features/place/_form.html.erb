@@ -1,0 +1,23 @@
+<%= form_item_layout do %>
+  <%= form_label_layout do %>
+    <%= feature.form_builder.label feature.form_key, feature.label %>
+  <% end %>
+  <%= form_value_layout do %>
+    <% javascript 'jquery-plugins/jquery.chained' %>
+    <% tree = feature.tree %>
+    <% name = (feature.form_builder.collection_select feature.place_ids_name, tree.first, :id, :name, {}).split("name=\"").last.split("\"").first + "[]" %>
+    <% tree.each_with_index do |level, i| %>
+      <select id="<%= i %>" name="<%= name %>">
+        <% level.each do |place| %>
+          <option value="<%= place.id %>" class="<%= place.parent_place.id unless i == 0 %>" <%= "selected" if feature.feature.value.include? place %>><%= place.name %></option>
+        <% end %>
+      </select>
+    <% end %>
+    <%= javascript_tag do %>
+      <% (tree.count - 1).times do |i| %>
+        $("#<%= i+1 %>").chained("#<%= i %>");
+      <% end %>
+    <% end %>
+    <%= feature.form_builder.hidden_field :feature_configuration_id %>
+  <% end %>
+<% end %>
