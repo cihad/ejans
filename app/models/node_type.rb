@@ -5,7 +5,6 @@ class NodeType
   # Fields
   field :name, type: String
   field :title_label, type: String
-  field :title_help, type: String
   field :description, type: String
 
   # Associations

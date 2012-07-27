@@ -1,14 +1,12 @@
 Fabricator :node_type do
   name "Node Type Name"
   title_label "Title label"
-  title_description "Title description"
   description "Description"
 end
 
 Fabricator :emlak, class_name: "NodeType" do
   name "Emlak Servisi"
   title_label "Ilan basligi"
-  title_description "Baslik icin aciklama"
   description "Talimatlar node form icin"
 
   after_build do |emlak|

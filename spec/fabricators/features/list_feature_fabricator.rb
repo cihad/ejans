@@ -1,4 +1,4 @@
-Fabricator :list_fc, class_name: "Features::ListFeatureConfiguration" do
+Fabricator :list_fc, from: :conf, class_name: "Features::ListFeatureConfiguration" do
   maximum_select 1
 
   after_build do |list_fc|
@@ -8,20 +8,8 @@ Fabricator :list_fc, class_name: "Features::ListFeatureConfiguration" do
   end
 end
 
-Fabricator :satilik_kiralik_fc, class_name: "Features::FeatureConfiguration" do
-  label     "Satilik, kiralik"
-  required  true
-  help      ""
-  filter    true
-
-  after_build do |satilik_kiralik_fc|
-    satilik_kiralik_fc.list_feature_configuration = Fabricate.build(:satilik_kiralik_list_fc)
-  end
-end
-
-Fabricator :satilik_kiralik_list_fc, class_name: "Features::ListFeatureConfiguration" do
+Fabricator :satilik_kiralik_fc, from: :conf, class_name: "Features::FeatureConfiguration" do
   maximum_select 1
-
   after_build do |satilik_kiralik_list_fc|
     satilik_kiralik_list_fc.list_items.push([
       Fabricate(:bir_arti_bir),

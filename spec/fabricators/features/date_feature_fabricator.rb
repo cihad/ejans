@@ -1,4 +1,4 @@
-Fabricator :date_fc, class_name: "Features::DateFeatureConfiguration" do
+Fabricator :date_fc, from: :conf, class_name: "Features::DateFeatureConfiguration" do
   date_type :year
   filter_type :single
   start_date_type :x_years_ago_start
@@ -8,7 +8,4 @@ Fabricator :date_fc, class_name: "Features::DateFeatureConfiguration" do
   x_years_ago_end 10
   x_years_later_end 10
   spesific_end_date Date.new(2023)
-end
-
-Fabricator :date_feature, class_name: "Features::DateFeature" do
 end
