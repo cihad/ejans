@@ -39,11 +39,6 @@ class NodeType
     feature_configurations.where(filter: true)
   end
 
-  # Feature configurations' configurations
-  def filters_children
-    filters.collect(&:child)
-  end
-
   # Results by param filters
   # query(params).selector => {:price => { "$gte" => 100, $lte => "200"}}
   def filter(params = {})
@@ -64,8 +59,8 @@ class NodeType
   # #<NodeQuery:0xc2ad8dc @serializers={}, @driver=:moped, @aliases={}, @selector={}, @options={}, @strategy=nil, @negating=nil> 
   def query(params)
     node_query = NodeQuery.new
-    filters_children.each do |fco|
-      node_query = node_query.send(:where, fco.filter_query(params))
+    filters.each do |conf|
+      node_query = node_query.send(:where, conf.filter_query(params))
     end 
     node_query
   end

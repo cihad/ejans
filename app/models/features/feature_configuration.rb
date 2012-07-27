@@ -40,9 +40,18 @@ module Features
       subclasses.map { |class_name| [humanize(class_name), class_name]  }
     end
 
-    def feature_type
+    def humanize_feature_name
       self.class.humanize(self.class)
     end
+
+    def feature_type
+      humanize_feature_name.parameterize.gsub("-","_")
+    end
+
+    def feature_class
+      "features/#{feature_type}_feature".camelize.classify
+    end
+
 
     def partial_dir
       "features/#{feature_type.underscore}"
@@ -54,7 +63,7 @@ module Features
     
     private
     def where
-      "features." + key_name
+      "features." + key_name.to_s
     end
 
     def assign_key_name

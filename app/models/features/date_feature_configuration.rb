@@ -134,7 +134,7 @@ module Features
     def value_start(params)
       if params[start_machine_name].present?
         val = Integer(params[start_machine_name])
-        val < start_year ? nil : val
+        val < start_year ? nil : Date.new(val).beginning_of_year
       else
         nil
       end
@@ -143,7 +143,7 @@ module Features
     def value_end(params)
       if params[end_machine_name].present?
         val = Integer(params[end_machine_name])
-        val > end_year ? nil : val
+        val > end_year ? nil : Date.new(val).end_of_year
       else
         nil
       end

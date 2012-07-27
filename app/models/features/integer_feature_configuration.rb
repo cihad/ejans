@@ -57,7 +57,7 @@ module Features
     def value_min(params)
       if params[min_machine_name].present?
         val = Integer(params[min_machine_name])
-        val < minumum ? nil : val
+        (minumum.present? and val < minumum) ? nil : val
       else
         nil
       end
@@ -66,7 +66,7 @@ module Features
     def value_max(params)
       if params[max_machine_name].present?
         val = Integer(params[max_machine_name])
-        val > maximum ? nil : val
+        (maximum.present? and val > maximum) ? nil : val
       else
         nil
       end

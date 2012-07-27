@@ -1,6 +1,7 @@
 module Features
   class PlaceFeatureConfiguration < FeatureConfiguration
     include Mongoid::Document
+    include Ejans::Features::Filterable
 
     field :level, type: Integer
     belongs_to :top_place, class_name: "Place"
@@ -33,15 +34,6 @@ module Features
       names = level_machine_names
       names.shift
       names.map { |name| "#{machine_name}_#{name}" }
-    end
-
-    # Object Methods
-    def type
-      "Place"
-    end
-
-    def filterable?
-      true
     end
 
     def filter_query(params = {})

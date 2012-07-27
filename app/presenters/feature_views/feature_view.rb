@@ -28,7 +28,7 @@ module FeatureViews
     end
 
     def self.feature_presenter_class(feature)
-      "FeatureViews::#{feature.feature_configuration.feature_type.camelize}FeatureView".constantize
+      "FeatureViews::#{feature.conf.feature_type.camelize}FeatureView".constantize
     end
 
     def feature_tag(&block)

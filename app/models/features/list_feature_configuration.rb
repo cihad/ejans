@@ -35,7 +35,7 @@ module Features
     private
     def where
       "features." +
-      "#{conf.key_name.singularize}_ids"
+      "#{key_name.to_s.singularize}_ids"
     end
   end
 end

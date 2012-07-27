@@ -1,38 +1,34 @@
 module FeatureFilters
   class Filter
-    attr_accessor :feature_configuration
+    attr_accessor :conf
 
-    def initialize(feature_configuration, template)
-      self.feature_configuration = feature_configuration
+    def initialize(conf, template)
+      self.conf = conf
       @template = template
     end
 
     def feature_type
-      feature_configuration.feature_type
-    end
-
-    def child
-      feature_configuration.child
+      conf.feature_type
     end
 
     def filter_type
-      child.filter_type
+      conf.filter_type
     end
 
     def machine_name
-      feature_configuration.machine_name.to_sym
+      conf.machine_name.to_sym
     end
 
     def to_s
-      @template.render "features/#{feature_type}_filter", feature: self
+      @template.render "#{conf.partial_dir}/filter", feature: self
     end
 
     def label
-      feature_configuration.label
+      conf.label
     end
 
-    def self.presenter_class(feature_configuration)
-      "FeatureFilters::#{feature_configuration.feature_type.camelize}Filter".constantize
+    def self.presenter_class(conf)
+      "FeatureFilters::#{conf.feature_type.camelize}FeatureFilter".constantize
     end
   end
 end

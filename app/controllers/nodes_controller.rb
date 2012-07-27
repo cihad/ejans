@@ -17,7 +17,6 @@ class NodesController < ApplicationController
   def new
     unless @node = @node_type.nodes.unpublished.first
       @node = Node.new(node_type: @node_type)
-      @node.build_assoc!
       @node.save(validate: false)
     end
   end

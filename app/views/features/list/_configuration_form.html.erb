@@ -1,4 +1,9 @@
+<%= simple_check_box f,
+      :filter,
+      input: { data: { toggle: "filter" } } %>
+
 <%= simple_number_field f, :maximum_select %>
+
 <%= form_item_layout do %>
   <%= form_label_layout do %>
     <%= label_tag "List items" %>
