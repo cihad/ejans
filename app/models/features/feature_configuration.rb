@@ -49,7 +49,7 @@ module Features
     end
 
     def feature_class
-      "features/#{feature_type}_feature".camelize.classify
+      "features/#{feature_type}_feature".camelize.classify.constantize
     end
 
 

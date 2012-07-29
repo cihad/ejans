@@ -1,4 +1,5 @@
 Fabricator :date_fc, from: :conf, class_name: "Features::DateFeatureConfiguration" do
+  filter false
   date_type :year
   filter_type :single
   start_date_type :x_years_ago_start

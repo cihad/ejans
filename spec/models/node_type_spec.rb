@@ -6,7 +6,6 @@ describe NodeType do
   subject { node_type }
   it { should respond_to :name }
   it { should respond_to :title_label }
-  it { should respond_to :title_help }
   it { should respond_to :description }
   it { should be_valid }
 
@@ -48,12 +47,8 @@ describe NodeType do
       end
     end
 
-    it "has 4 filters" do
-      emlak.filters.should_not be_blank
-    end
-
-    it "has filters children" do
-      emlak.filters_children.should_not be_blank
+    it "has 0 filter" do
+      emlak.filters.size.should == 0
     end
   end
 end

@@ -1,4 +1,5 @@
 Fabricator :list_fc, from: :conf, class_name: "Features::ListFeatureConfiguration" do
+  filter false
   maximum_select 1
 
   after_build do |list_fc|
@@ -8,7 +9,8 @@ Fabricator :list_fc, from: :conf, class_name: "Features::ListFeatureConfiguratio
   end
 end
 
-Fabricator :satilik_kiralik_fc, from: :conf, class_name: "Features::FeatureConfiguration" do
+Fabricator :satilik_kiralik_fc, from: :conf, class_name: "Features::ListFeatureConfiguration" do
+  filter false
   maximum_select 1
   after_build do |satilik_kiralik_list_fc|
     satilik_kiralik_list_fc.list_items.push([

@@ -1,4 +1,5 @@
 Fabricator :integer_fc, from: :conf, class_name: "Features::IntegerFeatureConfiguration" do
+  filter false
   filter_type :number_field
   minumum 0
   maximum 1_000_000
@@ -7,7 +8,8 @@ Fabricator :integer_fc, from: :conf, class_name: "Features::IntegerFeatureConfig
   thousand_marker :none
 end
 
-Fabricator :fiyat_fc, from: :conf, class_name: "Features::FeatureConfiguration" do
+Fabricator :fiyat_fc, from: :conf, class_name: "Features::IntegerFeatureConfiguration" do
+  filter false
   minumum 0
   filter_type :range_with_number_field
   locale :tr
@@ -16,7 +18,8 @@ Fabricator :fiyat_fc, from: :conf, class_name: "Features::FeatureConfiguration" 
   delimiter "."
 end
 
-Fabricator :metrekare_fc, from: :conf, class_name: "Features::FeatureConfiguration" do
+Fabricator :metrekare_fc, from: :conf, class_name: "Features::IntegerFeatureConfiguration" do
+  filter false
   minumum 0
   view_type :number_with_delimiter
 end
