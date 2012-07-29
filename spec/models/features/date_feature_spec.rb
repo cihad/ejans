@@ -18,7 +18,7 @@ describe Features::DateFeature do
     node.features.first
   end
 
-    it { should respond_to :value }
+  it { should respond_to :value }
   it { should respond_to conf.key_name }
   it { should be_valid }
 
