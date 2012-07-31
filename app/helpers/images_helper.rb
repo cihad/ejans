@@ -1,10 +1,12 @@
 module ImagesHelper
-  def image_for_mustache(image, node, uploaded = true)
+  def image_for_mustache(opts)
+    uploaded = opts.delete(:uploaded) || true
     {
-      image_id: image.id,
-      image_url: image.image_url,
-      node_id: node.id,
-      uploaded:  uploaded
+      image_id: opts[:image].id,
+      image_url: opts[:image].image_url,
+      node_id: opts[:node].id,
+      feature_id: opts[:feature].id,
+      uploaded: uploaded
     }
   end
 end

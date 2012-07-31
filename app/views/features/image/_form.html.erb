@@ -13,7 +13,7 @@
 
     <%= content_tag :ul, class: "inline-list images", data: { update_url: sort_features_images_url } do %>
       <% feature.images.each do |image| %>
-        <%= render "images/image", mustache: image_for_mustache(image, @node) %>
+        <%= render "images/image", mustache: image_for_mustache(image: image, node: @node, feature: feature.feature) %>
       <% end %>
     <% end %>
 
