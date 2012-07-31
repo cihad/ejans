@@ -24,6 +24,10 @@ class NodeType
     self.views.create(type: :node, position: 0)
   end
 
+  def key_names
+    feature_configurations.map(&:key_name)
+  end
+
   def build_configuration(params)
     type = params[:_type].safe_constantize if params[:_type]
     if Features::FeatureConfiguration.subclasses.include?(type)

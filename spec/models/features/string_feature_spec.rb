@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe Features::DateFeature do
+describe Features::StringFeature do
   let(:node_type) { Fabricate(:node_type) }
   let(:node) { Fabricate.build(:node) }
-  let(:conf) { Fabricate.build(:date_fc) }
+  let(:conf) { Fabricate.build(:string_fc) }
 
   before do
     node_type.feature_configurations << conf
@@ -11,7 +11,7 @@ describe Features::DateFeature do
     node.node_type = node_type
     node.save
     feature = node.features.first
-    feature.send("#{conf.key_name}=", 11.years.ago.to_date)
+    feature.send("#{conf.key_name}=", "Sample text for feature")
   end
 
   subject do
@@ -33,7 +33,7 @@ describe Features::DateFeature do
     end
 
     specify do
-      fields[conf.key_name.to_s].options[:type].should == Date
+      fields[conf.key_name.to_s].options[:type].should == String
     end
 
     specify do
@@ -41,31 +41,32 @@ describe Features::DateFeature do
     end
   end
 
-
   context "#validations" do
-    context "when date is null" do
+    context "when string field is null" do
       before do
-        subject.send("#{conf.key_name}=", Date.new(1))
-      end
-
-      specify do
-        subject.should_not be_valid
-      end
-    end
-
-    context "when date is lower than conf's start date" do
-      before do
-        subject.send("#{conf.key_name}=",
-                    Date.new(conf.start_year).prev_day)
+        subject.send("#{conf.key_name}=", nil)
       end
 
       specify { subject.should_not be_valid }
     end
 
-    context "when date is greater than conf's end date" do
+    context "when string field is lower than conf's minimum value" do
       before do
+        conf.minimum_length = 100
+        conf.save
         subject.send("#{conf.key_name}=",
-                    Date.new(conf.end_year).end_of_year.next_day)
+                    "a" * (subject.min - 1))
+      end
+
+      specify { subject.should_not be_valid }
+    end
+
+    context "when string field is greater than conf's maximum value" do
+      before do
+        conf.maximum_length = 100
+        conf.save
+        subject.send("#{conf.key_name}=",
+                    "a" * (subject.max + 1))
       end
 
       specify { subject.should_not be_valid }

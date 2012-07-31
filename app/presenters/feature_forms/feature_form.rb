@@ -11,6 +11,10 @@ module FeatureForms
       form_builder.object
     end
 
+    def id
+      feature.id
+    end
+
     def conf
       feature.feature_configuration
     end

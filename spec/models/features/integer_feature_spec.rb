@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe Features::DateFeature do
+describe Features::IntegerFeature do
   let(:node_type) { Fabricate(:node_type) }
   let(:node) { Fabricate.build(:node) }
-  let(:conf) { Fabricate.build(:date_fc) }
+  let(:conf) { Fabricate.build(:integer_fc) }
 
   before do
     node_type.feature_configurations << conf
@@ -11,7 +11,7 @@ describe Features::DateFeature do
     node.node_type = node_type
     node.save
     feature = node.features.first
-    feature.send("#{conf.key_name}=", 11.years.ago.to_date)
+    feature.send("#{conf.key_name}=", 1000)
   end
 
   subject do
@@ -33,7 +33,7 @@ describe Features::DateFeature do
     end
 
     specify do
-      fields[conf.key_name.to_s].options[:type].should == Date
+      fields[conf.key_name.to_s].options[:type].should == Integer
     end
 
     specify do
@@ -41,31 +41,36 @@ describe Features::DateFeature do
     end
   end
 
+  context "#min" do
+    specify { subject.min.should == conf.minimum }
+  end
+
+  context "#max" do
+    specify { subject.max.should == conf.maximum }
+  end
 
   context "#validations" do
-    context "when date is null" do
+    context "when integer field is null" do
       before do
-        subject.send("#{conf.key_name}=", Date.new(1))
-      end
-
-      specify do
-        subject.should_not be_valid
-      end
-    end
-
-    context "when date is lower than conf's start date" do
-      before do
-        subject.send("#{conf.key_name}=",
-                    Date.new(conf.start_year).prev_day)
+        subject.send("#{conf.key_name}=", nil)
       end
 
       specify { subject.should_not be_valid }
     end
 
-    context "when date is greater than conf's end date" do
+    context "when integer field is lower than conf's minimum value" do
       before do
         subject.send("#{conf.key_name}=",
-                    Date.new(conf.end_year).end_of_year.next_day)
+                    conf.minimum - 1)
+      end
+
+      specify { subject.should_not be_valid }
+    end
+
+    context "when integer field is greater than conf's maximum value" do
+      before do
+        subject.send("#{conf.key_name}=",
+                    conf.maximum + 1)
       end
 
       specify { subject.should_not be_valid }

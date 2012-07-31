@@ -2,14 +2,15 @@ require 'spec_helper'
 
 describe Features::PlaceFeatureConfiguration do
   let(:node_type) { Fabricate(:node_type) }
-  let(:fc) { Fabricate.build(:feature_configuration) }
+  let(:conf) { Fabricate.build(:place_fc) }
+  let(:place) { Fabricate(:turkiye) }
 
   before do
-    fc.node_type = node_type
-    fc.place_feature_configuration = Fabricate.build(:place_fc)
+    conf.node_type = node_type
+    conf.top_place = place
   end
 
-  subject { fc.place_feature_configuration }
+  subject { conf }
 
   it { should respond_to :level }
   it { should respond_to :top_place }
@@ -18,21 +19,20 @@ describe Features::PlaceFeatureConfiguration do
   it { should be_new_record }
   it { should be_valid }
 
-  specify do
-    subject.parent.should == fc
+  context "#configuration class" do
+    specify { subject.class.superclass.should == Features::FeatureConfiguration }
   end
 
-  specify do
-    subject.type.should == "Place"
+  context "#feature_class" do
+    specify { subject.feature_class.should == Features::PlaceFeature }
   end
 
-  specify do
-    subject.should be_filterable
+  context "#partial_dir" do
+    specify { subject.partial_dir.should == "features/place" }
   end
 
-  specify do
-    subject.save
-    subject.where.should == "features.place_feature.place_feature_value_0_ids"
+  context "#humanize_feature_name" do
+    specify { subject.humanize_feature_name.should == "Place" }
   end
 
   context "#top_place association" do
@@ -66,49 +66,11 @@ describe Features::PlaceFeatureConfiguration do
     end
   end
 
-  context "#feature_configuration" do
-    subject { fc }
 
-    before do
-      subject.label = "Label for Place Feature"
-    end
-
-    specify do
-      subject.machine_name.should == "label_for_place_feature"
-    end
-
-    context "when save" do
-      before do
-        subject.save
-      end
-
-      specify do
-        subject.value_name.should == "place_feature_value_0"
-      end
-
-      context "when multiple place feature" do
-        before do
-          @other_conf = Fabricate.build(:feature_configuration)
-          @other_conf.place_feature_configuration = Fabricate.build(:place_fc)
-          @other_conf.node_type = node_type
-          @other_conf.save
-        end
-
-        specify do
-          @other_conf.value_name.should_not == subject.value_name
-        end
-
-        specify do
-          @other_conf.value_name.should == "place_feature_value_1"
-        end
-      end
-    end
-  end
-  
   context "#filter_query" do
     before do
-      fc.label = "Label for Place"
-      fc.save
+      subject.label = "Label for Place"
+      subject.save
       subject.top_place.hierarchy = "ulke, sehir, ilce, mahalle"
       subject.top_place.save
       subject.level = 2
@@ -126,7 +88,7 @@ describe Features::PlaceFeatureConfiguration do
         subject.filter_query(params).should ==
           NodeQuery.
             new.
-            in(:"#{subject.where}" => 
+            in(:"features.place_value_0_ids" => 
                 [subject.top_place.child_places.first.id]).
             selector
       end
@@ -148,7 +110,7 @@ describe Features::PlaceFeatureConfiguration do
           subject.filter_query(params).should ==
             NodeQuery.
               new.
-              in(:"#{subject.where}" => 
+              in(:"features.place_value_0_ids" => 
                   [@place.id]).
               selector
         end
@@ -169,7 +131,7 @@ describe Features::PlaceFeatureConfiguration do
           subject.filter_query(params).should ==
             NodeQuery.
               new.
-              in(:"#{subject.where}" => 
+              in(:"features.place_value_0_ids" => 
                   [@place.id]).
               selector
         end
@@ -192,7 +154,7 @@ describe Features::PlaceFeatureConfiguration do
           subject.filter_query(params).should ==
             NodeQuery.
               new.
-              in(:"#{subject.where}" => 
+              in(:"features.place_value_0_ids" => 
                   [@other_place.id]).
               selector
         end
@@ -201,12 +163,12 @@ describe Features::PlaceFeatureConfiguration do
     end
   end
 
-  context "when fc's filter is true" do
+  context "when conf's filter is true" do
     before do
-      fc.filter = true
-      fc.save
+      conf.filter = true
+      conf.save
     end
 
-    specify { node_type.filters.should include(fc) }
+    specify { node_type.filters.should include(conf) }
   end
 end

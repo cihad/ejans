@@ -13,7 +13,7 @@ module FeatureForms
     end
 
     def min
-      conf.minumum_length
+      conf.minimum_length
     end
   end
 end

@@ -17,6 +17,13 @@ module Features
       name.join
     end
 
+    def value
+      send(key_name)
+    end
+
+    def self.get_method_from_conf(*methods)
+      delegate *methods, to: :feature_configuration
+    end
 
     def required?
       feature_configuration.required?

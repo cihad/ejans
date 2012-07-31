@@ -24,7 +24,7 @@ class SubscriptionsController < ApplicationController
     if @subscription.save
       redirect_to @service, notice: "Subscription was successfully created."
     else
-      redirect_to @service, alert: 'Please select minumum a item from each filter.'
+      redirect_to @service, alert: 'Please select minimum a item from each filter.'
     end
   end
 
@@ -35,12 +35,12 @@ class SubscriptionsController < ApplicationController
 
     if selection_ids.blank? && @subscription.service.filters.count != 0
       @subscription.destroy
-      redirect_to @service, alert: "Subscription was successfull destroyed. Please select minumum a item from each filter for be subscriber."
+      redirect_to @service, alert: "Subscription was successfull destroyed. Please select minimum a item from each filter for be subscriber."
     else
       if @subscription.update_attributes(params[:subscription])
         redirect_to @service, notice: "Subscription was successfully updated."
       else
-        redirect_to @service, alert: 'Please select minumum a item from each filter.'
+        redirect_to @service, alert: 'Please select minimum a item from each filter.'
       end
     end
   end

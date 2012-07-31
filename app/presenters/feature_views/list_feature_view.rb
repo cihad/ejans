@@ -2,7 +2,7 @@ module FeatureViews
   class ListFeatureView < FeatureView
     def value
       feature_tag do
-        feature.value
+        feature.value.map(&:name).join(', ')
       end
     end
   end

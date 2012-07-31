@@ -12,7 +12,7 @@
     </div>
 
     <%= content_tag :ul, class: "inline-list images", data: { update_url: sort_features_images_url } do %>
-      <% @node.images.each do |image| %>
+      <% feature.images.each do |image| %>
         <%= render "images/image", mustache: image_for_mustache(image, @node) %>
       <% end %>
     <% end %>
@@ -23,7 +23,7 @@
       <%= render 'images/image' %>
     </script>
 
-    <%= javascript_tag do %>
+    <script type="text/javascript">
       (function() {
         $('.add-image').on('click', function(e) {
           e.preventDefault();
@@ -46,7 +46,10 @@
           }
         });
       })();
-    <% end %>
+    </script>
+
+    <% javascript 'jquery.remotipart' %>
+    <% javascript 'mustache' %>
 
     <style type="text/css">
       .loading { width: 106px; height: 82px; z-index: 2; left: 0; top: 0; position: absolute; background: url(<%= asset_path("images/ajax-loader.gif")%>) center center no-repeat;}
@@ -58,11 +61,9 @@
     
   <% end %>
 <% end %>
-<% javascript 'jquery.remotipart' %>
-<% javascript 'mustache' %>
 
 <% content_for :top do %>
   <div id="hidden-form" style="display: none">
-    <%= render 'images/form' %>
+    <%= render 'images/form', feature_id: feature.id %>
   </div>
 <% end %>

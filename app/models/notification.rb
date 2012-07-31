@@ -43,7 +43,7 @@ class Notification < ActiveRecord::Base
   def filter_count
     services_notifications.inject([]) do |a, sn|
       if sn.service.filters.count != 0 && sn.selections.map(&:filter_id).uniq.count != sn.service.filters.count
-        errors.add :base, "Please select minumum a item from each filter."
+        errors.add :base, "Please select minimum a item from each filter."
         break
       end
     end

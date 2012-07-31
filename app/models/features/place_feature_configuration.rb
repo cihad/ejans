@@ -6,16 +6,6 @@ module Features
     field :level, type: Integer
     belongs_to :top_place, class_name: "Place"
 
-    def build_assoc!(node)
-      Features::PlaceFeature.set_key(key_name)
-      if node.features.map(&:feature_configuration).include?(self)
-        feature = node.features.where(feature_configuration_id: self.id.to_s).first
-      else
-        feature = node.features.build({}, Features::PlaceFeature)
-        feature.feature_configuration = self
-      end
-    end
-
     def level_names
       top_place.bottom_level_names.first(level+1)
     end

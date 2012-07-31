@@ -7,12 +7,10 @@ module Features
     validate :presence_value
     validate :start_and_end_date
 
+    get_method_from_conf :start_year, :end_year
+
     def self.set_key(key_name)
       field key_name, type: Date
-    end
-
-    def value
-      send(conf.key_name)
     end
 
     private
@@ -23,8 +21,8 @@ module Features
     end
 
     def start_and_end_date
-      if !not_defined? && (value.year < conf.start_year or
-         value.year > conf.end_year)
+      if !not_defined? && (value.year < start_year or
+         value.year > end_year)
         add_error("Baslangic tarihinden kucuk ve bitis tarihinden kucuk olamaz")
       end
     end

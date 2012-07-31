@@ -4,8 +4,8 @@ module FeatureForms
       conf.maximum
     end
 
-    def minumum
-      conf.minumum
+    def minimum
+      conf.minimum
     end
 
     def filter?

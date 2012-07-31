@@ -29,20 +29,10 @@ class Node
     features.where(feature_configuration_id: fcid).first
   end
 
-  # [<Features::Image..>, <Features::Image..>, ...]
-  def images
-    feature_with_image.send(feature_with_image.conf.key_name)
-  end
-
-  # <Features::Feature...>
-  def feature_with_image
-    features.detect { |fea| fea._type == "Features::ImageFeature" }
-  end
-
   # Associations builer (used by the controller)
   def build_assoc!
-    node_type.feature_configurations.each do |fea_conf|
-      fea_conf.build_assoc!(self)
+    node_type.feature_configurations.each do |conf|
+      conf.build_assoc!(self)
     end
   end
 

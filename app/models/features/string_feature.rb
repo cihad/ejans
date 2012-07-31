@@ -6,17 +6,13 @@ module Features
       field :"#{key_name}", type: String
     end
 
-    def value
-      send(key_name)
-    end
-
-    delegate :maximum_length, :minumum_length, to: :feature_configuration
+    get_method_from_conf :maximum_length, :minimum_length
     alias :max :maximum_length
-    alias :min :minumum_length
+    alias :min :minimum_length
 
     validate :presence_value
     validate :not_greater_than_maximum_length
-    validate :not_less_than_minumum_length
+    validate :not_less_than_minimum_length
 
     private
     def presence_value
@@ -25,14 +21,14 @@ module Features
       end
     end
 
-    def not_less_than_minumum_length
-      if min and value.size < min
+    def not_less_than_minimum_length
+      if value and min and value.size < min
         add_error("#{min} degerinden kucuk olamaz.")
       end
     end
 
     def not_greater_than_maximum_length
-      if max and value.size > max
+      if value and max and value.size > max
         add_error("#{max} degerinden buyuk olamaz.")
       end
     end

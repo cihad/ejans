@@ -2,26 +2,16 @@ module Features
   class IntegerFeature < Feature
     include Mongoid::Document
 
-    # Validates
     validate :presence_value
     validate :not_greater_than_maximum
-    validate :not_less_than_minumum
+    validate :not_less_than_minimum
 
-    # Singleton Methods
+    get_method_from_conf :minimum, :maximum
+    alias :min :minimum
+    alias :max :maximum
+
     def self.set_key(key_name)
       field :"#{key_name}", type: Integer
-    end
-
-    def value
-      send(conf.key_name)
-    end
-
-    def min
-      conf.minumum
-    end
-
-    def max
-      conf.maximum
     end
 
     private
@@ -37,7 +27,7 @@ module Features
       end
     end
 
-    def not_less_than_minumum
+    def not_less_than_minimum
       if value.present? and min and value < min
         add_error("#{min} degerinden az olamaz.")
       end

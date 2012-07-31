@@ -20,7 +20,6 @@ describe Features::DateFeatureConfiguration do
   it { should respond_to :x_years_ago_end }
   it { should respond_to :x_years_later_end }
   it { should respond_to :spesific_end_date }
-  it { should respond_to :build_assoc! }
   it { should respond_to :filter_query }
   it { should be_new_record }
   it { should be_valid }

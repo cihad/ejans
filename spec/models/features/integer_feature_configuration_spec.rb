@@ -1,18 +1,18 @@
 require 'spec_helper'
 
 describe Features::IntegerFeatureConfiguration do
+
   let(:node_type) { Fabricate(:node_type) }
-  let(:fc) { Fabricate.build(:feature_configuration) }
+  let(:conf) { Fabricate.build(:integer_fc) }
 
   before do
-    fc.node_type = node_type
-    fc.integer_feature_configuration = Fabricate.build(:integer_fc)
+    conf.node_type = node_type
   end
 
-  subject { fc.integer_feature_configuration }
+  subject { conf }
 
   it { should respond_to :filter_type }
-  it { should respond_to :minumum }
+  it { should respond_to :minimum }
   it { should respond_to :maximum }
   it { should respond_to :prefix }
   it { should respond_to :suffix }
@@ -22,66 +22,31 @@ describe Features::IntegerFeatureConfiguration do
   it { should be_new_record }
   it { should be_valid }
 
-  specify do
-    subject.parent.should == fc
+  context "#configuration class" do
+    specify { subject.class.superclass.should == Features::FeatureConfiguration }
   end
 
-  specify do
-    subject.type.should == "Integer"
+  context "#feature_class" do
+    specify { subject.feature_class.should == Features::IntegerFeature }
   end
 
-  specify do
-    subject.should be_filterable
+  context "#partial_dir" do
+    specify { subject.partial_dir.should == "features/integer" }
   end
 
-  context "#feature_configuration" do
-    subject { fc }
-
-    before do
-      subject.label = "Label for Integer Feature"
-    end
-
-    specify do
-      subject.machine_name.should == "label_for_integer_feature"
-    end
-
-    context "when save" do
-      before do
-        subject.save
-      end
-
-      specify do
-        subject.value_name.should == "integer_feature_value_0"
-      end
-
-      context "when multiple integer feature" do
-        before do
-          @other_conf = Fabricate.build(:feature_configuration)
-          @other_conf.integer_feature_configuration = Fabricate.build(:integer_fc)
-          @other_conf.node_type = node_type
-          @other_conf.save
-        end
-
-        specify do
-          @other_conf.value_name.should_not == subject.value_name
-        end
-
-        specify do
-          @other_conf.value_name.should == "integer_feature_value_1"
-        end
-      end
-    end
+  context "#humanize_feature_name" do
+    specify { subject.humanize_feature_name.should == "Integer" }
   end
 
   context "#filter_query" do
     before do
-      fc.label = "Label for Feature"
+      conf.label = "Label for Feature"
     end
 
     context "when filter_type is number_field" do
       before do
         subject.filter_type = :number_field
-        fc.save
+        conf.save
       end
       
       context "when params is blank" do
@@ -92,14 +57,14 @@ describe Features::IntegerFeatureConfiguration do
       context "when params is filled" do
         let(:params) { {"#{subject.machine_name}" => "10"} }
         specify { subject.filter_query(params).should ==
-          {"features.integer_feature.#{subject.value_name}"=>10} }
+          {"features.#{subject.key_name}"=>10} }
       end
     end
 
     context "when filter_type is :range_with_number_field" do
       before do
         subject.filter_type = :range_with_number_field
-        fc.save
+        conf.save
       end
 
       context "when params is blank" do
@@ -109,14 +74,14 @@ describe Features::IntegerFeatureConfiguration do
 
       context "when params is only filled by min value" do 
         context "when min value is lower than conf's minimum value" do
-          let(:params) { {"#{subject.machine_name}_min" => "#{subject.minumum - 1}"} }
+          let(:params) { {"#{subject.machine_name}_min" => "#{subject.minimum - 1}"} }
           specify { subject.filter_query(params).should == {} }
         end
 
         context "when min value is greater than conf's minimum value" do
-          let(:params) { {"#{subject.machine_name}_min" => "#{subject.minumum + 1}"} }
+          let(:params) { {"#{subject.machine_name}_min" => "#{subject.minimum + 1}"} }
           specify { subject.filter_query(params).should ==
-            {"features.integer_feature.#{fc.value_name}"=>{"$gte"=> (subject.minumum + 1)}} }
+            {"features.#{conf.key_name}"=>{"$gte"=> (subject.minimum + 1)}} }
         end
       end
 
@@ -129,14 +94,14 @@ describe Features::IntegerFeatureConfiguration do
         context "when max value is lower than conf's maximum value" do
           let(:params) { {"#{subject.machine_name}_max" => "#{subject.maximum - 1}"} }
           specify { subject.filter_query(params).should ==
-            {"features.integer_feature.#{fc.value_name}"=>{"$lte"=> (subject.maximum - 1)}} }
+            {"features.#{conf.key_name}"=>{"$lte"=> (subject.maximum - 1)}} }
         end
       end
 
       context "when params is filled" do
         let(:params) do
           {
-            "#{subject.machine_name}_min" => "#{subject.minumum - 1}",
+            "#{subject.machine_name}_min" => "#{subject.minimum - 1}",
             "#{subject.machine_name}_max" => "#{subject.maximum + 1}"
           }
         end
@@ -144,14 +109,5 @@ describe Features::IntegerFeatureConfiguration do
         specify { subject.filter_query(params).should == {} }
       end
     end
-  end
-
-  context "when fc's filter is true" do
-    before do
-      fc.filter = true
-      fc.save
-    end
-
-    specify { node_type.filters.should include(fc) }
   end
 end

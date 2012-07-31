@@ -4,6 +4,7 @@ describe Features::ImageFeature do
   let(:node_type) { Fabricate(:node_type) }
   let(:node) { Fabricate.build(:node) }
   let(:conf) { Fabricate.build(:image_fc) }
+  let(:image) { Fabricate.build(:image_800_600) }
 
   before do
     node_type.feature_configurations << conf
@@ -11,6 +12,7 @@ describe Features::ImageFeature do
     node.node_type = node_type
     node.save
     feature = node.features.first
+    feature.send(conf.key_name).push(image)
   end
 
   subject do
@@ -34,4 +36,29 @@ describe Features::ImageFeature do
         name.should == conf.key_name
     end
   end
+
+  context "#validations" do
+    context "when image is null" do
+      before do
+        subject.send(conf.key_name).clear
+        image.destroy
+      end
+
+      specify do
+        subject.should_not be_valid
+      end
+    end
+
+    context "when image size is greater than maximum image" do
+      before do
+        subject.conf.maximum_image = 1
+        subject.send(conf.key_name).push(Fabricate.build(:image_800_600))
+      end
+
+      specify do
+        subject.should_not be_valid
+      end
+    end
+  end
+
 end

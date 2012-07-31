@@ -23,6 +23,6 @@ class ImagesController < ApplicationController
   end
 
   def feature
-    @feature = @node.feature_with_image
+    @feature = @node.features.find(params[:feature_id])
   end
 end

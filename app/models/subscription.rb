@@ -33,7 +33,7 @@ class Subscription < ActiveRecord::Base
   validate :filter_count
   def filter_count
     if service.filters.present? && selections.map(&:filter_id).uniq.count != service.filters.count
-      errors.add :base, "Please select minumum a item from each filter."
+      errors.add :base, "Please select minimum a item from each filter."
     end
   end
 

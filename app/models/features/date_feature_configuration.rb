@@ -47,16 +47,6 @@ module Features
       end
     end
 
-    def build_assoc!(node)
-      Features::DateFeature.set_key(key_name)
-      if node.features.map(&:feature_configuration).include?(self)
-        feature = node.features.where(feature_configuration_id: self.id.to_s).first
-      else
-        feature = node.features.build({}, Features::DateFeature)
-        feature.feature_configuration = self
-      end
-    end
-
     def now_year
       Time.now.utc.to_date.year
     end

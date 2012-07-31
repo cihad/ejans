@@ -5,7 +5,7 @@ module Features
 
     FILTER_TYPES = [:number_field, :range_with_number_field]
     field :filter_type, type: Symbol
-    field :minumum, type: Integer
+    field :minimum, type: Integer
     field :maximum, type: Integer
     field :prefix, type: String
     field :suffix, type: String
@@ -13,16 +13,6 @@ module Features
     THOUSAND_MARKERS = [:none, :decimal_point, :comma, :space]
 
     validates :filter_type, inclusion: { in: FILTER_TYPES + [nil] }
-
-    def build_assoc!(node)
-      Features::IntegerFeature.set_key(key_name)
-      if node.features.map(&:feature_configuration).include?(self)
-        feature = node.features.where(feature_configuration_id: self.id.to_s).first
-      else
-        feature = node.features.build({}, Features::IntegerFeature)
-        feature.feature_configuration = self
-      end
-    end
 
     def filter_query(params = {})
       case filter_type
@@ -57,7 +47,7 @@ module Features
     def value_min(params)
       if params[min_machine_name].present?
         val = Integer(params[min_machine_name])
-        (minumum.present? and val < minumum) ? nil : val
+        (minimum.present? and val < minimum) ? nil : val
       else
         nil
       end

@@ -60,37 +60,41 @@ module Features
     def machine_name
       label.parameterize("_")
     end
-    
+
+    def build_assoc!(node)
+      feature_class.set_key(key_name)
+      unless node.features.where(feature_configuration_id: self.id).exists?
+        feature = node.features.build({}, feature_class)
+        feature.feature_configuration = self
+      end
+    end
+
     private
     def where
-      "features." + key_name.to_s
+      "features.#{key_name}"
     end
 
     def assign_key_name
       unless key_name
-        key_names = node_type.feature_configurations.map(&:key_name)
-        # case feature_type
-        # when "list_feature"
-        #   name_prefix = 0
-        #   while value_names.include?(name = "#{number_to_english[name_prefix]}_list_items")
-        #     name_prefix = name_prefix.next
-        #   end
-        # when "image_feature"
-        #   name_prefix = 0
-        #   while value_names.include?(name = "#{number_to_english[name_prefix]}_images")
-        #     name_prefix = name_prefix.next
-        #   end
-        # else
-        #   name = "#{feature_type.downcase}_value_0"
-        #   while value_names.include?(name)
-        #     name = name.next
-        #   end
-        # end
-
-        name = "#{feature_type.downcase}_value_0"
-        while key_names.include?(name)
-          name = name.next
+        key_names = node_type.key_names
+        case feature_type
+        when "list"
+          name_prefix = 0
+          while key_names.include?(name = "#{number_to_english[name_prefix]}_list_items")
+            name_prefix = name_prefix.next
+          end
+        when "image"
+          name_prefix = 0
+          while key_names.include?(name = "#{number_to_english[name_prefix]}_images")
+            name_prefix = name_prefix.next
+          end
+        else
+          name = "#{feature_type.downcase}_value_0"
+          while key_names.include?(name)
+            name = name.next
+          end
         end
+
         self.key_name = name.to_sym
       end
     end
