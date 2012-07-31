@@ -17,6 +17,12 @@ module Features
       name.join
     end
 
+    def self.feature_types
+      subclasses.map do |name|
+        to_feature(name)
+      end
+    end
+
     def value
       send(key_name)
     end
@@ -26,7 +32,7 @@ module Features
     end
 
     def required?
-      feature_configuration.required?
+      conf.required?
     end
 
     def add_error(message = "")

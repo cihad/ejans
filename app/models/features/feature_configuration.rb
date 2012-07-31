@@ -52,7 +52,6 @@ module Features
       "features/#{feature_type}_feature".camelize.classify.constantize
     end
 
-
     def partial_dir
       "features/#{feature_type.underscore}"
     end
