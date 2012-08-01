@@ -9,6 +9,18 @@ module Features
         class_name: "Features::Image"
     end
 
+    def fill_random!
+      dir = Rails.root
+      images_dir = "#{dir}/spec/support/images"
+      all_images = Dir.glob("#{images_dir}/*.jpg")
+      ma = maximum_image || 10
+      image_file_dirs = all_images.shuffle.take(rand(ma))
+      images = image_file_dirs.each_with_index.inject([]) do |ary, (file, index)|
+        image = Features::Image.new(image:File.new(file), node: node, position: (index + 1))
+        ary << image
+      end
+      self.value = images
+    end
 
     def add_images(params)
       params.inject([]) do |new_images, img|

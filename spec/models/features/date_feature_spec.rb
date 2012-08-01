@@ -41,7 +41,6 @@ describe Features::DateFeature do
     end
   end
 
-
   context "#validations" do
     context "when date is null" do
       before do
@@ -69,6 +68,14 @@ describe Features::DateFeature do
       end
 
       specify { subject.should_not be_valid }
+    end
+
+    context "when feature filled by fill_random!" do 
+      before do
+        subject.fill_random!
+      end
+
+      specify { subject.should be_valid }
     end
   end
 end

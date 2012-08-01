@@ -12,6 +12,12 @@ module Features
       has_and_belongs_to_many :"#{key_name}", class_name: "Features::ListItem"
     end
 
+    def fill_random!
+      ma = maximum_select || conf.list_items.size
+      list_items = conf.list_items.shuffle.take(rand(ma) + 1)
+      self.value = list_items
+    end
+
     private
     def presence_value
       if required? and value.size == 0

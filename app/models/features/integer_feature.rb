@@ -14,6 +14,13 @@ module Features
       field :"#{key_name}", type: Integer
     end
 
+    def fill_random!
+      mi = min || 0
+      ma = max || 10_000
+      valid_value = Random.new.rand(mi..ma)
+      self.value = valid_value
+    end
+
     private
     def presence_value
       if required? and value.blank?

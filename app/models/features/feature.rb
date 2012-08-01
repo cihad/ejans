@@ -27,6 +27,10 @@ module Features
       send(key_name)
     end
 
+    def value=(value)
+      self.send("#{key_name}=", value)
+    end
+
     def self.get_method_from_conf(*methods)
       delegate *methods, to: :feature_configuration
     end

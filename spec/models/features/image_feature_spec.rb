@@ -59,6 +59,14 @@ describe Features::ImageFeature do
         subject.should_not be_valid
       end
     end
+
+    context "when feature filled by fill_random!" do 
+      before do
+        subject.fill_random!
+      end
+
+      specify { subject.should be_valid }
+    end
   end
 
 end

@@ -2,10 +2,6 @@ module Features
   class StringFeature < Feature
     include Mongoid::Document
 
-    def self.set_key(key_name)
-      field :"#{key_name}", type: String
-    end
-
     get_method_from_conf :maximum_length, :minimum_length
     alias :max :maximum_length
     alias :min :minimum_length
@@ -13,6 +9,17 @@ module Features
     validate :presence_value
     validate :not_greater_than_maximum_length
     validate :not_less_than_minimum_length
+
+    def self.set_key(key_name)
+      field :"#{key_name}", type: String
+    end
+
+    def fill_random!
+      mi = min || 1
+      ma = max || 200
+      valid_value = Faker::Lorem.paragraph.truncate(Random.new.rand(mi..max))
+      self.value = valid_value
+    end
 
     private
     def presence_value

@@ -2,30 +2,40 @@ class NodeType
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  # Fields
   field :name, type: String
   field :title_label, type: String
   field :description, type: String
 
-  # Associations
   has_many :nodes
   has_many :feature_configurations,
     class_name: "Features::FeatureConfiguration",
     dependent: :destroy
-  has_many :views, class_name: "Views::View"
+  has_many :views, class_name: "Views::View",
+    dependent: :destroy
 
-  # Callbacks
   after_save :create_node_view
-
-  # Validates
   validates :name, presence: true
 
   def create_node_view
     self.views.create(type: :node, position: 0)
   end
 
+  def filters
+    feature_configurations.where(filter: true)
+  end
+
   def key_names
     feature_configurations.map(&:key_name)
+  end
+
+  def fill_random!(node_count =  100)
+    node_count.times do
+      node = Node.new(title: Faker::Lorem.sentence)
+      node.save(validate: false)
+      node.node_type = self
+      node.features.each { |f| f.fill_random! }
+      node.save
+    end
   end
 
   def build_configuration(params)
@@ -34,12 +44,6 @@ class NodeType
       parameters = params[Features::FeatureConfiguration.param_name(type)] || {}
       self.feature_configurations.build(parameters, type)
     end
-  end
-
-  # Methods
-  # Feature configurations with selected filter
-  def filters
-    feature_configurations.where(filter: true)
   end
 
   # Results by param filters

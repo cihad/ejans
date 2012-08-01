@@ -71,5 +71,13 @@ describe Features::StringFeature do
 
       specify { subject.should_not be_valid }
     end
+
+    context "when feature filled by fill_random!" do 
+      before do
+        subject.fill_random!
+      end
+
+      specify { subject.should be_valid }
+    end
   end
 end

@@ -36,6 +36,12 @@ class Node
     end
   end
 
+  def fill_random!
+    features.each do |f|
+      f.fill_random!
+    end
+  end
+
   def node_type=(node_type)
     self.node_type_id = node_type.id
     build_assoc!

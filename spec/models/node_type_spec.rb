@@ -2,8 +2,23 @@ require 'spec_helper'
 
 describe NodeType do
 
-  let(:node_type) { Fabricate.build(:node_type) }
+  let(:node_type) { Fabricate(:node_type) }
+  let(:integer_fc) { Fabricate.build(:integer_fc) }
+  let(:string_fc) { Fabricate.build(:string_fc) }
+  let(:node) { Fabricate.build(:node) }
+
+  before do
+    integer_fc.node_type = node_type
+    string_fc.node_type = node_type
+    integer_fc.save
+    string_fc.save
+    node.node_type = node_type
+    node.fill_random!
+    node.save
+  end
+
   subject { node_type }
+
   it { should respond_to :name }
   it { should respond_to :title_label }
   it { should respond_to :description }
@@ -14,41 +29,24 @@ describe NodeType do
     node_type.should_not be_valid
   end
 
-  it "should has not a view" do
-    node_type.views.should be_blank
-  end
-
-  it "when node_type is saved should created a node view" do
-    node_type.save
-    node_type.views.should_not be_blank
-  end
-
-
-  describe "Emlak Service" do
-    let(:emlak) { Fabricate.build(:emlak) }
-    subject { emlak }
-
-    before do
-      emlak.save
-      emlak.feature_configurations.each {|fc| fc.save }
+  context "#views" do
+    it "node type when before save should has not a view" do
+      subject.views.should_not be_blank
     end
 
-    it { should_not be_nil }
-
-    it "has 7 feature_configurations" do
-      emlak.feature_configurations.size.should == 7
-    end
-
-    it "when emlak is deleted, feature_configurations should be deleted" do 
-      fcs = emlak.feature_configurations
-      emlak.destroy
-      fcs.each do |fc|
-        Features::FeatureConfiguration.where(id: fc.id).first.should be_nil
+    it "node type when destroy should be destroyed views" do
+      views_ids = subject.views.map(&:id)
+      subject.destroy
+      views_ids.each do |id|
+        Views::View.where(id: id).should_not be_exists
       end
     end
+  end
 
-    it "has 0 filter" do
-      emlak.filters.size.should == 0
+  context "#nodes" do
+    it "node type should have 1 node" do
+      node_type.nodes.should_not be_blank
+      node_type.nodes.size.should == 1
     end
   end
 end

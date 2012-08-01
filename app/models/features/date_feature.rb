@@ -13,6 +13,11 @@ module Features
       field key_name, type: Date
     end
 
+    def fill_random!
+      valid_date = Date.new(Random.new.rand(start_year...end_year), rand(11) + 1, rand(27) + 1)
+      self.value = valid_date
+    end
+
     private
     def presence_value
       if required? and not_defined?
