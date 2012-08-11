@@ -50,8 +50,8 @@ module Features
     def data_names
       arr = []
       arr + [:"#{machine_name}_year"]
-      arr + [:"#{machine_name}_month"] if data_type == :year_moth
-      arr + [:"#{machine_name}_day"] if data_type == :year_moth_day
+      arr + [:"#{machine_name}_month"] if date_type == :year_moth
+      arr + [:"#{machine_name}_day"] if date_type == :year_moth_day
       arr
     end
 
