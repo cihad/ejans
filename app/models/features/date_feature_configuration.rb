@@ -47,6 +47,14 @@ module Features
       end
     end
 
+    def data_names
+      arr = []
+      arr + [:"#{machine_name}_year"]
+      arr + [:"#{machine_name}_month"] if data_type == :year_moth
+      arr + [:"#{machine_name}_day"] if data_type == :year_moth_day
+      arr
+    end
+
     def now_year
       Time.now.utc.to_date.year
     end

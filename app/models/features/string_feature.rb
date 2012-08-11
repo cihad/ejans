@@ -17,7 +17,7 @@ module Features
     def fill_random!
       mi = min || 1
       ma = max || 200
-      valid_value = Faker::Lorem.paragraph.truncate(Random.new.rand(mi..max))
+      valid_value = Faker::Lorem.paragraph.truncate(Random.new.rand(mi..ma))
       self.value = valid_value
     end
 

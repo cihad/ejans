@@ -14,6 +14,11 @@ module ModalHelper
     end
   end
 
+  def node_modal_path(node)
+    prms = delete_param!(:node_id)
+    url_for(prms.merge(node_id: node.id.to_s))
+  end
+
   def delete_param!(param = nil)
     prms = params.clone
     prms.delete(param) if param

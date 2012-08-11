@@ -13,6 +13,13 @@ module Features
       field key_name, type: Date
     end
 
+    def values(opts)
+      super
+      { :"#{machine_name}_day"   => @value.day,
+        :"#{machine_name}_month" => @value.month,
+        :"#{machine_name}_year"  => @value.year }
+    end
+
     def fill_random!
       valid_date = Date.new(Random.new.rand(start_year...end_year), rand(11) + 1, rand(27) + 1)
       self.value = valid_date

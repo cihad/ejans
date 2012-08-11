@@ -46,19 +46,33 @@ class NodeType
     end
   end
 
+  def build_view(params)
+    type = params[:_type].safe_constantize if params[:_type]
+    if Views::View.subclasses.include?(type)
+      parameters = params[Views::View.param_name(type)] || {}
+      self.views.build(parameters, type)
+    end
+  end
+
+  def node_layout_attrs
+    Node.data_names +
+    feature_configurations.inject([]) do |arr, conf|
+      arr + conf.data_names
+    end
+  end
+
+  def conf_datas
+    feature_configurations.inject({}) do |h, conf|
+      h.merge!(conf.conf_data)
+    end
+  end
+
   # Results by param filters
   # query(params).selector => {:price => { "$gte" => 100, $lte => "200"}}
   def filter(params = {})
     nodes
-      .includes(features: :feature_configuration)
       .send(:where, query(params).selector)
       .page(params[:page])
-  end
-
-  Views::View::VIEW_TYPES.each do |view_type|
-    define_method(:"#{view_type}_features") do
-      views.includes(features: :feature_configuration).where(type: view_type).first.features
-    end
   end
 
   private

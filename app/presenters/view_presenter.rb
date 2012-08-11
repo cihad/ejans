@@ -1,71 +1,64 @@
 class ViewPresenter
-  attr_accessor :params, :node_type, :current_view_param
+  attr_accessor :params, :node_type, :view, :nodes
+  attr_reader :node_type_layout, :node_layout
 
-  def initialize(params = {}, template)
+  def initialize(params = {}, node_type, nodes, template)
     self.params = params
     @template = template
-    self.node_type = NodeType.find(params.delete(:node_type_id))
-    self.current_view_param = params[:view]
+    self.node_type = node_type
+    self.view = params[:view_id]
+    self.nodes = nodes
   end
 
-  def current_view_param=(current_view_param)
-    @current_view_param = current_view_param ? current_view_param.to_sym : default_view_type
+  def view=(view_id)
+    @view = if view_id
+              node_type.views.find(view_id)
+            else
+              default_view
+            end
+    @node_type_layout = @view.node_type_layout || ""
+    @node_layout = @view.node_layout || ""
   end
 
-  # => "list"
-  def default_view_type
-    node_type.views.first.type
+  def default_view
+    node_type.views.first
   end
 
-  # => :list
-  def current_view_type
-    Views::View::VIEW_TYPES.include?(current_view_param) ? current_view_param : default_view_type
+  def to_s
+    @template.render(inline: node_type_layout, locals: { nodes: rendered_nodes })
   end
 
-  # => content_tag :ul, id: "nodes", &block
-  def view_tag(&block)
-    case current_view_type
-    when :list
-      @template.content_tag :ul, id: "nodes list-view", &block
-    when :table
-      @template.content_tag :table, id: "nodes", class: "table table-view", &block
-    when :node
-      @template.content_tag :div, class: "node node-view", &block
-    when :grid
-      @template.content_tag :div, class: "row nodes grid-view", &block
-    else
-      @template.content_tag :div, id: "nodes", &block
-    end
+  def rendered_nodes
+    conf_datas = node_type.conf_datas
+    rendered = nodes.inject("") do |str, node|
+      str << @template.render(inline: node_layout, locals: node.mapping(conf_datas))
+    end.html_safe
+    rendered
   end
 
-  # => 
+  def css
+    @template.content_tag :style, view.css, type: Mime::CSS
+  end
+
+  def js
+    @template.javascript_tag view.js
+  end
+
+  def paginate
+    @template.paginate nodes
+  end
+
   def view_links
     params.delete(:node_id)
     if node_type.views.count > 1
-      links = node_type.views.inject("") do |output, view|
-                unless view.type == :node
-                  current_class = "active" if view.type == current_view_type
-                  output += @template.link_to @template.url_for(params.merge(view: view.type)), class: "btn data-remote #{current_class}" do
-                    @template.content_tag :i, nil, class: view_icon(view)
-                  end
-                  output
+      links = node_type.views.inject("") do |output, v|
+                current_class = "active" if v == view
+                output += @template.link_to @template.url_for(params.merge(view_id: v.id.to_s)), class: "btn data-remote #{current_class}" do
+                  @template.content_tag :i, nil, class: "icon-th-large"
                 end
+                output
               end
-      links.html_safe if links
-    end
-  end
-
-  # => "icon-th-list"
-  def view_icon(view)
-    case view.type.to_sym
-    when :list
-      "icon-list"  
-    when :table
-      "icon-th"
-    when :node
-      "icon-th-large"
-    else
-      "icon-th-large"
+      links.html_safe
     end
   end
 end

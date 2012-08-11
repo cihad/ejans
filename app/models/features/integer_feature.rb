@@ -1,6 +1,7 @@
 module Features
   class IntegerFeature < Feature
     include Mongoid::Document
+    include ActionView::Helpers
 
     validate :presence_value
     validate :not_greater_than_maximum
@@ -12,6 +13,17 @@ module Features
 
     def self.set_key(key_name)
       field :"#{key_name}", type: Integer
+    end
+
+    def data(conf_datas)
+      super
+      {
+        :"#{@machine_name}_value" => number_with_delimiter(@value, delimiter: @data[:"#{@machine_name}_delimiter"]),
+        :"#{@machine_name}_prefix" => @data[:"#{@machine_name}_prefix"],
+        :"#{@machine_name}_suffix" => @data[:"#{@machine_name}_suffix"],
+        :"#{@machine_name}_min" => @data[:"#{@machine_name}_minimum"],
+        :"#{@machine_name}_max" => @data[:"#{@machine_name}_maximum"]
+      }
     end
 
     def fill_random!

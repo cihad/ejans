@@ -60,6 +60,27 @@ module Features
       label.parameterize("_")
     end
 
+    #### For Node Presenter
+    def data_names
+      data_for_node.inject([]) do |arr, data|
+        arr << data.first
+      end
+    end
+
+    def conf_data
+      { id.to_s => key_data.merge(data: data_for_node) }
+    end
+
+    def key_data
+      { :key_name => key_name,
+        :machine_name => machine_name }
+    end
+
+    def data_for_node
+      { :"#{machine_name}_label" => label }
+    end
+    ####
+
     def build_assoc!(node)
       feature_class.set_key(key_name)
       unless node.features.where(feature_configuration_id: self.id).exists?

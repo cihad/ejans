@@ -1,42 +1,14 @@
-<table class="table table-form">
-  <%= form_item_layout do %>
-    <%= form_label_layout do %>
-      <span>View type</span>
-    <% end %>
-    <%= form_value_layout do %>
-      <span class="input-xlarge uneditable-input"><%= @view.type %></span>
-    <% end %>
-  <% end %>
+<% url = if @view.new_record?
+            node_type_views_views_path
+          else
+            node_type_views_view_path
+          end %>
 
-  <%= checkbox_group "Features" do %>
-    <ul class="sortable-list selections" data-update-url="<%= sort_views_view_features_url(@view) %>">
-      <% @view.features.each do |feature| %>
-        <li class="feature" id="feature_<%= feature.id %>">
-          <span class="handle">[drag]</span>
-          <%= feature.feature_configuration.label %>
-          <%= link_to "Sil", views_view_feature_path(@view, feature), method: :delete, confirm: "Are you sure?" %>
-        </li>
-      <% end %>
-    </ul>
-    <% unless @view.features.count == @node_type.feature_configurations.count %>
-      <%= form_for [@node_type, @view] do |f| %>
-        <%= f.select :conf_id,
-                      @node_type
-                        .feature_configurations
-                        .map { |conf| [conf.label, conf.id] unless @view.features.map(&:feature_configuration_id).include?(conf.id) }
-                        .compact %>
-        <%= f.submit "Add feature", class: "btn" %>
-      <% end %>
-    <% end %>
-    <%= javascript_tag do %>
-      $('.sortable-list').sortable({
-        axis: 'y',
-        handle: ".handle",
-        update: function() {
-          return $.post($(this).data('update-url'), $(this).sortable('serialize'));
-        }
-      });
-    <% end %>
-  <% end %>
-
-</table>
+<%= form_for [@node_type, @view],
+    url: url do |f| %>
+  <table class="table table-form">
+    <%= hidden_field_tag "_type", @view._type %>
+    <%= render "#{@view.partial_dir}/form", f: f %>
+    <%= simple_submit f %>
+  </table>
+<% end %>

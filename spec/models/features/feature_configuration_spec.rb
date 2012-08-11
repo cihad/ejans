@@ -59,3 +59,48 @@ describe Features::FeatureConfiguration do
     end
   end
 end
+
+Features::FeatureConfiguration.feature_types.each do |type|
+  describe "Features::#{type}FeatureConfiguration".constantize do
+    let(:node_type) { Fabricate(:node_type) }
+    let(:conf) { Fabricate.build(:"#{type.downcase}_fc") }
+
+    before do
+      conf.node_type = node_type
+    end
+
+    subject { conf }
+
+    context "#data_for_node" do
+      specify do
+        subject.label = "Sample Feature"
+        subject.data_for_node[:"#{subject.machine_name}_label"].should_not be_nil
+      end
+    end
+
+    context "#key_data" do
+      specify do
+        subject
+          .key_data
+          .should == { :key_name => subject.key_name,
+                       :machine_name => subject.machine_name }
+      end
+    end
+
+    context "#conf_data" do
+      specify do
+        subject
+          .conf_data[subject.id.to_s]
+          .should_not be_nil
+      end
+    end
+
+    context "#datan_names" do
+      specify do
+        subject
+          .data_names
+          .should be_kind_of Array
+      end
+    end
+  end
+end

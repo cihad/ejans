@@ -9,5 +9,9 @@ module Features
     field :text_format, type: Symbol
 
     validates :text_format, inclusion: { in: TEXT_FORMATS }
+
+    def data_names
+      super + [:"#{machine_name}_value"]
+    end
   end
 end

@@ -8,17 +8,11 @@ class ViewsController < ApplicationController
   end
 
   def new
-    @view = @node_type.views.build(params[:views_view])
-    @view.build_assoc!
-    if @view.save
-      redirect_to edit_node_type_views_view_path(@node_type, @view)
-    else
-      redirect_to node_type_views_views_path(@node_type)
-    end
+    @view = @node_type.build_view(params)
   end
 
   def create
-    @view = @node_type.views.build(params[:views_view])
+    @view = @node_type.build_view(params)
     if @view.save
       redirect_to @node_type, notice: "Succesfully."
     end
@@ -30,7 +24,8 @@ class ViewsController < ApplicationController
 
   def update
     @view = @node_type.views.find(params[:id])
-    if @view.update_attributes(params[:views_view])
+    params_name = Views::View.param_name(params[:_type])
+    if @view.update_attributes(params[params_name])
       redirect_to edit_node_type_views_view_path(@node_type, @view), notice: 'View was successfully updated.'
     else
       render action: "edit"

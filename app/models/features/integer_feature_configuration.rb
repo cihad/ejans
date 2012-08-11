@@ -14,6 +14,34 @@ module Features
 
     validates :filter_type, inclusion: { in: FILTER_TYPES + [nil] }
 
+    def data_names
+      super + [:"#{machine_name}_value"]
+    end
+
+    def data_for_node
+      super.merge({
+        :"#{machine_name}_min" => minimum,
+        :"#{machine_name}_max" => maximum,
+        :"#{machine_name}_prefix" => prefix,
+        :"#{machine_name}_suffix" => suffix,
+        :"#{machine_name}_delimiter" => delimiter, })
+    end
+
+    def delimiter
+      case thousand_marker
+      when :none
+        ""
+      when :decimal_point
+        "."
+      when :comma
+        ","
+      when :space
+        " "
+      else
+        ""
+      end
+    end
+
     def filter_query(params = {})
       case filter_type
       when :number_field

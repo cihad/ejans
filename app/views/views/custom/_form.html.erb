@@ -1,0 +1,58 @@
+<fieldset class="section row">
+  <div class="span7">
+    <h3>CSS</h3>
+    <%= f.text_area :css, rows: 5, class: "span6" %>
+  </div>
+
+  <div class="span5">
+    <h3>Help</h3>
+    <ul>
+      <li>Twitter bootstrap siniflarini kullanabilirsiniz.</li>
+    </ul>
+  </div>
+</fieldset>
+
+<fieldset class="section row">
+  <div class="span7">
+    <h3>JS</h3>
+    <%= f.text_area :js, rows: 5, class: "span6"%>
+  </div>
+
+  <div class="span5">
+    <h3>Help</h3>
+    <ul>
+      <li>jQuery 1.8.6 zaten sayfaya ekli.</li>
+      <li>jQuery açma-kapama taglarını kullanmaya gerek yok.</li>
+    </ul>
+  </div>
+</fieldset>
+
+<fieldset class="section row">
+  <div class="span7">
+    <h3>Node Type Layout</h3>
+    <%= f.text_area :node_type_layout, rows: 5, class: "span6" %>
+  </div>
+
+  <div class="span5">
+    <h3>Help for</h3>
+    <ul>
+      <li><code>nodes</code></li>
+    </ul>
+  </div>
+</fieldset>
+
+<fieldset class="section row">
+  <div class="span7">
+    <h3>Node Layout</h3>
+    <%= f.text_area :node_layout, rows: 5, class: "span6" %>
+  </div>
+
+  <div class="span5">
+    <h3>Attributes</h3>
+    <ul>
+      <% @node_type.node_layout_attrs.each do |attr| %>
+        <li><code><%= attr %></code></li>
+      <% end %>
+    </ul>
+  </div>
+</fieldset>

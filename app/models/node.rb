@@ -1,6 +1,7 @@
 class Node
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Rails.application.routes.url_helpers
 
   paginates_per 20
 
@@ -27,6 +28,31 @@ class Node
   def find_value_by_views_feature(feature)
     fcid = feature.feature_configuration_id
     features.where(feature_configuration_id: fcid).first
+  end
+
+  def data
+    { :node_title => title,
+      :node_url => node_type_node_path(node_type, self),
+      :node_created_at => created_at,
+      :node_updated_at => updated_at }
+  end
+
+  def self.data_names
+    [:node_title, :node_url, :node_crated_at, :node_updated_at]
+  end
+
+  def mapping(conf_data)
+    features_data = features.inject({}) do |hash, feature|
+      hash.merge!(feature.data(conf_data))
+    end
+
+    node_data = data.merge(features_data)
+
+    conf_data = conf_data.inject({}) do |hash, conf|
+      hash.merge!(conf.last[:data])
+    end
+
+    node_data.merge(conf_data)
   end
 
   # Associations builer (used by the controller)

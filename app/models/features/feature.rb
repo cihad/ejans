@@ -17,6 +17,15 @@ module Features
       name.join
     end
 
+    def data(conf_datas)
+      @opts = conf_datas[feature_configuration_id.to_s]
+      @machine_name = @opts[:machine_name]
+      @key_name = @opts[:key_name]
+      @value = send(@key_name)
+      @data = @opts[:data]
+      { :"#{@machine_name}_value" => @value }
+    end
+
     def self.feature_types
       subclasses.map do |name|
         to_feature(name)

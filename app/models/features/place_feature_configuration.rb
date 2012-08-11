@@ -26,6 +26,13 @@ module Features
       names.map { |name| "#{machine_name}_#{name}" }
     end
 
+    def data_for_node
+      super.merge({
+        :"#{machine_name}_level" => level,
+        :"#{machine_name}_top_place_name" => top_place.try(:name)
+      })
+    end
+
     def filter_query(params = {})
       level.times do |i|
         prm = params[form_machine_names[-(i+1)]]
