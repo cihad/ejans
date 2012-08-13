@@ -15,6 +15,7 @@
   self)
 %>
 
+<<<<<<< HEAD
 
 <% if @node_type.filters_position == :left %>
   <div class="row">
@@ -53,18 +54,58 @@
         <%= view.view_links %>
       </div>
       <%= render 'nodes/filters_top_side/filter_form' %>
+=======
+<% if @node_type.filters_position == :left %>
+  <div class="span3 controls" id="filters">
+    <h3 id="control-title">filters</h3>
+    <%= render 'left_filter_form' %>
+  </div>
+
+  <div class="span9">
+    <div class="controls">
+      <h3 id="control-title">nodes</h3>
+      <div class="right-sided-controls"></div>
+      <div class="right-sided-controls btn-group">
+        <%= view.view_links %>
+      </div>
+    </div>
+
+    <div id="nodes">
+      <%= view %>
+    </div>
+
+    <div id="paging">
+      <%= view.paginate %>
+    </div>
+  </div>
+<% else %>
+  <div class="row conrols">
+    <%= render 'top_filter_form' %>
+    <div class="right-sided-controls"></div>
+    <div class="right-sided-controls btn-group">
+      <%= view.view_links %>
+>>>>>>> node-view
     </div>
   </div>
   
   <div id="nodes">
     <%= view %>
   </div>
+<<<<<<< HEAD
 
   <div id="paging">
     <%= view.paginate %>
   </div>
 <% end %>
 
+=======
+
+  <div id="paging">
+    <%= view.paginate %>
+  </div>
+<% end %>
+
+>>>>>>> node-view
 <!-- Custom CSS for NodeType -->
 <%= view.css %>
 
