@@ -7,6 +7,10 @@ module FeatureFilters
       @template = template
     end
 
+    def position
+      conf.node_type.filters_position
+    end
+
     def feature_type
       conf.feature_type
     end
@@ -20,7 +24,7 @@ module FeatureFilters
     end
 
     def to_s
-      @template.render "#{conf.partial_dir}/filter", feature: self
+      @template.render "#{conf.partial_dir}/#{@position}_filter", feature: self
     end
 
     def label

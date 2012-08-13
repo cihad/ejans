@@ -8,18 +8,56 @@
   <% end %>
 <% end %>
 
-<div class="row" id="controls">
-  <%= render 'filter_form' %>
+<% view = ViewPresenter.new(
+  params.clone,
+  @node_type,
+  @nodes,
+  self)
+%>
 
-  <div class="span3" id="view-links">
-    <div class="btn-group" style="float:right">
-      <% view = ViewPresenter.new(params.clone, @node_type, @nodes, self) %>
+<% if @node_type.filters_position == :left %>
+  <div class="span3 controls" id="filters">
+    <h3 id="control-title">filters</h3>
+    <%= render 'left_filter_form' %>
+  </div>
+
+  <div class="span9">
+    <div class="controls">
+      <h3 id="control-title">nodes</h3>
+      <div class="right-sided-controls"></div>
+      <div class="right-sided-controls btn-group">
+        <%= view.view_links %>
+      </div>
+    </div>
+
+    <div id="nodes">
+      <%= view %>
+    </div>
+
+    <div id="paging">
+      <%= view.paginate %>
+    </div>
+  </div>
+<% else %>
+  <div class="row conrols">
+    <%= render 'top_filter_form' %>
+    <div class="right-sided-controls"></div>
+    <div class="right-sided-controls btn-group">
       <%= view.view_links %>
     </div>
   </div>
-</div>
+  
+  <div id="nodes">
+    <%= view %>
+  </div>
 
-<%= view %>
+  <div id="paging">
+    <%= view.paginate %>
+  </div>
+<% end %>
+
+<!-- Custom CSS for NodeType -->
 <%= view.css %>
+
+<!-- Custom JS for NodeType -->
 <%= view.js %>
-<%= view.paginate %>
