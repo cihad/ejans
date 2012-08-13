@@ -24,11 +24,7 @@ module FeatureFilters
     end
 
     def to_s
-<<<<<<< HEAD
       @template.render "#{conf.partial_dir}/#{position}_filter", feature: self
-=======
-      @template.render "#{conf.partial_dir}/#{@position}_filter", feature: self
->>>>>>> node-view
     end
 
     def label
