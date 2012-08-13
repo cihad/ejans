@@ -22,6 +22,7 @@ describe NodeType do
   it { should respond_to :name }
   it { should respond_to :title_label }
   it { should respond_to :description }
+  it { should respond_to :filters_position }
   it { should be_valid }
 
   it "when name is not present" do
@@ -47,6 +48,13 @@ describe NodeType do
     it "node type should have 1 node" do
       node_type.nodes.should_not be_blank
       node_type.nodes.size.should == 1
+    end
+  end
+
+  context "#validations" do
+    specify do
+      subject.filters_position = :this_is_a_unvalid_option
+      subject.should_not be_valid
     end
   end
 end

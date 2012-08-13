@@ -1,0 +1,16 @@
+<%= form_tag node_type_nodes_path(),
+  method: :get,
+  class: "filter-form form-inline control-title" do %>
+  
+  <table>
+    <tr>
+      <% @node_type.filters.each do |conf| %>
+        <%= render 'nodes/filters_top_side/filter_block', filter: filter_for(conf) %>
+      <% end %>
+      <td>
+        <%= hidden_field_tag "view", params[:view] %>
+        <%= submit_tag "Filter", class: "btn btn-mini btn-success" %>
+      </td>
+    </tr>
+  </table>
+<% end %>

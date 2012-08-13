@@ -1,0 +1,9 @@
+<%= form_tag node_type_nodes_path(), method: :get, class: "filter-form" do %>
+
+  <% @node_type.filters.each do |conf| %>
+    <%= render 'nodes/filters_left_side/filter_block', filter: filter_for(conf) %>
+  <% end %>
+
+  <%= hidden_field_tag "view", params[:view] %>
+  <%= submit_tag "Filter", class: "btn btn-mini btn-success" %>
+<% end %>

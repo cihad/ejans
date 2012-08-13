@@ -5,6 +5,8 @@ class NodeType
   field :name, type: String
   field :title_label, type: String
   field :description, type: String
+  field :filters_position, type: Symbol, default: :top
+  FILTERS_POSITIONS = [:top, :left]
 
   has_many :nodes
   has_many :feature_configurations,
@@ -15,6 +17,8 @@ class NodeType
 
   after_save :create_node_view
   validates :name, presence: true
+  validates :filters_position,
+    inclusion: { in: FILTERS_POSITIONS }
 
   def create_node_view
     self.views.create(type: :node, position: 0)
