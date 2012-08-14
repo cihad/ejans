@@ -4,6 +4,7 @@ tmp/
 .sass-cache/
 
 config/*.conf
+config/*sphinx.conf
 config/app_config.yml
 config/database.yml
 config/mongoid.yml
