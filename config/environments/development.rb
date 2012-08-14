@@ -43,13 +43,13 @@ Ejans::Application.configure do
 
   # these options are only needed if you choose smtp delivery
   config.action_mailer.smtp_settings = {
-    address:              "smtp.gmail.com",
-    port:                 587,
-    domain:               "localhost:3000",
+    address:              APP_CONFIG['smtp']['address'],
+    port:                 APP_CONFIG['smtp']['port'].to_i,
+    domain:               APP_CONFIG['smtp']['domain'],
     authentication:       :login,
     enable_starttls_auto: true,
-    user_name:            "cihadp@gmail.com",
-    password:             "chad1234"
+    user_name:            APP_CONFIG['smtp']['username'],
+    password:             APP_CONFIG['smtp']['password']
   }
 
   config.i18n.available_locales = :tr
