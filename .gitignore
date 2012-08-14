@@ -1,11 +1,20 @@
 .bundle
-db/*.sqlite3
 log/*
 tmp/
 .sass-cache/
+
 config/*.conf
+config/app_config.yml
+config/database.yml
+config/mongoid.yml
 config/deploy.rb
 config/sphinx.yml
+config/development.sphinx.yml
+config/production.sphinx.yml
+config/unicorn.rb
+
 db/sphinx/*
+db/*.sqlite3
+
 public/uploads/*
 

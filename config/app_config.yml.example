@@ -1,0 +1,13 @@
+defaults: &defaults
+  secret_token: SECRET_TOKEN
+
+
+development:
+  <<: *defaults
+  perform_authentication: false
+
+test:
+  perform_authentication: false
+
+production:
+  perform_authentication: true
