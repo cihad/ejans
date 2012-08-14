@@ -8,7 +8,7 @@
   <% end %>
 <% end %>
 
-<% view = ViewPresenter.new(
+<% view = Views::CustomPageView.new(
   params.clone,
   @node_type,
   @nodes,
@@ -98,7 +98,6 @@
   </div>
 <% end %>
 
->>>>>>> node-view
 <!-- Custom CSS for NodeType -->
 <%= view.css %>
 

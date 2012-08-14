@@ -15,7 +15,7 @@ module Features
       field :"#{key_name}", type: Integer
     end
 
-    def data(conf_datas)
+    def data(conf_data)
       super
       {
         :"#{@machine_name}_value" => number_with_delimiter(@value, delimiter: @data[:"#{@machine_name}_delimiter"]),

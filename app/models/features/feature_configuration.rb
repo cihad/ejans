@@ -10,6 +10,7 @@ module Features
     field :help_text, type: String
     field :position, type: Integer
 
+    scope :filters, where(filter: true)
     default_scope order_by([:position, :asc])
 
     belongs_to :node_type

@@ -17,8 +17,8 @@ module Features
       name.join
     end
 
-    def data(conf_datas)
-      @opts = conf_datas[feature_configuration_id.to_s]
+    def data(conf_data)
+      @opts = conf_data[feature_configuration_id.to_s]
       @machine_name = @opts[:machine_name]
       @key_name = @opts[:key_name]
       @value = send(@key_name)

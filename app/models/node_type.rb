@@ -15,24 +15,20 @@ class NodeType
   has_many :views, class_name: "Views::View",
     dependent: :destroy
 
-  after_save :create_node_view
+  after_create :create_node_view
   validates :name, presence: true
   validates :filters_position,
     inclusion: { in: FILTERS_POSITIONS }
 
-  def create_node_view
-    self.views.create(type: :node, position: 0)
-  end
-
   def filters
-    feature_configurations.where(filter: true)
+    feature_configurations.filters
   end
 
   def key_names
     feature_configurations.map(&:key_name)
   end
 
-  def fill_random!(node_count =  100)
+  def fill_random!(node_count = 100)
     node_count.times do
       node = Node.new(title: Faker::Lorem.sentence)
       node.save(validate: false)
@@ -65,7 +61,7 @@ class NodeType
     end
   end
 
-  def conf_datas
+  def conf_data
     feature_configurations.inject({}) do |h, conf|
       h.merge!(conf.conf_data)
     end
@@ -88,5 +84,9 @@ class NodeType
       node_query = node_query.send(:where, conf.filter_query(params))
     end 
     node_query
+  end
+
+  def create_node_view
+    self.views.build({}, Views::Node).save(validate: false)
   end
 end

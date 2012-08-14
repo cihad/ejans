@@ -2,9 +2,9 @@
 <div class="modal" id="node-modal">
   <div class="modal-header">
     <%= link_to_pjax_modal_close %>
-    <h3><%= node.title %></h3>
+    <h3><%= @node.title %></h3>
   </div>
   <div class="modal-body">
-    <%= render 'node_node', node: node %>
+    <%= render 'node' %>
   </div>
 </div>

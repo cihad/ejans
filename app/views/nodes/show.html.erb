@@ -1,8 +1,6 @@
 <% page_name = @node.title %>
 <% provide :title, page_name %>
-
 <% meta_description @node.title %>
-
 <%= page_title @node.title %>
 
-<%= render 'node_node', node: @node %>
+<%= render "node" %>
