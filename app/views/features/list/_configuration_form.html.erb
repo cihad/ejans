@@ -15,7 +15,7 @@
 
 <% content_for :top do %>
   <% pjax_modal("List items", :edit_list_items) do %>
-    <ul>
+    <ul class="list-items">
       <% @fc.list_items.each do |list_item| %>
         <%= content_tag :li do %>
           <%= list_item.name %>

@@ -48,13 +48,13 @@ class NodeType
 
   def build_view(params)
     type = params[:_type].safe_constantize if params[:_type]
-    if Views::View.subclasses.include?(type)
+    if Views::View.sub_classes.include?(type)
       parameters = params[Views::View.param_name(type)] || {}
       self.views.build(parameters, type)
     end
   end
 
-  def node_layout_attrs
+  def node_template_attrs
     Node.data_names +
     feature_configurations.inject([]) do |arr, conf|
       arr + conf.data_names

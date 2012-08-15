@@ -1,15 +1,7 @@
 module Views
   class NodePageView < NodeTypeView
     def view
-      node_type.views.select { |view| view._type == Views::Node }
-    end
-
-    def node_layout
-      %q{
-        <div class='node' id='node-#{node.id}'>
-          <%= nodes %>
-        </div>
-      }
+      node_type.views.select { |view| view.class == Views::Node }.first
     end
 
     def rendered_node
@@ -18,8 +10,8 @@ module Views
 
     def to_s
       template.render(
-        inline: node_layout, 
-        locals: { nodes: rendered_node })
+        inline: view.node_type_template, 
+        locals: { node: rendered_node })
     end
   end
 end

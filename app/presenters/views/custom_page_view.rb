@@ -1,15 +1,15 @@
 module Views
   class CustomPageView < NodeTypeView
-    attr_accessor :view, :node_layout
+    attr_accessor :view, :node_template
 
     def initialize(*args)
       super *args
       self.view = @params[:view_id]
-      self.node_layout = view.node_layout
+      self.node_template = view.node_template
     end
 
-    def node_layout=(node_layout)
-      @node_layout = node_layout || ""
+    def node_template=(node_template)
+      @node_template = node_template || ""
     end
 
     def view=(view_id)
@@ -24,13 +24,13 @@ module Views
       node_type.views.first
     end
 
-    def node_type_layout
-      view.node_type_layout || ""
+    def node_type_template
+      view.node_type_template || ""
     end
 
     def to_s
       template.render(
-        inline: node_type_layout,
+        inline: node_type_template,
         locals: { nodes: rendered_nodes })
     end
 

@@ -31,14 +31,15 @@ class Node
   end
 
   def data
-    { :node_title => title,
+    { :node_id => id.to_s,
+      :node_title => title,
       :node_url => node_type_node_path(node_type, self),
       :node_created_at => created_at,
       :node_updated_at => updated_at }
   end
 
   def self.data_names
-    [:node_title, :node_url, :node_crated_at, :node_updated_at]
+    [:node_id, :node_title, :node_url, :node_created_at, :node_updated_at]
   end
 
   def mapping(conf_data)

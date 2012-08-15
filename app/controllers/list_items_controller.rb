@@ -3,7 +3,6 @@ class ListItemsController < ApplicationController
 
   def create
     @list_item = @fc.list_items.build(params[:features_list_item])
-    @list_item.save
     respond_to do |format|
       if @list_item.save
         format.js

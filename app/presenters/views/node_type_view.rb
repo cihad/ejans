@@ -2,12 +2,15 @@ module Views
   class NodeTypeView
     attr_reader :params,
                 :node_type,
-                :node_layout,
+                :node_template,
                 :conf_data,
                 :template,
                 :nodes
 
-    def initialize(params = {}, node_type, nodes, template)
+    def initialize( params = {},
+                    node_type,
+                    nodes,
+                    template )
       @params = params
       @template = template
       @node_type = node_type

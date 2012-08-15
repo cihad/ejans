@@ -9,10 +9,6 @@ module Views
       self.features.build(feature_configuration_id: Features::FeatureConfiguration.find(id).id, position: 10)
     end
 
-    def name
-      "table"
-    end
-
     def build_assoc!
       node_type.feature_configurations.each_with_index do |fc, i|
         feature = self.features.build

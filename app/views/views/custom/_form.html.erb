@@ -30,7 +30,7 @@
 <fieldset class="section row">
   <div class="span7">
     <h3>Node Type Layout</h3>
-    <%= f.text_area :node_type_layout, rows: 5, class: "span6" %>
+    <%= f.text_area :user_input_node_type_template, rows: 5, class: "span6" %>
   </div>
 
   <div class="span5">
@@ -44,13 +44,13 @@
 <fieldset class="section row">
   <div class="span7">
     <h3>Node Layout</h3>
-    <%= f.text_area :node_layout, rows: 5, class: "span6" %>
+    <%= f.text_area :user_input_node_template, rows: 5, class: "span6" %>
   </div>
 
   <div class="span5">
     <h3>Attributes</h3>
     <ul>
-      <% @node_type.node_layout_attrs.each do |attr| %>
+      <% @node_type.node_template_attrs.each do |attr| %>
         <li><code><%= attr %></code></li>
       <% end %>
     </ul>

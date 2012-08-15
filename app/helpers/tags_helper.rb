@@ -1,8 +1,6 @@
 module TagsHelper
   def span_with_label(content, options = {})
-    classes = []
-    classes << "label"
-    classes << options.delete(:class)
+    classes = [] << "label" << options.delete(:class)
     options[:class] = classes.join(" ")
     content_tag :span, content, options
   end
@@ -41,23 +39,31 @@ module TagsHelper
           options[option.to_sym] ||= {}
       end
 
-      classes = options[:input].delete(:class) || ""
-      classes << " input-xlarge"
-      options[:input][:class] = classes
+      classes = [] << (options[:input].delete(:class) || "")
+      classes << "input-xlarge"
+      options[:input][:class] = classes.join(" ")
 
       label_name = options[:label].delete(:name) || name
 
       form_item_layout(options[:form_item_layout]) do
-        concat(form_label_layout(options[:form_label_layout]) { f.label(name, label_name.to_s.humanize, options[:label]) })
-        concat(form_value_layout(options[:form_value_layout]) { f.send(method.to_sym, name, *args, options[:input]) })
+        concat(
+          form_label_layout(options[:form_label_layout]) do
+            f.label(name, label_name.to_s.humanize, options[:label])
+          end
+        )
+        
+        concat(
+          form_value_layout(options[:form_value_layout]) do
+            f.send(method.to_sym, name, *args, options[:input])
+          end
+        )
       end
     end
   end
 
   def simple_submit(f, name = nil, *args)
     options = args.extract_options!
-    classes = []
-    classes << "btn" << options.delete(:class)
+    classes = [] << "btn" << options.delete(:class)
     options.merge!(class: classes )
     form_item_layout do
       concat(form_label_layout { "&nbsp;".html_safe })

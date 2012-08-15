@@ -10,8 +10,8 @@ module Views
       @template = template
     end
 
-    def node_layout
-      view.node_layout
+    def node_template
+      view.node_template
     end
 
     def locals
@@ -19,7 +19,7 @@ module Views
     end
 
     def to_s
-      @template.render(inline: node_layout, locals: locals)
+      @template.render(inline: node_template, locals: locals)
     end
   end
 end

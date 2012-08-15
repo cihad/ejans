@@ -14,12 +14,21 @@ module Views
       end
     end
 
+    def self.sub_classes
+      arr = []
+      arr += [self] unless self.superclass == Object
+      arr += subclasses.inject([]) do |a, class_name|
+        a << class_name.sub_classes
+        a.flatten
+      end
+    end
+
     def self.param_name(type_class)
       type_class.to_s.underscore.sub('/', '_')
     end
 
     def self.options_for_types
-      subclasses.map { |class_name| [class_name.name.demodulize.titleize, class_name]  }
+      sub_classes.map { |class_name| [class_name.name.demodulize.titleize, class_name] }
     end
 
     def view_type
