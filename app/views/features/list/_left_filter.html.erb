@@ -1,13 +1,13 @@
 <%= select_tag  feature.machine_name,
                 options_for_select(feature.list_items.inject({}) { |hash, item| hash[item.name] = item.id; hash }, params["#{feature.machine_name}"]),
                 multiple: true,
-                class: "input-mini multiple-select" %>
+                class: "multiple-select" %>
 
 <%= javascript_tag do %>
     $(".multiple-select").multiselect({
       noneSelectedText: 'Select',
       header: false,
       selectedList: 2,
-      minWidth: 120,
+      minWidth: 200,
     }).multiselectfilter();
 <% end %>

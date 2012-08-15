@@ -7,9 +7,15 @@
   label {
     display: block;
   }
+}
 
-  input[type="number"], select {
-    @extend .btn-mini;
+.filters-left {
+  .single-input {
+    width: 206px;
+  }
+
+  select.single-input {
+    width: 220px;
   }
 }
 

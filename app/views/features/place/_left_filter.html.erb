@@ -1,6 +1,6 @@
 <% tree = feature.tree %>
 <% tree.each_with_index do |level, i| %>
-  <select id="<%= i %>" name="<%= feature.form_machine_names[i] %>" class="span2">
+  <select id="<%= i %>" name="<%= feature.form_machine_names[i] %>" class="span2 single-input">
     <option value="">
       <%= feature.form_level_names[i] %>
     </option>
