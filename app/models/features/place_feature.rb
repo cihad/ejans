@@ -13,15 +13,15 @@ module Features
     end
 
     def fill_random!
-      ids = %w(
-        4fec352d0d75d8bf0800003b
-        4fec356f0d75d8bf08000076
-        4fec37770d75d8bf08000096
-      )
-      places = ids.inject([]) do |a, id|
-        a << Place.find(id)
-      end
-      self.value = places.take(level)
+      # ids = %w(
+      #   4fec352d0d75d8bf0800003b
+      #   4fec356f0d75d8bf08000076
+      #   4fec37770d75d8bf08000096
+      # )
+      # places = ids.inject([]) do |a, id|
+      #   a << Place.find(id)
+      # end
+      # self.value = places.take(level)
       # plc = top_place
       # valid_value = []
       # level.times do

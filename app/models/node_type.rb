@@ -34,7 +34,7 @@ class NodeType
       node.save(validate: false)
       node.node_type = self
       node.features.each { |f| f.fill_random! }
-      node.save
+      node.save(validates: false)
     end
   end
 
