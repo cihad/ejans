@@ -1,4 +1,12 @@
-<%= content_tag :h1, @node_type.name %>
+<div class="row">
+  <div class="span12 node-type-header">
+    <%= link_to new_node_type_node_path(@node_type), class: "btn btn-success new-node" do %>
+      <%= content_tag :i, nil, class: "icon-plus icon-white" %>
+      new node
+    <% end %>
+    <%= page_title @node_type.name %>
+  </div>
+</div>
 
 <% content_for :top do %>
   <% pjax_modal @node.try(:title), :node_id do %>
@@ -52,50 +60,17 @@
         <%= view.view_links %>
       </div>
       <%= render 'nodes/filters_top_side/filter_form' %>
-<% if @node_type.filters_position == :left %>
-  <div class="span3 controls" id="filters">
-    <h3 id="control-title">filters</h3>
-    <%= render 'left_filter_form' %>
-  </div>
-
-  <div class="span9">
-    <div class="controls">
-      <h3 id="control-title">nodes</h3>
-      <div class="right-sided-controls"></div>
-      <div class="right-sided-controls btn-group">
-        <%= view.view_links %>
-      </div>
     </div>
 
-    <div id="nodes">
+    <div id="nodes" class="span12">
       <%= view %>
     </div>
 
-    <div id="paging">
+    <div id="paging" class="span12">
       <%= view.paginate %>
     </div>
   </div>
-<% else %>
-  <div class="row conrols">
-    <%= render 'top_filter_form' %>
-    <div class="right-sided-controls"></div>
-    <div class="right-sided-controls btn-group">
-      <%= view.view_links %>
-    </div>
-  </div>
   
-  <div id="nodes">
-    <%= view %>
-  </div>
-
-  <div id="paging">
-    <%= view.paginate %>
-  </div>
-<% end %>
-
-  <div id="paging">
-    <%= view.paginate %>
-  </div>
 <% end %>
 
 <!-- Custom CSS for NodeType -->
