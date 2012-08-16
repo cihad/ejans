@@ -1,4 +1,4 @@
-.ui-multiselect { @extend .btn; @extend .btn-mini; text-align:left; }
+.ui-multiselect { @extend .btn; text-align:left; }
 .ui-multiselect span.ui-icon { float:right }
 .ui-multiselect-single .ui-multiselect-checkboxes input { position:absolute !important; top: auto !important; left:-9999px; }
 .ui-multiselect-single .ui-multiselect-checkboxes label { padding:5px !important }

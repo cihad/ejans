@@ -1,11 +1,10 @@
-<%= select_tag
-      feature.machine_name,
+<%= select_tag feature.machine_name,
       options_for_select(
-        feature.list_items.inject({}) { |hash, item|
-          hash[item.name] = item.id; hash
-        },
-        params["#{feature.machine_name}"]
-      ),
+        feature.list_items.inject({}) do |hash, item|
+          hash[item.name] = item.id
+          hash
+        end,
+        params["#{feature.machine_name}"]),
       multiple: true,
       class: "input-mini multiple-select" %>
 
