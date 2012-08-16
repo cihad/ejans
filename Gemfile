@@ -23,6 +23,7 @@ gem 'rails-i18n'
 gem "mongoid", "~> 3.0.0.rc"
 gem "remotipart", "~> 1.0"
 gem 'mustache'
+gem "rmagick"
 
 # Groups
 group :assets do
