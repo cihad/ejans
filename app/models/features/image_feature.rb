@@ -16,7 +16,7 @@ module Features
       ma = maximum_image || 10
       image_file_dirs = all_images.shuffle.take(rand(ma))
       images = image_file_dirs.each_with_index.inject([]) do |ary, (file, index)|
-        image = Features::Image.new(image:File.new(file), node: node, position: (index + 1))
+        image = Features::Image.new(image:File.new(file), position: (index + 1))
         ary << image
       end
       self.value << images
@@ -32,10 +32,6 @@ module Features
         end
         new_images
       end
-    end
-
-    def delete_image(image)
-      image.destroy
     end
 
     validate :presence_value

@@ -9,7 +9,7 @@ class ImagesController < ApplicationController
 
   def destroy
     @image = @feature.value.find(params[:id])
-    @feature.delete_image(@image)
+    @image.destroy
   end
 
   def sort

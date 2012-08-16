@@ -23,7 +23,7 @@ describe Features::ImageFeature do
   it { should respond_to conf.key_name }
   it { should be_valid }
 
-  context "should be exists has_and_belongs_to_many association by key_name" do 
+  context "should be exists embeds_many association by key_name" do 
     specify do
       subject.class.
         reflect_on_association(conf.key_name).
@@ -33,14 +33,13 @@ describe Features::ImageFeature do
     specify do
       subject.class.
         reflect_on_association(conf.key_name).
-        name.should == conf.key_name
+        macro.should == :embeds_many
     end
   end
 
   context "#validations" do
     context "when image is null" do
       before do
-        subject.send(conf.key_name).clear
         image.destroy
       end
 
