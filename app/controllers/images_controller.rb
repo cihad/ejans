@@ -1,6 +1,5 @@
 class ImagesController < ApplicationController
-  before_filter :node, only: [:create, :destroy]
-  before_filter :feature, only: [:create, :destroy]
+  before_filter :node, :feature
   respond_to :js
   include ControllerHelper
 
@@ -9,17 +8,19 @@ class ImagesController < ApplicationController
   end
 
   def destroy
-    @image = Features::Image.find(params[:id])
+    @image = @feature.value.find(params[:id])
     @feature.delete_image(@image)
   end
 
   def sort
-    sort_fields params[:features_image], Features::Image
+    sort_fields params[:features_image], @feature.value
+    render nothing: true
   end
 
   private
   def node
     @node = Node.find(params[:node_id])
+    @node.build_assoc!
   end
 
   def feature

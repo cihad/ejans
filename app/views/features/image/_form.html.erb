@@ -42,7 +42,7 @@
         $('.images').sortable({
           handle: '.handle-move',
           update: function() {
-            return $.post($(this).data('update-url'), $(this).sortable('serialize'));
+            return $.post($(this).data('update-url'), $(this).sortable('serialize') + "&feature_id=<%= feature.id %>&node_id=<%= @node.id %>");
           }
         });
       })();

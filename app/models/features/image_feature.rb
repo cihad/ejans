@@ -5,7 +5,7 @@ module Features
     get_method_from_conf :maximum_image
 
     def self.set_key(key_name)
-      has_and_belongs_to_many :"#{key_name}",
+      embeds_many :"#{key_name}",
         class_name: "Features::Image"
     end
 
@@ -19,26 +19,22 @@ module Features
         image = Features::Image.new(image:File.new(file), node: node, position: (index + 1))
         ary << image
       end
-      self.value = images
+      self.value << images
     end
 
     def add_images(params)
       params.inject([]) do |new_images, img|
         image = Features::Image.new({ image: img })
-        image.node = node
         # Validation Maximum Image Size
         if value.size < maximum_image
           new_images << image
           value << image
-          image.save
         end
-        node.save
         new_images
       end
     end
 
     def delete_image(image)
-      value.delete(image)
       image.destroy
     end
 

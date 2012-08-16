@@ -84,9 +84,11 @@ module Features
 
     def build_assoc!(node)
       feature_class.set_key(key_name)
-      unless node.features.where(feature_configuration_id: self.id).exists?
-        feature = node.features.build({}, feature_class)
-        feature.feature_configuration = self
+      if node.features.where(feature_configuration_id: self.id).exists?
+        @feature = node.features.where(feature_configuration_id: self.id).first
+      else
+        @feature = node.features.build({}, feature_class)
+        @feature.feature_configuration = self
       end
     end
 
