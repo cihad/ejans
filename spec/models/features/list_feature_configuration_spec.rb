@@ -67,4 +67,16 @@ describe Features::ListFeatureConfiguration do
 
     specify { node_type.filters.should include(conf) }
   end
+
+  context "data names" do
+    it "should include value singularize name" do
+      subject.maximum_select = 1
+      subject.data_names.should be_include(:"#{subject.machine_name}_value")
+    end
+
+    it "should include values pluralize name" do
+      subject.maximum_select = 2
+      subject.data_names.should be_include(:"#{subject.machine_name}_values")
+    end
+  end
 end

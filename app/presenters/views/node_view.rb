@@ -19,6 +19,7 @@ module Views
     end
 
     def to_s
+      binding.pry
       @template.render(inline: node_template, locals: locals)
     end
   end

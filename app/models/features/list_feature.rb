@@ -12,6 +12,15 @@ module Features
       has_and_belongs_to_many :"#{key_name}", class_name: "Features::ListItem"
     end
 
+    def data(conf_data)
+      super
+      if @data[:"#{@machine_name}_maximum_select"] > 1
+        { :"#{@machine_name}_values" => @value }
+      else
+        { :"#{@machine_name}_value" => @value.first }
+      end
+    end
+
     def fill_random!
       ma = maximum_select || conf.list_items.size
       list_items = conf.list_items.shuffle.take(rand(ma) + 1)
