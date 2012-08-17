@@ -9,12 +9,12 @@
     <%= label_tag "List items" %>
   <% end %>
   <%= form_value_layout do %>
-    <%= link_to_pjax_modal "edit list_items", edit_list_items: true %>
+    <%= link_to_modal "Edit List Items" %>
   <% end %>
 <% end %>
 
 <% content_for :top do %>
-  <% pjax_modal("List items", :edit_list_items) do %>
+  <%= modal "List items" do %>
     <ul class="list-items">
       <% @fc.list_items.each do |list_item| %>
         <%= content_tag :li do %>
