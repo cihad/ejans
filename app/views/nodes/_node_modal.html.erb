@@ -1,10 +1,1 @@
-<div class="modal-backdrop fade in"></div>
-<div class="modal" id="node-modal">
-  <div class="modal-header">
-    <%= link_to_pjax_modal_close %>
-    <h3><%= @node.title %></h3>
-  </div>
-  <div class="modal-body">
-    <%= render 'node' %>
-  </div>
-</div>
+<%= render partial: 'node', layout: 'shared/modal', locals: { title: @node.title } %>

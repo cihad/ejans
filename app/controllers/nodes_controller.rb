@@ -1,22 +1,23 @@
 class NodesController < ApplicationController
   before_filter :node_type
+  respond_to :js, only: [:index]
 
   def index
     @nodes = @node_type.filter(params)
     if params[:node_id]
       @node = Node.find(params[:node_id])
-      @node.build_assoc!
+      respond_with(@node)
     end
   end
 
   def show
     @node = @node_type.nodes.find(params[:id])
-    @node.build_assoc!
   end
 
   def new
     unless @node = @node_type.nodes.unpublished.first
       @node = Node.new(node_type: @node_type)
+      @node.build_assoc!
       @node.save(validate: false)
     end
   end

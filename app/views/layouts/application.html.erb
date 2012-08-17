@@ -22,55 +22,45 @@ contentspan = content_for?(:left) ? 'span9' : 'span12'
   <!-- Container -->
   <div class="container">
 
-  <%= yield :top %>
+    <%= yield :top %>
 
     <%= render 'layouts/header' %>
 
     <div class="page">
-      <div data-pjax-container>
-
-        <div class="row">
-          <% if breadcrumbs.items.size > 1 %>
+      <div class="row">
+        <% if breadcrumbs.items.size > 1 %>
           <div id="breadcrumb">
             <%= breadcrumbs.render %>
           </div>
           <!-- /Breadcrumb -->
-          <% end %>
-          
-
-
-          <% if content_for?(:left) %>
+        <% end %>
+        
+        <% if content_for?(:left) %>
           <div class="span3">
             <aside id="left">
               <%= yield :left %>
             </aside>
           </div>
           <!-- /aside left -->
-          <% end %>
+        <% end %>
 
-          <div class="<%= contentspan %>">
-            <section id="content">
-              <%= render 'layouts/messages' %>
-                <%= yield %>
-            </section>
-          </div>
-          <!-- /Content -->
-          
+        <div class="<%= contentspan %>">
+          <section id="content">
+            <%= render 'layouts/messages' %>
+              <%= yield %>
+          </section>
+        </div>
+        <!-- /Content -->
 
-          <% if content_for?(:right) %>
+        <% if content_for?(:right) %>
           <div class="span3">
             <aside id="right">
               <%= yield :right %>
             </aside>
           </div>
           <!-- /aside right -->
-          <% end %>
-        </div>
-
-
-
+        <% end %>
       </div>
-
     </div>
     <!-- /Page -->
 
@@ -84,7 +74,7 @@ contentspan = content_for?(:left) ? 'span9' : 'span12'
 
   <%#= debug(request) if Rails.env.development? %>
   <%#= debug(session) if Rails.env.development? %>
-  <%= debug(params) if Rails.env.development? %>
+  <%#= debug(params) if Rails.env.development? %>
 
   <%= render 'shared/analytics' if Rails.env.production? %>
   <%= render 'shared/uservoice' if Rails.env.production? %>

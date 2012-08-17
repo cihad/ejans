@@ -8,14 +8,6 @@
   </div>
 </div>
 
-<% content_for :top do %>
-  <% pjax_modal @node.try(:title), :node_id do %>
-    <% if @node %>
-      <%= render 'node_modal', node: @node %>
-    <% end %>
-  <% end %>
-<% end %>
-
 <% view = Views::CustomPageView.new(
   params.clone,
   @node_type,
@@ -41,7 +33,7 @@
         <h3 id="control-title">nodes</h3>
       </div>
 
-      <div id="nodes">
+      <div id="nodes" data-pjax-container>
         <%= view %>
       </div>
 
@@ -62,7 +54,7 @@
       <%= render 'nodes/filters_top_side/filter_form' %>
     </div>
 
-    <div id="nodes" class="span12">
+    <div id="nodes" class="span12" data-pjax-container>
       <%= view %>
     </div>
 

@@ -6,7 +6,6 @@ gem 'jquery-rails'
 
 gem 'devise', '2.0.0'
 gem 'breadcrumbs', '~> 0.1.6'
-gem 'rack-pjax', git: 'git://github.com/gaiottino/rack-pjax.git'
 gem 'kaminari'
 gem 'friendly_id', '~> 4.0.0.beta14'
 gem 'cancan'

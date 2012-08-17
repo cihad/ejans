@@ -21,25 +21,23 @@
     <%= render 'layouts/header' %>
 
     <div class="page">
-      <div data-pjax-container>
-        <div class="row">
-          <% if content_for?(:left) %>
-          <div class="span3">
-            <aside id="left">
-              <%= yield :left %>
-            </aside>
-          </div>
-          <!-- /aside left -->
-          <% end %>
+      <div class="row">
+        <% if content_for?(:left) %>
+        <div class="span3">
+          <aside id="left">
+            <%= yield :left %>
+          </aside>
+        </div>
+        <!-- /aside left -->
+        <% end %>
 
-          <div class="span10">
-            <section id="content">
-              <%= render 'layouts/messages' %>
-                <%= yield %>
-            </section>
-          </div>
-          <!-- /Content -->
-      </div>
+        <div class="span10">
+          <section id="content">
+            <%= render 'layouts/messages' %>
+              <%= yield %>
+          </section>
+        </div>
+        <!-- /Content -->
     </div>
     <!-- /Page -->
 

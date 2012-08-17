@@ -12,7 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery.pjax
 //= require jquery-ui/jquery.ui.core
 //= require jquery-ui/jquery.ui.widget
 //= require jquery-ui/jquery.ui.mouse
@@ -40,7 +39,7 @@
 //= require not_found
 //= require modernizr.custom
 
-$(document).ready(function() {
+(function() {
 
   // Checkbox Buttons
   $(".styled-checkbox").button();
@@ -81,35 +80,6 @@ $(document).ready(function() {
     content_css : "/assets/application.css"
   });
 
-  // Pjax
-  $('a.data-remote, .breadcrumbs a, .pagination a').pjax('[data-pjax-container]');
-  // $('[data-pjax-container]')
-  //   .bind('start.pjax', function() { $('[data-pjax-container]').fadeOut(400) })
-  //   .bind('end.pjax', function() { $('[data-pjax-container]').fadeIn(400) });
-
-  $('form[method=get]:not([data-remote])').live('submit', function(event) {
-    event.preventDefault();
-    return $.pjax({
-      container: '[data-pjax-container]',
-      url: this.action + '?' + $(this).serialize()
-    });
-  });
-
-  $('a.pjax_modal').on('click', function(e) {
-    e.preventDefault();
-    console.log($(this).attr('href'));
-    return $.pjax({
-      container: '[data-pjax-modal]',
-      url: $(this).attr('href'),
-      data: {
-        _pjax: true,
-        _pjax_return: 'data-pjax-modal',
-      }
-    });
-  });
-
-  $('#myModal').modal('show');
-
   // Comment Form
   $('input#comment_private').change(function() { 
     if ($(this).attr("checked")) {
@@ -120,7 +90,7 @@ $(document).ready(function() {
     $('.comment-form').removeClass("private");
     $('.comment-form .label-success').remove();
   });
-});
+})();
 
 function remove_fields (link) {
   $(link).prev("input[type=hidden]").val("1");
