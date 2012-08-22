@@ -1,30 +1,28 @@
-.node-type-header {
-  h1 {
-    float: left;
+#nodes-index {
+  .node-type-header {
+    h1 {
+      float: left;
+    }
+
+    .new-node {
+      float: right;
+    }
   }
 
-  .new-node {
+  .controls {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+  }
+
+  .control-title {
+    float: left;
+    font-size: 14px;
+    color: #444;
+    margin-bottom: 0;
+  }
+
+  .right-sided-controls {
     float: right;
   }
-}
-
-.controls {
-  border-bottom: 1px solid #ccc;
-  padding-bottom: 10px;
-  margin-bottom: 15px;
-}
-
-.control-title {
-  float: left;
-  font-size: 14px;
-  color: #444;
-  margin-bottom: 0;
-}
-
-.right-sided-controls {
-  float: right;
-}
-
-.fifty-percent {
-  width: 94px;
 }
