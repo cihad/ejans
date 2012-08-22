@@ -7,5 +7,13 @@ module FeatureFilters
     def min_machine_name
       "#{machine_name}_min".to_sym
     end
+
+    def min
+      conf.minimum
+    end
+
+    def max
+      conf.maximum
+    end
   end
 end
