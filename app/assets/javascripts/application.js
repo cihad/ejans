@@ -41,9 +41,6 @@
 
 (function() {
 
-  // Checkbox Buttons
-  $(".styled-checkbox").button();
-  
   // Add filter form
   $(".add-group-item").click(function() {
     $(this).parent().parent().find(".group-item-body").toggle();
@@ -80,8 +77,8 @@
     content_css : "/assets/application.css"
   });
 
-  $("#static-modal").on('click', '.close', function() {
-    $("#static-modal").remove();
+  $('#overlay .close').live('click', function() {
+    $(this).closest('#static-modal').remove();
   });
 
   // Comment Form

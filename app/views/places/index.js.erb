@@ -1,6 +1,6 @@
 <% case @event %>
 <% when "add_child_places" %>
-  $('body').append("<%=j static_modal(@parent_place.name) {render 'form'} %>")
+  $('#overlay').append("<%=j static_modal(@parent_place.name) {render 'form'} %>")
 <% when "show" %>
   if ( $('#place_<%= @parent_place.id %> ul').size() == 0 ) {
     $('#place_<%= @parent_place.id %>').append("<%=j render 'places_list', places: @child_places %>");
