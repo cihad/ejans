@@ -19,4 +19,8 @@ module ModalHelper
   def link_to_modal(title)
     link_to title, "#modal", class: "btn", data: { toggle: "modal" }
   end
+
+  def static_modal(title, &block)
+    render layout: 'shared/static_modal', locals: { title: title }, &block
+  end
 end

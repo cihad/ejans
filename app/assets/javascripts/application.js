@@ -80,6 +80,10 @@
     content_css : "/assets/application.css"
   });
 
+  $("#static-modal .close").on('click', function() {
+    $("#static-modal").remove();
+  });
+
   // Comment Form
   $('input#comment_private').change(function() { 
     if ($(this).attr("checked")) {

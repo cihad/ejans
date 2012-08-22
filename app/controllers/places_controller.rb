@@ -1,12 +1,16 @@
 class PlacesController < ApplicationController
+  respond_to :js, only: [:index]
+
   def index
-    @places = Place.all
-    if params[:parent_place_id]
-      if params[:parent_place_id] == "new"
-        @parent_place = Place.new
-      else  
-        @parent_place = Place.find(params[:parent_place_id])
-      end
+    @places = Place.top_places
+    @event = params[:event] if params[:event]
+    # binding.pry
+    case @event
+    when "show"
+      @parent_place = Place.find(params[:parent_place_id])
+      @child_places = @parent_place.child_places
+    when "add_child_places"
+      @parent_place = Place.find(params[:parent_place_id])
     end
   end
 

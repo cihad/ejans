@@ -1,13 +1,15 @@
-<%= link_to_modal "Add new country" %>
+<%= page_title "Places" %>
 
-<ul>
-<% Place.top_places.each do |place| %>
-  <li>Name: <%= place.name %>
-      <%= link_to_modal "Add new place" %>
-    </li>
-<% end %>
-</ul>
+<%= render 'places_list', places: @places %>
 
-<%= modal "New Place" do %>
-  <%= render 'form' %>
-<% end %>
+<script type="text/javascript">
+(function(){
+  $('.places li .controls').hide();
+
+  $('.place').live('mouseenter', function(){
+    $(this).children('.controls').show();
+  }).live('mouseleave', function(){
+    $(this).children('.controls').hide();
+  })
+})();
+</script>
