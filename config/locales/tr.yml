@@ -143,7 +143,7 @@ tr:
 
   payments:
     name: 'Ödemeler'
-    
+
   search:
     do: "Ara"
     no_service: 'Servis bulunamadı'
@@ -176,3 +176,7 @@ tr:
               blank: "alanı boş bırakılamaz."
             available_until:
               blank: "alanı boş bırakılamaz."
+
+  views:
+    pagination:
+      truncate: "..."
