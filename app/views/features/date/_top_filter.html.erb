@@ -4,18 +4,25 @@
   <%= number_field_tag(
         feature.machine_name,
         params["#{feature.machine_name}"],
-        { class: "input-mini" }) %>
+        { class: "input-mini",
+          min: feature.start_year,
+          max: feature.end_year }) %>
 
 <% when :range %>
 
   <%= number_field_tag(
         feature.start_machine_name,
         params["#{feature.start_machine_name}"],
-        { class: "input-mini", placeholder: "start year" }) %>
+        { class: "input-mini",
+          placeholder: "start year",
+          min: feature.start_year,
+          max: feature.end_year }) %>
 
   <%= number_field_tag(
         feature.end_machine_name,
         params["#{feature.end_machine_name}"],
-        { class: "input-mini", placeholder: "end year" }) %>
-        
+        { class: "input-mini",
+          placeholder: "end year",
+          min: feature.start_year,
+          max: feature.end_year }) %>
 <% end %>

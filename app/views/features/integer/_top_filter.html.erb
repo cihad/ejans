@@ -4,17 +4,25 @@
   <%= number_field_tag(
         feature.machine_name, 
         params["#{feature.machine_name}"],
-        { class: "input-mini" }) %>
+        { class: "input-mini",
+          min: feature.min,
+          max: feature.max }) %>
 
 <% when :range_with_number_field, :range_with_slider %>
 
   <%= number_field_tag(
         feature.min_machine_name,
         params["#{feature.min_machine_name}"],
-        { class: "input-mini", placeholder: "min" }) %>
+        { class: "input-mini",
+          placeholder: "min",
+          min: feature.min,
+          max: feature.max }) %>
   <%= number_field_tag(
         feature.max_machine_name,
         params["#{feature.max_machine_name}"],
-        { class: "input-mini", placeholder: "max" }) %>
+        { class: "input-mini",
+          placeholder: "max"
+          min: feature.min,
+          max: feature.max }) %>
 
 <% end %>

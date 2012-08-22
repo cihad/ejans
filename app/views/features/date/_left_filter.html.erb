@@ -1,7 +1,25 @@
 <% case feature.filter_type %>
 <% when :single %>
-  <%= number_field_tag feature.machine_name, params["#{feature.machine_name}"], { class: "single-input" } %>
+  <%= number_field_tag(
+        feature.machine_name,
+        params["#{feature.machine_name}"],
+        { class: "single-input",
+          min: feature.start_year,
+          max: feature.end_year }) %>
 <% when :range %>
-  <%= number_field_tag feature.start_machine_name, params["#{feature.start_machine_name}"], { class: "single-input", placeholder: "start year" } %>
-  <%= number_field_tag feature.end_machine_name, params["#{feature.end_machine_name}"], { class: "single-input", placeholder: "end year" } %>
+  <%= number_field_tag(
+        feature.start_machine_name,
+        params["#{feature.start_machine_name}"],
+        { class: "single-input",
+          placeholder: "start year",
+          min: feature.start_year,
+          max: feature.end_year }) %>
+
+  <%= number_field_tag(
+        feature.end_machine_name,
+        params["#{feature.end_machine_name}"],
+        { class: "single-input",
+          placeholder: "end year",
+          min: feature.start_year,
+          max: feature.end_year }) %>
 <% end %>
