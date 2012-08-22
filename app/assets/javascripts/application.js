@@ -80,7 +80,7 @@
     content_css : "/assets/application.css"
   });
 
-  $("#static-modal .close").on('click', function() {
+  $("#static-modal").on('click', '.close', function() {
     $("#static-modal").remove();
   });
 

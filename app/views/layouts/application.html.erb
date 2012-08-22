@@ -19,6 +19,12 @@ contentspan = content_for?(:left) ? 'span9' : 'span12'
 
 <body class="<%= content_for?(:right) or content_for?(:left) ? 'twoColumn' : 'oneColumn' %> <%= yield(:body_class) %>">
 
+  <%= if content_for? :overlay %>
+    <div class="overlay">
+      <%= yield :overlay %>
+    </div>
+  <% end %>
+
   <!-- Container -->
   <div class="container">
 
