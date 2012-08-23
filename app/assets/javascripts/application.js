@@ -80,17 +80,6 @@
   $('#overlay .close').live('click', function() {
     $(this).closest('#static-modal').remove();
   });
-
-  // Comment Form
-  $('input#comment_private').change(function() { 
-    if ($(this).attr("checked")) {
-      $('.comment-form').addClass("private");
-      $('.comment-form .author').append("<span class='label label-success'>private</span>")
-      return;
-    }
-    $('.comment-form').removeClass("private");
-    $('.comment-form .label-success').remove();
-  });
 })();
 
 function remove_fields (link) {

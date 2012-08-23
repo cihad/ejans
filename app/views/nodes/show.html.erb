@@ -4,3 +4,9 @@
 <%= page_title @node.title %>
 
 <%= render "node" %>
+
+<div id="comments">
+  <h2>Comments</h2>
+  <%= render @node.comments %>
+  <%= render 'comments/form' %>
+</div>

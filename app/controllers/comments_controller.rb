@@ -1,26 +1,20 @@
 class CommentsController < ApplicationController
-  before_filter :authenticate_account!
+  before_filter :node
+  respond_to :js
 
   def create
-    @comment = current_account.comments.new(params[:comment])
-    @comments = @comment.notification.comments.where(parent_id: nil)
-
-    respond_to do |format|
-      if @comment.save
-        format.html { redirect_to @comment, notice: 'Comment was successfully created.' }
-        format.js
-      else
-        format.html { render action: "new" }
-      end
-    end
+    @comment = @node.comments.new(params[:comment])
+    @comment.save
   end
 
   def destroy
-    @comment = Comment.find(params[:id])
+    @comment = @node.comments.find(params[:id])
     @comment.destroy
+  end
 
-    respond_to do |format|
-      format.html { redirect_to comments_url }
-    end
+  private
+
+  def node
+    @node = Node.find(params[:comment][:node_id])
   end
 end

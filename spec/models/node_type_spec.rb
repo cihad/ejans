@@ -23,11 +23,12 @@ describe NodeType do
   it { should respond_to :title_label }
   it { should respond_to :description }
   it { should respond_to :filters_position }
+  it { should respond_to :commentable }
   it { should be_valid }
 
   it "when name is not present" do
-    node_type.name = ""
-    node_type.should_not be_valid
+    subject.name = ""
+    subject.should_not be_valid
   end
 
   context "#views" do

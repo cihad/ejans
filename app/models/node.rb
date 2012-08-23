@@ -19,6 +19,10 @@ class Node
   belongs_to :node_type
   embeds_many :features, class_name: "Features::Feature"
   accepts_nested_attributes_for :features
+  embeds_many :comments
+
+  # Validations
+  validates :title, presence: true
 
   def publish=(value)
     self.published = true

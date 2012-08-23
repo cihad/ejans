@@ -1,25 +1,20 @@
-<div class="row comment comment-form <%= "owner" if o = current_account == notification.notificationable %>">
+<div class="row comment comment-form">
   <div class="span1 offset1">
     <div class="author">
-      <%= current_account.email_name %>
-      <%= label_info "owner" if o  %>
+      Commenter
     </div>
   </div>
   <div class="span6">
     <div class="body">
       <div class="ins">
-        <%= form_for Comment.new(:notification_id => notification.id), :remote => true do |f| %>
-          <%= f.hidden_field :notification_id %>
+        <%= form_for Comment.new(:node_id => @node.id), :remote => true do |f| %>
+          <%= f.hidden_field :node_id %>
           <div>
             <%= f.text_area :body, :rows => 3, :class => "span5" %>
           </div>
           <div class="row">
             <div class="span3">
               <%= f.submit nil, class: "btn" %>
-              <% unless current_account == notification.notificationable %>
-                <%= f.check_box :private %>
-                <%= f.label :private %>
-              <% end %>
             </div>
           </div>
         <% end %>

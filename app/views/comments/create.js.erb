@@ -1,5 +1,4 @@
-$("#comments .comments-ins")
- .html("<%= escape_javascript(render @comments)%>")
+$("<%=j render @comment %>").insertBefore('.comment-form');
 
 $("#comment_<%= @comment.id %>")
   .css({'background-color':'#A9DBA9'})

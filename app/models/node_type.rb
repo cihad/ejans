@@ -7,6 +7,7 @@ class NodeType
   field :description, type: String
   field :filters_position, type: Symbol, default: :top
   FILTERS_POSITIONS = [:top, :left]
+  field :commentable, type: Boolean
 
   has_many :nodes
   has_many :feature_configurations,
