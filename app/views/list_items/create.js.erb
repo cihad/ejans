@@ -1,1 +1,2 @@
-$('ul.list-items').append('<%= escape_javascript(content_tag :li, @list_item.name) %>')
+$('ul.list-items').append('<%=j content_tag :li, @list_item.name %>');
+$('.new_features_list_item')[0].reset();
