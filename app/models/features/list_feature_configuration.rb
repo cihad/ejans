@@ -25,9 +25,9 @@ module Features
     def filter_query(params = {})
       if params[machine_name].present?
         list_item_ids = Features::ListItem.find(params[machine_name]).map(&:id)
-        NodeQuery.new.in(:"#{where}" => list_item_ids).selector
+        NodeQuery.new.in(:"#{where}" => list_item_ids)
       else
-        {}
+        NodeQuery.new
       end
     end
 

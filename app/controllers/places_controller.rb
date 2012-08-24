@@ -4,7 +4,6 @@ class PlacesController < ApplicationController
   def index
     @places = Place.top_places
     @event = params[:event] if params[:event]
-    # binding.pry
     case @event
     when "show"
       @parent_place = Place.find(params[:parent_place_id])

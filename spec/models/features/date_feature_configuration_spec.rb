@@ -170,7 +170,7 @@ describe Features::DateFeatureConfiguration do
       
       context "when params is blank" do
         let(:params) { {} }
-        specify { subject.filter_query(params).should == {} }
+        specify { subject.filter_query(params).should == NodeQuery.new }
       end
 
       context "when params is filled" do
@@ -179,8 +179,7 @@ describe Features::DateFeatureConfiguration do
           subject.filter_query(params).should ==
             NodeQuery.new.
               between(:"features.#{subject.key_name}" =>
-                        Date.new.change(year: 2010)..Date.new.change(year: 2010).end_of_year).
-              selector
+                        Date.new.change(year: 2010)..Date.new.change(year: 2010).end_of_year)
         end
       end
     end
@@ -193,32 +192,34 @@ describe Features::DateFeatureConfiguration do
 
       context "when params is blank" do
         let(:params) { {} }
-        specify { subject.filter_query(params).should == {} }
+        specify { subject.filter_query(params).should == NodeQuery.new }
       end
 
       context "when params is only filled by start value" do 
         context "when start value is lower than conf's start year" do
           let(:params) { {  "#{subject.machine_name}_start" => "#{subject.start_year - 1}"} }
-          specify { subject.filter_query(params).should == {} }
+          specify { subject.filter_query(params).should == NodeQuery.new }
         end
 
         context "when start value is greater than conf's start year" do
           let(:params) { {"#{subject.machine_name}_start" => "#{subject.start_year + 1}"} }
           specify { subject.filter_query(params).should ==
-            {"features.#{subject.key_name}"=>{"$gte"=> Date.new(subject.start_year + 1)}} }
+            NodeQuery.new.gte(:"features.#{subject.key_name}" => Date.new(subject.start_year + 1))
+          }
         end
       end
 
       context "when params is only filled by end value" do 
         context "when end value is greater than conf's end_year value" do
           let(:params) { {"#{subject.machine_name}_end" => "#{subject.end_year + 1}"} }
-          specify { subject.filter_query(params).should == {} }
+          specify { subject.filter_query(params).should == NodeQuery.new }
         end
 
         context "when end value is lower than conf's end_year value" do
           let(:params) { {"#{subject.machine_name}_end" => "#{subject.end_year - 1}"} }
           specify { subject.filter_query(params).should ==
-            {"features.#{subject.key_name}"=>{"$lte"=> Date.new(subject.end_year - 1).end_of_year}} }
+            NodeQuery.new.lte(:"features.#{subject.key_name}" => Date.new(subject.end_year - 1).end_of_year)
+          }
         end
       end
 
@@ -229,8 +230,41 @@ describe Features::DateFeatureConfiguration do
             "#{subject.machine_name}_end" => "#{subject.end_year + 1}"
           }
         end
-        specify { subject.filter_query(params).should == {} }
+        specify { subject.filter_query(params).should == NodeQuery.new }
       end
+    end
+  end
+
+  context "#sort_query" do
+    before do
+      subject.sort = true
+      subject.save
+    end
+
+    context "when params is blank" do
+      let(:params) { {} }
+      specify { subject.sort_query(params).should == NodeQuery.new }
+    end
+
+    context "when params filled by foreign keys" do
+      let(:params) { {:sort => "this-is-foreign-key", :direction => "asc"} }
+      specify { 
+        subject.sort_query(params).should == NodeQuery.new
+      }
+    end
+
+    context "when params filled by own machine name" do
+      let(:params) { {:sort => "#{subject.machine_name}", :direction => "asc"} }
+      specify {
+        subject.sort_query(params).should == NodeQuery.new.order_by(:"features.#{subject.key_name}" => :asc)
+      }
+    end
+
+    context "when params filled by own machine name" do
+      let(:params) { {:sort => "#{subject.machine_name}", :direction => "desc"} }
+      specify {
+        subject.sort_query(params).should == NodeQuery.new.order_by(:"features.#{subject.key_name}" => :desc)
+      }
     end
   end
 end

@@ -4,6 +4,7 @@ describe Features::IntegerFeatureConfiguration do
 
   let(:node_type) { Fabricate(:node_type) }
   let(:conf) { Fabricate.build(:integer_fc) }
+  let(:blank_query) { NodeQuery.new }
 
   before do
     conf.node_type = node_type
@@ -51,13 +52,15 @@ describe Features::IntegerFeatureConfiguration do
       
       context "when params is blank" do
         let(:params) { {} }
-        specify { subject.filter_query(params).should == {} }
+        specify { subject.filter_query(params).should == blank_query }
       end
 
       context "when params is filled" do
         let(:params) { {"#{subject.machine_name}" => "10"} }
-        specify { subject.filter_query(params).should ==
-          {"features.#{subject.key_name}"=>10} }
+        specify {
+          subject.filter_query(params).should ==
+            blank_query.where(:"features.#{subject.key_name}" => 10)
+        }
       end
     end
 
@@ -69,32 +72,36 @@ describe Features::IntegerFeatureConfiguration do
 
       context "when params is blank" do
         let(:params) { {} }
-        specify { subject.filter_query(params).should == {} }
+        specify { subject.filter_query(params).should == blank_query }
       end
 
       context "when params is only filled by min value" do 
         context "when min value is lower than conf's minimum value" do
           let(:params) { {"#{subject.machine_name}_min" => "#{subject.minimum - 1}"} }
-          specify { subject.filter_query(params).should == {} }
+          specify { subject.filter_query(params).should == blank_query }
         end
 
         context "when min value is greater than conf's minimum value" do
           let(:params) { {"#{subject.machine_name}_min" => "#{subject.minimum + 1}"} }
-          specify { subject.filter_query(params).should ==
-            {"features.#{conf.key_name}"=>{"$gte"=> (subject.minimum + 1)}} }
+          specify {
+            subject.filter_query(params).should ==
+              blank_query.gte(:"features.#{conf.key_name}" => (subject.minimum + 1))
+          }
         end
       end
 
       context "when params is only filled by max value" do 
         context "when max value is greater than conf's maximum value" do
           let(:params) { {"#{subject.machine_name}_max" => "#{subject.maximum + 1}"} }
-          specify { subject.filter_query(params).should == {} }
+          specify { subject.filter_query(params).should == blank_query }
         end
 
         context "when max value is lower than conf's maximum value" do
           let(:params) { {"#{subject.machine_name}_max" => "#{subject.maximum - 1}"} }
-          specify { subject.filter_query(params).should ==
-            {"features.#{conf.key_name}"=>{"$lte"=> (subject.maximum - 1)}} }
+          specify {
+            subject.filter_query(params).should ==
+              blank_query.lte(:"features.#{conf.key_name}" => (subject.maximum - 1))
+          }
         end
       end
 
@@ -106,7 +113,7 @@ describe Features::IntegerFeatureConfiguration do
           }
         end
 
-        specify { subject.filter_query(params).should == {} }
+        specify { subject.filter_query(params).should == blank_query }
       end
     end
   end

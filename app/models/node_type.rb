@@ -25,6 +25,10 @@ class NodeType
     feature_configurations.filters
   end
 
+  def sort_confs
+    feature_configurations.sort_confs
+  end
+
   def key_names
     feature_configurations.map(&:key_name)
   end
@@ -68,23 +72,47 @@ class NodeType
     end
   end
 
-  # Results by param filters
-  # query(params).selector => {:price => { "$gte" => 100, $lte => "200"}}
+  def sort_data
+    hash = {
+      title: "Title",
+      created_at: "Created at"
+    }
+
+    sort_confs.each do |conf|
+      hash[conf.machine_name.to_sym] = conf.label
+    end
+
+    hash
+  end
+
   def filter(params = {})
-    nodes
-      .send(:where, query(params).selector)
-      .page(params[:page])
+    nodes.
+      send(:where, filter_query(params).selector).
+      send(:order_by, sort_query(params).options[:sort]).
+      page(params[:page])
   end
 
   private
-  # return OriginObject
-  # #<NodeQuery:0xc2ad8dc @serializers={}, @driver=:moped, @aliases={}, @selector={}, @options={}, @strategy=nil, @negating=nil> 
   def query(params)
-    node_query = NodeQuery.new
+    query = filter_query(params)
+    query = query.send(:where, sort_query(params).options)
+    query
+  end
+
+  def filter_query(params)
+    query = NodeQuery.new
     filters.each do |conf|
-      node_query = node_query.send(:where, conf.filter_query(params))
+      query = query.send(:where, conf.filter_query(params).selector)
     end 
-    node_query
+    query
+  end
+
+  def sort_query(params)
+    query = NodeQuery.new
+    sort_confs.each do |conf|
+      query = query.send(:order_by, conf.sort_query(params).options[:sort])
+    end
+    query
   end
 
   def create_node_view

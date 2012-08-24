@@ -7,6 +7,8 @@
       f.object.class::FILTER_TYPES,
       form_item_layout: { class: "filter-options" } %>
 
+<%= simple_check_box f, :sort %>
+
 <%= simple_select f,
       :date_type,
       f.object.class::DATE_TYPES %>

@@ -4,6 +4,7 @@ describe Features::ListFeatureConfiguration do
 
   let(:node_type) { Fabricate(:node_type) }
   let(:conf) { Fabricate.build(:list_fc) }
+  let(:blank_query) { NodeQuery.new }  
 
   before do
     conf.node_type = node_type
@@ -39,7 +40,7 @@ describe Features::ListFeatureConfiguration do
       let(:params) { {} }
 
       specify do
-        subject.filter_query(params).should == {}
+        subject.filter_query(params).should == blank_query
       end
     end
 
@@ -51,10 +52,10 @@ describe Features::ListFeatureConfiguration do
       let(:params) { { subject.machine_name => [subject.list_items.first.id.to_s] } }
       specify do
         subject.filter_query(params).should ==
-          NodeQuery.new.in(
+          blank_query.in(
             :"features.#{conf.key_name.to_s.singularize}_ids" =>
               [subject.list_items.first.id]
-          ).selector
+          )
       end
     end
   end

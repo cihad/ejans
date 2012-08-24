@@ -1,6 +1,7 @@
 module Features
   class StringFeatureConfiguration < FeatureConfiguration
     include Mongoid::Document
+    include Ejans::Features::Sortable
 
     TEXT_FORMATS = [:plain, :simple, :extended]    
     field :row, type: Integer, default: 1

@@ -2,6 +2,7 @@ module Features
   class IntegerFeatureConfiguration < FeatureConfiguration
     include Mongoid::Document
     include Ejans::Features::Filterable
+    include Ejans::Features::Sortable
 
     FILTER_TYPES = [:number_field, :range_with_number_field]
     field :filter_type, type: Symbol
@@ -47,18 +48,18 @@ module Features
       when :number_field
         if params[machine_name].present?
           value = Integer(params[machine_name])
-          NodeQuery.new.where(:"#{where}" => value).selector
+          NodeQuery.new.where(:"#{where}" => value)
         else
-          {}
+          NodeQuery.new
         end
       when :range_with_number_field
         if params[min_machine_name].present? or params[max_machine_name].present?
           query = NodeQuery.new
           query = query.gte(:"#{where}" => value_min(params)) if value_min(params)
           query = query.lte(:"#{where}" => value_max(params)) if value_max(params)
-          query.selector
+          query
         else
-          {}
+          NodeQuery.new
         end
       end
     end

@@ -11,6 +11,7 @@ module Features
     field :position, type: Integer
 
     scope :filters, where(filter: true)
+    scope :sort_confs, where(sort: true)
     default_scope order_by([:position, :asc])
 
     belongs_to :node_type

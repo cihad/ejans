@@ -38,10 +38,10 @@ module Features
         prm = params[form_machine_names[-(i+1)]]
         if prm.present?
           place_id = Place.find(prm).id
-          @query = NodeQuery.new.in(:"#{where}" => [place_id]).selector
+          @query = NodeQuery.new.in(:"#{where}" => [place_id])
           break
         else
-          @query = {}
+          @query = NodeQuery.new
         end
       end
       @query

@@ -4,6 +4,7 @@ describe Features::PlaceFeatureConfiguration do
   let(:node_type) { Fabricate(:node_type) }
   let(:conf) { Fabricate.build(:place_fc) }
   let(:place) { Fabricate(:turkiye) }
+  let(:blank_query) { NodeQuery.new }  
 
   before do
     conf.node_type = node_type
@@ -79,18 +80,15 @@ describe Features::PlaceFeatureConfiguration do
     
     context "when params is blank" do
       let(:params) { {} }
-      specify { subject.filter_query(params).should == {} }
+      specify { subject.filter_query(params).should == blank_query }
     end
 
     context "when params is filled by first level" do
       let(:params) { {"label_for_place_sehir" => subject.top_place.child_places.first.id.to_s } }
       specify do
         subject.filter_query(params).should ==
-          NodeQuery.
-            new.
-            in(:"features.place_value_0_ids" => 
-                [subject.top_place.child_places.first.id]).
-            selector
+          blank_query.in(:"features.place_value_0_ids" => 
+            [subject.top_place.child_places.first.id])
       end
     end
 
@@ -108,11 +106,7 @@ describe Features::PlaceFeatureConfiguration do
           }
 
           subject.filter_query(params).should ==
-            NodeQuery.
-              new.
-              in(:"features.place_value_0_ids" => 
-                  [@place.id]).
-              selector
+            blank_query.in(:"features.place_value_0_ids" => [@place.id])
         end
       end
 
@@ -129,11 +123,7 @@ describe Features::PlaceFeatureConfiguration do
           }
 
           subject.filter_query(params).should ==
-            NodeQuery.
-              new.
-              in(:"features.place_value_0_ids" => 
-                  [@place.id]).
-              selector
+            blank_query.in(:"features.place_value_0_ids" => [@place.id])
         end
       end
 
@@ -152,11 +142,7 @@ describe Features::PlaceFeatureConfiguration do
           }
 
           subject.filter_query(params).should ==
-            NodeQuery.
-              new.
-              in(:"features.place_value_0_ids" => 
-                  [@other_place.id]).
-              selector
+            blank_query.in(:"features.place_value_0_ids" => [@other_place.id])
         end
       end
 

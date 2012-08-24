@@ -62,5 +62,29 @@ module Views
         links.html_safe
       end
     end
+
+    def sort_links
+      sort = params.delete(:sort)
+      direction = params.delete(:direction)
+      output = ""
+      node_type.sort_data.each do |machine_name, label|
+        dir, active_class = if sort == machine_name.to_s
+                              [direction == "asc" ? "desc" : "asc", "active"]
+                            else
+                              ["asc",nil]
+                            end
+
+        icon = if sort == machine_name.to_s
+                  direction == "asc" ? "icon-chevron-up" : "icon-chevron-down"
+                else
+                  nil
+                end
+
+        output += @template.link_to @template.url_for(params.merge(sort: machine_name, direction: dir)), class: "btn #{active_class}" do
+            ("#{label}" + "<i class='#{icon}'></i>").html_safe
+        end
+      end
+      output.html_safe
+    end
   end
 end

@@ -3,6 +3,7 @@ module Features
     require 'active_support'
     include Mongoid::Document
     include Ejans::Features::Filterable
+    include Ejans::Features::Sortable
 
     # Fields
     field :date_type, type: Symbol
@@ -94,18 +95,18 @@ module Features
           year = Integer(params[machine_name])
           start_date = Date.new.change(year: year)
           end_date = Date.new.change(year: year).end_of_year
-          NodeQuery.new.between(:"#{where}" => start_date..end_date).selector
+          NodeQuery.new.between(:"#{where}" => start_date..end_date)
         else
-          {}
+          NodeQuery.new
         end
       when :range
         if params[start_machine_name].present? or params[end_machine_name].present?
           query = NodeQuery.new
           query = query.gte(:"#{where}" => value_start(params)) if value_start(params)
           query = query.lte(:"#{where}" => value_end(params)) if value_end(params)
-          query.selector
+          query
         else
-          {}
+          NodeQuery.new
         end
       end
     end
