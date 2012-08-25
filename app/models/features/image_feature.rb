@@ -9,6 +9,24 @@ module Features
         class_name: "Features::Image"
     end
 
+    def data(conf_data)
+      super
+      maximum_select = @data[:"#{@machine_name}_maximum_select"]
+      if maximum_select.nil? or maximum_select > 1
+        { 
+          :"#{@machine_name}_thumb_image_urls" => @value.map { |img| img.image_url(:thumb) },
+          :"#{@machine_name}_small_image_urls" => @value.map { |img| img.image_url(:small) },
+          :"#{@machine_name}_original_image_urls" => @value.map { |img| img.image_url }
+        }
+      else
+        { 
+          :"#{@machine_name}_thumb_image_url" => @value.first.image_url(:thumb),
+          :"#{@machine_name}_small_image_url" => @value.first.image_url(:small),
+          :"#{@machine_name}_original_image_url" => @value.first.image_url
+        }
+      end
+    end
+
     def fill_random!
       dir = Rails.root
       images_dir = "#{dir}/spec/support/images"
