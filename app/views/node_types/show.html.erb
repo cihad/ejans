@@ -34,7 +34,7 @@
       </div>
       <div class="caption">
         <table class="table" width="100%">
-          <% @node_type.nodes.each do |n| %>
+          <% @node_type.nodes.limit(10).each do |n| %>
             <tr>
               <td><%= link_to n.title, [@node_type, n] %></td>
               <td><%= link_to "edit", edit_node_type_node_path(@node_type, n) %></td>
