@@ -19,10 +19,11 @@ gem 'carrierwave'
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 gem 'nokogiri'
 gem 'rails-i18n'
-gem "mongoid", "~> 3.0.0.rc"
-gem "remotipart", "~> 1.0"
+gem 'mongoid', '~> 3.0.0.rc'
+gem 'remotipart', '~> 1.0'
 gem 'mustache'
-gem "rmagick"
+gem 'rmagick'
+gem 'numbers_and_words'
 
 # Groups
 group :assets do

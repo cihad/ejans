@@ -125,6 +125,9 @@ GEM
     net-ssh-gateway (1.1.0)
       net-ssh (>= 1.99.1)
     nokogiri (1.5.5)
+    numbers_and_words (0.4.0)
+      activesupport
+      i18n
     origin (1.0.6)
     orm_adapter (0.0.7)
     polyglot (0.3.3)
@@ -253,6 +256,7 @@ DEPENDENCIES
   mustache
   mysql2
   nokogiri
+  numbers_and_words
   populator
   pry
   rails (= 3.2.8)
