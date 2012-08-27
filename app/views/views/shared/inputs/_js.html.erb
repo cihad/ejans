@@ -1,0 +1,20 @@
+<%= render layout: 'views/shared/fieldset' do %>
+  <%= render(
+        layout: 'views/shared/textarea_edit',
+        locals: { title: "JS" }
+      ) do %>
+    <%= f.text_area :js, rows: 5, class: "span6" %>
+    <div id="js_editor" class="span7" style="height: 300px;"></div>
+    <%= ace_editor f, :js, mode: "javascript" %>
+  <% end %>
+
+  <%= render(
+        layout: 'views/shared/instructions',
+        locals: { title: "Instructions for JS" }
+      ) do %>
+    <ul>
+      <li>jQuery 1.8.6 zaten sayfaya ekli.</li>
+      <li>jQuery açma-kapama taglarını kullanmaya gerek yok.</li>
+    </ul>
+  <% end %>
+<% end %>

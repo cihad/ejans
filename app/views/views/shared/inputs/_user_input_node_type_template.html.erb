@@ -1,0 +1,19 @@
+<%= render layout: 'views/shared/fieldset' do %>
+  <%= render(
+        layout: 'views/shared/textarea_edit',
+        locals: { title: "Node Type Template" }
+      ) do %>
+    <%= f.text_area :user_input_node_type_template, rows: 5, class: "span6" %>
+    <div id="user_input_node_type_template_editor" class="span7" style="height: 300px;"></div>
+    <%= ace_editor f, :user_input_node_type_template %>
+  <% end %>
+
+  <%= render(
+        layout: 'views/shared/instructions',
+        locals: { title: "Instructions for Node Type Template" }
+      ) do %>
+    <ul>
+      <li><code>nodes</code></li>
+    </ul>
+  <% end %>
+<% end %>

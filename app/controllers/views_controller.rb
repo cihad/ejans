@@ -4,7 +4,7 @@ class ViewsController < ApplicationController
   
 
   def index
-    @views = @node_type.views
+    @views = @node_type.removable_views
   end
 
   def new
@@ -34,7 +34,7 @@ class ViewsController < ApplicationController
 
   def destroy
     @view = @node_type.views.find(params[:id])
-    if @view.destroy
+    if @view.destroy_from_outside
       redirect_to node_type_views_views_path(@node_type), notice: "Succesfully"
     end
   end

@@ -29,6 +29,14 @@ class NodeType
     feature_configurations.sort_confs
   end
 
+  def removable_views
+    views.reject { |view| view.class == Views::Node }
+  end
+
+  def node_view
+    (views - removable_views).first
+  end
+
   def key_names
     feature_configurations.map(&:key_name)
   end

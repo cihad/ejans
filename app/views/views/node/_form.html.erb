@@ -1,1 +1,4 @@
-<%= render "views/custom/form", f: f %>
+<%= javascript 'aceajax/ace.js' %>
+<%= render 'views/shared/inputs/css', f: f %>
+<%= render 'views/shared/inputs/js', f: f %>
+<%= render 'views/shared/inputs/user_input_node_template', f: f %>

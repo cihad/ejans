@@ -1,0 +1,14 @@
+<script type="text/javascript">
+  (function(){
+    var <%= area %> = ace.edit("<%= area %>");
+    <%= area %>.setTheme("ace/theme/chrome");
+    <%= area %>.getSession().setFoldStyle("manual");
+    <%= area %>.getSession().setMode("ace/mode/<%= mode %>");
+    <%= area %>.setHighlightActiveLine(false);
+    var <%= area %>_textarea = $('<%= selector %>').hide();
+    <%= area %>.getSession().setValue(<%= area %>_textarea.val());
+    <%= area %>.getSession().on('change', function(){
+      <%= area %>_textarea.val(<%= area %>.getSession().getValue());
+    });
+  })();
+</script>

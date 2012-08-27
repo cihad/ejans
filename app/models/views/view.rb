@@ -43,9 +43,13 @@ module Views
       self.class.to_s.titleize
     end
 
+    def destroy_from_outside
+      self.destroy
+    end
+
     private
     def view_count
-      if self.node_type.views.size >= 3
+      if self.node_type.removable_views.size >= 3
         errors.add(:base, "Views sayisi 3'ten buyuk olamaz.")
       end
     end
