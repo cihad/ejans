@@ -21,10 +21,31 @@ class Node
   accepts_nested_attributes_for :features
   embeds_many :comments
 
-  # Validations
   validates :title, presence: true
 
-  def publish=(value)
+  index title: 1
+
+  { integer_value: 4,
+    string_value: 3,
+    date_value: 2 }.each do |feature_value, how_many|
+    how_many.times.each_with_index do |i|
+      index "features.#{feature_value}_#{i}" => 1
+    end
+  end
+
+  { place_value: 2 }.each do |feature_value, how_many|
+    how_many.times.each_with_index do |i|
+      index "features.#{feature_value}_#{i}_ids" => 1
+    end
+  end
+
+  { list_item: 4 }.each do |feature_value, how_many|
+    how_many.times.each_with_index do |i|
+      index "features.#{I18n.with_locale(:en) { i.to_words }}_#{feature_value}_ids" => 1
+    end
+  end
+
+  def publish=(submit_value)
     self.published = true
     self.approved = false
   end
