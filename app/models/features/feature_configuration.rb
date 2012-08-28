@@ -16,6 +16,12 @@ module Features
 
     belongs_to :node_type
 
+    validate :same_label_name
+    
+    before_validation do
+      label.strip!
+    end
+
     before_save :assign_key_name
 
     class << self
@@ -106,6 +112,16 @@ module Features
     private
     def where
       "features.#{key_name}"
+    end
+
+    def same_label_name
+      if node_type.
+          feature_configurations.
+          select { |conf| !conf.new_record? }.
+          map(&:label).
+          include?(label)
+        errors.add(:base, "Daha onceden eklenen bir label var. Ayni label 2 defa eklenemez.")
+      end
     end
 
     def assign_key_name
