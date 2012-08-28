@@ -94,12 +94,6 @@ class NodeType
   end
 
   private
-  def query(params)
-    query = filter_query(params)
-    query = query.send(:where, sort_query(params).options)
-    query
-  end
-
   def filter_query(params)
     query = NodeQuery.new
     filters.each do |conf|
@@ -113,7 +107,22 @@ class NodeType
     sort_confs.each do |conf|
       query = query.send(:order_by, conf.sort_query(params).options[:sort])
     end
+    query = query.send(:order_by, node_spesific_sortable_query(params).options[:sort])
     query
+  end
+
+  def node_spesific_sortable_query(params)
+    sort = params[:sort]
+    direction = params[:direction] || "asc"
+    query = NodeQuery.new
+    case sort
+    when "title"
+      query.order_by(:title => direction.to_sym)
+    when "created_at"
+      query.order_by(:created_at => direction.to_sym)
+    else
+      NodeQuery.new
+    end
   end
 
   def create_node_view
