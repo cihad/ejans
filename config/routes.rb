@@ -69,6 +69,7 @@ Ejans::Application.routes.draw do
       resources :views do
         post :sort, on: :collection
       end
+      resource :node, only: [:edit, :update]
     end
 
     resources :nodes
@@ -84,15 +85,5 @@ Ejans::Application.routes.draw do
 
   resources :places
 
-  # for View Features
-  namespace :views do
-    resources :view, only: [] do
-      resources :features, only: [:destroy] do
-        post :sort, on: :collection
-      end
-    end
-  end
-
-  # Resque Server
   mount Resque::Server, :at => "/resque"
 end

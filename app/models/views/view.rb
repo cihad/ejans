@@ -43,10 +43,6 @@ module Views
       self.class.to_s.titleize
     end
 
-    def destroy_from_outside
-      self.destroy
-    end
-
     private
     def view_count
       if self.node_type.removable_views.size >= 3

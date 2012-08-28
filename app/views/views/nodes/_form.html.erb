@@ -1,0 +1,8 @@
+<%= javascript 'aceajax/ace.js' %>
+
+<%= form_for @view, url: node_type_views_node_path(@node_type), method: :put do |f| %>
+  <%= render 'views/shared/inputs/css', f: f %>
+  <%= render 'views/shared/inputs/js', f: f %>
+  <%= render 'views/shared/inputs/user_input_node_template', f: f %>
+  <%= f.submit nil, class: "btn" %>
+<% end %>

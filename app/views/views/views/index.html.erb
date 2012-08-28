@@ -6,7 +6,7 @@
 <table class="table sortable">
   <tr>
     <td></td>
-    <td><%= @node_type.node_view.type %></td>
+    <td><%= @node_type.node_view.class.name %></td>
     <td>
       <%= link_to "edit",
             edit_node_type_views_view_path(@node_type, @node_type.node_view),

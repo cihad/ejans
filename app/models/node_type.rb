@@ -13,6 +13,7 @@ class NodeType
   has_many :feature_configurations,
     class_name: "Features::FeatureConfiguration",
     dependent: :destroy
+  embeds_one :node_view, class_name: "Views::Node"
   has_many :views, class_name: "Views::View",
     dependent: :destroy
 
@@ -27,14 +28,6 @@ class NodeType
 
   def sort_confs
     feature_configurations.sort_confs
-  end
-
-  def removable_views
-    views.reject { |view| view.class == Views::Node }
-  end
-
-  def node_view
-    (views - removable_views).first
   end
 
   def key_names
@@ -124,6 +117,6 @@ class NodeType
   end
 
   def create_node_view
-    self.views.build({}, Views::Node).save(validate: false)
+    self.build_node_view.save(validate: false)
   end
 end

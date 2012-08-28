@@ -1,11 +1,16 @@
 module Views
-  class Node < Custom
+  class Node
+    include Mongoid::Document
+    field :css, type: String
+    field :js,  type: String
+    field :user_input_node_template, type: String
+
+    embedded_in :node_type
+
     def node_type_template
-      %q{
-        <div class='node'>
-          <%= node %>
-        </div>
-      }
+      %q{<div class='node'>
+        <%= node %>
+      </div>}
     end
 
     def node_template
@@ -14,10 +19,6 @@ module Views
       else
         user_input_node_template
       end
-    end
-
-    def destroy_from_inside
-      false
     end
   end
 end

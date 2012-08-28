@@ -1,7 +1,7 @@
 module Views
   class NodePageView < NodeTypeView
     def view
-      node_type.views.select { |view| view.class == Views::Node }.first
+      node_type.node_view
     end
 
     def rendered_node

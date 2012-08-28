@@ -17,6 +17,7 @@
 
 <%= dropdown_tab "Views" do %>
   <%= tab_item "Index", node_type_views_views_path(@node_type) %>
+  <%= tab_item "Edit node view", edit_node_type_views_node_path(@node_type) %>
   <%= content_tag :li, nil, class: "divider" %>
   <% @node_type.views.each do |view| %>
     <%= tab_item view.type.to_s.humanize,
