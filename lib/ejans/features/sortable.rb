@@ -3,13 +3,14 @@ module Ejans
     module Sortable
       def self.included(base)
         base.class_eval do
-          # extend ClassMethods
+          extend ClassMethods
           include InstanceMethods
           field :sort, type: Boolean
         end
       end
 
-      # module ClassMethods;end
+      module ClassMethods; end
+
       module InstanceMethods
         def sort_query(params = {})
           sort = params[:sort]

@@ -18,6 +18,16 @@ module Features
 
     before_save :assign_key_name
 
+    class << self
+      define_method(:filterable?) do
+        included_modules.include?(Ejans::Features::Filterable) ? true : false
+      end
+
+      define_method(:sortable?) do
+        included_modules.include?(Ejans::Features::Sortable) ? true : false
+      end
+    end
+
     def self.feature_types
       subclasses.map do |name|
         to_feature(name)
