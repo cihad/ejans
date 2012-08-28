@@ -8,6 +8,38 @@
     url: url do |f| %>
   <table class="table table-form">
     <%= hidden_field_tag "_type", @view._type %>
+
+      <label class="checkbox inline">
+        <%= f.radio_button :icon, "icon-th-large" %>
+        <i class="icon-th-large"></i>
+      </label>
+
+      <label class="checkbox inline">
+        <%= f.radio_button :icon, "icon-th" %>
+        <i class="icon-th"></i>
+      </label>
+
+      <label class="checkbox inline">
+        <%= f.radio_button :icon, "icon-th-list" %>
+        <i class="icon-th-list"></i>
+      </label>
+
+      <label class="checkbox inline">
+        <%= f.radio_button :icon, "icon-list-alt" %>
+        <i class="icon-list-alt"></i>
+      </label>
+
+      <label class="checkbox inline">
+        <%= f.radio_button :icon, "icon-align-justify" %>
+        <i class="icon-align-justify"></i>
+      </label>
+
+      <label class="checkbox inline">
+        <%= f.radio_button :icon, "icon-list" %>
+        <i class="icon-list"></i>
+      </label>
+    
+
     <%= render "#{@view.partial_dir}/form", f: f %>
     <%= simple_submit f %>
   </table>

@@ -55,7 +55,7 @@ module Views
         links = nodes_index_views.inject("") do |output, v|
                   current_class = "active" if v == view
                   output += @template.link_to @template.url_for(params.merge(view_id: v.id.to_s)), class: "btn data-remote #{current_class}" do
-                    @template.content_tag :i, nil, class: "icon-th-large"
+                    @template.content_tag :i, nil, class: "#{v.icon}"
                   end
                   output
                 end

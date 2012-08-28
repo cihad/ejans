@@ -7,6 +7,7 @@ module Views
     belongs_to :node_type
     default_scope order_by([:position, :asc])
     validate :view_count
+    field :icon, type: String, default: "icon-align-justify"
 
     def self.views_types
       subclasses.each do |class_name|
@@ -45,7 +46,7 @@ module Views
 
     private
     def view_count
-      if self.node_type.removable_views.size >= 3
+      if self.node_type.views.size >= 3
         errors.add(:base, "Views sayisi 3'ten buyuk olamaz.")
       end
     end
