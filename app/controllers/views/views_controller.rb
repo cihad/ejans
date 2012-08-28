@@ -14,6 +14,8 @@ module Views
       @view = @node_type.build_view(params)
       if @view.save
         redirect_to @node_type, notice: "Succesfully."
+      else
+        render action: :new
       end
     end
 

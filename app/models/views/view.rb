@@ -46,8 +46,8 @@ module Views
 
     private
     def view_count
-      if self.node_type.views.size >= 3
-        errors.add(:base, "Views sayisi 3'ten buyuk olamaz.")
+      if self.node_type.views.size > 2
+        errors.add(:base, "En fazla 2 view ekleyebilirsiniz.")
       end
     end
   end
