@@ -1,4 +1,14 @@
 .table-form {
+  tr td:first-child,
+  tr th:first-child, {
+  }
+
+  .label-field {
+    width: 110px;
+    vertical-align: top;
+    padding-top: 12px;
+  }
+
   th, td {
     border: 0;
     vertical-align: middle;
@@ -21,22 +31,13 @@
   }
 }
 
-
-// FORM
-// forms 43
-label {
-  width: auto;
-  float: none;
-  text-align: left;
-}
-// forms 147
 input,
 textarea {
   @include border-radius(2px);
   border-color: #BCBCBC #D5D5D5 #D5D5D5;
   border-style: solid;
   border-width: 1px;
-  padding: 4px 6px;
+  padding: 3px 5px;
   @include box-shadow(none);
   @include transition(none);
 

@@ -18,7 +18,13 @@ module TagsHelper
   end
 
   def form_label_layout(*args, &block)
-    content_tag :th, *args, &block
+    options = args.extract_options!
+
+    options.has_key?(:class) ?
+      options[:class] += " label-field" :
+      options[:class] = "label-field"
+
+    content_tag :th, options, *args, &block
   end
 
   def form_value_layout(*args, &block)
