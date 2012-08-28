@@ -8,7 +8,9 @@
         <%= render 'nodes/filters_top_side/filter_block', filter: filter_for(conf) %>
       <% end %>
       <td>
-        <%= hidden_field_tag "view", params[:view] %>
+        <%= hidden_field_tag "view_id", params[:view_id] %>
+        <%= hidden_field_tag "sort", params[:sort] %>
+        <%= hidden_field_tag "direction", params[:direction] %>
         <%= submit_tag "Filter", class: "btn btn-success" %>
       </td>
     </tr>

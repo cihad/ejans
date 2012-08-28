@@ -1,9 +1,0 @@
-<%= simple_select field, :filter_type, Features::IntegerFeatureConfiguration::FILTER_TYPES, form_item_layout: { class: "filter-options" } %>
-<%= check_box_option_for("filter") %>
-
-<%= simple_number_field field, :minimum %>
-<%= simple_number_field field, :maximum %>
-
-<%= simple_text_field field, :prefix %>
-<%= simple_text_field field, :suffix %>
-<%= simple_select field, :thousand_marker, Features::IntegerFeatureConfiguration::THOUSAND_MARKERS %>
