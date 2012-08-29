@@ -32,9 +32,18 @@ module Features
     end
 
     private
+    
     def where
       "features." +
       "#{key_name.to_s.singularize}_ids"
+    end
+
+    def assign_key_name
+      name_prefix = 0
+      while key_names.include?(name = "#{I18n.with_locale(:en) { name_prefix.to_words }}_list_items".to_sym)
+        name_prefix = name_prefix.next
+      end
+      name
     end
   end
 end

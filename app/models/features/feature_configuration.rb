@@ -15,14 +15,16 @@ module Features
     default_scope order_by([:position, :asc])
 
     belongs_to :node_type
+    delegate :key_names, to: :node_type
 
     validate :same_label_name
     
+
     before_validation do
       label.strip!
     end
 
-    before_save :assign_key_name
+    before_save :set_key_name
 
     class << self
       define_method(:filterable?) do
@@ -125,28 +127,15 @@ module Features
     end
 
     def assign_key_name
-      unless key_name
-        key_names = node_type.key_names
-        case feature_type
-        when "list"
-          name_prefix = 0
-          while key_names.include?(name = "#{I18n.with_locale(:en) { name_prefix.to_words }}_list_items")
-            name_prefix = name_prefix.next
-          end
-        when "image"
-          name_prefix = 0
-          while key_names.include?(name = "#{I18n.with_locale(:en) { name_prefix.to_words }}_images")
-            name_prefix = name_prefix.next
-          end
-        else
-          name = "#{feature_type.downcase}_value_0"
-          while key_names.include?(name)
-            name = name.next
-          end
-        end
-
-        self.key_name = name.to_sym
+      name = "#{feature_type}_value_0"
+      while key_names.include?(name.to_sym)
+        name = name.next
       end
+      name
+    end
+
+    def set_key_name
+      self.key_name = assign_key_name.to_sym unless key_name
     end
   end
 end

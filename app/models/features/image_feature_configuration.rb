@@ -14,5 +14,15 @@ module Features
                   :"#{machine_name}_original_image_url"]
               end
     end
+
+    private
+
+    def assign_key_name
+      name_prefix = 0
+      while key_names.include?(name = "#{I18n.with_locale(:en) { name_prefix.to_words }}_images".to_sym)
+        name_prefix = name_prefix.next
+      end
+      name
+    end
   end
 end
