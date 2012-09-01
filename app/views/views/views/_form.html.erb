@@ -7,7 +7,7 @@
 <%= form_for [@node_type, @view],
     url: url do |f| %>
 
-  <%= render 'shared/error_messages', object: @view %>
+  <%= error_messages_for @view %>
 
   <table class="table table-form">
     <%= hidden_field_tag "_type", @view._type %>

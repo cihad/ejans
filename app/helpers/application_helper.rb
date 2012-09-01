@@ -58,4 +58,8 @@ module ApplicationHelper
   def merge_classes(options1 = {}, options2 = {})
     options1.merge(options2) { |k, o, n| o + " " + n }
   end
+
+  def error_messages_for(object)
+    render 'shared/error_messages', object: object
+  end
 end
