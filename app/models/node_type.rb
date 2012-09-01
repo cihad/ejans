@@ -8,6 +8,7 @@ class NodeType
   field :filters_position, type: Symbol, default: :top
   FILTERS_POSITIONS = [:top, :left]
   field :commentable, type: Boolean
+  field :node_expiration_day_limit, type: Integer, default: 0
 
   has_many :nodes
   has_many :feature_configurations,
@@ -21,6 +22,34 @@ class NodeType
   validates :name, presence: true
   validates :filters_position,
     inclusion: { in: FILTERS_POSITIONS }
+
+  def self.unpublish_expired_nodes!
+    all.each do |node_type|
+      node_type.set_unpublishing_expired_nodes
+    end
+  end
+
+  def approved_queue
+    nodes.approved_queue
+  end
+
+  def expired_nodes
+    if day_limit > 0
+      nodes.publishing.time_ago_published(day_limit.days.ago)
+    else
+      []
+    end
+  end
+
+  def set_unpublishing_expired_nodes
+    expired_nodes.each do |node|
+      node.set_unpublishing
+    end
+  end
+
+  def publishing_nodes
+    nodes.publishing
+  end
 
   def filters
     feature_configurations.filters
@@ -88,6 +117,7 @@ class NodeType
 
   def filter(params = {})
     nodes.
+      publishing.
       send(:where, filter_query(params).selector).
       send(:order_by, sort_query(params).options[:sort]).
       page(params[:page])

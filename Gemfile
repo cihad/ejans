@@ -24,6 +24,7 @@ gem 'remotipart', '~> 1.0'
 gem 'mustache'
 gem 'rmagick'
 gem 'numbers_and_words'
+gem 'whenever', :require => false
 
 # Groups
 group :assets do

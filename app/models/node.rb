@@ -11,9 +11,10 @@ class Node
   field :approved, type: Boolean, default: false
 
   # Scopes
-  scope :queue, where(published: true, approved: false)
+  scope :approved_queue, where(published: true, approved: false)
   scope :unpublished, where(published: false)
   scope :publishing, where(published: true, approved: true)
+  scope :time_ago_published, ->(time) { where(:updated_at.lt => time) }
 
   # Associations
   belongs_to :node_type
@@ -48,6 +49,18 @@ class Node
   def publish=(submit_value)
     self.published = true
     self.approved = false
+  end
+
+  def set_approved
+    self.published = true
+    self.approved = true
+    self.save
+  end
+
+  def set_unpublishing
+    self.published = false
+    self.approved = false
+    self.save
   end
 
   def find_value_by_views_feature(feature)
