@@ -24,6 +24,7 @@ describe NodeType do
   it { should respond_to :description }
   it { should respond_to :filters_position }
   it { should respond_to :commentable }
+
   it { should be_valid }
 
   it "when name is not present" do

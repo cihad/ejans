@@ -17,7 +17,7 @@ module Features
     belongs_to :node_type
     delegate :key_names, to: :node_type
 
-    validate :same_label_name
+    validate :same_label_name, on: :create
     
 
     before_validation do
@@ -117,11 +117,7 @@ module Features
     end
 
     def same_label_name
-      if node_type.
-          feature_configurations.
-          select { |conf| !conf.new_record? }.
-          map(&:label).
-          include?(label)
+      if new_record? and node_type.feature_configurations.select { |conf| !conf.new_record? }.map(&:label).include?(label)
         errors.add(:base, "Daha onceden eklenen bir label var. Ayni label 2 defa eklenemez.")
       end
     end

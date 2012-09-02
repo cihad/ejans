@@ -13,7 +13,9 @@ module FeatureForms
     end
 
     def tree
-      top_place.send("tree#{level}")
+      levels = top_place.levels
+      levels.shift
+      levels.first(level)
     end
 
     def place_ids_name

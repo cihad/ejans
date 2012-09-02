@@ -6,4 +6,4 @@
 
 <%= simple_select f,
       :top_place,
-      Place.top_places.map { |p| [p.name, p.id]} %>
+      Place.roots.map { |p| [p.name, p.id]} %>

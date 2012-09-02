@@ -17,7 +17,9 @@ module FeatureFilters
     end
 
     def tree
-      conf.top_place.send("tree#{level}")
+      levels = conf.top_place.levels
+      levels.shift
+      levels.first(level)
     end
   end
 end

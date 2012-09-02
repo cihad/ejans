@@ -2,12 +2,12 @@ class PlacesController < ApplicationController
   respond_to :js, only: [:index]
 
   def index
-    @places = Place.top_places
+    @places = Place.roots
     @event = params[:event] if params[:event]
     case @event
     when "show"
       @parent_place = Place.find(params[:parent_place_id])
-      @child_places = @parent_place.child_places
+      @child_places = @parent_place.children
     when "add_child_places"
       @parent_place = Place.find(params[:parent_place_id])
     end
