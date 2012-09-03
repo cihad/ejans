@@ -8,7 +8,7 @@ module Features
     field :key_name, type: Symbol
     field :required, type: Boolean
     field :help_text, type: String
-    field :position, type: Integer
+    field :position, type: Integer, default: 1000
 
     scope :filters, where(filter: true)
     scope :sort_confs, where(sort: true)
@@ -18,13 +18,14 @@ module Features
     delegate :key_names, to: :node_type
 
     validate :same_label_name, on: :create
-    
+    after_destroy :destroy_features_from_nodes
 
     before_validation do
       label.strip!
     end
 
     before_save :set_key_name
+    after_update :order_features
 
     class << self
       define_method(:filterable?) do
@@ -132,6 +133,23 @@ module Features
 
     def set_key_name
       self.key_name = assign_key_name.to_sym unless key_name
+    end
+
+    def destroy_features_from_nodes
+      node_type.nodes.each do |node|
+        feature = node.features.where(feature_configuration_id: self.id).first
+        feature.try(:destroy)
+      end
+    end
+
+    def order_features
+      if position_changed?
+        node_type.nodes.each do |node|
+          node.features = node.
+            features.
+            sort_by { |fea| fea.feature_configuration.position }
+        end
+      end
     end
   end
 end

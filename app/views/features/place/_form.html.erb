@@ -8,8 +8,9 @@
     <% name = (feature.form_builder.collection_select feature.place_ids_name, tree.first, :id, :name, {}).split("name=\"").last.split("\"").first + "[]" %>
     <% tree.each_with_index do |level, i| %>
       <select id="<%= i %>" name="<%= name %>">
+        <option value="" >--</option>
         <% level.each do |place| %>
-          <option value="<%= place.id %>" class="<%= place.parent_place.id unless i == 0 %>" <%= "selected" if feature.feature.value.include? place %>><%= place.name %></option>
+          <option value="<%= place.id %>" class="<%= place.parent_id unless i == 0 %>" <%= "selected" if feature.feature.value.include? place %>><%= place.name %></option>
         <% end %>
       </select>
     <% end %>

@@ -6,7 +6,8 @@ module Features
 
     def self.set_key(key_name)
       embeds_many :"#{key_name}",
-        class_name: "Features::Image"
+        class_name: "Features::Image",
+        cascade_callbacks: true
     end
 
     def data(conf_data)

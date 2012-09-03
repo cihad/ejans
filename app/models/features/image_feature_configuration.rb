@@ -15,6 +15,11 @@ module Features
               end
     end
 
+    def build_assoc!(node)
+      super
+      @feature.save(validate: false)
+    end
+
     private
 
     def assign_key_name
