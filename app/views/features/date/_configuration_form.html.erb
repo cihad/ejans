@@ -1,13 +1,16 @@
 <%= simple_check_box f,
       :filter,
-      input: { data: { toggle: "filter" } } %>
+      input: { data: { toggle: "filter" } },
+      help: "Dugumlerin bu alana gore filtreleme yapilabilmesi icin secebilirsiniz." %>
 
 <%= simple_select f,
       :filter_type,
       f.object.class::FILTER_TYPES,
       form_item_layout: { class: "filter-options" } %>
 
-<%= simple_check_box f, :sort %>
+<%= simple_check_box f,
+      :sort,
+      help: "Dugumlerin bu alana gore siralama yapilabilmesi icin secebilirsiniz." %>
 
 <%= simple_select f,
       :date_type,

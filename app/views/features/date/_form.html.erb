@@ -11,6 +11,9 @@
           discard_month: feature.discard_month,
           discard_year: feature.discard_year,
           class: "input-xlarge" %>
+          
+    <%= feature.help_text %>
+
     <%= feature.form_builder.hidden_field :feature_configuration_id %>
   <% end %>
 <% end %>

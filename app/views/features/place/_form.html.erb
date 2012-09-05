@@ -14,6 +14,7 @@
         <% end %>
       </select>
     <% end %>
+    <%= feature.help_text %>
     <%= javascript_tag do %>
       <% (tree.count - 1).times do |i| %>
         $("#<%= i+1 %>").chained("#<%= i %>");

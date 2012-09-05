@@ -31,6 +31,12 @@ module FeatureForms
       conf.label
     end
 
+    def help_text
+      @template.content_tag :span,
+        conf.help_text.html_safe,
+        class: "help-block"
+    end
+
     def to_s
       @template.render "#{conf.partial_dir}/form", feature: self
     end

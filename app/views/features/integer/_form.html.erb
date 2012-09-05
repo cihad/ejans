@@ -6,5 +6,6 @@
     <%= feature.form_builder.number_field feature.form_key, class: "input-xlarge" %>
     (<%= feature.minimum %> - <%= feature.maximum %>)
     <%= feature.form_builder.hidden_field :feature_configuration_id %>
+    <%= feature.help_text %>
   <% end %>
 <% end %>

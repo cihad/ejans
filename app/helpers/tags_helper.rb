@@ -45,6 +45,8 @@ module TagsHelper
           options[option.to_sym] ||= {}
       end
 
+      help = options.delete(:help)
+
       classes = [] << (options[:input].delete(:class) || "")
       classes << "input-xlarge"
       options[:input][:class] = classes.join(" ")
@@ -60,7 +62,8 @@ module TagsHelper
         
         concat(
           form_value_layout(options[:form_value_layout]) do
-            f.send(method.to_sym, name, *args, options[:input])
+            concat(f.send(method.to_sym, name, *args, options[:input]))
+            concat(content_tag(:p, help, class: "help"))
           end
         )
       end
