@@ -155,7 +155,7 @@ module Features
 
     def start_year_not_greater_than_end_year
       if start_year > end_year
-        add_error("Start year, end year'den buyuk olamaz.")
+        errors.add(:base, "Start year, end year'den buyuk olamaz.")
       end
     end
   end
