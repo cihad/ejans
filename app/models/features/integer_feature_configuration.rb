@@ -4,16 +4,17 @@ module Features
     include Ejans::Features::Filterable
     include Ejans::Features::Sortable
 
-    FILTER_TYPES = [:number_field, :range_with_number_field]
     field :filter_type, type: Symbol
-    field :minimum, type: Integer
+    FILTER_TYPES = [:number_field, :range_with_number_field]
+    validates :filter_type, inclusion: { in: FILTER_TYPES + [nil] }
+
+    field :minimum, type: Integer, default: 0
     field :maximum, type: Integer
     field :prefix, type: String
     field :suffix, type: String
     field :thousand_marker, type: Symbol
     THOUSAND_MARKERS = [:none, :decimal_point, :comma, :space]
-
-    validates :filter_type, inclusion: { in: FILTER_TYPES + [nil] }
+    validates :thousand_marker, inclusion: { in: THOUSAND_MARKERS }
 
     def data_names
       super + [:"#{machine_name}_value"]

@@ -5,6 +5,7 @@ module Features
     attr_accessor :feature_type
 
     field :label, type: String
+    validates :label, presence: true
     field :key_name, type: Symbol
     field :required, type: Boolean
     field :help_text, type: String

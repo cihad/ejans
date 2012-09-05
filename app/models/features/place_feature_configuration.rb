@@ -1,10 +1,12 @@
 module Features
   class PlaceFeatureConfiguration < FeatureConfiguration
-    include Mongoid::Document
     include Ejans::Features::Filterable
 
     field :level, type: Integer
+    validates :level, numericality: { greater_than_or_equal_to: 1 }
+    
     belongs_to :top_place, class_name: "Place"
+    validates :top_place, presence: true
 
     def level_names
       top_place.bottom_level_names.first(level+1)

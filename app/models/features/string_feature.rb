@@ -1,6 +1,5 @@
 module Features
   class StringFeature < Feature
-    include Mongoid::Document
 
     get_method_from_conf :maximum_length, :minimum_length
     alias :max :maximum_length

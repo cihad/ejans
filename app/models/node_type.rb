@@ -3,10 +3,14 @@ class NodeType
   include Mongoid::Timestamps
 
   field :name, type: String
+  validates :name, presence: true
+
   field :title_label, type: String
   field :description, type: String
   field :filters_position, type: Symbol, default: :top
   FILTERS_POSITIONS = [:top, :left]
+  validates :filters_position, inclusion: { in: FILTERS_POSITIONS }
+  
   field :commentable, type: Boolean
   field :node_expiration_day_limit, type: Integer, default: 0
 
@@ -20,8 +24,6 @@ class NodeType
 
   after_create :create_node_view
   validates :name, presence: true
-  validates :filters_position,
-    inclusion: { in: FILTERS_POSITIONS }
 
   def self.unpublish_expired_nodes!
     all.each do |node_type|

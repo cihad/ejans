@@ -1,6 +1,5 @@
 module Features
   class IntegerFeature < Feature
-    include Mongoid::Document
     include ActionView::Helpers
 
     validate :presence_value

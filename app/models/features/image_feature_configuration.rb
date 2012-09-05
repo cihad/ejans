@@ -1,7 +1,7 @@
 module Features
   class ImageFeatureConfiguration < FeatureConfiguration
-    include Mongoid::Document
-    field :maximum_image, type: Integer
+    
+    field :maximum_image, type: Integer, default: 0
 
     def data_names
       super + if maximum_image > 1

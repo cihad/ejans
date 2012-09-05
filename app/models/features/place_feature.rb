@@ -1,6 +1,5 @@
 module Features
   class PlaceFeature < Feature
-    include Mongoid::Document
 
     validate :presence_value
     validate :out_level

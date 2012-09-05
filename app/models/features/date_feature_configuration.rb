@@ -1,30 +1,35 @@
+require 'active_support'
+
 module Features
   class DateFeatureConfiguration < FeatureConfiguration
-    require 'active_support'
-    include Mongoid::Document
     include Ejans::Features::Filterable
     include Ejans::Features::Sortable
 
     # Fields
     field :date_type, type: Symbol
     DATE_TYPES = [:year, :year_month, :year_month_day]
+    validates :date_type, inclusion: { in: DATE_TYPES }
 
     field :filter_type, type: Symbol
     FILTER_TYPES = [:single, :range]
+    validates :filter_type, inclusion: { in: FILTER_TYPES + [nil] }
 
     field :start_date_type, type: Symbol
     START_DATE_TYPES = [:start_now, :x_years_ago_start, :spesific_start_date]
+    validates :start_date_type, inclusion: { in: START_DATE_TYPES }
     field :x_years_ago_start, type: Integer, default: 0
     field :spesific_start_date, type: Date
 
     field :end_date_type, type: Symbol
     END_DATE_TYPES = [:end_now, :x_years_ago_end, :x_years_later_end, :spesific_end_date]
+    validates :end_date_type, inclusion: { in: END_DATE_TYPES }
     field :x_years_ago_end, type: Integer, default: 0
     field :x_years_later_end, type: Integer, default: 0
     field :spesific_end_date, type: Date
 
     # Callbacks
     before_validation :empty_fields
+    validate :start_year_not_greater_than_end_year
 
     class << self
       def non_fields_for_date_types
@@ -145,6 +150,12 @@ module Features
         val > end_year ? nil : Date.new(val).end_of_year
       else
         nil
+      end
+    end
+
+    def start_year_not_greater_than_end_year
+      if start_year > end_year
+        add_error("Start year, end year'den buyuk olamaz.")
       end
     end
   end

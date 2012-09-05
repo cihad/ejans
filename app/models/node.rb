@@ -7,6 +7,9 @@ class Node
 
   # Fields
   field :title
+  validates :title, presence: true
+  index title: 1
+
   field :published, type: Boolean, default: false
   field :approved, type: Boolean, default: false
 
@@ -22,9 +25,6 @@ class Node
   accepts_nested_attributes_for :features
   embeds_many :comments
 
-  validates :title, presence: true
-
-  index title: 1
 
   { integer_value: 4,
     string_value: 3,
@@ -94,7 +94,6 @@ class Node
     node_data.merge(conf_data)
   end
 
-  # Associations builer (used by the controller)
   def build_assoc!
     node_type.feature_configurations.each do |conf|
       conf.build_assoc!(self)
