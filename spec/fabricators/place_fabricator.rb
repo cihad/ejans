@@ -12,7 +12,7 @@ Fabricator :turkiye, class_name: "Place" do
   hierarchy "sehir, ilce, mahalle"
 
   after_build do |turkiye|
-    turkiye.child_places.push([
+    turkiye.children.push([
       Fabricate(:eskisehir)
     ])
   end
@@ -22,7 +22,7 @@ Fabricator :eskisehir, class_name: "Place" do
   name "Eskisehir"
 
   after_build do |esk|
-    esk.child_places.push([
+    esk.children.push([
       Fabricate(:odunpazari)
     ])
   end
@@ -32,7 +32,7 @@ Fabricator :odunpazari, class_name: "Place" do
   name "Odunpazari"
 
   after_build do |odp|
-    odp.child_places.push([
+    odp.children.push([
       Fabricate(:kurtulus)
     ])
   end

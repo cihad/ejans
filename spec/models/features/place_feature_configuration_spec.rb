@@ -84,24 +84,24 @@ describe Features::PlaceFeatureConfiguration do
     end
 
     context "when params is filled by first level" do
-      let(:params) { {"label_for_place_sehir" => subject.top_place.child_places.first.id.to_s } }
+      let(:params) { {"label_for_place_sehir" => subject.top_place.children.first.id.to_s } }
       specify do
         subject.filter_query(params).should ==
           blank_query.in(:"features.place_value_0_ids" => 
-            [subject.top_place.child_places.first.id])
+            [subject.top_place.children.first.id])
       end
     end
 
     context "whem params is filled by level" do
       before do
         @place = Fabricate(:child_place)
-        subject.top_place.child_places.first.child_places << @place
+        subject.top_place.children.first.children << @place
       end
 
       context "when params is filled by second level" do
         specify do  
           params = {
-            "label_for_place_sehir" => subject.top_place.child_places.first.id.to_s,
+            "label_for_place_sehir" => subject.top_place.children.first.id.to_s,
             "label_for_place_ilce" => @place.id.to_s
           }
 
@@ -113,11 +113,11 @@ describe Features::PlaceFeatureConfiguration do
       context "when params is filled by outside level" do
         before do
           @other_place = Fabricate(:child_place)
-          @place.child_places << @other_place
+          @place.children << @other_place
         end
         specify do  
           params = {
-            "label_for_place_sehir" => subject.top_place.child_places.first.id.to_s,
+            "label_for_place_sehir" => subject.top_place.children.first.id.to_s,
             "label_for_place_ilce" => @place.id.to_s,
             "label_for_place_mahalle" => @other_place.id.to_s
           }
@@ -132,11 +132,11 @@ describe Features::PlaceFeatureConfiguration do
           subject.level = 3
           subject.save
           @other_place = Fabricate(:child_place)
-          @place.child_places << @other_place
+          @place.children << @other_place
         end
         specify do  
           params = {
-            "label_for_place_sehir" => subject.top_place.child_places.first.id.to_s,
+            "label_for_place_sehir" => subject.top_place.children.first.id.to_s,
             "label_for_place_ilce" => @place.id.to_s,
             "label_for_place_mahalle" => @other_place.id.to_s
           }

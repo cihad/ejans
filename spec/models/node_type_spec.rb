@@ -33,8 +33,8 @@ describe NodeType do
   end
 
   context "#views" do
-    it "node type when before save should has not a view" do
-      subject.views.should_not be_blank
+    it "#node_view" do
+      subject.node_view.should_not be_blank
     end
 
     it "node type when destroy should be destroyed views" do

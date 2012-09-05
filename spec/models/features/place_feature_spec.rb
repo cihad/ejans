@@ -18,9 +18,9 @@ describe Features::PlaceFeature do
     node.save
     feature = node.features.first
 
-    child_place_1.parent_place = top_place
-    child_place_2.parent_place = child_place_1
-    child_place_3.parent_place = child_place_2
+    child_place_1.parent = top_place
+    child_place_2.parent = child_place_1
+    child_place_3.parent = child_place_2
 
     # for 2 level
     feature.send(conf.key_name).push([

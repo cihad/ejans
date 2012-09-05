@@ -12,6 +12,7 @@ Features::Feature.feature_types.each do |type|
       conf.save
       node.node_type = node_type
       node.save
+      node.build_assoc!
     end
 
     subject { node.features.first }
