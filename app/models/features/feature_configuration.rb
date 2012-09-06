@@ -1,3 +1,5 @@
+require 'action_view'
+
 module Features
   class FeatureConfiguration
     include Mongoid::Document
@@ -27,6 +29,7 @@ module Features
 
     before_save :set_key_name
     after_update :order_features
+    before_destroy :if_matching_view_data
 
     class << self
       define_method(:filterable?) do
@@ -113,6 +116,17 @@ module Features
       end
     end
 
+    def matching_views
+      return data_names.inject([]) do |arr, name|
+        node_type.views.each do |view|
+          if m = view.node_template.match(name.to_s)
+            arr << view
+          end
+        end
+        arr
+      end.uniq
+    end
+
     private
     def where
       "features.#{key_name}"
@@ -150,6 +164,23 @@ module Features
             features.
             sort_by { |fea| fea.feature_configuration.position }
         end
+      end
+    end
+
+    def if_matching_view_data
+      unless matching_views.blank?
+        links = matching_views.inject([]) do |output, view|
+          str = ActionController::Base.helpers.link_to "view##{view.id}",
+                      Rails.application.routes.url_helpers.edit_node_type_views_view_path(node_type, view)
+          output << str
+        end
+
+        links = links.join(", ")
+
+        errors.add(:base, "Bu confu silmek icin once #{links} deki conf ile ilgili datayi silmelisiz.".html_safe)
+        false
+      else
+        true
       end
     end
   end

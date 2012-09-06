@@ -42,8 +42,12 @@ module Features
 
     def destroy
       @fc = @node_type.feature_configurations.find(params[:id])
-      @fc.destroy
-      redirect_to @node_type
+      if @fc.destroy
+        redirect_to node_type_features_feature_configurations_path(@node_type)
+      else
+        index
+        render action: "index"
+      end
     end
 
     def sort
