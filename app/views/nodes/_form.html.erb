@@ -14,7 +14,7 @@
   
   <table class="table table-form">
     <%= f.hidden_field :node_type_id %>
-    <%= simple_text_field f, :title %>
+    <%= simple_text_field f, :title, label: { name: @node_type.title_label } %>
     <%= f.fields_for :features do |form_builder| %>
       <%= feature_form_for(form_builder) %>
     <% end %>

@@ -5,7 +5,7 @@ class NodeType
   field :name, type: String
   validates :name, presence: true
 
-  field :title_label, type: String
+  field :title_label, type: String, default: I18n.t('global.title')
   field :description, type: String
   field :filters_position, type: Symbol, default: :top
   FILTERS_POSITIONS = [:top, :left]
@@ -106,8 +106,8 @@ class NodeType
 
   def sort_data
     hash = {
-      title: "Title",
-      created_at: "Created at"
+      title: title_label,
+      created_at: I18n.t('global.created')
     }
 
     sort_confs.each do |conf|
