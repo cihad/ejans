@@ -13,7 +13,7 @@ module Views
     end
 
     def view=(view_id)
-      @view = if view_id
+      @view = unless view_id.blank?
                 node_type.views.find(view_id)
               else
                 default_view
