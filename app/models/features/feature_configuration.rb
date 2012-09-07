@@ -27,7 +27,7 @@ module Features
       label.strip!
     end
 
-    before_save :set_key_name
+    before_save :set_conf_name
     after_update :order_features
     before_destroy :if_matching_view_data
 
@@ -107,7 +107,7 @@ module Features
     ####
 
     def build_assoc!(node)
-      feature_class.set_key(key_name)
+      feature_class.set_conf(self)
       if node.features.where(feature_configuration_id: self.id).exists?
         @feature = node.features.where(feature_configuration_id: self.id).first
       else
@@ -146,7 +146,7 @@ module Features
       name
     end
 
-    def set_key_name
+    def set_conf_name
       self.key_name = assign_key_name.to_sym unless key_name
     end
 

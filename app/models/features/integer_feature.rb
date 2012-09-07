@@ -10,8 +10,8 @@ module Features
     alias :min :minimum
     alias :max :maximum
 
-    def self.set_key(key_name)
-      field :"#{key_name}", type: Integer
+    def self.set_conf(conf)
+      field conf.key_name, type: Integer
     end
 
     def data(conf_data)

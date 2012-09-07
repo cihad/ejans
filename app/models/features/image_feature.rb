@@ -4,28 +4,31 @@ module Features
 
     get_method_from_conf :maximum_image
 
-    def self.set_key(key_name)
-      embeds_many :"#{key_name}",
+    def self.set_conf(conf)
+      embeds_many conf.key_name,
         class_name: "Features::Image",
         cascade_callbacks: true
+
+      FeatureImageUploader.conf = conf
     end
 
     def data(conf_data)
       super
       maximum_select = @data[:"#{@machine_name}_maximum_select"]
       if maximum_select.nil? or maximum_select > 1
-        { 
-          :"#{@machine_name}_thumb_image_urls" => @value.map { |img| img.image_url(:thumb) },
-          :"#{@machine_name}_small_image_urls" => @value.map { |img| img.image_url(:small) },
-          :"#{@machine_name}_original_image_urls" => @value.map { |img| img.image_url }
-        }
+        h = { :"#{@machine_name}_original_image_urls" => @value.map { |img| img.image_url } }
+        h.merge!(:"#{@machine_name}_thumb_image_urls" => @value.map { |img| img.image_url(:thumb) }) if conf.thumb?
+        h.merge!(:"#{@machine_name}_small_image_urls" => @value.map { |img| img.image_url(:small) }) if conf.small?
+        h.merge!(:"#{@machine_name}_small_fluid_image_urls" => @value.map { |img| img.image_url(:small_fluid) }) if conf.small_fluid?
+        h.merge!(:"#{@machine_name}_medium_image_urls" => @value.map { |img| img.image_url(:medium) }) if conf.medium?
       else
-        { 
-          :"#{@machine_name}_thumb_image_url" => @value.first.image_url(:thumb),
-          :"#{@machine_name}_small_image_url" => @value.first.image_url(:small),
-          :"#{@machine_name}_original_image_url" => @value.first.image_url
-        }
+        h = { :"#{@machine_name}_original_image_url" => @value.first.image_url }
+        h.merge!(:"#{@machine_name}_thumb_image_url" => @value.first.image_url(:thumb)) if conf.thumb?
+        h.merge!(:"#{@machine_name}_small_image_url" => @value.first.image_url(:small)) if conf.small?
+        h.merge!(:"#{@machine_name}_small_fluid_image_url" => @value.first.image_url(:small_fluid)) if conf.small_fluid?
+        h.merge!(:"#{@machine_name}_medium_image_url" => @value.first.image_url(:medium)) if conf.medium?
       end
+      h
     end
 
     def fill_random!

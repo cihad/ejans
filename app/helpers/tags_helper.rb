@@ -88,8 +88,8 @@ module TagsHelper
   end
 
   def checkbox(f, obj_id, obj_label)
-    concat(f.checkbox obj.id)
-    obj_label
+    concat(f.checkbox obj_id)
+    concat(obj_label)
   end
 
   def page_title(title, *args)

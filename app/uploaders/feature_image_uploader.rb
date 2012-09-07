@@ -20,6 +20,14 @@ class FeatureImageUploader < CarrierWave::Uploader::Base
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.feature.node.id}"
   end
 
+  def self.conf=(conf)
+    @conf = conf
+  end
+
+  def self.conf
+    @conf
+  end
+
   # Provide a default URL as a default if there hasn't been a file uploaded:
   # def default_url
   #   # For Rails 3.1+ asset pipeline compatibility:
@@ -36,12 +44,20 @@ class FeatureImageUploader < CarrierWave::Uploader::Base
   # end
 
   # Create different versions of your uploaded files:
-  version :thumb do
+  version :medium, if: :is_medium? do
+    process :resize_to_limit => [640, 480]
+  end
+
+  version :thumb, if: :is_thumb? do
     process :resize_to_limit => [96, 72]
   end
 
-  version :small do
+  version :small, if: :is_small? do
     process :resize_to_limit => [220, 165]
+  end
+
+  version :small_fluid, if: :is_small_fluid? do
+    process :resize_to_fit => [220, nil]
   end
 
   # Add a white list of extensions which are allowed to be uploaded.
@@ -60,5 +76,11 @@ class FeatureImageUploader < CarrierWave::Uploader::Base
   def secure_token
     var = :"@#{mounted_as}_secure_token"
     model.instance_variable_get(var) or model.instance_variable_set(var, SecureRandom.uuid)
+  end
+
+  self.versions.keys.each do |version|
+    define_method("is_#{version}?") do |picture|
+      self.class.conf.send("#{version}?")
+    end
   end
 end

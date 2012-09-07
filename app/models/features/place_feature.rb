@@ -7,8 +7,8 @@ module Features
     get_method_from_conf :level
     get_method_from_conf :top_place
 
-    def self.set_key(key_name)
-      has_and_belongs_to_many :"#{key_name}", class_name: "Place", inverse_of: nil
+    def self.set_conf(conf)
+      has_and_belongs_to_many conf.key_name, class_name: "Place", inverse_of: nil
     end
 
     def fill_random!

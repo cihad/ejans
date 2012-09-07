@@ -9,8 +9,8 @@ module Features
 
     get_method_from_conf :start_year, :end_year
 
-    def self.set_key(key_name)
-      field key_name, type: Date
+    def self.set_conf(conf)
+      field conf.key_name, type: Date
     end
 
     def values(opts)

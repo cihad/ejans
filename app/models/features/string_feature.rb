@@ -9,8 +9,8 @@ module Features
     validate :not_greater_than_maximum_length
     validate :not_less_than_minimum_length
 
-    def self.set_key(key_name)
-      field :"#{key_name}", type: String
+    def self.set_conf(conf)
+      field conf.key_name, type: String
     end
 
     def fill_random!
