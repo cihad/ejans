@@ -1,0 +1,10 @@
+<%= form_for(@user) do |f| %>
+  <%= error_messages_for @user %>
+  <table class="table table-form">
+    <%= simple_text_field f, :username %>
+    <%= simple_text_field f, :email %>
+    <%= simple_password_field f, :password %>
+    <%= simple_password_field f, :password_confirmation %>
+    <%= simple_submit f, nil %>
+  </table>
+<% end %>

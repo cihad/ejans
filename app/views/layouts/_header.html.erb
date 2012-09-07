@@ -4,16 +4,21 @@
     <div class="container">
       <%= link_to "ejans.com", root_path, class: "brand" %>
 
-      <%= render 'layouts/search_form' %>
-
       <ul class="nav pull-right">
-        <% if account_signed_in? %>
-          <%= render 'layouts/notices_menu' %>
-          <li class="divider-vertical"></li>
-          <%= render 'layouts/account_menu' %>
-        <% else %>
-          <li><a data-toggle="modal" href="#signin-modal"><%= t('account.signin_signup') %></a></li>
-        <% end %>
+        <li><a href="#">Link</a></li>
+        <li class="divider-vertical"></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= user_signed_in? ? current_user.username : "Sign in" %> <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Action</a></li>
+            <li class="divider"></li>
+            <% if user_signed_in? %>
+              <li><%= link_to 'Cikis', signout_path, method: :delete %></li>
+            <% else %>
+              <li><%= link_to 'Giris yap', signin_path %></li>
+            <% end %>
+          </ul>
+        </li>
       </ul>
     </div>
   </div>

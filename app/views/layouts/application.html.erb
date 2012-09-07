@@ -73,7 +73,6 @@ contentspan = content_for?(:left) ? 'span9' : 'span12'
   </div>
   <!-- /Container -->
 
-  <%= render 'layouts/signin' unless account_signed_in? %>
   <%= yield :bottom %>
 
   <%#= debug(request) if Rails.env.development? %>

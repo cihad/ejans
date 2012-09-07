@@ -32,7 +32,7 @@ module TagsHelper
   end
 
   %w[text_field number_field check_box text_area select
-      collection_select].each do |method|
+      collection_select, password_field].each do |method|
     define_method("simple_#{method}") do |f, name, *args|
 
       options = args.extract_options!

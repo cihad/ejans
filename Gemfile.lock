@@ -244,6 +244,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bcrypt-ruby (~> 3.0.0)
   breadcrumbs (~> 0.1.6)
   cancan
   capistrano

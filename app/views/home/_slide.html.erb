@@ -38,7 +38,7 @@
         <li class="menuItem"><span><%= t('home.slide.what_does_it_do') %></span></li>
         <li class="menuItem"><span><%= t('home.slide.filters') %></span></li>
         <li class="menuItem"><span><%= t('home.slide.notification') %></span></li>
-        <% unless account_signed_in? %>
+        <% unless user_signed_in? %>
           <li class="menuItem"><a data-toggle="modal" href="#signin-modal"><i class="icon-user"></i> <%= t('global.sign_up_in') %></a></li>
         <% end %>
       </ul>

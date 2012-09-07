@@ -1,0 +1,7 @@
+<%= form_for :session, url: sessions_path do |f| %>
+  <table class="table table-form">
+    <%= simple_text_field f, :email_or_username %>
+    <%= simple_password_field f, :password %>
+    <%= simple_submit f %>
+  </table>
+<% end %>
