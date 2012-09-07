@@ -1,6 +1,7 @@
 class NodesController < ApplicationController
   before_filter :node_type
   respond_to :js, only: [:index]
+  layout "node"
 
   def index
     @nodes = @node_type.filter(params)
