@@ -12,6 +12,10 @@ module FeatureForms
       conf.top_place
     end
 
+    def form_level_names
+      conf.form_level_names
+    end
+
     def tree
       levels = top_place.levels
       levels.shift
