@@ -6,15 +6,47 @@ module Features
     belongs_to :feature_configuration,
       class_name: "Features::FeatureConfiguration"
 
-    alias :conf :feature_configuration
-    delegate :key_name, to: :feature_configuration
-
     before_save :define_feature_configuration
 
-    def self.to_feature(class_name)
-      name = class_name.to_s.demodulize.titleize.split(' ')
-      name.pop
-      name.join
+    class << self
+      def conf=(conf)
+        @conf = conf
+      end
+
+      def conf
+        @conf
+      end
+
+      def set_specifies(conf)
+        self.conf = conf
+        set_specify(conf)
+      end
+
+      def to_feature(class_name)
+        name = class_name.to_s.demodulize.titleize.split(' ')
+        name.pop
+        name.join
+      end
+
+      def feature_types
+        subclasses.map do |name|
+          to_feature(name)
+        end
+      end
+      
+      def get_method_from_conf(*methods)
+        methods.each do |method|
+          define_method(method) do
+            conf.send(method)
+          end
+        end
+      end
+    end
+
+    get_method_from_conf :key_name, :required?
+
+    def conf
+      self.class.conf
     end
 
     def data(conf_data)
@@ -26,12 +58,6 @@ module Features
       { :"#{@machine_name}_value" => @value }
     end
 
-    def self.feature_types
-      subclasses.map do |name|
-        to_feature(name)
-      end
-    end
-
     def value
       send(key_name)
     end
@@ -40,16 +66,8 @@ module Features
       self.send("#{key_name}=", value)
     end
 
-    def self.get_method_from_conf(*methods)
-      delegate *methods, to: :feature_configuration
-    end
-
-    def required?
-      conf.required?
-    end
-
     def add_error(message = "")
-      errors.add(conf.key_name, message)
+      errors.add(key_name, message)
       node.errors.add(:base, message)
     end
 

@@ -4,7 +4,8 @@ module Features
 
     get_method_from_conf :maximum_image
 
-    def self.set_conf(conf)
+    def self.set_specify(conf)
+      
       embeds_many conf.key_name,
         class_name: "Features::Image",
         cascade_callbacks: true
@@ -19,13 +20,13 @@ module Features
         h = { :"#{@machine_name}_original_image_urls" => @value.map { |img| img.image_url } }
         h.merge!(:"#{@machine_name}_thumb_image_urls" => @value.map { |img| img.image_url(:thumb) }) if conf.thumb?
         h.merge!(:"#{@machine_name}_small_image_urls" => @value.map { |img| img.image_url(:small) }) if conf.small?
-        h.merge!(:"#{@machine_name}_small_fluid_image_urls" => @value.map { |img| img.image_url(:small_fluid) }) if conf.small_fluid?
+        h.merge!(:"#{@machine_name}_small_resize_to_width_image_urls" => @value.map { |img| img.image_url(:small_resize_to_width) }) if conf.small_resize_to_width?
         h.merge!(:"#{@machine_name}_medium_image_urls" => @value.map { |img| img.image_url(:medium) }) if conf.medium?
       else
         h = { :"#{@machine_name}_original_image_url" => @value.first.image_url }
         h.merge!(:"#{@machine_name}_thumb_image_url" => @value.first.image_url(:thumb)) if conf.thumb?
         h.merge!(:"#{@machine_name}_small_image_url" => @value.first.image_url(:small)) if conf.small?
-        h.merge!(:"#{@machine_name}_small_fluid_image_url" => @value.first.image_url(:small_fluid)) if conf.small_fluid?
+        h.merge!(:"#{@machine_name}_small_resize_to_width_image_url" => @value.first.image_url(:small_resize_to_width)) if conf.small_resize_to_width?
         h.merge!(:"#{@machine_name}_medium_image_url" => @value.first.image_url(:medium)) if conf.medium?
       end
       h

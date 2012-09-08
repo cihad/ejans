@@ -12,6 +12,7 @@ describe Features::Image do
     node.node_type = node_type
     node.save
     feature = node.features.first
+    feature.class.set_specify(conf)
     feature.send(conf.key_name).push(image)
   end
 
@@ -23,8 +24,14 @@ describe Features::Image do
   it { should respond_to :position }
   it { should be_valid }
 
-  it "#thumb" do
-    subject.image_url(:thumb).should be_kind_of String
+  context "image versions" do
+    it "#thumb" do
+      subject.image_url(:thumb).should be_kind_of String
+    end
+
+    it "#small" do
+      subject.image_url(:small).should be_kind_of String
+    end
   end
 
   it "default scope is ordered by position field" do

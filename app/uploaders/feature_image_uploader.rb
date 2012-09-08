@@ -56,7 +56,7 @@ class FeatureImageUploader < CarrierWave::Uploader::Base
     process :resize_to_limit => [220, 165]
   end
 
-  version :small_fluid, if: :is_small_fluid? do
+  version :small_resize_to_width, if: :is_small_resize_to_width? do
     process :resize_to_fit => [220, nil]
   end
 

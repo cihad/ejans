@@ -8,7 +8,7 @@ module Features
     get_method_from_conf :maximum_select
     alias :max :maximum_select
 
-    def self.set_conf(conf)
+    def self.set_specify(conf)
       has_and_belongs_to_many conf.key_name, class_name: "Features::ListItem"
     end
 

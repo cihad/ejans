@@ -10,7 +10,7 @@ module Features
     alias :min :minimum
     alias :max :maximum
 
-    def self.set_conf(conf)
+    def self.set_specify(conf)
       field conf.key_name, type: Integer
     end
 

@@ -107,7 +107,7 @@ module Features
     ####
 
     def build_assoc!(node)
-      feature_class.set_conf(self)
+      feature_class.set_specifies(self)
       if node.features.where(feature_configuration_id: self.id).exists?
         @feature = node.features.where(feature_configuration_id: self.id).first
       else

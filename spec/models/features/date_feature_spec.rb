@@ -19,7 +19,7 @@ describe Features::DateFeature do
   end
 
   specify do
-    subject.class.should respond_to :set_conf
+    subject.class.should respond_to :set_specify
   end
   
   it { should respond_to :value }

@@ -3,13 +3,12 @@ module Features
     include Mongoid::Document
     include Mongoid::MultiParameterAttributes
 
-    # Validates
     validate :presence_value
     validate :start_and_end_date
 
     get_method_from_conf :start_year, :end_year
 
-    def self.set_conf(conf)
+    def self.set_specify(conf)
       field conf.key_name, type: Date
     end
 

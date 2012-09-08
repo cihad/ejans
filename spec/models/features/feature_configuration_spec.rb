@@ -95,7 +95,7 @@ Features::FeatureConfiguration.feature_types.each do |type|
       end
     end
 
-    context "#datan_names" do
+    context "#data_names" do
       specify do
         subject
           .data_names

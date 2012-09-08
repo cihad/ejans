@@ -9,7 +9,7 @@ module Features
     validate :not_greater_than_maximum_length
     validate :not_less_than_minimum_length
 
-    def self.set_conf(conf)
+    def self.set_specify(conf)
       field conf.key_name, type: String
     end
 

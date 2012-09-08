@@ -7,7 +7,7 @@ module Features
     get_method_from_conf :level
     get_method_from_conf :top_place
 
-    def self.set_conf(conf)
+    def self.set_specify(conf)
       has_and_belongs_to_many conf.key_name, class_name: "Place", inverse_of: nil
     end
 
