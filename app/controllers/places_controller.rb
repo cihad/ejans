@@ -1,6 +1,10 @@
 class PlacesController < ApplicationController
   respond_to :js, only: [:index]
 
+  def show
+    @place = Place.find(params[:id])
+  end
+
   def index
     @places = Place.roots
     @event = params[:event] if params[:event]

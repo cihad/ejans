@@ -5,8 +5,12 @@ module Features
     field :level, type: Integer
     validates :level, numericality: { greater_than_or_equal_to: 1 }
     
+    field :place_page_list, type: Boolean, default: false
+
     belongs_to :top_place, class_name: "Place"
     validates :top_place, presence: true
+
+    after_save :create_place_view
 
     def level_names
       top_place.bottom_level_names.first(level+1)
@@ -53,6 +57,14 @@ module Features
     def where
       "features." +
       "#{key_name}_ids"
+    end
+
+    def create_place_view
+      if place_page_list and node_type.place_page_view.blank?
+        node_type.build_place_page_view().save(validate: false)
+      elsif place_page_list_changed? and !place_page_list
+        node_type.place_page_view.try(:destroy)
+      end
     end
   end
 end

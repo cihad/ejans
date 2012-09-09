@@ -7,3 +7,5 @@
 <%= simple_select f,
       :top_place,
       Place.roots.map { |p| [p.name, p.id]} %>
+
+<%= simple_check_box f, :place_page_list %>

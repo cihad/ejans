@@ -76,6 +76,7 @@ Ejans::Application.routes.draw do
         post :sort, on: :collection
       end
       resource :node, only: [:edit, :update]
+      resource :place_page, only: [:edit, :update]
     end
 
     resources :nodes

@@ -14,6 +14,7 @@ describe Features::PlaceFeatureConfiguration do
   subject { conf }
 
   it { should respond_to :level }
+  it { should respond_to :place_page_list }
   it { should respond_to :top_place }
   it { should respond_to :build_assoc! }
   it { should respond_to :filter_query }

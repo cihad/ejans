@@ -1,6 +1,7 @@
 Fabricator :place_fc, from: :conf, class_name: "Features::PlaceFeatureConfiguration" do
   filter false
   level 2
+  place_page_list true
 
   after_build do |place_fc|
     place_fc.top_place = Fabricate.build(:place)

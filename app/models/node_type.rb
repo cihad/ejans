@@ -19,6 +19,7 @@ class NodeType
     class_name: "Features::FeatureConfiguration",
     dependent: :destroy
   embeds_one :node_view, class_name: "Views::Node"
+  embeds_one :place_page_view, class_name: "Views::PlacePage"
   has_many :views, class_name: "Views::View",
     dependent: :destroy
 

@@ -1,0 +1,23 @@
+<% provide :title, @place.name %>
+<%= page_title @place.name %>
+<%= Views::PlacePageView.new(@place, self) %>
+
+<style type="text/css">
+.node-ins {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 1px 1px #ddd;
+}
+
+.node {
+  margin-bottom: 15px;
+}
+</style>
+
+<script src="http://masonry.desandro.com/jquery.masonry.min.js"></script>
+<script type="text/javascript">
+  $('#masonry-view').masonry({
+    itemSelector: '.node'
+  });
+</script>
