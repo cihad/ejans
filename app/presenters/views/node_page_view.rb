@@ -8,6 +8,10 @@ module Views
       NodeView.new(view, node_type, nodes, node_type.conf_data, template).to_s.html_safe
     end
 
+    def info
+      template.render 'info'
+    end
+
     def to_s
       template.render(
         inline: view.node_type_template, 

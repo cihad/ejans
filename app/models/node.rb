@@ -4,14 +4,22 @@ class Node
   include Rails.application.routes.url_helpers
 
   paginates_per 20
+  attr_accessor :author_email
 
   # Fields
   field :title
-  validates :title, presence: true
   index title: 1
 
   field :published, type: Boolean, default: false
   field :approved, type: Boolean, default: false
+  field :token
+
+  # Validations
+  validates :title, presence: true
+  validate :valid_email
+
+  # Associations
+  belongs_to :author, class_name: 'User', inverse_of: :nodes
 
   # Scopes
   scope :approved_queue, where(published: true, approved: false)
@@ -25,7 +33,12 @@ class Node
   accepts_nested_attributes_for :features
   embeds_many :comments
 
+  # Callbacks
+  after_initialize :build_values
+  after_save :send_email
+  before_create :set_random_token
 
+  # Indexes
   { integer_value: 4,
     string_value: 3,
     date_value: 2 }.each do |feature_value, how_many|
@@ -111,10 +124,47 @@ class Node
     build_assoc!
   end
 
-  after_initialize :build_values
+  def author_email=(email)
+    email.strip!
+    user = begin
+            User.find_by(email: email)
+          rescue
+            User.new(email: email).save(validate: false)
+          end
+
+    self.send_email = true
+    self.author = user
+    @author_email = user.email
+  end
+
+  def author_email
+    @author_email ||= author.try(:email)
+  end
+
+  def send_email?
+    @send_email ||= false
+  end
+
+  def send_email=(true_or_false = false)
+    @send_email = true_or_false
+  end
 
   private
   def build_values
     build_assoc! if node_type
+  end
+
+  def send_email
+    delivered = NodeMailer.node_info_mailer(self).deliver if send_email?
+  end
+
+  def set_random_token
+    self.token = SecureRandom.urlsafe_base64
+  end
+
+  def valid_email
+    unless author_email =~ User::EMAIL_REGEX
+      errors.add(:author_email, "Gecerli bir e-mail adresi giriniz.")
+    end
   end
 end

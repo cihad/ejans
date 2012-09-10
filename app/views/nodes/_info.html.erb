@@ -1,0 +1,44 @@
+<table class="statics-table">
+  <tr>
+    <td>
+      <div class="count">
+        <span><%= time_ago_in_words(@node.created_at) %></span>
+      </div>
+      <div class="desc">
+        <span>önce eklendi.</span>
+      </div>
+    </td>
+
+    <td>
+      <div class="count">
+        <span><%= @node.author.try(:username) || @node.author.try(:email_name) || "Anonymous user" %></span>
+      </div>
+      <div class="desc">
+        <span>Author</span>
+      </div>
+    </td>
+
+    <td>
+      <div class="count">
+        <span><%= @node.comments.size %></span>
+      </div>
+      <div class="desc">
+        <span>yorum sayısı</span>
+      </div>
+    </td>
+
+    <td>
+      <div class="btn-group">
+        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+          Yönet
+          <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+          <li><%= link_to "Düzenle", edit_node_type_node_path(@node.node_type, @node) %></li>
+          <li><%= link_to "Yayından kaldır", "#" %></li>
+          <li><%= link_to "Sil", "#" %></li>
+        </ul>
+      </div>
+    </td>
+  </tr>
+</table>

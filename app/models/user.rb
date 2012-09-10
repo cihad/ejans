@@ -11,6 +11,8 @@ class User
   field :password_digest
   field :remember_token
 
+  has_many :nodes, inverse_of: :author, dependent: :destroy
+
   before_save { |user| user.email = email.downcase }
   before_create :create_remember_token
 
@@ -32,6 +34,14 @@ class User
             confirmation: true
 
   validates :remember_token, uniqueness: true
+
+  def email_name
+    email.split('@').first
+  end
+
+  def unpublished_nodes
+    nodes.unpublished
+  end
 
   def password=(unencrypted_password)
     unless unencrypted_password.blank?
