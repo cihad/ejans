@@ -1,7 +1,7 @@
 class NodesController < ApplicationController
   before_filter :node_type
   respond_to :js, only: [:index]
-  layout "node", except: [:index]
+  layout "small", except: [:index]
   before_filter :correct_user, only: [:edit, :update, :destroy]
 
   def index

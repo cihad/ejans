@@ -3,6 +3,8 @@ class UsersController < ApplicationController
                 only: [:edit, :update, :destroy]
   before_filter :correct_user, only: [:edit, :update]
 
+  layout 'small', only: [:new]
+
   def show
     @user = User.find(params[:id])
   end
@@ -13,7 +15,11 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(params[:user])
-    if @user.save
+
+    if !@user.valid? and @user.errors.messages.keys.include?(:already_sign_up)
+      UserMailer.first_sign_in(User.find_by(email: @user.email)).deliver
+      redirect_to signin_path, notice: @user.errors.messages[:already_sign_up].first
+    elsif @user.save
       sign_in @user
       flash[:success] = "Welcome to the Sample App!"
       redirect_to @user

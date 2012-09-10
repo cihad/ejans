@@ -29,6 +29,8 @@ class User
             format: { with: EMAIL_REGEX },
             uniqueness: { case_sensitive: false }
 
+  validate :already_sign_up
+
   validates :password,
             length: { minimum: 6 },
             confirmation: true
@@ -86,8 +88,30 @@ class User
     remember_token == token && self
   end
 
+  def default_password_changed?
+    BCrypt::Password.new(password_digest) != remember_token
+  end
+
   private
+
   def create_remember_token
     self.remember_token = SecureRandom.urlsafe_base64
+  end
+
+  def create_password_digest
+    self.password_digest = BCrypt::Password.create(remember_token) unless password_digest
+  end
+
+  def already_sign_up
+    user = User.where(email: email).first
+    if !user.nil? and user.username.nil? and !user.default_password_changed?
+      user = User.where(email: email).first
+      errors.add(:already_sign_up, "Daha once bu email ile sitemizde bazi
+                                    aktivitelerde bulunmussunuz. Bundan dolayi
+                                    kullanici hesabiniz zaten acilmis durumda.
+                                    Hesabiniza kavusabilmeniz #{user.email} adresinize
+                                    bir baglanti gonderdik. Bu baglanti ile 
+                                    hesabiniza kavusabilirsiniz.")
+    end
   end
 end
