@@ -1,0 +1,7 @@
+<%= tab_item "Dashboard", @user %>
+
+<%= dropdown_tab "Ayarlar" do %>
+  <%= tab_item "Hesabımı düzenle", edit_user_path(@user) %>
+  <%= content_tag :li, nil, class: "divider" %>
+  <%= tab_item "Hesabımı kapat", user_path(@user), link_to: { confirm: "Are you sure?", method: :delete } %>
+<% end %>

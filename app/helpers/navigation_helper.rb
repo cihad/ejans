@@ -19,10 +19,4 @@ module NavigationHelper
     active = urls.any? { |url| current_page?(url_for(url)) }
     render layout: 'shared/dropdown_nav_item', locals: { title: title, active: active }, &block
   end
-
-  def tab_navigation
-    nav_tab do
-      render 'node_types/nav'
-    end
-  end
 end

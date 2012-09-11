@@ -35,7 +35,7 @@ Ejans::Application.routes.draw do
 
   # devise_for :accounts
 
-  resources :users, except: [:index]
+  resources :users
   resources :sessions, only: [:new, :create, :destroy]
   match '/signup',  to: 'users#new'
   match '/signin',  to: 'sessions#new'

@@ -41,6 +41,10 @@ class User
     email.split('@').first
   end
 
+  def username_or_email_name
+    username || email_name
+  end
+
   def unpublished_nodes
     nodes.unpublished
   end

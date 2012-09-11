@@ -1,0 +1,13 @@
+<%= render  layout: 'shared/split_button_dropdown',
+            locals: { size: 'btn-mini', object: user } do |user, section| %>
+  <% case section when :header %>
+    <%= link_to t('global.edit'), edit_user_path(user), class: "btn btn-mini" %>
+  <% when :links %>
+    <li>
+      <%= link_to t('global.destroy'),
+                    user_path(user),
+                    remote: true,
+                    confirm: 'Are you sure?' %>
+    </li>
+  <% end %>
+<% end %>

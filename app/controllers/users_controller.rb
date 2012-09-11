@@ -5,6 +5,10 @@ class UsersController < ApplicationController
 
   layout 'small', only: [:new]
 
+  def index
+    @users = User.all
+  end
+
   def show
     @user = User.find(params[:id])
   end

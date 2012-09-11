@@ -1,2 +1,33 @@
-Username: <%= @user.username %><br />
-Email: <%= @user.email %><br />
+<%= user_navigation %>
+<% provide :title, "#{@user.username}<#{@user.email}>".html_safe %>
+
+
+<h3>Yayında olan node'ler</h3>
+<table class="table table-striped">
+  <% @user.nodes.publishing.each do |node| %>
+    <tr>
+      <td><%= link_to node.title, node_type_node_path(node.node_type, node) %></td>
+      <td><%= link_to node.node_type.name, node_type_nodes_path(node.node_type) %></td>
+      <td><%= render 'node_actions_menu', node: node %></td>
+    </tr>
+  <% end -%>
+</table>
+
+
+<h3>Yayında olmayan node'ler</h3>
+<table class="table table-striped">
+  <% @user.nodes.unpublished.each do |node| %>
+    <tr>
+      <td><%= link_to node.title, node_type_node_path(node.node_type, node) %></td>
+    </tr>
+  <% end -%>
+</table>
+
+<h3>Onay bekleyen node'ler</h3>
+<table class="table table-striped">
+  <% @user.nodes.approved_queue.each do |node| %>
+    <tr>
+      <td><%= link_to node.title, node_type_node_path(node.node_type, node) %></td>
+    </tr>
+  <% end %>
+</table>
