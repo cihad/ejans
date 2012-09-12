@@ -129,7 +129,9 @@ class Node
     user = begin
             User.find_by(email: email)
           rescue
-            User.new(email: email).save(validate: false)
+            user = User.new(email: email)
+            user.save(validate: false)
+            user
           end
 
     self.send_email = true
