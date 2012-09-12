@@ -1,5 +1,5 @@
 <%= form_for [@node_type, @node], html: { multipart: true } do |f| %>
-  <% if !@node.author.blank? and @node.errors.any? %>
+  <% if @node.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@node.errors.count, "error") %> prohibited this node from being saved:</h2>
 

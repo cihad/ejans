@@ -7,7 +7,7 @@
     <% tree = feature.tree %>
     <% name = (feature.form_builder.collection_select feature.place_ids_name, tree.first, :id, :name, {}).split("name=\"").last.split("\"").first + "[]" %>
     <% tree.each_with_index do |level, i| %>
-      <select id="<%= i %>" name="<%= name %>">
+      <select id="place_<%= feature.conf.id %>_<%= i %>" name="<%= name %>">
         <option value="">
           <%= feature.form_level_names[i] %>
         </option>
@@ -19,7 +19,7 @@
     <%= feature.help_text %>
     <%= javascript_tag do %>
       <% (tree.count - 1).times do |i| %>
-        $("#<%= i+1 %>").chained("#<%= i %>");
+        $("#place_<%= feature.conf.id %>_<%= i+1 %>").chained("#place_<%= feature.conf.id %>_<%= i %>");
       <% end %>
     <% end %>
     <%= feature.form_builder.hidden_field :feature_configuration_id %>

@@ -1,0 +1,28 @@
+<%= form_item_layout do %>
+  <%= form_label_layout do %>
+    <%= feature.form_builder.label feature.form_key, feature.label %>
+  <% end %>
+  <%= form_value_layout do %>
+    <% javascript 'jquery-plugins/jquery.chained' %>
+    <% name = (feature.form_builder.collection_select feature.category_ids_name, feature.levels.first, :id, :name, {}).split("name=\"").last.split("\"").first + "[]" %>
+    <% feature.levels.each_with_index do |level, i| %>
+      <select id="category_tree_<%= feature.conf.id %>_<%= i %>" name="<%= name %>">
+        <option value="">Seçiniz</option>
+        <% level.each do |category| %>
+          <option value="<%= category.id %>"
+                  class="<%= category.parent_id unless i == 0 %>"
+                  <%= "selected" if feature.feature.value.include? category %>>
+            <%= category.name %>
+          </option>
+        <% end %>
+      </select>
+    <% end %>
+    <%= feature.help_text %>
+    <%= javascript_tag do %>
+      <% (feature.levels.count - 1).times do |i| %>
+        $("#category_tree_<%= feature.conf.id %>_<%= i+1 %>").chained("#category_tree_<%= feature.conf.id %>_<%= i %>");
+      <% end %>
+    <% end %>
+    <%= feature.form_builder.hidden_field :feature_configuration_id %>
+  <% end %>
+<% end %>

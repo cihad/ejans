@@ -1,0 +1,17 @@
+<%= page_title "categories" %>
+
+<%= render 'nav' %>
+
+<%= render 'categories_list', categories: @categories %>
+
+<script type="text/javascript">
+(function(){
+  $('.categories li .controls').hide();
+
+  $('.category').live('mouseenter', function(){
+    $(this).children('.controls').show();
+  }).live('mouseleave', function(){
+    $(this).children('.controls').hide();
+  })
+})();
+</script>

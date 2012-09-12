@@ -113,6 +113,7 @@ module Features
       else
         @feature = node.features.build({}, feature_class)
         @feature.feature_configuration = self
+        @feature.save(validate: false)
       end
     end
 

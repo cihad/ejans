@@ -1,0 +1,5 @@
+<%= simple_check_box f, :filter %>
+
+<%= simple_select f,
+      :category,
+      Category.roots.map { |p| [p.name, p.id]} %>

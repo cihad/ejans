@@ -25,11 +25,6 @@ module Features
               end
     end
 
-    def build_assoc!(node)
-      super
-      @feature.save(validate: false)
-    end
-
     VERSION_TYPES.each do |ver|
       define_method("#{ver}?") do
         versions.include?(ver)

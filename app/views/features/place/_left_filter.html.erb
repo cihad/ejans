@@ -1,11 +1,17 @@
 <% tree = feature.tree %>
 <% tree.each_with_index do |level, i| %>
-  <select id="<%= i %>" name="<%= feature.form_machine_names[i] %>" class="span2 single-input">
+  <select id="place_<%= feature.conf.id %>_<%= i %>"
+          name="<%= feature.form_machine_names[i] %>"
+          class="span2 single-input">
     <option value="">
       <%= feature.form_level_names[i] %>
     </option>
     <% level.each do |place| %>
-      <option value="<%= place.id %>" class="<%= place.parent.id unless i == 0 %>" <%= "selected" if place.id.to_s == params["#{feature.form_machine_names[i]}"] %>><%= place.name %></option>
+      <option value="<%= place.id %>"
+              class="<%= place.parent.id unless i == 0 %>"
+              <%= "selected" if place.id.to_s == params["#{feature.form_machine_names[i]}"] %>>
+        <%= place.name %>
+      </option>
     <% end %>
   </select>
 <% end %>
@@ -13,6 +19,6 @@
 <% javascript 'jquery-plugins/jquery.chained' %>
 <%= javascript_tag do %>
   <% (tree.count - 1).times do |i| %>
-    $("#<%= i+1 %>").chained("#<%= i %>");
+    $("#place_<%= feature.conf.id %>_<%= i+1 %>").chained("#place_<%= feature.conf.id %>_<%= i %>");
   <% end %>
 <% end %>
