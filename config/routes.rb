@@ -79,7 +79,9 @@ Ejans::Application.routes.draw do
       resource :place_page, only: [:edit, :update]
     end
 
-    resources :nodes
+    resources :nodes do
+      get :manage, on: :collection
+    end
   end
 
   resources :list_items, only: [:create]

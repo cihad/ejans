@@ -1,7 +1,7 @@
 class NodesController < ApplicationController
   before_filter :node_type
-  respond_to :js, only: [:index]
-  layout "small", except: [:index]
+  respond_to :js, only: [:index, :show]
+  layout "small", except: [:index, :manage]
   before_filter :correct_user, only: [:edit, :update, :destroy]
 
   def index
@@ -38,6 +38,10 @@ class NodesController < ApplicationController
   def destroy
     @node.destroy
     redirect_to @node_type, notice: "Node was successfully destroyed."
+  end
+
+  def manage
+    @nodes = @node_type.nodes
   end
 
   private

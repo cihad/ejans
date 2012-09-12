@@ -64,6 +64,11 @@ class Node
     self.approved = false
   end
 
+  def approve=(submit_value)
+    self.published = true
+    self.approved = true
+  end
+
   def set_approved
     self.published = true
     self.approved = true

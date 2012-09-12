@@ -1,0 +1,11 @@
+<%= render layout: 'shared/split_button_dropdown', locals: { size: 'btn-mini', object: node } do |node, section| %>
+  <% case section when :header %>
+    <%= link_to "Git", node_type_node_path(node.node_type, node), class: "btn btn-mini" %>  
+  <% when :links %>
+    <li><%= link_to t('global.edit'), edit_node_type_node_path(node.node_type, node) %></li>
+    <li><%= link_to "Yayından kaldır #todo", node_type_node_path(node.node_type, node) %></li>
+    <li><%= link_to t('global.destroy'), node_type_node_path(node.node_type, node),
+              method: :delete,
+              confirm: "Are you sure?" %></li>
+  <% end %>
+<% end %>

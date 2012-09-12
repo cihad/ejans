@@ -1,0 +1,42 @@
+<%= node_type_navigation %>
+<% provide :title, 'Manage All Nodes' %>
+<%= page_title 'Manage All Nodes' %>
+
+<table class="table table-striped">
+  <tr>
+    <th>Node Title</th>
+    <th>Author</th>
+    <th>Created At</th>
+    <th>Updated At</th>
+    <th>Published?</th>
+    <th>Approve</th>
+    <th>Actions</th>
+  </tr>
+
+  <% @nodes.each do |node| %>
+    <%= content_tag_for :tr, node do %>
+      <td>
+        <%= link_to (node.title || "!!!NOT DEFINED!!!"),
+                    node_type_node_path(@node_type, node),
+                    remote: true %>
+      </td>
+      <td><%= node.author.try(:username) || node.author.try(:email) %></td>
+      <td><%= time_ago_in_words(node.created_at) %> önce</td>
+      <td><%= time_ago_in_words(node.updated_at) %> önce</td>
+      <td><%= node.published? ? "✓" : "&times;" %></td>
+      <td>          
+        <% if node.published? and !node.approved? %>
+          <%= form_for [@node_type, node] do |f| %>
+            <%= f.submit "onayla", class: "btn btn-mini", name: "node[approve]" %>
+          <% end %>
+        <% elsif !node.approved? %>
+          &times;
+        <% else %>
+          ✓
+        <% end %>
+      </td>
+      <td><%= render 'node_actions', node: node %></td>
+    <% end %>
+  <% end %>
+
+</table>

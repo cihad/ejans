@@ -27,6 +27,7 @@
 <% end %>
 
 <%= dropdown_tab "Nodes" do %>
-  <%= tab_item "Show", node_type_nodes_path(@node_type) %>
+  <%= tab_item "Public Nodes Page", node_type_nodes_path(@node_type) %>
+  <%= tab_item "Manage all nodes", manage_node_type_nodes_path(@node_type) %>
   <%= tab_item "Add new node", new_node_type_node_path(@node_type) %>
 <% end %>
