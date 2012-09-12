@@ -1,20 +1,6 @@
-<!DOCTYPE html>
-<html class="no-js">
-<head>
-  <title><%= full_title(yield(:title)) %></title>
-  <%= stylesheet_link_tag    "application" %>
-  <%= javascript_include_tag "application" %>
-  <%= yield(:head) %>
-  <%= yield(:meta_tag) %>
-  <%= csrf_meta_tags %>
-  <!--[if IE]>
-    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
-</head>
-<!-- /HEAD -->
+<%= render 'layouts/head' %>
 
-
-<body class="node-page <%= yield(:body_class) %>">
+<body class="small-page <%= yield(:body_class) %>">
 
   <div id="overlay">
     <%= yield :overlay %>
@@ -23,28 +9,30 @@
   <!-- Container -->
   <%= render 'layouts/header' %>
 
-  <div class="container">
+    <div class="body">
+    <div class="container">
 
-    <%= yield :top %>
+      <%= yield :top %>
 
 
-    <div class="page">
-      <div class="row">    
-        <div class="span8">
-          <section id="content">
-            <%= render 'layouts/messages' %>
-              <%= yield %>
-          </section>
+      <div class="page">
+        <div class="row">    
+          <div class="span8">
+            <section id="content">
+              <%= render 'layouts/messages' %>
+                <%= yield %>
+            </section>
+          </div>
+          <!-- /Content -->
         </div>
-        <!-- /Content -->
       </div>
+      <!-- /Page -->
+
+      <%= render 'layouts/footer' %>
+
     </div>
-    <!-- /Page -->
-
-    <%= render 'layouts/footer' %>
-
+    <!-- /Container -->
   </div>
-  <!-- /Container -->
 
   <%= yield :bottom %>
   <%= render 'shared/analytics' if Rails.env.production? %>

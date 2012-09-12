@@ -1,17 +1,4 @@
-<!DOCTYPE html>
-<html class="no-js">
-<head>
-  <title><%= full_title(yield(:title)) %></title>
-  <%= stylesheet_link_tag    "application" %>
-  <%= javascript_include_tag "application" %>
-  <%= yield(:head) %>
-  <%= yield(:meta_tag) %>
-  <%= csrf_meta_tags %>
-  <!--[if IE]>
-    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
-</head>
-<!-- /HEAD -->
+<%= render 'layouts/head' %>
 
 <%
 contentspan = content_for?(:left) ? 'span9' : 'span12'
@@ -23,55 +10,57 @@ contentspan = content_for?(:left) ? 'span9' : 'span12'
     <%= yield :overlay %>
   </div>
 
-  <!-- Container -->
-  <div class="container">
+    <div class="body">
+    <!-- Container -->
+    <div class="container">
 
-    <%= yield :top %>
+      <%= yield :top %>
 
-    <%= render 'layouts/header' %>
+      <%= render 'layouts/header' %>
 
-    <div class="page">
-      <div class="row">
-        <% if breadcrumbs.items.size > 1 %>
-          <div id="breadcrumb">
-            <%= breadcrumbs.render %>
+      <div class="page">
+        <div class="row">
+          <% if breadcrumbs.items.size > 1 %>
+            <div id="breadcrumb">
+              <%= breadcrumbs.render %>
+            </div>
+            <!-- /Breadcrumb -->
+          <% end %>
+          
+          <% if content_for?(:left) %>
+            <div class="span3">
+              <aside id="left">
+                <%= yield :left %>
+              </aside>
+            </div>
+            <!-- /aside left -->
+          <% end %>
+
+          <div class="<%= contentspan %>">
+            <section id="content">
+              <%= render 'layouts/messages' %>
+                <%= yield %>
+            </section>
           </div>
-          <!-- /Breadcrumb -->
-        <% end %>
-        
-        <% if content_for?(:left) %>
-          <div class="span3">
-            <aside id="left">
-              <%= yield :left %>
-            </aside>
-          </div>
-          <!-- /aside left -->
-        <% end %>
+          <!-- /Content -->
 
-        <div class="<%= contentspan %>">
-          <section id="content">
-            <%= render 'layouts/messages' %>
-              <%= yield %>
-          </section>
+          <% if content_for?(:right) %>
+            <div class="span3">
+              <aside id="right">
+                <%= yield :right %>
+              </aside>
+            </div>
+            <!-- /aside right -->
+          <% end %>
         </div>
-        <!-- /Content -->
-
-        <% if content_for?(:right) %>
-          <div class="span3">
-            <aside id="right">
-              <%= yield :right %>
-            </aside>
-          </div>
-          <!-- /aside right -->
-        <% end %>
       </div>
+      <!-- /Page -->
+
+      <%= render 'layouts/footer' %>
+
     </div>
-    <!-- /Page -->
-
-    <%= render 'layouts/footer' %>
-
+    <!-- /Container -->
   </div>
-  <!-- /Container -->
 
   <%= yield :bottom %>
 

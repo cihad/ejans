@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+  <title><%= full_title(yield(:title)) %></title>
+  <%= stylesheet_link_tag    "application" %>
+  <%= javascript_include_tag "application" %>
+  <%= yield(:head) %>
+  <%= yield(:meta_tag) %>
+  <%= csrf_meta_tags %>
+  <!--[if IE]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+<!-- /HEAD -->
