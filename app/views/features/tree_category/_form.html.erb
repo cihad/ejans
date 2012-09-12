@@ -6,16 +6,19 @@
     <% javascript 'jquery-plugins/jquery.chained' %>
     <% name = (feature.form_builder.collection_select feature.category_ids_name, feature.levels.first, :id, :name, {}).split("name=\"").last.split("\"").first + "[]" %>
     <% feature.levels.each_with_index do |level, i| %>
-      <select id="category_tree_<%= feature.conf.id %>_<%= i %>" name="<%= name %>">
-        <option value="">Seçiniz</option>
-        <% level.each do |category| %>
-          <option value="<%= category.id %>"
-                  class="<%= category.parent_id unless i == 0 %>"
-                  <%= "selected" if feature.feature.value.include? category %>>
-            <%= category.name %>
-          </option>
-        <% end %>
-      </select>
+      <p>
+        <select id="category_tree_<%= feature.conf.id %>_<%= i %>" name="<%= name %>">
+          <option value="">Seçiniz</option>
+          <% level.each do |category| %>
+            <option value="<%= category.id %>"
+                    class="<%= category.parent_id unless i == 0 %>"
+                    <%= "selected" if feature.feature.value.include? category %>>
+              <%= category.name %>
+            </option>
+          <% end %>
+        </select>
+      </p>
+
     <% end %>
     <%= feature.help_text %>
     <%= javascript_tag do %>
