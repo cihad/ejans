@@ -4,6 +4,9 @@
   <% when :links %>
     <li><%= link_to t('global.edit'), edit_node_type_node_path(node.node_type, node) %></li>
     <li><%= link_to "Yayından kaldır #todo", node_type_node_path(node.node_type, node) %></li>
-    <li><%= link_to t('global.destroy'), node_type_node_path(node.node_type, node), remote: true, confirm: "Are you sure?" %></li> 
+    <li><%= link_to t('global.destroy'),
+                    node_type_node_path(node.node_type, node),
+                    confirm: "Are you sure?",
+                    methods: :delete %></li> 
   <% end %>
 <% end %>

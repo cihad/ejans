@@ -72,7 +72,7 @@ class FeatureImageUploader < CarrierWave::Uploader::Base
   end
 
   def self.condition_versions
-    condition_versions = versions
+    condition_versions = versions.clone
     condition_versions.delete(:thumb)
     condition_versions
   end

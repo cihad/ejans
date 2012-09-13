@@ -8,7 +8,7 @@
         <li><a href="#">Link</a></li>
         <li class="divider-vertical"></li>
         <% if user_signed_in? %>
-          <%= dropdown_tab "Configurations" do %>
+          <%= dropdown_tab current_user.username_or_email_name do %>
             <%= tab_item "Nodes", user_path(current_user) %>
             <%= tab_item "Configurations", edit_user_path(current_user) %>
             <%= content_tag :li, nil, class: "divider" %>

@@ -6,7 +6,7 @@
 <table class="table table-striped">
   <% @user.nodes.publishing.each do |node| %>
     <tr>
-      <td><%= link_to node.title, node_type_node_path(node.node_type, node) %></td>
+      <td><%= link_to node.title, node_type_node_path(node.node_type, node), remote: true %></td>
       <td><%= link_to node.node_type.name, node_type_nodes_path(node.node_type) %></td>
       <td><%= render 'node_actions_menu', node: node %></td>
     </tr>
@@ -18,7 +18,8 @@
 <table class="table table-striped">
   <% @user.nodes.unpublished.each do |node| %>
     <tr>
-      <td><%= link_to node.title, node_type_node_path(node.node_type, node) %></td>
+      <td><%= link_to node.title, node_type_node_path(node.node_type, node), remote: true %></td>
+      <td><%= link_to node.node_type.name, node_type_nodes_path(node.node_type) %></td>
     </tr>
   <% end -%>
 </table>
@@ -27,7 +28,8 @@
 <table class="table table-striped">
   <% @user.nodes.approved_queue.each do |node| %>
     <tr>
-      <td><%= link_to node.title, node_type_node_path(node.node_type, node) %></td>
+      <td><%= link_to node.title, node_type_node_path(node.node_type, node), remote: true %></td>
+      <td><%= link_to node.node_type.name, node_type_nodes_path(node.node_type) %></td>
     </tr>
   <% end %>
 </table>
