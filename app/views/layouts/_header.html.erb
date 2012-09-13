@@ -7,21 +7,16 @@
       <ul class="nav pull-right">
         <li><a href="#">Link</a></li>
         <li class="divider-vertical"></li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            <%= user_signed_in? ? current_user.username_or_email_name : "Sign in" %>
-            <b class="caret"></b>
-          </a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
-            <li class="divider"></li>
-            <% if user_signed_in? %>
-              <li><%= link_to 'Cikis', signout_path, method: :delete %></li>
-            <% else %>
-              <li><%= link_to 'Giris yap', signin_path %></li>
-            <% end %>
-          </ul>
-        </li>
+        <% if user_signed_in? %>
+          <%= dropdown_tab "Configurations" do %>
+            <%= tab_item "Nodes", user_path(current_user) %>
+            <%= tab_item "Configurations", edit_user_path(current_user) %>
+            <%= content_tag :li, nil, class: "divider" %>
+            <%= tab_item "Sign out", signout_path, link_to: { method: :delete } %>
+          <% end %>
+        <% else %>
+          <li><%= link_to 'Sign in', signin_path %></li>
+        <% end %>
       </ul>
     </div>
   </div>
