@@ -47,7 +47,7 @@ class FeatureImageUploader < CarrierWave::Uploader::Base
     process :resize_to_limit => [640, 480]
   end
 
-  version :thumb, if: :is_thumb? do
+  version :thumb do
     process :resize_to_limit => [96, 72]
   end
 
@@ -71,13 +71,23 @@ class FeatureImageUploader < CarrierWave::Uploader::Base
     "#{secure_token}.#{file.extension}" if original_filename
   end
 
+  def self.condition_versions
+    condition_versions = versions
+    condition_versions.delete(:thumb)
+    condition_versions
+  end
+
+  def self.condition_versions_keys
+    condition_versions.keys.map(&:to_s)
+  end
+
   protected
   def secure_token
     var = :"@#{mounted_as}_secure_token"
     model.instance_variable_get(var) or model.instance_variable_set(var, SecureRandom.uuid)
   end
 
-  self.versions.keys.each do |version|
+  self.condition_versions.keys.each do |version|
     define_method("is_#{version}?") do |picture|
       self.class.conf.send("#{version}?")
     end

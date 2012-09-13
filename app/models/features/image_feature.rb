@@ -18,13 +18,13 @@ module Features
       maximum_select = @data[:"#{@machine_name}_maximum_select"]
       if maximum_select.nil? or maximum_select > 1
         h = { :"#{@machine_name}_original_image_urls" => @value.map { |img| img.image_url } }
-        h.merge!(:"#{@machine_name}_thumb_image_urls" => @value.map { |img| img.image_url(:thumb) }) if conf.thumb?
+        h.merge!(:"#{@machine_name}_thumb_image_urls" => @value.map { |img| img.image_url(:thumb) })
         h.merge!(:"#{@machine_name}_small_image_urls" => @value.map { |img| img.image_url(:small) }) if conf.small?
         h.merge!(:"#{@machine_name}_small_resize_to_width_image_urls" => @value.map { |img| img.image_url(:small_resize_to_width) }) if conf.small_resize_to_width?
         h.merge!(:"#{@machine_name}_medium_image_urls" => @value.map { |img| img.image_url(:medium) }) if conf.medium?
       else
         h = { :"#{@machine_name}_original_image_url" => @value.first.image_url }
-        h.merge!(:"#{@machine_name}_thumb_image_url" => @value.first.image_url(:thumb)) if conf.thumb?
+        h.merge!(:"#{@machine_name}_thumb_image_url" => @value.first.image_url(:thumb))
         h.merge!(:"#{@machine_name}_small_image_url" => @value.first.image_url(:small)) if conf.small?
         h.merge!(:"#{@machine_name}_small_resize_to_width_image_url" => @value.first.image_url(:small_resize_to_width)) if conf.small_resize_to_width?
         h.merge!(:"#{@machine_name}_medium_image_url" => @value.first.image_url(:medium)) if conf.medium?
