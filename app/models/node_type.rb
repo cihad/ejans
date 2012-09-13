@@ -77,9 +77,10 @@ class NodeType
   end
 
   def build_configuration(params)
-    type = params[:_type].safe_constantize if params[:_type]
+    type = params[:_type].safe_constantize
     if Features::FeatureConfiguration.subclasses.include?(type)
-      parameters = params[Features::FeatureConfiguration.param_name(type)] || {}
+      parameters =  params[Features::FeatureConfiguration.param_name(type)] || 
+                    params[:features_feature_configuration]
       self.feature_configurations.build(parameters, type)
     end
   end
