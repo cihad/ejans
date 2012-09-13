@@ -1,15 +1,11 @@
 class NodesController < ApplicationController
   before_filter :node_type
-  respond_to :js, only: [:index, :show]
+  respond_to :js, only: [:show]
   layout "small", except: [:index, :manage]
   before_filter :correct_user, only: [:edit, :update, :destroy]
 
   def index
     @nodes = @node_type.filter(params)
-    if params[:node_id]
-      @node = Node.find(params[:node_id])
-      respond_with(@node)
-    end
   end
 
   def show
