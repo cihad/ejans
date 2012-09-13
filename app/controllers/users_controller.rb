@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   before_filter :authenticate_user!, 
                 only: [:edit, :update, :destroy]
   before_filter :correct_user, only: [:edit, :update]
+  skip_before_filter :username_is_nil, only: [:edit]
 
   layout 'small', only: [:new]
 
@@ -53,9 +54,8 @@ class UsersController < ApplicationController
   end
 
   private
-
   def correct_user
     @user = User.find(params[:id])
-    redirect_to(root_url) unless current_user?(@user)
+    redirect_to(root_path) unless current_user?(@user)
   end
 end
