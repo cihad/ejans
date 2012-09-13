@@ -27,6 +27,7 @@ gem 'rmagick'
 gem 'numbers_and_words'
 gem 'whenever', :require => false
 gem 'bcrypt-ruby', '~> 3.0.0'
+gem 'recaptcha', :require => 'recaptcha/rails'
 
 # Groups
 group :assets do

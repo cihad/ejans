@@ -20,11 +20,15 @@
       <%= feature_form_for(form_builder) %>
     <% end %>
 
-    <% unless user_signed_in? || @node.author %>
+    <% unless user_signed_in? %>
       <%= simple_text_field f,
             :author_email,
             help: "Uye olmadan veya giris yapmadan ilan ekleyebilirsiniz. Bunun
                   icin sadece email adresinizi yazmanız yeterli." %>
+
+      <%= checkbox_group "Captcha" do %>
+        <%= recaptcha_tags display: { theme: 'clean' } %>
+      <% end %>
     <% end %>
 
     <%= checkbox_group nil do %>
