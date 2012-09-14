@@ -3,10 +3,14 @@ module Features
     include Mongoid::Document
     include Ejans::Features::Filterable
 
-    field :maximum_select, type: Integer
-    has_many :list_items, class_name: "Features::ListItem"
+    field :maximum_select, type: Integer, default: 0
+    validates :maximum_select, presence: true
+
+    has_many :list_items, class_name: "Features::ListItem",
+              dependent: :destroy
     accepts_nested_attributes_for :list_items,
       reject_if: ->(attrs){ attrs[:name].blank? }
+
 
     def data_names
       super + if maximum_select > 1
