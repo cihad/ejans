@@ -3,6 +3,8 @@ class NodesController < ApplicationController
   respond_to :js, only: [:show]
   layout "small", except: [:index, :manage]
   before_filter :correct_user, only: [:edit, :update, :destroy]
+  before_filter :authenticate_user!, only: [:manage]
+  before_filter :manage_administrator, only: [:manage]
 
   def index
     @nodes = @node_type.filter(params)
@@ -57,6 +59,13 @@ class NodesController < ApplicationController
             params[:token] == @node.token
       redirect_to root_path,
                   notice: "Bu node'u duzenlemeye yetkili degilsiniz."
+    end
+  end
+
+  def manage_administrator
+    unless @node_type.administrators.include?(current_user)
+      redirect_to node_type_nodes_path(@node_type),
+                  alert: "Bunu goruntulemeye yetkili degilsiniz."
     end
   end
 end

@@ -2,6 +2,7 @@ class NodeTypesController < ApplicationController
   before_filter :node_type, only: [:show, :edit, :update]
   before_filter :authenticate_user!, except: [:index]
   before_filter :administrator, only: [:show, :edit, :update]
+  before_filter :admin_user, only: [:index, :new]
 
   def index
     @node_types = NodeType.all
@@ -46,5 +47,10 @@ class NodeTypesController < ApplicationController
       redirect_to node_type_nodes_path(@node_type),
                   alert: "Bunu goruntulemeye yetkilisi degilsiniz."
     end
+  end
+
+  def admin_user
+    # TODO
+    true
   end
 end
