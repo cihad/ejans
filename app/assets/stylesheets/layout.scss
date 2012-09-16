@@ -9,7 +9,7 @@
 .page {
   margin: 0 -31px;
   padding: 30px;
-  @include border-radius;
+  @include border-radius(4px);
   background: #fff;
   border: 1px solid #999;
 }

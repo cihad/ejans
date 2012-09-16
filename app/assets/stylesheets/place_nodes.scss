@@ -11,5 +11,6 @@
   .node-link {
     @extend .thumbnail;
     background: #fff;
+    @include box-shadow(0 1px 2px #888); 
   }
 }

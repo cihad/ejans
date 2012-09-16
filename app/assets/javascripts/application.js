@@ -22,11 +22,11 @@
 //= require jquery-ui/jquery.ui.button
 //= require jquery-ui/jquery.effects.core
 //= require jquery-ui/jquery.effects.highlight
-//= require bootstrap/bootstrap-alert
-//= require bootstrap/bootstrap-dropdown
-//= require bootstrap/bootstrap-modal
-//= require bootstrap/bootstrap-tooltip
-//= require bootstrap/bootstrap-tab
+//= require bootstrap-alert
+//= require bootstrap-dropdown
+//= require bootstrap-modal
+//= require bootstrap-tooltip
+//= require bootstrap-tab
 //= require jquery-plugins/jquery.maxlength
 //= require jquery-plugins/jquery.multiselect
 //= require jquery-plugins/jquery.formoption

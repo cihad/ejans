@@ -30,6 +30,7 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'recaptcha', :require => 'recaptcha/rails'
 gem 'geocoder'
 gem 'mongoid_fulltext'
+gem 'bootstrap-sass', '~> 2.1.0.0'
 
 # Groups
 group :assets do
