@@ -23,6 +23,8 @@ class NodeType
   has_many :views, class_name: "Views::View",
     dependent: :destroy
 
+  has_and_belongs_to_many :administrators, class_name: "User"
+
   after_create :create_node_view
   validates :name, presence: true
 

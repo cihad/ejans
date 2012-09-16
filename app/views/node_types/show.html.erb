@@ -104,4 +104,21 @@
       </div>
     </div>
   </div>
+
+  <div class="span4 widget">
+    <div class="thumbnail">
+      <div class="header">
+        <h4>Administrators</h4>
+      </div>
+      <div class="caption">
+        <table class="table" width="100%">
+          <% @node_type.administrators.each do |adm| %>
+            <tr>
+              <td><%= adm.username_or_email_name %></td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>
