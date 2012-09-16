@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   include SessionsHelper
+  include LocationHelper
   before_filter :username_is_nil
 
   private

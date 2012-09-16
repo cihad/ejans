@@ -1,33 +1,20 @@
-<% provide :title, t('.title') %>
+<% provide :title, @place.name %>
 <% body_class "home" %>
-<%= render "slide" %>
 
-<h2 id="subheading">
-  Örnek Servisler
-  <div></div>
-</h2>
+<%= content_for :navbar do %>
+  <li class="active"><a href="#"><%= @place.name %></a></li>
+<% end %>
 
-<script type="text/javascript">
-    $(function() {
-        $('.swi').hover(function() {
-            $(this).find('img').stop().animate({ "top" : '100px'}, 250);   
-        }, function() {
-            $(this).find('img').stop().animate({ "top" : '0px'}, 300);       
-        });
-    });
-  </script>
-</head>
+<%= javascript 'jquery-plugins/jquery.masonry' %>
 
 
-<ul id="home-services" class="clearfix nostyle-list">
-  <% @services.each do |service| %>
-    <li class="swi">
-      <div class="ins">
-        <%= link_to service do %>
-          <span><%= service.title %></span>
-          <%= image_tag(service.image_url, alt: service.title) %>
-        <% end %>
-      </div>
-    </li>
-  <% end %>
-</ul>
+<%= view = Views::PlacePageView.new(@place, self) %>
+
+<script>
+var $container = $('#place-nodes');
+$container.imagesLoaded(function(){
+  $container.masonry({
+    itemSelector : '.node'
+  });
+});
+</script>

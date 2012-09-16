@@ -45,8 +45,8 @@ class User
     username || email_name
   end
 
-  def unpublished_nodes
-    nodes.unpublished
+  def unpublished_nodes(node_type)
+    nodes.unpublished.where(node_type: node_type)
   end
 
   def password=(unencrypted_password)

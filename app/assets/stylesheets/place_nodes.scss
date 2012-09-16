@@ -1,0 +1,15 @@
+.home {
+  /*background: white;*/
+}
+
+#place-nodes .node {
+  margin: 0 0 20px 20px;
+  width: 220px;
+}
+
+#place-nodes .node-ins {
+  .node-link {
+    @extend .thumbnail;
+    background: #fff;
+  }
+}

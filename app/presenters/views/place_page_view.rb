@@ -7,10 +7,6 @@ module Views
       @template = template
     end
 
-    def node_type_template
-      view.node_type_template
-    end
-
     def nodes
       @nodes ||= place.nodes
     end
@@ -25,7 +21,10 @@ module Views
         view = node_type.place_page_view
         conf_data = node_type.conf_data
         str << @template.render(inline: node_type_template,
-                                locals: { nodes: Views::NodeView.new(view, node_type, node, conf_data, @template).to_s })
+                                locals: {
+                                  node: Views::NodeView.new(view, node_type, node, conf_data, @template).to_s,
+                                  url: @template.node_type_node_path(node_type, node)
+                                 })
         str
       end.html_safe
     end
@@ -37,11 +36,7 @@ module Views
     end
 
     def place_page_template
-       %q{<div class="row">
-          <div id="masonry-view">
-            <%= nodes %>
-          </div>
-        </div>}
+      @place_page_template ||= Views::PlacePage.place_page_template
     end
   end
 end

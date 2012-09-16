@@ -1,5 +1,7 @@
 class HomeController < ApplicationController
+  before_filter :find_place, only: [:index]
+  layout "home"
+
   def index
-    @services = Service.all.find_all {|s| s.image? }.sort_by { rand }.slice(0, 9)
   end
 end

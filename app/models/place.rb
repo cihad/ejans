@@ -2,14 +2,20 @@ class Place
   include Mongoid::Document
   include Mongoid::Tree
   include Mongoid::Tree::Traversal
+  include Geocoder::Model::Mongoid
+  include Mongoid::FullTextSearch
 
   attr_accessor :childs
 
-  # Fields
-  field :name, type: String
-  field :hierarchy, type: String
+  field :coordinates, type: Array
+  index({ coordinates: "2d" }, { min: -200, max: 200 })
 
-  embeds_one :location
+  field :name, type: String
+  geocoded_by :name
+  after_validation :geocode, if: :name_changed?
+  fulltext_search_in :name
+
+  field :hierarchy, type: String
 
   def level
     ancestors.size
@@ -71,6 +77,14 @@ class Place
     end
 
     levels << arr
+  end
+
+  def self.default_coordinates
+    [39.7767, 30.5206]
+  end
+
+  def self.default_place
+    near(default_coordinates).first
   end
 
   def nodes

@@ -32,9 +32,8 @@
 //= require jquery-plugins/jquery.formoption
 //= require jquery-plugins/jquery.multiselect.filter
 //= require jquery-plugins/jquery.tablesorter
-//= require jquery-plugins/jquery.flipcounter
 //= require tinymce-jquery
-//= require slide
+//= require geolocation
 //= require not_found
 //= require modernizr.custom
 

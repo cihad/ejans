@@ -1,0 +1,38 @@
+<%= render 'layouts/head' %>
+
+<body class="<%= content_for?(:right) or content_for?(:left) ? 'twoColumn' : 'oneColumn' %> <%= yield(:body_class) %>">
+
+  <div id="overlay">
+    <%= yield :overlay %>
+  </div>
+
+    <div class="body">
+    <!-- Container -->
+    <div class="container">
+
+      <%= yield :top %>
+
+      <%= render 'layouts/header' %>
+
+        <div class="row">
+          
+
+          <div class="span12">
+            <%= render 'layouts/messages' %>
+            <%= yield %>
+          </div>
+          <!-- /Content -->
+        </div>
+
+      <%= render 'layouts/footer' %>
+
+    </div>
+    <!-- /Container -->
+  </div>
+
+  <%= yield :bottom %>
+  
+  <%= render 'shared/analytics' if Rails.env.production? %>
+  <%= render 'shared/uservoice' if Rails.env.production? %>
+</body>
+</html>

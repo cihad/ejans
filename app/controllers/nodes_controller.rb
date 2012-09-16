@@ -13,7 +13,7 @@ class NodesController < ApplicationController
   end
 
   def new
-    unless user_signed_in? and @node = current_user.unpublished_nodes.first
+    unless user_signed_in? and @node = current_user.unpublished_nodes(@node_type).first
       @node = Node.new(node_type: @node_type, author: current_user)
       @node.save(validate: false)
     end
@@ -24,7 +24,11 @@ class NodesController < ApplicationController
   end
 
   def update
-    recaptcha = user_signed_in? ? true : verify_recaptcha(:model => @node, :message => "Oh! It's error with reCAPTCHA!")
+    recaptcha = if user_signed_in?
+                  true
+                else
+                  verify_recaptcha(:model => @node, :message => "Oh! It's error with reCAPTCHA!")
+                end
     if @node.update_attributes(params[:node]) && recaptcha
       redirect_to [@node_type, @node], notice: 'Node was successfully updated.'
     else
@@ -48,7 +52,7 @@ class NodesController < ApplicationController
 
   def correct_user
     @node = @node_type.nodes.find(params[:id])
-    unless  (@node.author.blank?)  ||
+    unless  (@node.author.blank?) ||
             (user_signed_in? and current_user == @node.author) ||
             params[:token] == @node.token
       redirect_to root_path,
