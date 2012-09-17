@@ -1,4 +1,2 @@
-$('body').append("<%=j render partial: 'node', layout: 'shared/static_modal', locals: { title: @node.title } %>");
-$('#static-modal .close').on('click', function() {
-  $('#static-modal').remove();
-});
+$('#overlay').append("<%=j render partial: 'node', layout: 'shared/static_modal', locals: { title: @node.title } %>");
+$('body').addClass('modal-open');

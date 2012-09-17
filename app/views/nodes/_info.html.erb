@@ -1,30 +1,18 @@
-<table class="statics-table">
+<table class="node-info">
   <tr>
     <td>
-      <div class="count">
-        <span><%= time_ago_in_words(@node.created_at) %></span>
-      </div>
-      <div class="desc">
-        <span>önce eklendi.</span>
-      </div>
+      <div><%= time_ago_in_words(@node.created_at) %></div>
+      <div>önce eklendi.</div>
     </td>
 
     <td>
-      <div class="count">
-        <span><%= @node.author.try(:username) || @node.author.try(:email_name) || "Anonymous user" %></span>
-      </div>
-      <div class="desc">
-        <span>Author</span>
-      </div>
+      <div><%= @node.author.try(:username) || @node.author.try(:email_name) || "Anonymous user" %></div>
+      <div>Author</div>
     </td>
 
     <td>
-      <div class="count">
-        <span><%= @node.comments.size %></span>
-      </div>
-      <div class="desc">
-        <span>yorum sayısı</span>
-      </div>
+      <div><%= @node.comments.size %></div>
+      <div>yorum sayısı</div>
     </td>
 
     <td>
@@ -39,6 +27,10 @@
           <li><%= link_to "Sil", "#" %></li>
         </ul>
       </div>
+    </td>
+
+    <td>
+      <%= link_to @node_type.name, node_type_nodes_path(@node_type) %>
     </td>
   </tr>
 </table>

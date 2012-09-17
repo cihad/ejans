@@ -1,6 +1,43 @@
-#static-modal {
-  .modal {
+#ejans-modal {
+  @extend .modal-backdrop;
+  background: transparent;
+  z-index: $zindexModal;
+  @include opacity(1);
+  overflow-x: auto;
+  overflow-y: scroll;
+
+  .ejans-modal {
     width: 650px;
-    margin-left: -330px;
+    margin: 60px auto;
+    background-color: $white;
+    border: 1px solid #999;
+    border: 1px solid rgba(0,0,0,.3);
+    *border: 1px solid #999; /* IE6-7 */
+    @include border-radius(6px);
+    @include box-shadow(0 3px 7px rgba(0,0,0,0.3));
+    @include background-clip(padding-box);
+    .modal-body {
+      overflow: hidden;
+      max-height: none;
+    }
   }
+
+  .modal-header .btn-close {
+    margin-top: 2px;
+    float: right;
+    font-size: 20px;
+    line-height: 20px;
+    font-weight: bold;
+    @incldude text-shadow(0 1px 0 white);
+    @include opacity(0.3);
+
+    &:hover {
+      @include opacity(1);
+    }
+  }
+
+}
+
+body.modal-open {
+  overflow: hidden;
 }

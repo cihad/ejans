@@ -75,8 +75,9 @@
     content_css : "/assets/application.css"
   });
 
-  $('#overlay .close').live('click', function() {
+  $('#overlay .btn-close').live('click', function() {
     $(this).closest('#static-modal').remove();
+    $('body').removeClass('modal-open')
   });
 })();
 
