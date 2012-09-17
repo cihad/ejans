@@ -34,13 +34,25 @@ class NodeType
     end
   end
 
+  def self.remove_blank_nodes_by_anon!
+    all.each do |node_type|
+      node_type.remove_blank_nodes_by_anon!
+    end
+  end
+
+  def self.remove_blank_nodes_by_author!
+    all.each do |node_type|
+      node_type.remove_blank_nodes_by_author!
+    end
+  end
+
   def approved_queue
     nodes.approved_queue
   end
 
   def expired_nodes
-    if day_limit > 0
-      nodes.publishing.time_ago_published(day_limit.days.ago)
+    if node_expiration_day_limit > 0
+      nodes.publishing.time_ago_updated(node_expiration_day_limit.days.ago)
     else
       []
     end
@@ -50,6 +62,17 @@ class NodeType
     expired_nodes.each do |node|
       node.set_unpublishing
     end
+  end
+
+  def remove_blank_nodes_by_anon!
+    nodes.blank_nodes_by_anon.destroy
+  end
+
+  def remove_blank_nodes_by_author!
+    nodes.
+      blank_nodes_by_author.
+      time_ago_updated(Node::REMOVE_BLANK_NODES_IN_X_DAY.days.ago).
+      destroy
   end
 
   def publishing_nodes

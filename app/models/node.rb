@@ -6,6 +6,8 @@ class Node
   paginates_per 20
   attr_accessor :author_email
 
+  REMOVE_BLANK_NODES_IN_X_DAY = 30
+
   # Fields
   field :title
   index title: 1
@@ -26,7 +28,7 @@ class Node
   scope :published, where(published: true)
   scope :unpublished, where(published: false)
   scope :publishing, where(published: true, approved: true)
-  scope :time_ago_published, ->(time) { where(:updated_at.lt => time) }
+  scope :time_ago_updated, ->(time) { where(:updated_at.lt => time) }
   scope :blank_nodes_by_anon, where(title: nil).and(author: nil)
   scope :blank_nodes_by_author, where({"$and"=>[{"title"=>nil}, {"author_id"=>{"$exists"=>true}}]})
 
