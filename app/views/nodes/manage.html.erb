@@ -26,9 +26,7 @@
       <td><%= node.published? ? "✓" : "&times;" %></td>
       <td>          
         <% if node.published? and !node.approved? %>
-          <%= form_for [@node_type, node] do |f| %>
-            <%= f.submit "onayla", class: "btn btn-mini", name: "node[approve]" %>
-          <% end %>
+          <%= render 'approve_button', node: node %>
         <% elsif !node.approved? %>
           &times;
         <% else %>

@@ -5,11 +5,9 @@
   <li class="active"><a href="#"><%= @place.name %></a></li>
 <% end %>
 
-<%= javascript 'jquery-plugins/jquery.masonry' %>
-
-
 <%= view = Views::PlacePageView.new(@place, self) %>
 
+<%= javascript 'jquery-plugins/jquery.masonry' %>
 <script>
 var $container = $('#place-nodes');
 $container.imagesLoaded(function(){

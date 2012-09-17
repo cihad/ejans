@@ -44,7 +44,7 @@ class NodesController < ApplicationController
   end
 
   def manage
-    @nodes = @node_type.nodes
+    @nodes = @node_type.nodes.published
   end
 
   private

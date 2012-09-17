@@ -23,9 +23,11 @@ class Node
 
   # Scopes
   scope :approved_queue, where(published: true, approved: false)
+  scope :published, where(published: true)
   scope :unpublished, where(published: false)
   scope :publishing, where(published: true, approved: true)
   scope :time_ago_published, ->(time) { where(:updated_at.lt => time) }
+  scope :trash, where(author: nil)
 
   # Associations
   belongs_to :node_type
@@ -145,7 +147,7 @@ class Node
   end
 
   def author_email
-    @author_email ||= author.try(:email)
+    @author_email ||= author.email
   end
 
   def send_email?
