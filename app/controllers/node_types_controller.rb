@@ -5,7 +5,11 @@ class NodeTypesController < ApplicationController
   before_filter :admin_user, only: [:index, :new]
 
   def index
-    @node_types = NodeType.all
+    @node_types = NodeType.
+                    includes(:nodes).
+                    sort do |nt1, nt2|
+                      nt2.nodes.publishing.size <=> nt1.nodes.publishing.size
+                    end
   end
 
   def show
@@ -34,6 +38,13 @@ class NodeTypesController < ApplicationController
       redirect_to @node_type, notice: 'Nodetype was successfully updated.'
     else
       render action: "edit"
+    end
+  end
+
+  def destroy
+    if @node_type.destroy
+      redirect_to node_types_path,
+                  notice: "Basarili bir sekilde kaldirildi."
     end
   end
 

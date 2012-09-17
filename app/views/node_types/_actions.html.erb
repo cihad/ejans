@@ -1,0 +1,11 @@
+<%= render layout: 'shared/split_button_dropdown', locals: { size: 'btn-mini', object: node_type } do |node_type, section| %>
+  <% case section when :header %>
+    <%= link_to "Nodes", node_type_nodes_path(node_type), class: "btn btn-mini" %>  
+  <% when :links %>
+    <li><%= link_to t('global.show'), node_type_path(node_type) %></li>
+    <li><%= link_to t('global.edit'), edit_node_type_path(node_type) %></li>
+    <li><%= link_to t('global.destroy'), node_type_path(node_type),
+              method: :delete,
+              confirm: "Are you sure?" %></li>
+  <% end %>
+<% end %>

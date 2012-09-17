@@ -1,19 +1,20 @@
-<table class="table table-striped table-condensed">
+<% provide :title, 'Node Types' %>
+<%= page_title 'Node Types' %>
+
+<table class="table table-striped">
   <thead>
     <tr>
-      <th>id</th>
       <th>name</th>
-      <th>title label</th>
-      <th>desc</th>
+      <th>yayında</th>
+      <th>actions</th>
     </tr>
   </thead>
 
   <% @node_types.each do |nt| %>
-    <tr>
-      <td><%= link_to nt.id, nt %></td>
-      <td><%= nt.name %></td>
-      <td><%= nt.title_label %></td>
-      <td><%= nt.description %></td>
-    </tr>
+    <%= content_tag_for :tr, nt do %>
+      <td><%= link_to nt.name, node_type_path(nt) %></td>
+      <td><%= nt.nodes.publishing.size %> node</td>
+      <td><%= render 'actions', node_type: nt  %></td>
+    <% end %>
   <% end %>
 </table>
