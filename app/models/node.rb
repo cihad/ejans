@@ -27,7 +27,8 @@ class Node
   scope :unpublished, where(published: false)
   scope :publishing, where(published: true, approved: true)
   scope :time_ago_published, ->(time) { where(:updated_at.lt => time) }
-  scope :trash, where(author: nil)
+  scope :blank_nodes_by_anon, where(title: nil).and(author: nil)
+  scope :blank_nodes_by_author, where({"$and"=>[{"title"=>nil}, {"author_id"=>{"$exists"=>true}}]})
 
   # Associations
   belongs_to :node_type

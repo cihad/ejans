@@ -33,8 +33,18 @@ $(function() {
             <td><%= @node_type.nodes.approved_queue.size %></td> 
           </tr>
           <tr>
-            <th>Silinecek/Çöp node sayısı</th>
-            <td><%= @node_type.nodes.trash.size %></td> 
+            <th>Üye tarafından başlatılmış node sayısı (30 gün içinde silinir)</th>
+            <td><%= blank_nodes_by_author = @node_type.nodes.blank_nodes_by_author.size %></td>
+          </tr>
+          <tr>
+            <th>Anon tarafından başlatılmış node sayısı (cronda silinir)</th>
+            <td>
+              <%= blank_nodes_by_anon = @node_type.nodes.blank_nodes_by_anon.size %>
+            </td> 
+          </tr>
+          <tr>
+            <th>Toplam</th>
+            <td><%= @node_type.nodes.size %></td>
           </tr>
         </table>
       </div>
