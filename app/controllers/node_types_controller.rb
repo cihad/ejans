@@ -26,8 +26,9 @@ class NodeTypesController < ApplicationController
     @node_type = NodeType.new(params[:node_type])
 
     if @node_type.save
-      @node_type.administrator << current_user
-      redirect_to @node_type, notice: 'Node type was successfully created.'
+      @node_type.administrators << current_user
+      redirect_to node_type_features_feature_configurations_path(@node_type),
+                  notice: 'Node type was successfully created.'
     else
       render action: "new"
     end
@@ -35,7 +36,8 @@ class NodeTypesController < ApplicationController
 
   def update
     if @node_type.update_attributes(params[:node_type])
-      redirect_to @node_type, notice: 'Nodetype was successfully updated.'
+      redirect_to @node_type,
+                  notice: 'Nodetype was successfully updated.'
     else
       render action: "edit"
     end

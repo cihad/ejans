@@ -37,7 +37,7 @@
 //= require not_found
 //= require modernizr.custom
 
-(function() {
+$(function() {
 
   // Add filter form
   $(".add-group-item").click(function() {
@@ -79,7 +79,9 @@
     $(this).closest('#static-modal').remove();
     $('body').removeClass('modal-open')
   });
-})();
+
+  $('#message .alert').addClass('in');
+});
 
 function remove_fields (link) {
   $(link).prev("input[type=hidden]").val("1");

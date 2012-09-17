@@ -23,17 +23,10 @@
   }
 
   .modal-header .btn-close {
-    margin-top: 2px;
     float: right;
-    font-size: 20px;
-    line-height: 20px;
     font-weight: bold;
-    @incldude text-shadow(0 1px 0 white);
-    @include opacity(0.3);
-
-    &:hover {
-      @include opacity(1);
-    }
+    font-size: 16px;
+    @extend .btn-small;
   }
 
 }

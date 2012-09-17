@@ -27,6 +27,11 @@
   }
 }
 
+button,
+input[type=submit] {
+  @extend .btn;
+}
+
 
 #error_explanation {
   h2 {

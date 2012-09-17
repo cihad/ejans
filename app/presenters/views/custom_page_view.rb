@@ -5,7 +5,8 @@ module Views
     def initialize(*args)
       super *args
       self.view = @params[:view_id]
-      self.node_template = view.node_template
+      binding.pry
+      self.node_template = view.try(:node_template)
     end
 
     def node_template=(node_template)
