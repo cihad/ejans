@@ -4,9 +4,9 @@
   <% end %>
   <%= form_value_layout do %>
     <% if feature.maximum_select == 1 %>
-      <%= feature.form_builder.collection_select feature.list_item_ids_name, feature.conf.list_items, :id, :name %>
+      <%= feature.form_builder.collection_select feature.list_item_ids_name, feature.conf.list_items, :id, :name, include_blank: (feature.required? ? false : true) %>
     <% else %>
-      <%= feature.form_builder.collection_select feature.list_item_ids_name, feature.conf.list_items, :id, :name, {}, multiple: true %>
+      <%= feature.form_builder.collection_select feature.list_item_ids_name, feature.conf.list_items, :id, :name, {}, multiple: true, include_blank: (feature.required? ? false : true) %>
     <% end %>
     <%= feature.form_builder.hidden_field :feature_configuration_id %>
     <%= feature.help_text %>

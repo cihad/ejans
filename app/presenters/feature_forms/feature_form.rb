@@ -16,7 +16,7 @@ module FeatureForms
     end
 
     def conf
-      feature.feature_configuration
+      @cont ||= feature.feature_configuration
     end
 
     def key_name
@@ -29,6 +29,10 @@ module FeatureForms
 
     def label
       conf.label
+    end
+
+    def required?
+      conf.required
     end
 
     def help_text
