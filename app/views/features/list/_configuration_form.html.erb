@@ -9,7 +9,16 @@
     <%= label_tag "List items" %>
   <% end %>
   <%= form_value_layout do %>
-    <%= link_to_modal "Edit List Items" %>
+    <% if f.object.new_record? %>
+      <% 5.times { f.object.list_items.build } %>
+      <%= f.fields_for :list_items do |list_item| %>
+        <div>
+          <%= list_item.text_field :name, placeholder: "name" %>
+        </div>
+      <% end %>
+    <% else %>
+      <%= link_to_modal "Edit List Items" %>
+    <% end %>
   <% end %>
 <% end %>
 

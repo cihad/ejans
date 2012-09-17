@@ -6,7 +6,8 @@ module Features
     field :maximum_select, type: Integer, default: 0
     validates :maximum_select, presence: true
 
-    has_many :list_items, class_name: "Features::ListItem",
+    has_many  :list_items,
+              class_name: "Features::ListItem",
               dependent: :destroy
     accepts_nested_attributes_for :list_items,
       reject_if: ->(attrs){ attrs[:name].blank? }
