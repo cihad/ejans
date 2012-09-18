@@ -1,12 +1,15 @@
 .table-form {
-  tr td:first-child,
-  tr th:first-child, {
-  }
-
   .label-field {
     width: 110px;
     vertical-align: top;
     padding-top: 12px;
+    label {
+      display: inline;
+    }
+
+    .required {
+      color: red;
+    }
   }
 
   th, td {

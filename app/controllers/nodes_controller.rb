@@ -1,10 +1,11 @@
 class NodesController < ApplicationController
-  before_filter :node_type
   respond_to :js, only: [:show]
-  layout "small", except: [:index, :manage]
-  before_filter :correct_user, only: [:edit, :update, :destroy]
+  before_filter :node_type
+  before_filter :must_be_an_author_or_an_administrator,
+                only: [:edit, :update, :destroy]
   before_filter :authenticate_user!, only: [:manage]
-  before_filter :manage_administrator, only: [:manage]
+  before_filter :must_be_an_administrator, only: [:manage]
+  layout "small", except: [:index, :manage]
 
   def index
     @nodes = @node_type.filter(params)
@@ -26,7 +27,7 @@ class NodesController < ApplicationController
   end
 
   def update
-    recaptcha = if user_signed_in?
+    recaptcha = if user_signed_in? or @node.email_send?
                   true
                 else
                   verify_recaptcha(:model => @node, :message => "Oh! It's error with reCAPTCHA!")
@@ -52,17 +53,17 @@ class NodesController < ApplicationController
     @node_type = NodeType.find(params[:node_type_id])
   end
 
-  def correct_user
+  def must_be_an_author_or_an_administrator
     @node = @node_type.nodes.find(params[:id])
-    unless  (@node.author.blank?) ||
-            (user_signed_in? and current_user == @node.author) ||
+    unless  @node.author.blank? ||
+            (user_signed_in? and @node.can_manage?(current_user)) ||
             params[:token] == @node.token
       redirect_to root_path,
                   notice: "Bu node'u duzenlemeye yetkili degilsiniz."
     end
   end
 
-  def manage_administrator
+  def must_be_an_administrator
     unless @node_type.administrators.include?(current_user)
       redirect_to node_type_nodes_path(@node_type),
                   alert: "Bunu goruntulemeye yetkili degilsiniz."

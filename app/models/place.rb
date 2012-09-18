@@ -8,7 +8,7 @@ class Place
   attr_accessor :childs
 
   field :coordinates, type: Array
-  index({ coordinates: "2d" }, { min: -200, max: 200 })
+  index({ coordinates: "2d" })
 
   field :name, type: String
   geocoded_by :name
@@ -16,6 +16,8 @@ class Place
   fulltext_search_in :name
 
   field :hierarchy, type: String
+
+  default_scope asc(:name)
 
   def level
     ancestors.size

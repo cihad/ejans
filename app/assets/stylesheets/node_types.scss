@@ -1,10 +1,10 @@
-#nodes-index {
+.node-type-nodes {
   .node-type-header {
     h1 {
       float: left;
     }
 
-    .new-node {
+    .btn-new-node {
       float: right;
     }
   }
@@ -25,5 +25,9 @@
   .right-sided-controls {
     float: right;
     margin-left: 15px;
+  }
+
+  .popover-title {
+    display: none;
   }
 }

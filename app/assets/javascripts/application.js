@@ -27,6 +27,7 @@
 //= require bootstrap-modal
 //= require bootstrap-tooltip
 //= require bootstrap-tab
+//= require bootstrap-popover
 //= require jquery-plugins/jquery.maxlength
 //= require jquery-plugins/jquery.multiselect
 //= require jquery-plugins/jquery.formoption
@@ -81,6 +82,20 @@ $(function() {
   });
 
   $('#message .alert').addClass('in');
+
+  $("a[rel=popover]").popover({
+    placement: 'bottom',
+    trigger: 'hover',
+    delay: {
+      show: 0,
+      hide: 0,
+    }
+  });
+
+  $("input[type=submit]").filter($('[rel=popover]')).popover({
+    placement: 'top',
+    trigger: 'hover',
+  });
 });
 
 function remove_fields (link) {

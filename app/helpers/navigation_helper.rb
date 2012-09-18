@@ -19,4 +19,15 @@ module NavigationHelper
     active = urls.any? { |url| current_page?(url_for(url)) }
     render layout: 'shared/dropdown_nav_item', locals: { title: title, active: active }, &block
   end
+
+  def dropdown(title, options = {}, &block)
+    direction = options.delete(:direction) || ""
+    classes = options.delete(:class) || ""
+    locals = {
+      title: title,
+      direction: direction,
+      classes: classes
+    }.merge(options)
+    render layout: 'shared/dropdown', locals: locals, &block
+  end
 end

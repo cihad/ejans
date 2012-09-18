@@ -1,6 +1,7 @@
 <%= form_item_layout do %>
   <%= form_label_layout do %>
     <%= feature.form_builder.label feature.form_key, feature.label %>
+    <%= content_tag :span, "*", class: "required" if feature.required? %>
   <% end %>
   <%= form_value_layout do %>
     <% if feature.maximum_select == 1 %>

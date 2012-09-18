@@ -2,35 +2,32 @@
   <tr>
     <td>
       <div><%= time_ago_in_words(@node.created_at) %></div>
-      <div>önce eklendi.</div>
+      <div class="info-label">önce eklendi</div>
     </td>
 
     <td>
       <div><%= @node.author.try(:username) || @node.author.try(:email_name) || "Anonymous user" %></div>
-      <div>Author</div>
+      <div class="info-label">author</div>
     </td>
 
     <td>
       <div><%= @node.comments.size %></div>
-      <div>yorum sayısı</div>
+      <div class="info-label">yorum var</div>
+    </td>
+
+    <td class="center">
+      <%= dropdown "Yönet", classes: "btn-small", direction: "dropup" do %>
+        <li><%= link_to "Göster", node_type_node_path(@node.node_type, @node) %></li>
+        <li><%= link_to "Düzenle", edit_node_type_node_path(@node.node_type, @node) %></li>
+        <li><%= link_to "Yayından kaldır", "#" %></li>
+        <li class="divider"></li>
+        <li><%= link_to "Sil", "#" %></li>
+      <% end %>
     </td>
 
     <td>
-      <div class="btn-group">
-        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-          Yönet
-          <span class="caret"></span>
-        </a>
-        <ul class="dropdown-menu">
-          <li><%= link_to "Düzenle", edit_node_type_node_path(@node.node_type, @node) %></li>
-          <li><%= link_to "Yayından kaldır", "#" %></li>
-          <li><%= link_to "Sil", "#" %></li>
-        </ul>
-      </div>
-    </td>
-
-    <td>
-      <%= link_to @node_type.name, node_type_nodes_path(@node_type) %>
+      <div><%= link_to @node_type.name, node_type_nodes_path(@node_type) %></div>
+      <div class="info-label">node type</div>
     </td>
   </tr>
 </table>

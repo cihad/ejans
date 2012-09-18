@@ -20,7 +20,7 @@
       <%= feature_form_for(form_builder) %>
     <% end %>
 
-    <% unless user_signed_in? %>
+    <% unless user_signed_in? or f.object.email_send? %>
       <%= simple_text_field f,
             :author_email,
             help: "Uye olmadan veya giris yapmadan ilan ekleyebilirsiniz. Bunun
@@ -32,8 +32,21 @@
     <% end %>
 
     <%= checkbox_group nil do %>
-      <%= f.submit "Save", class: "btn" %>
-      <%= f.submit "Publish", class: "btn", name: "node[publish]" unless @node.published? %>
+      <%= f.submit  "Save", 
+                    class: "btn",
+                    rel: "popover",
+                    data: {
+                      content: "Formu başarılı bir şekilde kaydettiğinizde eklediğin node yayınlanmaz. Yayınlanabilmesi için publish yapmalısız."
+                    } %>
+      <% unless @node.published? %>
+        <%= f.submit  "Publish",
+                      class: "btn",
+                      name: "node[publish]",
+                      rel: "popover",
+                      data: {
+                        content: "Bu node'u yayınlamak için bu butonu kullanınız."
+                      } %>
+      <% end %>
     <% end %>
   </table>
 <% end %>

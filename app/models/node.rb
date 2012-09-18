@@ -15,6 +15,7 @@ class Node
   field :published, type: Boolean, default: false
   field :approved, type: Boolean, default: false
   field :token
+  field :email_send, type: Boolean
 
   # Validations
   validates :title, presence: true
@@ -136,21 +137,26 @@ class Node
 
   def author_email=(email)
     email.strip!
-    user = begin
-            User.find_by(email: email)
-          rescue
-            user = User.new(email: email)
-            user.save(validate: false)
-            user
-          end
+    if User::EMAIL_REGEX =~ email
+      user = begin
+              User.find_by(email: email)
+            rescue
+              user = User.new(email: email)
+              user.save(validate: false)
+              user
+            end
 
-    self.send_email = true
-    self.author = user
-    @author_email = user.email
+      self.send_email = true
+      self.email_send = true
+      self.author = user
+      @author_email = user.email
+    else
+      @author_email = email
+    end
   end
 
   def author_email
-    @author_email ||= author.email
+    @author_email ||= author.try(:email)
   end
 
   def send_email?
@@ -159,6 +165,10 @@ class Node
 
   def send_email=(true_or_false = false)
     @send_email = true_or_false
+  end
+
+  def can_manage?(user)
+    user == author || node_type.administrators.include?(user)
   end
 
   private

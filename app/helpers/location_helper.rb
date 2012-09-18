@@ -1,17 +1,12 @@
 module LocationHelper
   def find_place
-    @place = Place.near(coordinates).first
+    @place = Place.near_sphere(coordinates: coordinates).first
   end
 
   def coordinates
-    location = request.location
-    @coordinates ||=  if get_coordinates_from_cookie
-                       get_coordinates_from_cookie
-                      elsif get_coordinates_from_request
-                        get_coordinates_from_request
-                      else
-                        Place.default_coordinates
-                      end
+    @coordinates ||=  get_coordinates_from_cookie ||
+                      get_coordinates_from_request ||
+                      Place.default_coordinates
   end
 
   def coordinates_cookie_present?
@@ -20,11 +15,11 @@ module LocationHelper
 
   def create_coordinates_cookie(coordinates = [])
     cookies[:coordinates] = coordinates.join('|')
-    coordinates
+    coordinates.map(&:to_f)
   end
 
   def get_coordinates_from_cookie
-    cookies[:coordinates].split('|') if cookies[:coordinates].present?
+    cookies[:coordinates].split('|').map(&:to_f) if cookies[:coordinates].present?
   end
 
   def get_coordinates_from_request
