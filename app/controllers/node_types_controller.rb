@@ -1,7 +1,7 @@
 class NodeTypesController < ApplicationController
   before_filter :node_type, only: [:show, :edit, :update]
   before_filter :authenticate_user!, except: [:index]
-  before_filter :administrator, only: [:show, :edit, :update]
+  before_filter :must_be_an_administrator, only: [:show, :edit, :update]
   before_filter :admin_user, only: [:index, :new]
 
   def index
@@ -55,7 +55,7 @@ class NodeTypesController < ApplicationController
     @node_type = NodeType.find(params[:id])
   end
 
-  def administrator
+  def must_be_an_administrator
     unless @node_type.administrators.include?(current_user)
       redirect_to node_type_nodes_path(@node_type),
                   alert: "Bunu goruntulemeye yetkilisi degilsiniz."
