@@ -91,8 +91,4 @@ module TagsHelper
     concat(f.checkbox obj_id)
     concat(obj_label)
   end
-
-  def page_title(title, *args)
-    content_tag :h1, title, *args
-  end
 end

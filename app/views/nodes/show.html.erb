@@ -2,6 +2,7 @@
 <% provide :title, page_name %>
 <% meta_description @node.title %>
 <%= page_title @node.title %>
+<%= body_class 'node-page' %>
 
 <%= render "node" %>
 

@@ -3,6 +3,10 @@ module ApplicationHelper
     page_title.empty? ? "Ejans.com" : "#{page_title} - Ejans.com"
   end
 
+  def page_title(title, *args)
+    content_tag :h1, title, {class: "page_title"}, *args
+  end
+
   def meta_description(desc)
     meta_tag = "<meta name=\"description\" content=\""
     meta_tag += desc.truncate(160, :omission => "")
