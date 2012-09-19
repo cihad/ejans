@@ -31,6 +31,7 @@ gem 'recaptcha', :require => 'recaptcha/rails'
 gem 'geocoder'
 gem 'mongoid_fulltext'
 gem 'bootstrap-sass', '~> 2.1.0.0'
+gem 'markerb'
 
 # Groups
 group :assets do

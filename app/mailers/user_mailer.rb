@@ -3,6 +3,9 @@ class UserMailer < ActionMailer::Base
 
   def first_sign_in(user)
     @user = user
-    mail(to: user.email, subject: 'Hesap bilgileri - Ejans.com')
+    mail(to: user.email, subject: 'Hesap bilgileri - Ejans.com') do |format|
+      format.text
+      format.html
+    end
   end
 end

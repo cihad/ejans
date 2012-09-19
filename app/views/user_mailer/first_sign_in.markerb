@@ -1,0 +1,21 @@
+Ejans.com - Hesap Bilgileri
+---------------------------
+
+Sitemize hoşgeldiniz,
+
+Daha önce sitemizde bulunduğunuz faaliyetlerden dolayı
+hayalet bir hesabınız vardı. Bu hesabınıza artık kavuşabileceksiniz.
+Daha önce yazmış olduğunuz yorumlar, nodeler bu hesabınızda
+görebilirsiniz. Aşağıdaki bilgiler ile sitemize giriş
+yapabilirsiniz. Giriş yaptıktan sonra kendinize bir kullanıcı adı ve
+yeni bir parola belirleyiniz.
+
+**Email**:
+<%= @user.email %>
+
+**Parola**:
+<%= @user.remember_token %>
+
+[Giriş yap][signin]
+
+[signin]: <%= signin_url %> "Giriş yap"

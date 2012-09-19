@@ -177,7 +177,7 @@ class Node
   end
 
   def send_email
-    delivered = NodeMailer.node_info_mailer(self).deliver if send_email?
+    delivered = NodeMailer.node_info(self).deliver if send_email?
   end
 
   def set_random_token

@@ -15,6 +15,7 @@ class User
 
   before_save { |user| user.email = email.downcase }
   before_create :create_remember_token
+  before_create :create_password_digest
 
   USERNAME_REGEX = /\A[A-Za-z0-9_]+\z/
   validates :username,
@@ -103,7 +104,9 @@ class User
   end
 
   def create_password_digest
-    self.password_digest = BCrypt::Password.create(remember_token) unless password_digest
+    unless password_digest
+      self.password_digest = BCrypt::Password.create(remember_token)
+    end
   end
 
   def already_sign_up
