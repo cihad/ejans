@@ -154,6 +154,20 @@ class NodeType
       page(params[:page])
   end
 
+  def inverse_of_administrators_association
+    self.class.reflect_on_association(:administrators).inverse_of
+  end
+
+  def add_administrator(user)
+    administrators << user
+    user.send("#{inverse_of_administrators_association}<<", self)
+  end
+
+  def remove_administrator(user)
+    administrators.delete(user)
+    user.send("#{inverse_of_administrators_association}").delete(self)
+  end
+
   private
   def filter_query(params)
     query = NodeQuery.new

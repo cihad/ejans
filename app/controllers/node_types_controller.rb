@@ -26,7 +26,7 @@ class NodeTypesController < ApplicationController
     @node_type = NodeType.new(params[:node_type])
 
     if @node_type.save
-      @node_type.administrators << current_user
+      @node_type.add_administrator(current_user)
       redirect_to node_type_features_feature_configurations_path(@node_type),
                   notice: 'Node type was successfully created.'
     else

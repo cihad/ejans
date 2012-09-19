@@ -26,6 +26,7 @@
     float: right;
     font-weight: bold;
     font-size: 16px;
+    @extend .btn;
     @extend .btn-small;
   }
 
