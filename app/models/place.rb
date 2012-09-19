@@ -100,7 +100,11 @@ class Place
     end
 
     place_query = NodeQuery.new.or(key_query)
-    query = NodeQuery.new.and(place_query.selector, node_type_query.selector)
+    query = NodeQuery.new.and(
+              place_query.selector,
+              node_type_query.selector,
+              NodeQuery.new.where(published: true).selector,
+              NodeQuery.new.where(approved: true).selector)
     Node.where(query.selector)
   end
 end
