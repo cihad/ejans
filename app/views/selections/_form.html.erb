@@ -1,8 +1,0 @@
-<div>
-  <span class="handle">[drag]</span>
-  <%= form_for Selection.new(:filter_id => filter.id), remote: true do |f| %>
-    <%= f.hidden_field :filter_id %>
-    <%= f.text_field :label, class: "selection_filter_id", data: { autocomplete_source: filter.selections.order(:label).map(&:label) } %>
-    <%= f.submit %>
-  <% end %>
-</div>

@@ -1,5 +1,0 @@
-<%= content_tag_for :li, selection do %>
-  <span class="handle">[drag]</span>
-  <%= selection.label %>
-  <%= link_to t('global.destroy'), selection, confirm: "Are you sure?", method: :delete, remote: true %>
-<% end %>
