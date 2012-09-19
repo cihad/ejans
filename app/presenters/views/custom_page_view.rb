@@ -54,7 +54,7 @@ module Views
       if nodes_index_views.count > 1
         links = nodes_index_views.inject("") do |output, v|
                   current_class = "active" if v == view
-                  output += @template.link_to @template.url_for(params.merge(view_id: v.id.to_s)), class: "btn data-remote #{current_class}" do
+                  output += @template.link_to @template.url_for(params.merge(view_id: v.id.to_s)), class: "btn btn-small data-remote #{current_class}" do
                     @template.content_tag :i, nil, class: "#{v.icon}"
                   end
                   output
@@ -80,7 +80,7 @@ module Views
                   nil
                 end
 
-        output += @template.link_to @template.url_for(params.merge(sort: machine_name, direction: dir)), class: "btn #{active_class}" do
+        output += @template.link_to @template.url_for(params.merge(sort: machine_name, direction: dir)), class: "btn btn-small #{active_class}" do
             ("#{label}" + "<i class='#{icon}'></i>").html_safe
         end
       end

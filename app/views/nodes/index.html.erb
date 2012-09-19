@@ -1,17 +1,19 @@
 <%= body_class "node-type-nodes" %>
 
 <div class="row">
-  <div class="span12 node-type-header">
-    <%= link_to new_node_type_node_path(@node_type),
-                class: "btn btn-success btn-new-node",
-                rel: "popover",
-                data: {
-                  content: "Ücretsiz ve üyelik gerektirmez. Sadece email adresiniz yeterli."
-                } do %>
-      <%= content_tag :i, nil, class: "icon-plus icon-white" %>
-      add new node
-    <% end %>
-    <%= page_title @node_type.name %>
+  <div class="span12">
+    <div class="node-type-header">
+      <%= link_to new_node_type_node_path(@node_type),
+                  class: "btn btn-success btn-new-node",
+                  rel: "popover",
+                  data: {
+                    content: "Ücretsiz ve üyelik gerektirmez. Sadece email adresiniz yeterli."
+                  } do %>
+        <%= content_tag :i, nil, class: "icon-plus icon-white" %>
+        add new node
+      <% end %>
+      <%= page_title @node_type.name %>
+    </div>
   </div>
 </div>
 
@@ -26,7 +28,7 @@
   <div class="row">
     <div class="span3">
       <div class="controls">
-        <h3 id="control-title">filters</h3>
+        <h3 class="control-title">filters</h3>
       </div>
       <%= render 'nodes/filters_left_side/filter_form' %>
     </div>
@@ -39,7 +41,7 @@
         <div class="right-sided-controls btn-group">
           <%= view.sort_links %>
         </div>
-        <h3 id="control-title">nodes</h3>
+        <h3 class="control-title">nodes</h3>
       </div>
 
       <div id="nodes">
