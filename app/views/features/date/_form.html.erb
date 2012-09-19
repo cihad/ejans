@@ -5,6 +5,7 @@
   <% end %>
   <%= form_value_layout do %>
     <%= feature.form_builder.date_select feature.form_key,
+          default: { year: feature.default_year },
           start_year: feature.start_year,
           end_year: feature.end_year,
           prompt: feature.prompt,

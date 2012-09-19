@@ -11,11 +11,11 @@ module FeatureForms
     def prompt
       case conf.date_type
       when :year
-        { year: "Select year", month: false, day: false }
+        { year: "Select year" }
       when :year_month
-        { year: "Select year", month: "Selecy month", day: false }
+        { year: "Select year", month: "Select month" }
       when :year_month_day
-        { year: "Select year", month: "Selecy month", day: "Select day" }
+        { year: "Select year", month: "Select month", day: "Select day" }
       end
     end
 
@@ -28,6 +28,11 @@ module FeatureForms
       when :year_month_day
         { }
       end
+    end
+
+    def default_year
+      now_year = Time.now.utc.to_date.year
+      now_year < end_year ? now_year : end_year
     end
 
     [:year, :month, :day].each do |time|
