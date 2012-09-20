@@ -95,5 +95,4 @@ Ejans::Application.routes.draw do
   resources :places
   resources :categories
 
-  mount Resque::Server, :at => "/resque"
 end
