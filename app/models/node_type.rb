@@ -160,7 +160,7 @@ class NodeType
 
   def add_administrator(user)
     administrators << user
-    user.send("#{inverse_of_administrators_association}<<", self)
+    user.send("#{inverse_of_administrators_association}") << self
   end
 
   def remove_administrator(user)

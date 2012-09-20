@@ -5,4 +5,3 @@
 # Make sure the secret is at least 30 characters and all random,
 # no regular words or you'll be exposed to dictionary attacks.
 Ejans::Application.config.secret_token = APP_CONFIG['secret_token']
-binding.pry
