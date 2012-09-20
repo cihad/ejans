@@ -5,7 +5,6 @@ gem 'jquery-rails'
 
 gem 'breadcrumbs', '~> 0.1.6'
 gem 'kaminari'
-
 gem 'resque', :require => "resque/server"
 gem 'sinatra', '~> 1.2.6'
 gem 'roadie'
