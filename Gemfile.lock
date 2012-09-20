@@ -1,9 +1,3 @@
-GIT
-  remote: git://github.com/nex3/sass.git
-  revision: 1bbdfb8d30d299461649555d31b4863b65e0e5ed
-  specs:
-    sass (3.3.0.alpha.0)
-
 GEM
   remote: http://rubygems.org/
   specs:
@@ -199,6 +193,7 @@ GEM
       activesupport (>= 3.0)
       railties (>= 3.0)
       rspec (~> 2.11.0)
+    sass (3.2.1)
     sass-rails (3.2.5)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
@@ -267,7 +262,6 @@ DEPENDENCIES
   rmagick
   roadie
   rspec-rails
-  sass!
   sass-rails (~> 3.2.3)
   sinatra (~> 1.2.6)
   tinymce-rails
