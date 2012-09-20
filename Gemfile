@@ -1,15 +1,10 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.2.8'
-gem 'mysql2'
 gem 'jquery-rails'
 
-gem 'devise', '2.0.0'
 gem 'breadcrumbs', '~> 0.1.6'
 gem 'kaminari'
-gem 'friendly_id', '~> 4.0.0.beta14'
-gem 'cancan'
-gem 'thinking-sphinx', '2.0.10'
 
 gem 'resque', :require => "resque/server"
 gem 'sinatra', '~> 1.2.6'
@@ -43,7 +38,6 @@ end
 
 group :development do
   gem 'capistrano'
-  gem 'populator'
   gem 'libnotify'
 end
 
