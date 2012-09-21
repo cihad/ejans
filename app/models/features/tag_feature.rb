@@ -2,7 +2,7 @@ module Features
   class TagFeature < Feature
 
     def self.set_specify(conf)
-      field conf.key_name, type: Array
+      field conf.key_name, type: Array, default: []
 
       send(:define_method, "#{conf.key_name}_tags=") do |tags|
         self.value = tags.split(',').map(&:strip)
