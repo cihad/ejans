@@ -14,7 +14,7 @@
 
     <%= content_tag :ul, class: "inline-list images", data: { update_url: sort_features_images_url } do %>
       <% feature.images.each do |image| %>
-        <%= render "images/image", mustache: image_for_mustache(image: image, node: @node, feature: feature.feature) %>
+        <%= render "features/images/image", mustache: image_for_mustache(image: image, node: @node, feature: feature.feature) %>
       <% end %>
     <% end %>
 
@@ -23,7 +23,7 @@
     <%= feature.form_builder.hidden_field :feature_configuration_id %>
 
     <script id="template" type="text/html">
-      <%= render 'images/image' %>
+      <%= render 'features/images/image' %>
     </script>
 
     <script type="text/javascript">
@@ -67,6 +67,6 @@
 
 <% content_for :top do %>
   <div id="hidden-form" style="display: none">
-    <%= render 'images/form', feature_id: feature.id %>
+    <%= render 'features/images/form', feature_id: feature.id %>
   </div>
 <% end %>

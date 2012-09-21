@@ -2,11 +2,10 @@
   $('.images .not-uploaded').remove();
   
   <% @images.each do |image| %>
-    $('.images').append('<%= escape_javascript(render "images/image",
+    $('.images').append('<%= escape_javascript(render "image",
       mustache: image_for_mustache(image: image, node: @node, feature: @feature) ) %>');
   <% end %>
 
   $('#new_features_image').remove();
-  $('#hidden-form').append( '<%= escape_javascript(render "images/form", feature_id: @feature.id) %>' );
-  console.log('yes');
+  $('#hidden-form').append( '<%= escape_javascript(render "form", feature_id: @feature.id) %>' );
 <% end %>
