@@ -16,15 +16,15 @@ module Features
       if maximum_select.nil? or maximum_select > 1
         h = { :"#{@machine_name}_original_image_urls" => @value.map { |img| img.image_url } }
         h.merge!(:"#{@machine_name}_thumb_image_urls" => @value.map { |img| img.image_url(:thumb) })
-        h.merge!(:"#{@machine_name}_small_image_urls" => @value.map { |img| img.image_url(:small) }) if conf.small?
-        h.merge!(:"#{@machine_name}_small_resize_to_width_image_urls" => @value.map { |img| img.image_url(:small_resize_to_width) }) if conf.small_resize_to_width?
-        h.merge!(:"#{@machine_name}_medium_image_urls" => @value.map { |img| img.image_url(:medium) }) if conf.medium?
+        h.merge!(:"#{@machine_name}_small_image_urls" => @value.map { |img| img.image_url(:small) })
+        h.merge!(:"#{@machine_name}_small_resize_to_width_image_urls" => @value.map { |img| img.image_url(:small_resize_to_width) })
+        h.merge!(:"#{@machine_name}_medium_image_urls" => @value.map { |img| img.image_url(:medium) })
       else
         h = { :"#{@machine_name}_original_image_url" => @value.first.image_url }
         h.merge!(:"#{@machine_name}_thumb_image_url" => @value.first.image_url(:thumb))
-        h.merge!(:"#{@machine_name}_small_image_url" => @value.first.image_url(:small)) if conf.small?
-        h.merge!(:"#{@machine_name}_small_resize_to_width_image_url" => @value.first.image_url(:small_resize_to_width)) if conf.small_resize_to_width?
-        h.merge!(:"#{@machine_name}_medium_image_url" => @value.first.image_url(:medium)) if conf.medium?
+        h.merge!(:"#{@machine_name}_small_image_url" => @value.first.image_url(:small))
+        h.merge!(:"#{@machine_name}_small_resize_to_width_image_url" => @value.first.image_url(:small_resize_to_width))
+        h.merge!(:"#{@machine_name}_medium_image_url" => @value.first.image_url(:medium))
       end
       h
     end
@@ -44,11 +44,12 @@ module Features
 
     def add_images(params)
       params.inject([]) do |new_images, img|
-        image = Features::Image.new({ image: img })
+        image = Features::Image.new(image: img)
         # Validation Maximum Image Size
-        if value.size < maximum_image
+        if maximum_image == 0 || value.size < maximum_image
           new_images << image
-          value << image
+          result = value << image
+          binding.pry
         end
         new_images
       end
@@ -65,7 +66,7 @@ module Features
     end
 
     def not_greater_than
-      if maximum_image and value.size > maximum_image
+      if maximum_image and maximum_image != 0 and value.size > maximum_image
         add_error("En fazla #{maximum_image} resim ekleyebilirsiniz.")
       end
     end

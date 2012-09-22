@@ -6,6 +6,7 @@ module Features
 
     def create
       @images = @feature.add_images(params[:features_image][:image])
+      # binding.pry
     end
 
     def destroy
