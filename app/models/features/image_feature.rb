@@ -49,7 +49,6 @@ module Features
         if maximum_image == 0 || value.size < maximum_image
           new_images << image
           result = value << image
-          binding.pry
         end
         new_images
       end
