@@ -1,10 +1,1 @@
 <%= simple_number_field f, :maximum_image %>
-
-<%= checkbox_group "Image Resize Versions" do %>
-  <% f.object.class::VERSION_TYPES.each do |ver| %>
-    <label class="checkbox inline">
-      <%= check_box_tag "features_image_feature_configuration[versions][]", ver, (true if f.object.send("#{ver}?")) %>
-      <%= ver %>
-    </label>
-  <% end %>
-<% end %>

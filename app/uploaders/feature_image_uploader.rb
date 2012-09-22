@@ -1,5 +1,4 @@
 # encoding: utf-8
-
 class FeatureImageUploader < CarrierWave::Uploader::Base
 
   # Include RMagick or MiniMagick support:
@@ -15,16 +14,14 @@ class FeatureImageUploader < CarrierWave::Uploader::Base
 
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
+  BASE_DIR = "uploads/nodes"
+
+  def self.base_dir(node_id)
+    "#{BASE_DIR}/#{node_id}"
+  end
+
   def store_dir
-    "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.feature.node.id}"
-  end
-
-  def self.conf=(conf)
-    @conf = conf
-  end
-
-  def self.conf
-    @conf
+    self.class.base_dir(model.feature.node.id)
   end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
@@ -43,7 +40,7 @@ class FeatureImageUploader < CarrierWave::Uploader::Base
   # end
 
   # Create different versions of your uploaded files:
-  version :medium, if: :is_medium? do
+  version :medium do
     process :resize_to_limit => [640, 480]
   end
 
@@ -51,11 +48,11 @@ class FeatureImageUploader < CarrierWave::Uploader::Base
     process :resize_to_limit => [96, 72]
   end
 
-  version :small, if: :is_small? do
+  version :small do
     process :resize_to_limit => [220, 165]
   end
 
-  version :small_resize_to_width, if: :is_small_resize_to_width? do
+  version :small_resize_to_width do
     process :resize_to_fit => [220, nil]
   end
 
@@ -71,25 +68,9 @@ class FeatureImageUploader < CarrierWave::Uploader::Base
     "#{secure_token}.#{file.extension}" if original_filename
   end
 
-  def self.condition_versions
-    condition_versions = versions.clone
-    condition_versions.delete(:thumb)
-    condition_versions
-  end
-
-  def self.condition_versions_keys
-    condition_versions.keys.map(&:to_s)
-  end
-
   protected
   def secure_token
     var = :"@#{mounted_as}_secure_token"
     model.instance_variable_get(var) or model.instance_variable_set(var, SecureRandom.uuid)
-  end
-
-  self.condition_versions.keys.each do |version|
-    define_method("is_#{version}?") do |picture|
-      self.class.conf.send("#{version}?")
-    end
   end
 end

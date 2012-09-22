@@ -16,5 +16,4 @@ CarrierWave.configure do |config|
     config.storage = :file
     config.root = File.join(Rails.root, 'public')
   end
-
 end

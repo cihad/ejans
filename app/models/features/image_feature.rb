@@ -5,12 +5,9 @@ module Features
     get_method_from_conf :maximum_image
 
     def self.set_specify(conf)
-      
       embeds_many conf.key_name,
         class_name: "Features::Image",
         cascade_callbacks: true
-
-      FeatureImageUploader.conf = conf
     end
 
     def data(conf_data)

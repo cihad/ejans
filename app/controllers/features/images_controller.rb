@@ -8,7 +8,7 @@ module Features
       @images = @feature.add_images(params[:features_image][:image])
     end
 
-    def destroye
+    def destroy
       @image = @feature.value.find(params[:id])
       @image.destroy
     end
