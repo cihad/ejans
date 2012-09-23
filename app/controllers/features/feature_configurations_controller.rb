@@ -24,7 +24,7 @@ module Features
     def create
       @fc = @node_type.build_configuration(params)
       if @fc.save
-        redirect_to @node_type,
+        redirect_to node_type_features_feature_configurations_path(@node_type),
           notice: 'Feature configuration was successfully created.'
       else
         render action: "new"
@@ -35,7 +35,7 @@ module Features
       @fc = @node_type.feature_configurations.find(params[:id])
       params_name = Features::FeatureConfiguration.param_name(params[:_type])
       if @fc.update_attributes(params[params_name])
-        redirect_to @node_type,
+        redirect_to node_type_features_feature_configurations_path(@node_type),
           notice: 'Feature configuration was successfully updated.'
       else
         render action: "edit"
