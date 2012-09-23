@@ -8,6 +8,14 @@
     <%= simple_number_field f, :node_expiration_day_limit %>
 
     <%= simple_check_box f, :commentable %>
+    <%= checkbox_group "Administrators" do %>
+      <% @node_type.administrators.each do |admin| %>
+        <p><%= admin.username_or_email_name %></p>
+      <% end %>
+      <%= f.text_field  :administrator_username_or_email,
+                        placeholder: "Username or Email" %>
+    <% end %>
+
     <%= simple_submit f %>
   </table>
 <% end %>

@@ -67,6 +67,14 @@ class User
     end
   end
 
+  def self.find_by_username_or_email(email_or_username)
+    if email?(email_or_username)
+      find_by(email: email_or_username)
+    elsif username?(email_or_username)
+      find_by(username: email_or_username)
+    end
+  end
+
   def self.email?(email_or_username)
     !!(email_or_username =~ EMAIL_REGEX)
   end

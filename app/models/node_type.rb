@@ -2,6 +2,8 @@ class NodeType
   include Mongoid::Document
   include Mongoid::Timestamps
 
+  attr_accessor :administrator_username_or_email
+
   field :name, type: String
   validates :name, presence: true
 
@@ -26,6 +28,7 @@ class NodeType
   has_and_belongs_to_many :administrators,
                           class_name: "User",
                           inverse_of: :managed_node_types
+  accepts_nested_attributes_for :administrators
 
   after_create :create_node_view
   validates :name, presence: true
@@ -166,6 +169,15 @@ class NodeType
   def remove_administrator(user)
     administrators.delete(user)
     user.send("#{inverse_of_administrators_association}").delete(self)
+  end
+
+  def administrator_username_or_email=(username_or_email)
+    begin
+      user = User.find_by_username_or_email(username_or_email)
+      self.administrators << user
+      user.send("#{inverse_of_administrators_association}") << self
+    rescue
+    end
   end
 
   private
