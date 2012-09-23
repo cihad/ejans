@@ -5,4 +5,6 @@
   if ( $('#place_<%= @parent_place.id %> ul').size() == 0 ) {
     $('#place_<%= @parent_place.id %>').append("<%=j render 'places_list', places: @child_places %>");
   }
+<% when "add_place" %>
+  $('#overlay').append("<%=j static_modal(@parent_place.try(:name)) {render 'form'} %>")
 <% end %>

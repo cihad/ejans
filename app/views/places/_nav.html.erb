@@ -1,0 +1,6 @@
+<%= link_to places_path(event: "add_place"),
+            remote: true,
+            class: "btn" do %>
+  <%= content_tag :i, nil, class: " icon-plus" %>
+  Add place
+<% end %>

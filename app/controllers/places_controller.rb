@@ -14,6 +14,8 @@ class PlacesController < ApplicationController
       @child_places = @parent_place.children
     when "add_child_places"
       @parent_place = Place.find(params[:parent_place_id])
+    when "add_place"
+      @parent_place = Place.new
     end
   end
 
@@ -21,9 +23,9 @@ class PlacesController < ApplicationController
     @place = Place.new(params[:place])
 
     if @place.save
-
+      redirect_to places_path, notice: 'Successfully created.'
     else
-
+      redirect_to places_path, alert: 'Wrooongg.'
     end
   end
 
