@@ -14,13 +14,6 @@ module ApplicationHelper
     content_for(:meta_tag) { meta_tag.html_safe }
   end
 
-  def conanical_url(path)
-    link = "<link rel=\"canonical\" href=\""
-    link += path
-    link += "\">"
-    content_for(:meta_tag) { link.html_safe }
-  end
-
   def body_class(classes)
     content_for(:body_class) { classes }
   end
@@ -41,22 +34,6 @@ module ApplicationHelper
     classes << list_class = "active" if current_page?(path)
     options[:class] = classes.join(" ")
     content_tag :li, link_to(title, path, options), class: list_class
-  end
-
-  def link_to_remove_fields(name, f)
-    f.hidden_field(:_destroy) + link_to_function(name, "remove_fields(this)")
-  end
-  
-  def link_to_add_fields(name, f, association)
-    new_object = f.object.class.reflect_on_association(association).klass.new
-    fields = f.fields_for(association, new_object, :child_index => "new_#{association}") do |builder|
-      render(association.to_s.singularize + "_fields", :f => builder)
-    end
-    link_to_function(name, "add_fields(this, \"#{association}\", \"#{escape_javascript(fields)}\")")
-  end
-
-  def count_tag(count, message = "")
-    content_tag :span, "#{count} #{message}" unless count == 0
   end
 
   def merge_classes(options1 = {}, options2 = {})
