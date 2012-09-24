@@ -12,8 +12,8 @@ module Features
 
     def data(conf_data)
       super
-      maximum_select = @data[:"#{@machine_name}_maximum_select"]
-      if maximum_select == 0 or maximum_select > 1
+      maximum_image = @data[:"#{@machine_name}_maximum_image"]
+      if maximum_image == 0 or maximum_image > 1
         h = { :"#{@machine_name}_original_image_urls" => @value.map { |img| img.image_url } }
         h.merge!(:"#{@machine_name}_thumb_image_urls" => @value.map { |img| img.image_url(:thumb) })
         h.merge!(:"#{@machine_name}_small_image_urls" => @value.map { |img| img.image_url(:small) })

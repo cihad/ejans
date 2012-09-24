@@ -4,6 +4,16 @@ module FeaturesHelper
     object_class.new(form_builder, self)
   end
 
+  def filter_for(feature_configuration)
+    object_class = FeatureFilters::Filter.presenter_class(feature_configuration)
+    presenter = object_class.new(feature_configuration, self)
+    if block_given?
+      yield presenter
+    else
+      presenter
+    end
+  end
+
   def check_box_option_for(selector)
     javascript_tag "new CheckBoxOption( $('[data-toggle=#{selector}]'))"
   end

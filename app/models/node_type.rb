@@ -186,6 +186,7 @@ class NodeType
     filters.each do |conf|
       query = query.send(:where, conf.filter_query(params).selector)
     end 
+    query = query.where(author_id: Moped::BSON::ObjectId(params[:author_id])) if params[:author_id].present?
     query
   end
 

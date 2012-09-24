@@ -22,6 +22,12 @@ module Features
       end
     end
 
+    def data_for_node
+      super.merge({
+        :"#{machine_name}_maximum_image" => maximum_image
+        })
+    end
+
     private
 
     def assign_key_name

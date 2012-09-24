@@ -6,7 +6,7 @@
       <select id="<%= i %>" name="<%= feature.form_machine_names[i] %>" class="span2">
         <option value=""><%= feature.form_level_names[i] %></option>
         <% level.each do |place| %>
-          <option value="<%= place.id %>" class="<%= place.parent_place.id unless i == 0 %>" <%= "selected" if place.id.to_s == params["#{feature.form_machine_names[i]}"] %>><%= place.name %></option>
+          <option value="<%= place.id %>" class="<%= place.parent_id unless i == 0 %>" <%= "selected" if place.id.to_s == params["#{feature.form_machine_names[i]}"] %>><%= place.name %></option>
         <% end %>
       </select>
     </td>
