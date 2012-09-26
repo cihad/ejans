@@ -1,0 +1,6 @@
+<%= form_for Fields::Image.new, remote: true do |image| %>
+  <%= hidden_field_tag 'node_id', @node.id  %>
+  <%= hidden_field_tag 'feature_id', feature_id  %>
+  <%= image.file_field :image, multiple: true %>
+  <%= image.submit %>
+<% end %>

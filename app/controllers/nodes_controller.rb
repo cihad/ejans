@@ -32,6 +32,7 @@ class NodesController < ApplicationController
                 else
                   verify_recaptcha(:model => @node, :message => "Oh! It's error with reCAPTCHA!")
                 end
+                @node.load
     if @node.update_attributes(params[:node]) && recaptcha
       redirect_to [@node_type, @node], notice: 'Node was successfully updated.'
     else

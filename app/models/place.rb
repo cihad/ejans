@@ -91,12 +91,12 @@ class Place
 
   def nodes
     node_types = NodeType.where({'place_page_view' => { "$exists" => true  }})
-    key_names = node_types.inject([]) do |a, node_type|
-                  a << node_type.key_names.grep(/place/)
+    keynames = node_types.inject([]) do |a, node_type|
+                  a << node_type.keynames.grep(/place/)
                 end.flatten.uniq
     node_type_query = NodeQuery.new.in(node_type_id: node_types.map(&:id))
-    key_query = key_names.inject([]) do |a, key_name|
-      a << { "features.#{key_name}_ids" => { "$in" => [self.id]}}
+    key_query = keynames.inject([]) do |a, keyname|
+      a << { "features.#{keyname}_ids" => { "$in" => [self.id]}}
     end
 
     place_query = NodeQuery.new.or(key_query)

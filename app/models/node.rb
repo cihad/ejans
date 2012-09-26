@@ -35,33 +35,31 @@ class Node
 
   # Associations
   belongs_to :node_type
-  embeds_many :features, class_name: "Features::Feature"
-  accepts_nested_attributes_for :features
   embeds_many :comments
 
   # Callbacks
-  after_initialize :build_values
+  after_initialize :load
   after_save :send_email
   before_create :set_random_token
 
   # Indexes
   { integer_value: 4,
     string_value: 3,
-    date_value: 2 }.each do |feature_value, how_many|
+    date_value: 2 }.each do |key_prefix, how_many|
     how_many.times.each_with_index do |i|
-      index "features.#{feature_value}_#{i}" => 1
+      index "#{key_prefix}_#{i}" => 1
     end
   end
 
-  { place_value: 2 }.each do |feature_value, how_many|
+  { place_value: 2 }.each do |key_prefix, how_many|
     how_many.times.each_with_index do |i|
-      index "features.#{feature_value}_#{i}_ids" => 1
+      index "#{key_prefix}_#{i}_ids" => 1
     end
   end
 
-  { list_item: 4 }.each do |feature_value, how_many|
+  { list_item: 4 }.each do |key_prefix, how_many|
     how_many.times.each_with_index do |i|
-      index "features.#{I18n.with_locale(:en) { i.to_words }}_#{feature_value}_ids" => 1
+      index "#{I18n.with_locale(:en) { i.to_words }}_#{key_prefix}_ids" => 1
     end
   end
 
@@ -87,52 +85,28 @@ class Node
     self.save
   end
 
-  def find_value_by_views_feature(feature)
-    fcid = feature.feature_configuration_id
-    features.where(feature_configuration_id: fcid).first
-  end
-
-  def data
-    { :node_id => id.to_s,
-      :node_title => title,
-      :node_url => node_type_node_path(node_type, self),
-      :node_created_at => created_at,
-      :node_updated_at => updated_at }
-  end
-
-  def self.data_names
-    [:node_id, :node_title, :node_url, :node_created_at, :node_updated_at]
+  def self_data
+    { :"node"      => self,
+      :"node_path" => node_type_node_path(node_type, self) }
   end
 
   def mapping(conf_data)
-    features_data = features.inject({}) do |hash, feature|
-      hash.merge!(feature.data(conf_data))
-    end
-
-    node_data = data.merge(features_data)
-
-    conf_data = conf_data.inject({}) do |hash, conf|
-      hash.merge!(conf.last[:data])
-    end
-
-    node_data.merge(conf_data)
+    conf_data.merge(self_data)
   end
 
-  def build_assoc!
-    node_type.feature_configurations.each do |conf|
-      conf.build_assoc!(self)
-    end
+  def field_configurations
+    @field_configurations ||= node_type.field_configurations
   end
 
-  def fill_random!
-    features.each do |f|
-      f.fill_random!
+  def load
+    field_configurations.each do |conf|
+      conf.load
     end
   end
 
   def node_type=(node_type)
     self.node_type_id = node_type.id
-    build_assoc!
+    load
   end
 
   def author_email=(email)
@@ -173,7 +147,7 @@ class Node
 
   private
   def build_values
-    build_assoc! if node_type
+    load if node_type
   end
 
   def send_email

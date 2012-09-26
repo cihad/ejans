@@ -1,6 +1,7 @@
 class NodeType
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Rails.application.routes.url_helpers
 
   attr_accessor :administrator_username_or_email
 
@@ -17,9 +18,8 @@ class NodeType
   field :node_expiration_day_limit, type: Integer, default: 0
 
   has_many :nodes
-  has_many :feature_configurations,
-    class_name: "Features::FeatureConfiguration",
-    dependent: :destroy
+  embeds_many :field_configurations,
+    class_name: "Fields::FieldConfiguration"
   embeds_one :node_view, class_name: "Views::Node"
   embeds_one :place_page_view, class_name: "Views::PlacePage"
   has_many :views, class_name: "Views::View",
@@ -85,15 +85,15 @@ class NodeType
   end
 
   def filters
-    feature_configurations.filters
+    field_configurations.filters
   end
 
   def sort_confs
-    feature_configurations.sort_confs
+    field_configurations.sort_confs
   end
 
-  def key_names
-    feature_configurations.map(&:key_name)
+  def keynames
+    field_configurations.map(&:keyname)
   end
 
   def fill_random!(node_count = 100)
@@ -101,17 +101,17 @@ class NodeType
       node = Node.new(title: Faker::Lorem.sentence)
       node.save(validate: false)
       node.node_type = self
-      node.features.each { |f| f.fill_random! }
+      node.fields.each { |f| f.fill_random! }
       node.save(validates: false)
     end
   end
 
   def build_configuration(params)
     type = params[:_type].safe_constantize
-    if Features::FeatureConfiguration.subclasses.include?(type)
-      parameters =  params[Features::FeatureConfiguration.param_name(type)] || 
-                    params[:features_feature_configuration]
-      self.feature_configurations.build(parameters, type)
+    if Fields::FieldConfiguration.subclasses.include?(type)
+      parameters =  params[Fields::FieldConfiguration.param_name(type)] || 
+                    params[:fields_field_configuration]
+      self.field_configurations.build(parameters, type)
     end
   end
 
@@ -124,15 +124,24 @@ class NodeType
   end
 
   def node_template_attrs
-    Node.data_names +
-    feature_configurations.inject([]) do |arr, conf|
-      arr + conf.data_names
+    [:node, :node_path] +
+    self_data.keys +
+    field_configurations.inject([]) do |a, conf|
+      a << "node.#{conf.self_data.keys.first}"
+    end +
+    field_configurations.inject([]) do |a, conf|
+      a << conf.self_data.keys.first
     end
   end
 
+  def self_data
+    { :"node_type" => self,
+      :"node_type_path" => node_type_nodes_path(self) }
+  end
+
   def conf_data
-    feature_configurations.inject({}) do |h, conf|
-      h.merge!(conf.conf_data)
+    field_configurations.inject({}) do |h, conf|
+      h.merge!(conf.self_data)
     end
   end
 

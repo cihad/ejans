@@ -64,8 +64,8 @@ Ejans::Application.routes.draw do
 
   # Node Types, Feature Configuration, Views
   resources :node_types do
-    namespace :features do
-      resources :feature_configurations do
+    namespace :fields do
+      resources :field_configurations do
         post :sort, on: :collection
       end
     end
@@ -85,7 +85,7 @@ Ejans::Application.routes.draw do
 
   resources :list_items, only: [:create]
 
-  namespace :features do
+  namespace :fields do
     resources :images do
       post :sort, on: :collection
     end

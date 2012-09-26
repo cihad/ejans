@@ -1,21 +1,21 @@
-<%= checkbox_group "Features" do %>
-    <ul class="sortable-list selections" data-update-url="<%= sort_views_view_features_url(@view) %>">
-      <% @view.features.each do |feature| %>
-        <li class="feature" id="feature_<%= feature.id %>">
+<%= checkbox_group "Fields" do %>
+    <ul class="sortable-list selections" data-update-url="<%= sort_views_view_fields_url(@view) %>">
+      <% @view.fields.each do |field| %>
+        <li class="field" id="field_<%= field.id %>">
           <span class="handle">[drag]</span>
-          <%= feature.feature_configuration.label %>
-          <%= link_to "Sil", views_view_feature_path(@view, feature), method: :delete, confirm: "Are you sure?" %>
+          <%= field.field_configuration.label %>
+          <%= link_to "Sil", views_view_field_path(@view, field), method: :delete, confirm: "Are you sure?" %>
         </li>
       <% end %>
     </ul>
-    <% unless @view.features.count == @node_type.feature_configurations.count %>
+    <% unless @view.fields.count == @node_type.field_configurations.count %>
       <%= form_for [@node_type, @view] do |f| %>
         <%= f.select :conf_id,
                       @node_type
-                        .feature_configurations
-                        .map { |conf| [conf.label, conf.id] unless @view.features.map(&:feature_configuration_id).include?(conf.id) }
+                        .field_configurations
+                        .map { |conf| [conf.label, conf.id] unless @view.fields.map(&:field_configuration_id).include?(conf.id) }
                         .compact %>
-        <%= f.submit "Add feature", class: "btn" %>
+        <%= f.submit "Add field", class: "btn" %>
       <% end %>
     <% end %>
     <%= javascript_tag do %>

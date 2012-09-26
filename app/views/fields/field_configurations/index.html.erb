@@ -1,0 +1,57 @@
+<%= node_type_navigation %>
+
+<%= error_messages_for @fc if @fc %>
+
+<table class="table table-striped sortable">
+  <thead>
+    <tr>
+      <th>&nbsp;</th>
+      <th>Label</th>
+      <th>Type</th>
+      <th>Required?</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  
+  <tbody data-update-url="<%= sort_node_type_fields_field_configurations_url(@node_type) %>">
+    <% @fcs.each do |fc| %>
+      <tr class="field_configuration" id="field_configuration_<%= fc.id %>">
+        <td><span class="handle">[drag]</span></td>
+        <td><%= link_to fc.label, node_type_fields_field_configuration_path(@node_type, fc) %></td>
+        <td><%= fc.field_type %></td>
+        <td><%= fc.required %></td>
+        <td>
+          <%= link_to t('global.edit'), edit_node_type_fields_field_configuration_path(@node_type, fc) %>
+          <%= link_to t('global.destroy'), node_type_fields_field_configuration_path(@node_type, fc),
+                confirm: "Are you sure?",
+                method: :delete %>
+        </td>
+      </tr>
+    <% end %>
+
+  </tbody>
+
+
+  <%= form_for [@node_type, @node_type.field_configurations.build],
+        url: new_node_type_fields_field_configuration_path,
+        method: :get  do |f| %>
+    <tr>
+      <td></td>
+      <td><%= f.text_field :label, placeholder: "Label" %></td>
+      <td><%= select_tag "_type",
+                options_for_select(Fields::FieldConfiguration.options_for_types) %></td>
+      <td><%= f.check_box :required %></td>
+      <td><%= f.submit "New field" %></td>
+    </tr>
+  <% end %>
+
+  <%= javascript_tag do %>
+    $('.sortable tbody').sortable({
+      axis: 'y',
+      handle: ".handle",
+      update: function() {
+        return $.post($(this).data('update-url'), $(this).sortable('serialize'));
+      }
+    });
+  <% end %>
+</table>

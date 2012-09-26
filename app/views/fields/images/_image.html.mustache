@@ -1,0 +1,20 @@
+<li class="fields_image {{^uploaded}}not-uploaded{{/uploaded}}" id="fields_image_{{image_id}}">
+  {{^uploaded}}
+    <div class="loading" style="display: "></div>
+  {{/uploaded}}
+
+  <div class="image image-thumb">
+    <img src="{{image_url}}" style="{{^uploaded}}opacity: .4{{/uploaded}}">
+  </div>
+
+  {{#uploaded}}
+    <div class="controls on-hover">
+      <span class="btn btn-mini btn-inverse handle-move">
+        <i class="icon-move icon-white"></i>
+      </span>
+      <a href="/fields/images/{{image_id}}?node_id={{node_id}}&field_id={{field_id}}" class="btn btn-primary btn-mini" data-method="delete" data-remote="true" rel="nofollow">
+        <i class="icon-white icon-trash"></i>
+      </a>
+    </div>
+  {{/uploaded}}
+</li>

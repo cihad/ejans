@@ -1,0 +1,11 @@
+<%= remotipart_response do %>
+  $('.images .not-uploaded').remove();
+  
+  <% @images.each do |image| %>
+    $('.images').append('<%= escape_javascript(render "image",
+      mustache: image_for_mustache(image: image, node: @node, field: @field) ) %>');
+  <% end %>
+
+  $('#new_fields_image').remove();
+  $('#hidden-form').append( '<%= escape_javascript(render "form", field_id: @field.id) %>' );
+<% end %>

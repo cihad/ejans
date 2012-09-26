@@ -1,0 +1,7 @@
+<% case field.filter_type %>
+<% when :number_field %>
+  <%= number_field_tag field.machine_name, params["#{field.machine_name}"], { class: "single-input", max: field.max, max: field.max } %>
+<% when :range_with_number_field, :range_with_slider %>
+  <%= number_field_tag field.min_machine_name, params["#{field.min_machine_name}"], { class: "single-input", placeholder: "min", min: field.min, max: field.max } %>
+  <%= number_field_tag field.max_machine_name, params["#{field.max_machine_name}"], { class: "single-input", placeholder: "max", min: field.min, max: field.max } %>
+<% end %>

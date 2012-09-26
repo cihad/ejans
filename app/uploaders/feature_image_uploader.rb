@@ -1,5 +1,5 @@
 # encoding: utf-8
-class FeatureImageUploader < CarrierWave::Uploader::Base
+class FieldImageUploader < CarrierWave::Uploader::Base
 
   # Include RMagick or MiniMagick support:
   include CarrierWave::RMagick
@@ -21,7 +21,7 @@ class FeatureImageUploader < CarrierWave::Uploader::Base
   end
 
   def store_dir
-    self.class.base_dir(model.feature.node.id)
+    self.class.base_dir(model.node.id)
   end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:

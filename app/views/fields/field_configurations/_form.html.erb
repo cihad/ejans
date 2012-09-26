@@ -1,0 +1,23 @@
+<% url = if @fc.new_record?
+            node_type_fields_field_configurations_path
+          else
+            node_type_fields_field_configuration_path
+          end %>
+
+<%= form_for [@node_type, @fc],
+    url: url do |f| %>
+
+  <%= error_messages_for @fc %>
+  <table class="table table-form">
+    <%= hidden_field_tag "_type", @fc._type %>
+    <%= simple_text_field f, :label %>
+    <%= simple_check_box f, :required %>
+    <%= simple_text_area f,
+      :help_text,
+      input: { rows: 3 },
+      help: "Bu yazi node formunda gozukur." %> 
+
+    <%= render "#{@fc.partial_dir}/configuration_form", f: f %>
+    <%= simple_submit f %>
+  </table>
+<% end %>

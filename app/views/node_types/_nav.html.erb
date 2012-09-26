@@ -7,11 +7,11 @@
   <%= tab_item "Delete Node Type", node_type_path(@node_type), link_to: { confirm: "Are you sure?", method: :delete } %>
 <% end %>
 
-<%= dropdown_tab "Features" do %>
-  <%= tab_item "Index", node_type_features_feature_configurations_path(@node_type) %>
+<%= dropdown_tab "Fields" do %>
+  <%= tab_item "Index", node_type_fields_field_configurations_path(@node_type) %>
   <%= content_tag :li, nil, class: "divider" %>
-  <% @node_type.feature_configurations.each do |conf| %>
-    <%= tab_item conf.label, edit_node_type_features_feature_configuration_path(@node_type, conf) unless conf.new_record? %>
+  <% @node_type.field_configurations.each do |conf| %>
+    <%= tab_item conf.label, edit_node_type_fields_field_configuration_path(@node_type, conf) unless conf.new_record? %>
   <% end %>
 <% end %>
 

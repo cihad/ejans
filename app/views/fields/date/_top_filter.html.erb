@@ -1,0 +1,28 @@
+<% case field.filter_type %>
+<% when :single %>
+
+  <%= number_field_tag(
+        field.machine_name,
+        params["#{field.machine_name}"],
+        { class: "input-mini",
+          min: field.start_year,
+          max: field.end_year }) %>
+
+<% when :range %>
+
+  <%= number_field_tag(
+        field.start_machine_name,
+        params["#{field.start_machine_name}"],
+        { class: "input-mini",
+          placeholder: "start year",
+          min: field.start_year,
+          max: field.end_year }) %>
+
+  <%= number_field_tag(
+        field.end_machine_name,
+        params["#{field.end_machine_name}"],
+        { class: "input-mini",
+          placeholder: "end year",
+          min: field.start_year,
+          max: field.end_year }) %>
+<% end %>

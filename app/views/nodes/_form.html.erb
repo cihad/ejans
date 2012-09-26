@@ -16,8 +16,9 @@
     <%= f.hidden_field :node_type_id %>
     <%= hidden_field_tag "token", params[:token] %>
     <%= simple_text_field f, :title, label: { name: @node_type.title_label } %>
-    <%= f.fields_for :features do |form_builder| %>
-      <%= feature_form_for(form_builder) %>
+
+    <% @node.field_configurations.each do |conf| %>
+      <%= FormFields::FormField.form_presenter_class(conf).new(f, conf, self) %>
     <% end %>
 
     <% unless user_signed_in? or f.object.email_send? %>

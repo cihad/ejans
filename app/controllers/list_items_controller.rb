@@ -1,17 +1,14 @@
 class ListItemsController < ApplicationController
-  before_filter :feature_configuration
+  before_filter :field_configuration
+  respond_to :js
 
   def create
-    @list_item = @fc.list_items.build(params[:features_list_item])
-    respond_to do |format|
-      if @list_item.save
-        format.js
-      end
-    end
+    @list_item = @fc.list_items.build(params[:fields_list_item])
+    @list_item.save
   end
 
   private
-  def feature_configuration
-    @fc = Features::FeatureConfiguration.find(params[:feature_configuration_id])
+  def field_configuration
+    @fc = Fields::FieldConfiguration.find(params[:field_configuration_id])
   end
 end
