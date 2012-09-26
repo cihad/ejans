@@ -14,7 +14,7 @@
 
     <%= content_tag :ul, class: "inline-list images", data: { update_url: sort_fields_images_url } do %>
       <% field.images.each do |image| %>
-        <%= render "fields/images/image", mustache: image_for_mustache(image: image, node: @node, field: field.field) %>
+        <%= render "fields/images/image", mustache: image_for_mustache(image: image, node: @node, keyname: field.keyname) %>
       <% end %>
     <% end %>
 
@@ -45,7 +45,7 @@
         $('.images').sortable({
           handle: '.handle-move',
           update: function() {
-            return $.post($(this).data('update-url'), $(this).sortable('serialize') + "&field_id=<%= field.id %>&node_id=<%= @node.id %>");
+            return $.post($(this).data('update-url'), $(this).sortable('serialize') + "&keyname=<%= field.keyname %>&node_id=<%= @node.id %>");
           }
         });
       })();
@@ -67,6 +67,6 @@
 
 <% content_for :top do %>
   <div id="hidden-form" style="display: none">
-    <%= render 'fields/images/form', field_id: field.id %>
+    <%= render 'fields/images/form', keyname: field.keyname %>
   </div>
 <% end %>

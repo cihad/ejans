@@ -1,9 +1,5 @@
 module FormFields
   class PlaceFormField < FormField
-    def value
-      :"#{keyname}_ids"
-    end
-
     def level
       conf.level
     end

@@ -14,7 +14,11 @@
             <%= field.form_level_names[i] %>
           </option>
           <% level.each do |place| %>
-            <option value="<%= place.id %>" class="<%= place.parent_id unless i == 0 %>" <%= "selected" if field.field.value.include? place %>><%= place.name %></option>
+            <option value="<%= place.id %>"
+                    class="<%= place.parent_id unless i == 0 %>"
+                    <%= "selected" if field.value.include? place %>>
+              <%= place.name %>
+            </option>
           <% end %>
         </select>
       </p>

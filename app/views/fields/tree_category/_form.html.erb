@@ -13,7 +13,7 @@
           <% level.each do |category| %>
             <option value="<%= category.id %>"
                     class="<%= category.parent_id unless i == 0 %>"
-                    <%= "selected" if field.field.value.include? category %>>
+                    <%= "selected" if field.value.include? category %>>
               <%= category.name %>
             </option>
           <% end %>

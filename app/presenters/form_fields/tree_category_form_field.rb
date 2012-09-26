@@ -1,9 +1,5 @@
 module FormFields
   class TreeCategoryFormField < FormField
-    def value
-      :"#{keyname}_ids"
-    end
-
     def category
       @category ||= conf.category
     end

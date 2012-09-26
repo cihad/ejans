@@ -37,7 +37,7 @@ module Fields
 
     def set_specifies
       Node.instance_eval <<-EOM
-        has_and_belongs_to_many #{keyname},
+        has_and_belongs_to_many :#{keyname},
                                 class_name: "Category",
                                 inverse_of: nil
         validate :#{keyname}_presence_value
@@ -55,6 +55,11 @@ module Fields
           end
         end
       EOM
+    end
+
+    private
+    def where
+      "#{keyname}_ids"
     end
   end
 end

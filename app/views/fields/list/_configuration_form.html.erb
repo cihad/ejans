@@ -32,7 +32,8 @@
       <% end %>
     </ul>
     <%= form_for Fields::ListItem.new, url: list_items_path, remote: true do |f| %>
-      <%= hidden_field_tag :field_configuration_id, "#{@fc.id}" %>
+      <%= hidden_field_tag :field_configuration_id, @fc.id.to_s %>
+      <%= hidden_field_tag :node_type_id, @node_type.id.to_s %>
       <%= f.label :name %>
       <%= f.text_field :name %>
       <%= f.submit %>

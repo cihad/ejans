@@ -6,7 +6,7 @@ module Fields
 
     def set_specifies
       Node.instance_eval <<-EOM
-        embeds_many #{keyname}, class_name: "Fields::Image",
+        embeds_many :#{keyname}, class_name: "Fields::Image",
           cascade_callbacks: true
 
         validate :#{keyname}_presence_value
@@ -33,7 +33,7 @@ module Fields
         private
 
         def #{keyname}_presence_value
-          if #{required?} and value.size == 0
+          if #{required?} and #{keyname}.size == 0
             errors.add(:#{keyname}, "alani bos birakilamaz.")
           end
         end

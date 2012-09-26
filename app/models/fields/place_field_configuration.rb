@@ -48,7 +48,7 @@ module Fields
 
     def set_specifies
       Node.instance_eval <<-EOM
-        has_and_belongs_to_many #{keyname}, class_name: "Place", inverse_of: nil
+        has_and_belongs_to_many :#{keyname}, class_name: "Place", inverse_of: nil
 
         validate :#{keyname}_presence_value
         validate :#{keyname}_out_level
@@ -80,6 +80,10 @@ module Fields
     end
 
     private
+    def where
+      "#{keyname}_ids"
+    end
+
     def create_place_view
       if place_page_list and node_type.place_page_view.blank?
         node_type.build_place_page_view().save(validate: false)

@@ -1,5 +1,4 @@
 require 'action_view'
-
 module Fields
   class FieldConfiguration
     include Mongoid::Document

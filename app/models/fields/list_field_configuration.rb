@@ -1,14 +1,11 @@
 module Fields
   class ListFieldConfiguration < FieldConfiguration
-    include Mongoid::Document
     include Ejans::Fields::Filterable
 
     field :maximum_select, type: Integer, default: 0
     validates :maximum_select, presence: true
 
-    has_many  :list_items,
-              class_name: "Fields::ListItem",
-              dependent: :destroy
+    has_and_belongs_to_many :list_items, class_name: "Fields::ListItem"
     accepts_nested_attributes_for :list_items,
       reject_if: ->(attrs){ attrs[:name].blank? }
 
@@ -23,7 +20,7 @@ module Fields
 
     def set_specifies
       Node.instance_eval <<-EOM
-        has_and_belongs_to_many #{keyname}, class_name: "Fields::ListItem"
+        has_and_belongs_to_many :#{keyname}, class_name: "Fields::ListItem"
 
         validate :#{keyname}_presence_value
         validate :#{keyname}_selected_item_count

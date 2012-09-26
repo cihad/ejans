@@ -7,6 +7,7 @@ module Fields
 
     def create
       @images = @node.send("#{params[:keyname]}_add_images", params[:fields_image][:image])
+      @keyname = params[:keyname]
     end
 
     def destroy
@@ -22,7 +23,6 @@ module Fields
     private
     def node
       @node = Node.find(params[:node_id])
-      @node.build_assoc!
     end
 
     def images

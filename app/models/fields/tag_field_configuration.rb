@@ -5,7 +5,7 @@ module Fields
     def filter_query(params = {})
       if params[machine_name].present?
         tags = params[machine_name].split(',').map(&:strip)
-        NodeQuery.new.all(:"#{where}" => tags)
+        NodeQuery.new.all(keyname => tags)
       else
         NodeQuery.new
       end
@@ -13,7 +13,7 @@ module Fields
 
     def set_specifies
       Node.instance_eval <<-EOM
-        field #{keyname}, type: Array, default: []
+        field :#{keyname}, type: Array, default: []
 
         validate :#{keyname}_presence_value
       EOM
