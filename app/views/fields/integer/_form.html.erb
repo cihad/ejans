@@ -4,8 +4,10 @@
     <%= content_tag :span, "*", class: "required" if field.required? %>
   <% end %>
   <%= form_value_layout do %>
-    <%= field.f.number_field field.form_key, class: "input-xlarge" %>
-    (<%= field.minimum %> - <%= field.maximum %>)
+    <%= field.f.number_field  field.form_key,
+                              class: "input-xlarge",
+                              placeholder: "#{field.placeholder}" %>
+    <%= field.suffix %>
     
     <%= field.help_text %>
   <% end %>
