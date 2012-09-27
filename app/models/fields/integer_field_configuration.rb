@@ -53,13 +53,13 @@ module Fields
         end
 
         def #{keyname}_not_greater_than_maximum
-          if #{keyname}.present? and #{maximum} and #{keyname} > #{maximum}
+          if #{keyname}.present? and #{maximum || false} and #{keyname} > #{maximum}
             errors.add(:#{keyname}, "#{maximum} degerinden fazla olamaz.")
           end
         end
 
         def #{keyname}_not_less_than_minimum
-          if #{keyname}.present? and #{minimum} and #{keyname} < #{minimum}
+          if #{keyname}.present? and #{minimum || false} and #{keyname} < #{minimum}
             errors.add(:#{keyname}, "#{minimum} degerinden az olamaz.")
           end
         end

@@ -39,7 +39,7 @@ module Fields
         end
 
         def #{keyname}_selected_item_count
-          if #{keyname}.size > #{maximum_select}
+          if #{keyname}.size > #{maximum_select || 0}
             errors.add(:#{keyname}, "en fazla #{maximum_select} parca secebilirsiniz.")
           end
         end
