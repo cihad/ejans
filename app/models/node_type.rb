@@ -22,8 +22,7 @@ class NodeType
     class_name: "Fields::FieldConfiguration"
   embeds_one :node_view, class_name: "Views::Node"
   embeds_one :place_page_view, class_name: "Views::PlacePage"
-  has_many :views, class_name: "Views::View",
-    dependent: :destroy
+  embeds_many :views, class_name: "Views::View"
 
   has_and_belongs_to_many :administrators,
                           class_name: "User",
