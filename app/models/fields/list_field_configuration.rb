@@ -35,7 +35,7 @@ module Fields
         private
         def #{keyname}_presence_value
           if #{required?} and #{keyname}.size == 0
-            erros.add(:#{keyname}, "alani bos birakilamaz.")
+            errors.add(:#{keyname}, "alani bos birakilamaz.")
           end
         end
 
