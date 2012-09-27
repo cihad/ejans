@@ -28,7 +28,7 @@ module Fields
         end
 
         def #{keyname}_tags
-          self.#{keyname}.join(', ')
+          self.#{keyname}.try(:join, ', ')
         end
 
         private

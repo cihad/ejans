@@ -39,7 +39,7 @@ module Fields
         end
 
         def #{keyname}_not_greater_than
-          if #{maximum_image} and #{maximum_image || 0} != 0 and #{keyname}.size > #{maximum_image}
+          if #{maximum_image} and #{maximum_image || 0} != 0 and #{keyname}.size > #{maximum_image || 0}
             errors.add(:#{keyname}, "En fazla #{maximum_image} resim ekleyebilirsiniz.")
           end
         end

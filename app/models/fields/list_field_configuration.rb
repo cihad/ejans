@@ -1,3 +1,4 @@
+#require 'active_support'
 module Fields
   class ListFieldConfiguration < FieldConfiguration
     include Ejans::Fields::Filterable
@@ -39,8 +40,8 @@ module Fields
         end
 
         def #{keyname}_selected_item_count
-          if #{maximum_select || false} and #{keyname}.size > #{maximum_select || 0}
-            errors.add(:#{keyname}, "en fazla #{maximum_select} parca secebilirsiniz.")
+          if #{maximum_select == 0 ? false : maximum_select} and #{keyname}.size > #{maximum_select || 0}
+            errors.add(:#{keyname.to_s.singularize}_ids, "en fazla #{maximum_select} parca secebilirsiniz.")
           end
         end
       EOM
