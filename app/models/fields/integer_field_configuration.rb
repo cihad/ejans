@@ -14,6 +14,7 @@ module Fields
     field :thousand_marker, type: Symbol
     THOUSAND_MARKERS = [:none, :decimal_point, :comma, :space]
     validates :thousand_marker, inclusion: { in: THOUSAND_MARKERS }
+    validate :min_can_not_greater_than_max
 
     def delimiter
       case thousand_marker
@@ -111,6 +112,12 @@ module Fields
         (maximum.present? and val > maximum) ? nil : val
       else
         nil
+      end
+    end
+
+    def min_can_not_greater_than_max
+      if minimum and maximum and minimum <= maximum
+        errors.add(:base, "Minumum, maksimuma esit ve maksimumdan buyuk olamaz.")
       end
     end
   end
