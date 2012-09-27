@@ -15,5 +15,9 @@ module FieldFilters
     def max
       conf.maximum
     end
+
+    def suffix
+      conf.suffix
+    end
   end
 end

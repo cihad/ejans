@@ -1,1 +1,11 @@
-<%= text_field_tag field.machine_name, params["#{field.machine_name}"], { class: "single-input" } %>
+<%= text_field_tag  field.machine_name,
+                    params["#{field.machine_name}"],
+                    class: "single-input",
+                    rel: "tooltip",
+                    data: { original_title: "Etiketler arasina virgul koyunuz" } %>
+
+<%= javascript_tag do %>
+  $('#<%= field.machine_name %>').tooltip({
+    placement: "bottom"
+  })
+<% end %>
