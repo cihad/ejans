@@ -32,13 +32,17 @@ module Fields
         end
 
         def #{keyname}_not_less_than_minimum_length
-          if #{keyname} and #{minimum_length || false} and #{keyname}.size < #{minimum_length}
+          if  #{keyname} and
+              #{minimum_length || false} and
+              #{keyname}.size < #{minimum_length || 0}
             errors.add(:#{keyname}, "#{minimum_length} degerinden kucuk olamaz.")
           end
         end
 
         def #{keyname}_not_greater_than_maximum_length
-          if #{keyname} and #{maximum_length || false} and #{keyname}.size > #{maximum_length}
+          if  #{keyname} and
+              #{maximum_length || false} and
+              #{keyname}.size > #{maximum_length || 0}
             errors.add(:#{keyname}, "#{maximum_length} degerinden buyuk olamaz.")
           end
         end

@@ -1,0 +1,36 @@
+.images {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+
+  .loading {
+    width: 106px;
+    height: 82px;
+    z-index: 2;
+    left: 0;
+    top: 0;
+    position: absolute;
+    background: image-url('images/ajax-loader.gif') center center no-repeat;
+  }
+
+  .handle-move { cursor: move; }
+
+  .on-hover {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+  }
+
+  .not-uploaded,
+  li {
+    list-style-type: none;
+    margin: 3px 3px 3px 0;
+    padding: 5px;
+    float: left;
+    width: 96px;
+    height: 72px;
+    text-align: right;
+    background: #f0f0f0;
+    position: relative;
+  }
+}

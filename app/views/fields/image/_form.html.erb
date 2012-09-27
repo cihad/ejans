@@ -3,65 +3,32 @@
     <%= field.f.label field.form_key, field.label %>
     <%= content_tag :span, "*", class: "required" if field.required? %>
   <% end %>
+  
   <%= form_value_layout do %>
     <div>
       <%= link_to "#add-image", class: "btn btn-success btn-mini add-image" do %>
         <%= content_tag :i, nil, class: "icon-white icon-plus" %>
         Add image
       <% end %>
-      <%= content_tag :span, "En fazla #{field.maximum_image} resim ekleyebilirsiniz." %>
+      <%= field.info %>
     </div>
 
-    <%= content_tag :ul, class: "inline-list images", data: { update_url: sort_fields_images_url } do %>
+    <%= content_tag :ul,
+                    class: "inline-list images",
+                    data: { update_url: sort_fields_images_url } do %>
       <% field.images.each do |image| %>
         <%= render "fields/images/image", mustache: image_for_mustache(image: image, node: @node, keyname: field.keyname) %>
       <% end %>
     <% end %>
 
-    <%= field.help_text %>
-
-    
+    <%= field.help_text %>    
 
     <script id="template" type="text/html">
       <%= render 'fields/images/image' %>
     </script>
 
-    <script type="text/javascript">
-      (function() {
-        $('.add-image').on('click', function(e) {
-          e.preventDefault();
-          $('#fields_image_image').click();
-          $('#fields_image_image').change(function() {
-            var view = {
-              uploaded: false
-            };
-            var template = $('#template').html();
-            var output = Mustache.render(template, view);
-            $('.images').append(output);
-            $(this).closest('form').submit();
-          })
-        });
-
-        $('.images').sortable({
-          handle: '.handle-move',
-          update: function() {
-            return $.post($(this).data('update-url'), $(this).sortable('serialize') + "&keyname=<%= field.keyname %>&node_id=<%= @node.id %>");
-          }
-        });
-      })();
-    </script>
-
     <% javascript 'jquery.remotipart' %>
     <% javascript 'mustache' %>
-
-    <style type="text/css">
-      .loading { width: 106px; height: 82px; z-index: 2; left: 0; top: 0; position: absolute; background: url(<%= asset_path("images/ajax-loader.gif")%>) center center no-repeat;}
-      .handle-move { cursor: move; }
-      .on-hover { position: absolute; bottom: 5px; right: 5px; }
-      .images { list-style-type: none; margin: 0; padding: 0; }
-      .not-uploaded, .images li { list-style-type: none; margin: 3px 3px 3px 0; padding: 5px; float: left; width: 96px; height: 72px; text-align: right; background: #f0f0f0; position: relative; }
-    </style>
-    
   <% end %>
 <% end %>
 

@@ -36,6 +36,7 @@
 //= require tinymce-jquery
 //= require geolocation
 //= require not_found
+//= require image
 //= require modernizr.custom
 
 $(function() {
