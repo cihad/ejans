@@ -4,7 +4,7 @@ module Views
     include Mongoid::Timestamps
 
     field :position, type: Integer
-    belongs_to :node_type
+    embedded_in :node_type
     default_scope order_by([:position, :asc])
     validate :view_count
     field :icon, type: String, default: "icon-align-justify"

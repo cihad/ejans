@@ -41,7 +41,7 @@ module Views
     end
 
     def sort
-      sort_fields params[:view], Views::View
+      sort_fields params[:view], @node_type.views
     end
   end
 end
