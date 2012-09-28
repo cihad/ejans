@@ -6,12 +6,12 @@ CarrierWave.configure do |config|
     config.storage = :fog
     config.fog_credentials = {
       provider:             'Rackspace',
-      rackspace_username:   APP_CONFIG['rackspace_username'],
-      rackspace_api_key:    APP_CONFIG['rackspace_api_key'],
+      rackspace_username:   Rails.configuration.app_config['rackspace_username'],
+      rackspace_api_key:    Rails.configuration.app_config['rackspace_api_key'],
       rackspace_servicenet: true
     }
-    config.fog_directory = APP_CONFIG['rackspace_fog_directory']
-    config.fog_host = APP_CONFIG['rackspace_fog_host']
+    config.fog_directory = Rails.configuration.app_config['rackspace_fog_directory']
+    config.fog_host = Rails.configuration.app_config['rackspace_fog_host']
   else
     config.storage = :file
     config.root = File.join(Rails.root, 'public')

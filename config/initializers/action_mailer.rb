@@ -1,9 +1,9 @@
 ActionMailer::Base.smtp_settings = {
-  address:              APP_CONFIG['smtp_address'],
-  port:                 APP_CONFIG['smtp_port'].to_i,
-  domain:               APP_CONFIG['smtp_domain'],
+  address:              Rails.configuration.app_config['smtp_address'],
+  port:                 Rails.configuration.app_config['smtp_port'].to_i,
+  domain:               Rails.configuration.app_config['smtp_domain'],
   authentication:       :login,
   enable_starttls_auto: true,
-  user_name:            APP_CONFIG['smtp_username'],
-  password:             APP_CONFIG['smtp_password']
+  user_name:            Rails.configuration.app_config['smtp_username'],
+  password:             Rails.configuration.app_config['smtp_password']
 }
