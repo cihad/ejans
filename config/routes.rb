@@ -15,58 +15,23 @@ Ejans::Application.routes.draw do
   #     get :statistics, on: :member
   #   end
   # end
-
-  # scope "accounts" do
-  #   resources :subscriptions, :except => [:new, :edit] do
-  #     put :multiple_update, :on => :collection
-  #     get :edit, :on => :collection
-  #   end
-
-  #   resources :payments, :only => [:index, :new, :create] do
-  #     get :history, :on => :collection
-  #   end
-
-  #   get "settings/email", :to => "settings#email"
-  #   get "settings/password", :to => "settings#password"
-  #   get "settings/terminate", :to => "settings#terminate"
-  #   put "settings/update_email", :to => "settings#update_email"
-  #   put "settings/update_password", :to => "settings#update_password"
-  # end
-
-  # devise_for :accounts
-
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
   match '/signup',  to: 'users#new'
   match '/signin',  to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete
-  
-  # resources :notices, :only => :create
-  # resources :selections, :only => [:create, :destroy] do
-  #   post :multiple_add, on: :collection
-  # end
 
   resources :comments, :only => [:create, :destroy]
-
-  # resources :filters, :only => [:create, :destroy]
-  # resources :ideas, :only => [:create, :destroy]
-
-  # Admin Pages
-  namespace :admin do
-    resources :roles
-    resources :payment_types
-    resources :notifications, :only => [:index, :update] do
-      put :publish, :on => :member
-    end
-    resources :external_sources, :only => [:index, :new, :destroy]
-    resources :accounts, only: [:index]
-  end
 
   # Node Types, Feature Configuration, Views
   resources :node_types do
     namespace :fields do
       resources :field_configurations do
         post :sort, on: :collection
+
+        resources :list_items, only: [:create, :destroy] do
+          post :sort, on: :collection
+        end
       end
     end
 
@@ -80,10 +45,8 @@ Ejans::Application.routes.draw do
 
     resources :nodes do
       get :manage, on: :collection
-    end
+    end    
   end
-
-  resources :list_items, only: [:create]
 
   namespace :fields do
     resources :images do
@@ -93,5 +56,4 @@ Ejans::Application.routes.draw do
 
   resources :places
   resources :categories
-
 end

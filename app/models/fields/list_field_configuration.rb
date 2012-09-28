@@ -10,6 +10,14 @@ module Fields
     accepts_nested_attributes_for :list_items,
       reject_if: ->(attrs){ attrs[:name].blank? }
 
+    def delete_list_item(list_item)
+      node_type.nodes.each do |node|
+        node.send(keyname).delete(list_item)
+      end
+
+      list_item.destroy
+    end
+
     def filter_query(params = {})
       if params[machine_name].present?
         list_item_ids = Fields::ListItem.find(params[machine_name]).map(&:id)
