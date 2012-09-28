@@ -28,9 +28,13 @@ h1, h2, h3, h4, h5, h6, h7 {
   }
 }
 
-
 .border-radius {
   @include border-radius(4px);
+}
+
+.page_title {
+  font-size: 24px;
+  margin-top: -5px;
 }
 
 // FOOTER
@@ -44,11 +48,4 @@ footer {
       padding-left: 10px;
     }
   }
-}
-
-.image-thumb {
-  width: 96px;
-  height:72px;
-  text-align:center;
-  background: #fff;
 }
