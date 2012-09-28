@@ -19,13 +19,15 @@
     </td>
 
     <td class="center">
-      <%= dropdown "Yönet", classes: "btn-small", direction: "dropup" do %>
-        <li><%= link_to "Göster", node_type_node_path(@node.node_type, @node) %></li>
-        <li><%= link_to "Düzenle", edit_node_type_node_path(@node.node_type, @node) %></li>
-        <li><%= link_to "Yayından kaldır", "#" %></li>
-        <li class="divider"></li>
-        <li><%= link_to "Sil", "#" %></li>
-      <% end %>
+      <div class="btn-toolbar">
+        <%= dropdown "Yönet", classes: "btn-small", direction: "dropup" do %>
+          <li><%= link_to "Göster", node_type_node_path(@node.node_type, @node) %></li>
+          <li><%= link_to "Düzenle", edit_node_type_node_path(@node.node_type, @node) %></li>
+          <li><%= link_to "Yayından kaldır", "#" %></li>
+          <li class="divider"></li>
+          <li><%= link_to "Sil", "#" %></li>
+        <% end %>
+      </div>
     </td>
 
     <td>
