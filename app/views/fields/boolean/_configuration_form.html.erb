@@ -1,0 +1,7 @@
+<%= simple_check_box f, :filter %>
+
+<%= simple_select f, :widget_type, f.object.class::WIDGET_TYPES %>
+
+<%= simple_text_field f, :on_value %>
+
+<%= simple_text_field f, :off_value %>

@@ -7,10 +7,10 @@
       <% if params[:author_id].present? %>
         <td>
           <%= label_tag "Author" %>
-          <%= label_tag "author_id" do %>
+          <label class="checkbox">
             <%= check_box_tag "author_id", params[:author_id], true %>
             <%= User.where(id: params[:author_id]).first.username_or_email_name %>
-          <% end %>
+          </label>
         </td>
       <% end %>
 

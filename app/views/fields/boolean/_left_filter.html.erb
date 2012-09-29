@@ -1,0 +1,11 @@
+<label class="radio">
+  <%= radio_button_tag field.machine_name, "all", (true if params[field.machine_name] == "all" or params[field.machine_name].blank?) %> All
+</label>
+
+<label class="radio">
+  <%= radio_button_tag field.machine_name, "1", (true if params[field.machine_name] == "1") %> <%= field.on_value %>
+</label>
+      
+<label class="radio">
+  <%= radio_button_tag field.machine_name, "0", (true if params[field.machine_name] == "0") %> <%= field.off_value %>
+</label>
