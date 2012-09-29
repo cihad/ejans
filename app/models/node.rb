@@ -91,7 +91,7 @@ class Node
   end
 
   def mapping(conf_data)
-    conf_data.merge(self_data)
+    conf_data.merge(self_data).merge(node_type.self_data)
   end
 
   def field_configurations
