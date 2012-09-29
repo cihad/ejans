@@ -54,6 +54,7 @@
     @include gradient-vertical($dropdownLinkBackgroundHover, darken($dropdownLinkBackgroundHover, 5%));
     @include border-radius(0);
     background-position: 0 0;
+    cursor: pointer;
   }
 
   input {
