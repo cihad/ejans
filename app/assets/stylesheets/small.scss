@@ -6,4 +6,23 @@
   .body .container {
     width: 620px;
   }
+
+  .span-width {
+    @extend .span8;
+  }
+}
+
+.small-page.signin,
+.small-page.signup, {
+  .span-width {
+    @extend .span6;
+  }
+
+  .body .container {
+    width: 460px;
+  }
+
+  .body .page {
+    margin-top: 50px;
+  }
 }
