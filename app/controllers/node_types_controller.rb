@@ -1,5 +1,5 @@
 class NodeTypesController < ApplicationController
-  before_filter :node_type, only: [:show, :edit, :update]
+  before_filter :node_type, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!, except: [:index]
   before_filter :must_be_an_administrator, only: [:show, :edit, :update]
   before_filter :admin_user, only: [:index, :new]
@@ -46,7 +46,7 @@ class NodeTypesController < ApplicationController
   def destroy
     if @node_type.destroy
       redirect_to node_types_path,
-                  notice: "Basarili bir sekilde kaldirildi."
+                  notice: "#{@node_type.name} basarili bir sekilde kaldirildi."
     end
   end
 
