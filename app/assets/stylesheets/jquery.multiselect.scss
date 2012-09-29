@@ -1,4 +1,4 @@
-.ui-multiselect { @extend .btn; text-align:left; }
+.ui-multiselect { text-align:left; padding-right: 4px;}
 .ui-multiselect span.ui-icon { float:right }
 .ui-multiselect-single .ui-multiselect-checkboxes input { position:absolute !important; top: auto !important; left:-9999px; }
 .ui-multiselect-single .ui-multiselect-checkboxes label { padding:5px !important }
@@ -11,14 +11,61 @@
 .ui-multiselect-header span.ui-icon { float:left }
 .ui-multiselect-header li.ui-multiselect-close { float:right; text-align:right; padding-right:0 }
 
-.ui-multiselect-menu { display:none; position:absolute; z-index:10000; text-align: left; padding: 10px; margin-top: 2px;}
-.ui-multiselect-checkboxes { position:relative /* fixes bug in IE6/7 */; overflow-y:auto }
-.ui-multiselect-checkboxes label { @extend .btn; @extend .btn-mini; display: block; text-align: left; margin-bottom: 2px;}
-.ui-multiselect-checkboxes label input { display: inline; position:relative; top:1px; margin-top: 0; }
-.ui-multiselect-checkboxes label span { padding-left: 5px;}
-.ui-multiselect-checkboxes li { clear:both; font-size:0.9em; padding-right:3px }
-.ui-multiselect-checkboxes li.ui-multiselect-optgroup-label { text-align:center; font-weight:bold; border-bottom:1px solid }
-.ui-multiselect-checkboxes li.ui-multiselect-optgroup-label a { display:block; padding:3px; margin:1px 0; text-decoration:none }
+.ui-multiselect-menu { display:none; position:absolute; z-index:10000; text-align: left; }
+
+.ui-multiselect-menu.ui-widget-content {
+  border: 0;
+}
+
+.ui-multiselect-checkboxes {
+  position:relative /* fixes bug in IE6/7 */;
+  overflow-y:auto;
+  position: absolute;
+  min-width: 160px;
+  padding: 5px 0;
+  margin: 2px 0 0; // override default ul
+  list-style: none;
+  background-color: $dropdownBackground;
+  border: 1px solid #ccc; // Fallback for IE7-8
+  border: 1px solid $dropdownBorder;
+  *border-right-width: 2px;
+  *border-bottom-width: 2px;
+  @include border-radius(6px);
+  @include box-shadow(0 5px 10px rgba(0,0,0,.2));
+  -webkit-background-clip: padding-box;
+     -moz-background-clip: padding;
+          background-clip: padding-box;
+}
+
+.ui-multiselect-checkboxes label {
+  display: block;
+  padding: 3px 20px 3px 12px;
+  margin: 0;
+  clear: both;
+  font-weight: normal;
+  line-height: $baseLineHeight;
+  color: $dropdownLinkColor;
+  white-space: nowrap;
+
+  &.ui-state-hover {
+    text-decoration: none;
+    color: $dropdownLinkColorHover;
+    background-color: $dropdownLinkBackgroundHover;
+    @include gradient-vertical($dropdownLinkBackgroundHover, darken($dropdownLinkBackgroundHover, 5%));
+    @include border-radius(0);
+    background-position: 0 0;
+  }
+
+  input {
+    display: inline;
+    position:relative;
+    margin-top: 0;
+  }
+
+  span {
+    padding-left: 5px;
+  }
+}
 
 /* remove label borders in IE6 because IE6 does not support transparency */
 * html .ui-multiselect-checkboxes label { border:none }
