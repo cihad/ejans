@@ -1,0 +1,21 @@
+.table-node {
+  td, th {
+    padding: 5px 10px 5px 0;
+    border-top: 1px solid #eee;
+  }
+
+  th {
+    font-weight: bold;
+  }
+
+  tbody tr:first-child td,
+  tbody tr:first-child th {
+    border-top: 0;
+  }
+}
+
+.table-noborder {
+  td, th {
+    border: 0;
+  }
+}
