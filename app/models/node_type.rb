@@ -34,6 +34,8 @@ class NodeType
 
   after_initialize { load_node_class if name }
 
+  after_save :update_node_type_class
+
   def self.unpublish_expired_nodes!
     all.each do |node_type|
       node_type.set_unpublishing_expired_nodes
@@ -243,5 +245,14 @@ class NodeType
 
   def create_node_view
     self.build_node_view.save(validate: false)
+  end
+
+  def update_node_type_class
+    if name_changed?
+      nodes.each do |node|
+        node._type = node_classify_name
+        node.save(validate: false)
+      end
+    end
   end
 end
