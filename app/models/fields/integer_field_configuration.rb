@@ -116,7 +116,7 @@ module Fields
     end
 
     def min_can_not_greater_than_max
-      if minimum and maximum and minimum <= maximum
+      if minimum and maximum and maximum <= minimum
         errors.add(:base, "Minumum, maksimuma esit ve maksimumdan buyuk olamaz.")
       end
     end
