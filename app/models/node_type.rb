@@ -32,6 +32,8 @@ class NodeType
   after_create :create_node_view
   validates :name, presence: true
 
+  after_initialize { load_node_class if name }
+
   def self.unpublish_expired_nodes!
     all.each do |node_type|
       node_type.set_unpublishing_expired_nodes
@@ -185,6 +187,24 @@ class NodeType
       self.administrators << user
       user.send("#{inverse_of_administrators_association}") << self
     rescue
+    end
+  end
+
+  def node_classify_name
+    "NodeType::" + name.parameterize('_').classify
+  end
+
+  def form_parameterize
+    node_classify_name.underscore.parameterize("_")
+  end
+
+  def load_node_class
+    begin
+      node_classify_name.constantize
+    rescue
+      self.class.const_set node_classify_name.demodulize.to_sym, Class.new(Node)
+      node_classify_name.constantize
+      field_configurations.each { |conf| conf.load_node }
     end
   end
 

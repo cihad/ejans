@@ -59,7 +59,7 @@ $(function() {
       <div class="caption">
         <ul>
           <% @node_type.nodes.published.limit(10).each do |n| %>
-            <li><%= link_to n.title, [@node_type, n], remote: true %></li>
+            <li><%= link_to n.title, node_type_node_path(@node_type, n), remote: true %></li>
           <% end %>
         </ul>
       </div>
@@ -75,7 +75,7 @@ $(function() {
         <table class="table" width="100%">
           <% @node_type.nodes.approved_queue.each do |n| %>
             <tr>
-              <td><%= link_to n.title, [@node_type, n], remote: true %></td>
+              <td><%= link_to n.title, node_type_node_path(@node_type, n), remote: true %></td>
               <td><%= render 'nodes/approve_button', node: n %></td>
             </tr>
           <% end %>

@@ -109,7 +109,7 @@ module Fields
     end
 
     def set_specifies
-      Node.instance_eval <<-EOM
+      node_klass.instance_eval <<-EOM
         include Mongoid::MultiParameterAttributes
         field :#{keyname}, type: Date
 
@@ -118,7 +118,7 @@ module Fields
         validate :#{keyname}_end_date
       EOM
 
-      Node.class_eval <<-EOM
+      node_klass.class_eval <<-EOM
         def #{machine_name}
           #{keyname}
         end

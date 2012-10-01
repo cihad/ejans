@@ -8,11 +8,11 @@ module Fields
     field :off_value, type: String
 
     def set_specifies
-      Node.instance_eval <<-EOM
+      node_klass.instance_eval <<-EOM
         field :#{keyname}, type: Boolean
       EOM
 
-      Node.class_eval <<-EOM
+      node_klass.class_eval <<-EOM
         def #{machine_name}
           #{keyname}
         end

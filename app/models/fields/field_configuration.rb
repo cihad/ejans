@@ -24,6 +24,8 @@ module Fields
       label.strip!
     end
 
+    delegate :node_classify_name, to: :node_type
+
     before_save :set_conf_name
     before_destroy :if_matching_view_data
 
@@ -77,6 +79,10 @@ module Fields
       self.class.field_class_style_name(self.class)
     end
 
+    def node_klass
+      node_classify_name.safe_constantize
+    end
+
     def partial_dir
       "fields/#{field_type}"
     end
@@ -89,7 +95,7 @@ module Fields
       { machine_name.to_sym => self }
     end
 
-    def load
+    def load_node
       set_specifies
     end
 

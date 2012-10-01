@@ -38,7 +38,6 @@ class Node
   embeds_many :comments
 
   # Callbacks
-  after_initialize :load
   after_save :send_email
   before_create :set_random_token
 
@@ -93,22 +92,7 @@ class Node
   def mapping(conf_data)
     conf_data.merge(self_data).merge(node_type.self_data)
   end
-
-  def field_configurations
-    @field_configurations ||= node_type.field_configurations
-  end
-
-  def load
-    field_configurations.each do |conf|
-      conf.load
-    end
-  end
-
-  def node_type=(node_type)
-    self.node_type_id = node_type.id
-    load
-  end
-
+  
   def author_email=(email)
     email.strip!
     if User::EMAIL_REGEX =~ email
@@ -146,10 +130,6 @@ class Node
   end
 
   private
-  def build_values
-    load if node_type
-  end
-
   def send_email
     delivered = NodeMailer.node_info(self).deliver if send_email?
   end

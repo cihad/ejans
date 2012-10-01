@@ -36,14 +36,14 @@ module Fields
     end
 
     def set_specifies
-      Node.instance_eval <<-EOM
+      node_klass.instance_eval <<-EOM
         has_and_belongs_to_many :#{keyname},
                                 class_name: "Category",
                                 inverse_of: nil
         validate :#{keyname}_presence_value
       EOM
 
-      Node.class_eval <<-EOM
+      node_klass.class_eval <<-EOM
         def #{machine_name}
           #{keyname}
         end

@@ -17,7 +17,7 @@ class NodesController < ApplicationController
 
   def new
     unless user_signed_in? and @node = current_user.unpublished_nodes(@node_type).first
-      @node = Node.new(node_type: @node_type, author: current_user)
+      @node = @node_type.node_classify_name.safe_constantize.new(node_type: @node_type, author: current_user)
       @node.save(validate: false)
     end
   end
@@ -31,9 +31,8 @@ class NodesController < ApplicationController
                 else
                   verify_recaptcha(:model => @node, :message => "Oh! It's error with reCAPTCHA!")
                 end
-    @node.load
-    if @node.update_attributes(params[:node]) && recaptcha
-      redirect_to [@node_type, @node], notice: 'Node was successfully updated.'
+    if @node.update_attributes(params[:"node_type_#{@node_type.name.parameterize('_')}"]) && recaptcha
+      redirect_to node_type_node_path(@node_type, @node), notice: 'Node was successfully updated.'
     else
       render action: "edit"
     end

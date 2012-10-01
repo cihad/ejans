@@ -1,0 +1,22 @@
+<%= select_tag  field.machine_name,
+                options_for_select(
+                  field.
+                    belongs_to_node_type.
+                    nodes.
+                    published.
+                    inject({}) do |hash, node|
+                      hash[node.title] = node.id; hash
+                    end,
+                  params[field.machine_name]
+                ),
+                multiple: true,
+                class: "#{field.machine_name}_multiple-select" %>
+
+<%= javascript_tag do %>
+    $(".<%= field.machine_name %>_multiple-select").multiselect({
+      noneSelectedText: '<%= field.label %>',
+      header: false,
+      selectedList: 2,
+      minWidth: 200,
+    }).multiselectfilter();
+<% end %>

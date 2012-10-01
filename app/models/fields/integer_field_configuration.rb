@@ -32,7 +32,7 @@ module Fields
     end
 
     def set_specifies
-      Node.instance_eval <<-EOM
+      node_klass.instance_eval <<-EOM
         field :#{keyname}, type: Integer
 
         validate :#{keyname}_presence_value
@@ -40,7 +40,7 @@ module Fields
         validate :#{keyname}_not_less_than_minimum
       EOM
 
-      Node.class_eval <<-EOM
+      node_klass.class_eval <<-EOM
         def #{machine_name}
           #{keyname}
         end

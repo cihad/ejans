@@ -5,7 +5,11 @@ module Fields
     validates :maximum_image, presence: true
 
     def set_specifies
-      Node.instance_eval <<-EOM
+      Fields::Image.instance_eval <<-EOM
+        embedded_in :node, class_name: "#{node_klass.to_s}"
+      EOM
+
+      node_klass.instance_eval <<-EOM
         embeds_many :#{keyname}, class_name: "Fields::Image",
           cascade_callbacks: true
 
@@ -13,7 +17,7 @@ module Fields
         validate :#{keyname}_not_greater_than
       EOM
 
-      Node.class_eval <<-EOM
+      node_klass.class_eval <<-EOM
         def #{machine_name}
           #{keyname}
         end
