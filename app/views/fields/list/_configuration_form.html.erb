@@ -22,30 +22,32 @@
   <% end %>
 <% end %>
 
-<% content_for :top do %>
-  <%= modal "List items" do %>
-    <table  class="table">
-      <thead>
-        <tr>
-          <th>&nbsp;</th>
-          <th>Name</th>
-          <th>Actions</th>
-      </thead>
-      <tbody class="sortable"
-             data-update-url="<%= sort_node_type_fields_field_configuration_list_items_url(@node_type, f.object) %>">
-        <% @fc.list_items.each do |list_item| %>
-          <%= render list_item, fc: f.object %>
-        <% end %>
-      </tbody>
-      <%= form_for Fields::ListItem.new, url: node_type_fields_field_configuration_list_items_url(@node_type, f.object), remote: true do |f| %>
-        <tfoot>
+<% unless f.object.new_record? %>
+  <% content_for :top do %>
+    <%= modal "List items" do %>
+      <table  class="table">
+        <thead>
           <tr>
-            <td>&nbsp;</td>
-            <td><%= f.text_field :name, placeholder: "name" %>
-            </td>
-            <td><%= f.submit %></td>
-        </tfoot>
-      <% end %>
-    </table>
+            <th>&nbsp;</th>
+            <th>Name</th>
+            <th>Actions</th>
+        </thead>
+        <tbody class="sortable"
+               data-update-url="<%= sort_node_type_fields_field_configuration_list_items_path(@node_type, f.object) %>">
+          <% @fc.list_items.each do |list_item| %>
+            <%= render list_item, fc: f.object %>
+          <% end %>
+        </tbody>
+        <%= form_for Fields::ListItem.new, url: node_type_fields_field_configuration_list_items_path(@node_type, f.object), remote: true do |f| %>
+          <tfoot>
+            <tr>
+              <td>&nbsp;</td>
+              <td><%= f.text_field :name, placeholder: "name" %>
+              </td>
+              <td><%= f.submit %></td>
+          </tfoot>
+        <% end %>
+      </table>
+    <% end %>
   <% end %>
 <% end %>

@@ -1,4 +1,3 @@
-#require 'active_support'
 module Fields
   class ListFieldConfiguration < FieldConfiguration
     include Ejans::Fields::Filterable
