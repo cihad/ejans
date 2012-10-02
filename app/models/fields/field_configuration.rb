@@ -15,7 +15,7 @@ module Fields
     default_scope order_by([:position, :asc])
 
     embedded_in :node_type
-    delegate :keynames, to: :node_type
+    delegate :keynames, :machine_names, to: :node_type
 
     validate :same_label_name, on: :create
     after_destroy :destroy_fields_from_nodes
@@ -100,7 +100,7 @@ module Fields
     end
 
     def matching_views
-      return data_names.inject([]) do |arr, name|
+      return machine_names.inject([]) do |arr, name|
         node_type.views.each do |view|
           if m = view.node_template.match(name.to_s)
             arr << view

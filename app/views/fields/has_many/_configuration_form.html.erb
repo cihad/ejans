@@ -1,5 +1,3 @@
-<%= simple_check_box f, :filter %>
-
 <%= simple_select f,
-      :parent_node_node_type_id,
+      :child_nodes_node_type_id,
       NodeType.all.map { |nt| [nt.name, nt.id] } %>

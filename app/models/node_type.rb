@@ -99,6 +99,10 @@ class NodeType
     field_configurations.map(&:keyname)
   end
 
+  def machine_names
+    field_configurations.map(&:machine_name)
+  end  
+
   def fill_random!(node_count = 100)
     node_count.times do
       node = Node.new(title: Faker::Lorem.sentence)

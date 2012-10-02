@@ -1,13 +1,18 @@
 module Fields
   class BelongsToFieldConfiguration < FieldConfiguration
     include Ejans::Fields::Filterable
-    belongs_to :belongs_to_node_type, class_name: "NodeType"
+    field :inverse_of, type: Symbol
+    belongs_to :parent_node_node_type, class_name: "NodeType"
+    after_create :create_has_many_field_other_side
+
+    before_destroy :destroy_the_has_many_field_other_side
 
     def set_specifies
-      belongs_to_node_type
-
+      parent_node_node_type
       node_klass.instance_eval <<-EOM
-        belongs_to :#{keyname}, class_name: "#{belongs_to_node_type.node_classify_name}"
+        belongs_to :#{keyname},
+          class_name: "#{parent_node_node_type.node_classify_name}",
+          inverse_of: :#{inverse_of}
       EOM
       
       node_klass.class_eval <<-EOM
@@ -33,6 +38,29 @@ module Fields
     private
     def where
       keyname.to_s + "_id"
+    end
+
+    def create_has_many_field_other_side
+      unless inverse_of
+        conf = parent_node_node_type.
+          field_configurations.
+          create(
+            { inverse_of: keyname,
+              label: node_type.name,
+              child_nodes_node_type: self },
+            HasManyFieldConfiguration
+          )
+        self.inverse_of = conf.keyname
+        self.save
+      end
+    end
+
+    def destroy_the_has_many_field_other_side
+      parent_node_node_type.
+        field_configurations.
+        select { |conf| conf.keyname == inverse_of }.
+        first.
+        destroy
     end
   end
 end

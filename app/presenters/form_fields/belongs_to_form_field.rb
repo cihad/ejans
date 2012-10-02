@@ -4,12 +4,12 @@ module FormFields
       :"#{super}_id"
     end
 
-    def belongs_to_node_type
-      conf.belongs_to_node_type
+    def parent_node_node_type
+      conf.parent_node_node_type
     end
 
     def nodes
-      belongs_to_node_type.nodes
+      parent_node_node_type.nodes
     end
   end
 end

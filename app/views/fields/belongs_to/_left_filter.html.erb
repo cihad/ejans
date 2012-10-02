@@ -1,7 +1,7 @@
 <%= select_tag  field.machine_name,
                 options_for_select(
                   field.
-                    belongs_to_node_type.
+                    parent_node_node_type.
                     nodes.
                     published.
                     inject({}) do |hash, node|
@@ -17,6 +17,5 @@
       noneSelectedText: '<%= field.label %>',
       header: false,
       selectedList: 2,
-      minWidth: 200,
     }).multiselectfilter();
 <% end %>
