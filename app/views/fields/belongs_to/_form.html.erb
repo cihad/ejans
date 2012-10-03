@@ -4,7 +4,7 @@
     <%= content_tag :span, "*", class: "required" if field.required? %>
   <% end %>
   <%= form_value_layout do %>
-    <%= field.f.select field.form_key, field.nodes.published.map { |n| [n.title, n.id] } %>
+    <%= field.f.select field.form_key, field.options_for_select %>
     <%= field.help_text %>
   <% end %>
 <% end %>

@@ -11,5 +11,11 @@ module FormFields
     def nodes
       parent_node_node_type.nodes
     end
+
+    def options_for_select
+      options_for_select = nodes.published.map { |n| [n.title, n.id] }
+      options_for_select.unshift(['', '']) unless required?
+      options_for_select
+    end
   end
 end
