@@ -12,6 +12,14 @@ module Fields
 
     after_save :create_place_view
 
+    def top_place_name
+      top_place.try(:hierarchical_name)
+    end
+
+    def top_place_name=(name)
+      self.top_place = Place.find_by(name: name.split(">")[-1]) if name.present?
+    end
+
     def level_names
       top_place.bottom_level_names.first(level+1)
     end

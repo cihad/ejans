@@ -53,6 +53,14 @@ class Place
     hierarchy_names[hierarchy_names.index(level_name)..-1].map { |r| r.parameterize }
   end
 
+  def self.world
+    root
+  end
+
+  def hierarchical_name
+    ancestors.map(&:name).push(name).join(' > ')
+  end
+
   def childs=(text)
     text.split("\r\n").each do |name|
       unless name.blank?

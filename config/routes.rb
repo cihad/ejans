@@ -54,6 +54,8 @@ Ejans::Application.routes.draw do
     end
   end
 
-  resources :places
+  resources :places do
+    get :find_by_name, on: :collection
+  end
   resources :categories
 end

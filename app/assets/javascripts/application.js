@@ -28,6 +28,7 @@
 //= require bootstrap-tooltip
 //= require bootstrap-tab
 //= require bootstrap-popover
+//= require bootstrap-typeahead
 //= require jquery-plugins/jquery.maxlength
 //= require jquery-plugins/jquery.multiselect
 //= require jquery-plugins/jquery.formoption
@@ -35,6 +36,7 @@
 //= require jquery-plugins/jquery.tablesorter
 //= require tinymce-jquery
 //= require geolocation
+//= require field_configurations
 //= require not_found
 //= require image
 //= require modernizr.custom

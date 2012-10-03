@@ -49,4 +49,9 @@ class PlacesController < ApplicationController
 
     end
   end
+
+  def find_by_name
+    @places = Place.fulltext_search(params[:query])
+    render json: @places.map(&:hierarchical_name)
+  end
 end

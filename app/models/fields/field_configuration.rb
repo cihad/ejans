@@ -27,7 +27,7 @@ module Fields
     delegate :node_classify_name, to: :node_type
 
     before_save :set_conf_name
-    before_destroy :if_matching_view_data
+    # before_destroy :if_matching_view_data
 
     class << self
       define_method(:filterable?) do

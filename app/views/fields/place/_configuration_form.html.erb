@@ -4,8 +4,14 @@
 
 <%= simple_number_field f, :level %>
 
-<%= simple_select f,
-      :top_place,
-      Place.roots.map { |p| [p.name, p.id] } %>
+<%= simple_text_field f,
+      :top_place_name,
+      input: { 
+        data: 
+          { provide: "typeahead",
+            source_url: find_by_name_places_path 
+          },
+        autocomplete: "off"
+        } %>
 
 <%= simple_check_box f, :place_page_list %>
