@@ -6,7 +6,9 @@
   <%= form_value_layout do %>
     <%= field.f.number_field  field.form_key,
                               class: "input-xlarge",
-                              placeholder: "#{field.placeholder}" %>
+                              placeholder: "#{field.placeholder}",
+                              min: field.minimum,
+                              max: field.maximum %>
     <%= field.suffix %>
     
     <%= field.help_text %>
