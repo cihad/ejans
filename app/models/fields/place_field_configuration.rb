@@ -17,7 +17,7 @@ module Fields
     end
 
     def top_place_name=(name)
-      self.top_place = Place.find_by(name: name.split(">")[-1]) if name.present?
+      self.top_place = Place.find_by(name: name.split(">").map(&:strip)[-1]) if name.present?
     end
 
     def level_names
