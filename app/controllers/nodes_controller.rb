@@ -16,10 +16,14 @@ class NodesController < ApplicationController
   end
 
   def new
-    unless user_signed_in? and @node = current_user.unpublished_nodes(@node_type).first
-      @node = @node_type.node_classify_name.safe_constantize.new(node_type: @node_type, author: current_user)
-      @node.save(validate: false)
+    if user_signed_in? and @node = current_user.unpublished_nodes(@node_type).first
+      @node.destroy
     end
+    @node = @node_type.
+              node_classify_name.
+              safe_constantize.
+              new(node_type: @node_type, author: current_user)
+    @node.save(validate: false)
   end
 
   def edit
