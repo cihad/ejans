@@ -72,7 +72,7 @@ $(function() {
         <h4>Onay bekleyen nodeler <span class="label label-info">p:true, a:false</span></h4>
       </div>
       <div class="caption">
-        <table class="table" width="100%">
+        <table class="table approved" width="100%">
           <% @node_type.nodes.approved_queue.each do |n| %>
             <tr>
               <td><%= link_to n.title, node_type_node_path(@node_type, n), remote: true %></td>

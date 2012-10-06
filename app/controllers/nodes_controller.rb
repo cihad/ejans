@@ -16,10 +16,13 @@ class NodesController < ApplicationController
   end
 
   def new
-    if user_signed_in? and @node = current_user.unpublished_nodes(@node_type).first
+    if  user_signed_in? and 
+        @node = current_user.unpublished_nodes(@node_type).first and
+        !@node.try(:valid?)
       @node.destroy
+      @node = nil
     end
-    @node = @node_type.
+    @node ||= @node_type.
               node_classify_name.
               safe_constantize.
               new(node_type: @node_type, author: current_user)
