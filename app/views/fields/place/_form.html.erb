@@ -3,32 +3,21 @@
     <%= field.f.label field.form_key, field.label %>
     <%= content_tag :span, "*", class: "required" if field.required? %>
   <% end %>
-  <%= form_value_layout do %>
+  <%= form_value_layout class: "multiple-places" do %>
     <% javascript 'jquery-plugins/jquery.chained' %>
-    <% tree = field.tree %>
-    <% name = (field.f.collection_select field.place_ids_name, tree.first, :id, :name, {}).split("name=\"").last.split("\"").first + "[]" %>
-    <% tree.each_with_index do |level, i| %>
-      <p>
-        <select id="place_<%= field.conf.id %>_<%= i %>" name="<%= name %>">
-          <option value="">
-            <%= field.form_level_names[i] %>
-          </option>
-          <% level.each do |place| %>
-            <option value="<%= place.id %>"
-                    class="<%= place.parent_id unless i == 0 %>"
-                    <%= "selected" if field.value.include? place %>>
-              <%= place.name %>
-            </option>
-          <% end %>
-        </select>
-      </p>
-    <% end %>
-    <%= field.help_text %>
-    <%= javascript_tag do %>
-      <% (tree.count - 1).times do |i| %>
-        $("#place_<%= field.conf.id %>_<%= i+1 %>").chained("#place_<%= field.conf.id %>_<%= i %>");
+    <% field.build_place %>
+
+    <div class="places">
+      <%= field.f.fields_for field.form_key do |builder| %>
+        <%= render 'fields/place/place_item', field: field, builder: builder %>
       <% end %>
+    </div>
+
+    <%= javascript_tag do %>
+      $(function() { $('fieldset').treeSelect(); });
     <% end %>
-    
+
+    <%= field.link_to_add_place if field.multiselect? %> 
+    <%= field.help_text %>
   <% end %>
 <% end %>

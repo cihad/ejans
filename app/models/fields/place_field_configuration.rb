@@ -6,11 +6,13 @@ module Fields
     validates :level, numericality: { greater_than_or_equal_to: 1 }
     
     field :place_page_list, type: Boolean, default: false
+    field :multiselect, type: Boolean, default: false
 
     belongs_to :top_place, class_name: "Place"
     validates :top_place, presence: true
 
     after_save :create_place_view
+
 
     def top_place_name
       top_place.try(:hierarchical_name)
@@ -44,8 +46,8 @@ module Fields
       level.times do |i|
         prm = params[form_machine_names[-(i+1)]]
         if prm.present?
-          place_id = Place.find(prm).id
-          @query = NodeQuery.new.in(:"#{where}" => [place_id])
+          place_id = Moped::BSON::ObjectId(prm)
+          @query = NodeQuery.new.in(where => [place_id])
           break
         else
           @query = NodeQuery.new
@@ -56,7 +58,9 @@ module Fields
 
     def set_specifies
       node_klass.instance_eval <<-EOM
-        has_and_belongs_to_many :#{keyname}, class_name: "Place", inverse_of: nil
+        embeds_many :#{keyname}, class_name: "Fields::MultiplePlace"
+        accepts_nested_attributes_for :#{keyname},
+          allow_destroy: true
 
         validate :#{keyname}_presence_value
         validate :#{keyname}_out_level
@@ -89,7 +93,7 @@ module Fields
 
     private
     def where
-      "#{keyname}_ids"
+      :"#{keyname}.place_ids"
     end
 
     def create_place_view

@@ -1,0 +1,21 @@
+<fieldset class="place-select">
+  <% name = (builder.collection_select :place_ids, field.tree.first, :id, :name, {}).split("name=\"").last.split("\"").first + "[]" %>
+  <% field.tree.each_with_index do |level, i| %>
+    <p>
+      <select id="place_<%= builder.object.id %>_<%= i %>" name="<%= name %>">
+        <option value=""></option>
+        <% level.each do |place| %>
+          <option value="<%= place.id %>"
+                  class="<%= place.parent_id unless i == 0 %>"
+                  <%= "selected" if builder.object.places.include? place %>>
+            <%= place.name %>
+          </option>
+        <% end %>
+      </select>
+      <% if i == field.tree.size - 1 %>
+        <%= builder.hidden_field :_destroy %>
+        <%= field.link_to_remove_place if field.multiselect? %>
+      <% end %>
+    </p>
+  <% end %>
+</fieldset>

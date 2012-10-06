@@ -15,7 +15,7 @@ module Views
 
     def node_template
       if user_input_node_template.blank?
-        %q{<h3><%= node_title %></h3>}
+        %q{<h3><%= node.title %></h3>}
       else
         user_input_node_template
       end

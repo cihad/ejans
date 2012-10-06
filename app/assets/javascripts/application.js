@@ -37,6 +37,8 @@
 //= require tinymce-jquery
 //= require geolocation
 //= require field_configurations
+//= require chained_select
+//= require places
 //= require not_found
 //= require image
 //= require modernizr.custom
