@@ -62,6 +62,12 @@ module Fields
         accepts_nested_attributes_for :#{keyname},
           allow_destroy: true
 
+        before_validation do
+          #{keyname}.each do |place|
+            place.delete if place.place_ids.size == 0
+          end
+        end
+
         validate :#{keyname}_presence_value
         validate :#{keyname}_out_level
       EOM
@@ -74,7 +80,7 @@ module Fields
         private
         
         def #{keyname}_presence_value
-          if #{required?} and #{keyname}.size != #{level}
+          if #{required?} and #{keyname}.size == 0
             errors.add(:#{keyname}, "bos birakilamaz.")
           end
         end
@@ -102,6 +108,14 @@ module Fields
       elsif place_page_list_changed? and !place_page_list
         node_type.place_page_view.try(:destroy)
       end
+    end
+
+    def assign_keyname
+      name_prefix = 0
+      while keynames.include?(name = "#{I18n.with_locale(:en) { name_prefix.to_words }}_places".to_sym)
+        name_prefix = name_prefix.next
+      end
+      name
     end
   end
 end
