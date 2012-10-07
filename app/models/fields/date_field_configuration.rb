@@ -126,7 +126,7 @@ module Fields
         private
 
         def #{keyname}_presence_value
-          if #{required?} and not_defined?
+          if #{required?} and #{keyname}_not_defined?
             errors.add(:#{keyname}, "alani bos birakilamaz.")
           end
         end
