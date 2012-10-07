@@ -13,7 +13,6 @@ module Fields
 
     after_save :create_place_view
 
-
     def top_place_name
       top_place.try(:hierarchical_name)
     end
@@ -58,7 +57,7 @@ module Fields
 
     def set_specifies
       node_klass.instance_eval <<-EOM
-        embeds_many :#{keyname}, class_name: "Fields::MultiplePlace"
+        embeds_many :#{keyname}, class_name: "Fields::Place"
         accepts_nested_attributes_for :#{keyname},
           allow_destroy: true
 

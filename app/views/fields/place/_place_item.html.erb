@@ -7,7 +7,7 @@
         <% level.each do |place| %>
           <option value="<%= place.id %>"
                   class="<%= place.parent_id unless i == 0 %>"
-                  <%= "selected" if builder.object.places.include? place %>>
+                  <%= "selected" if builder.object.place_ids.include? place.id %>>
             <%= place.name %>
           </option>
         <% end %>
