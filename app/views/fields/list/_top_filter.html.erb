@@ -7,5 +7,5 @@
         params["#{field.machine_name}"]),
       multiple: true,
       class: "input-mini #{field.machine_name}" %>
-
-<%= multiselect '.' + field.machine_name %>
+      
+<%= multiselect '.' + field.machine_name.to_s %>
