@@ -21,7 +21,11 @@ module Fields
 
       node_klass.class_eval <<-EOM
         def #{machine_name}
-          #{keyname}
+          begin
+            #{keyname}
+          rescue
+            nil
+          end
         end
         
         private
