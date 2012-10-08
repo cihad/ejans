@@ -4,7 +4,18 @@
     <%= content_tag :span, "*", class: "required" if field.required? %>
   <% end %>
   <%= form_value_layout do %>
-    <%= field.f.select field.form_key, field.options_for_select %>
+    <% if field.can_be_added_only_by_belongs_to_node_author? and
+          field.options_for_select(current_user).blank? %>
+        <div class="alert alert-error">
+          <strong>DİKKAT!</strong> İlk olarak
+          <%= link_to "#{field.parent_node_node_type.name}", node_type_path(field.parent_node_node_type) %>
+          listesine bir node eklemelisiniz. Sonra gelip buradan <%= field.label %>
+          seçebilisiniz.
+        </div>
+    <% else %>
+      <%= field.f.select field.form_key, field.options_for_select(current_user) %>
+    <% end %>
+
     <%= field.help_text %>
   <% end %>
 <% end %>

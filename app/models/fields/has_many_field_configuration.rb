@@ -32,8 +32,8 @@ module Fields
           field_configurations.
           create(
             { inverse_of: keyname,
-              label: node_tpye.name,
-              parent_node_node_type: self },
+              label: node_type.name,
+              parent_node_node_type: node_type },
             BelongsToFieldConfiguration
           )
         self.inverse_of = conf.keyname
