@@ -6,13 +6,6 @@
         end,
         params["#{field.machine_name}"]),
       multiple: true,
-      class: "input-mini multiple-select" %>
+      class: "input-mini #{field.machine_name}" %>
 
-<%= javascript_tag do %>
-    $(".multiple-select").multiselect({
-      noneSelectedText: 'Select',
-      header: false,
-      selectedList: 2,
-      minWidth: 120,
-    }).multiselectfilter();
-<% end %>
+<%= multiselect '.' + field.machine_name %>

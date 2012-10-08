@@ -18,9 +18,12 @@
                                     :name,
                                     {},
                                     multiple: true,
-                                    include_blank: (field.required? ? false : true) %>
+                                    include_blank: (field.required? ? false : true),
+                                    class: field.machine_name %>
+      <%= multiselect "." + field.machine_name %>
     <% end %>
-    
+
     <%= field.help_text %>
+    
   <% end %>
 <% end %>

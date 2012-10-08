@@ -27,4 +27,15 @@ module FieldsHelper
     name.pop(2)
     name.join(' ')
   end
+
+  def multiselect(selector, label = "Seciniz")
+    javascript_tag <<-EOM
+      $('#{selector}').multiselect({
+        noneSelectedText: '#{label}',
+        header: false,
+        selectedList: 2,
+        minWidth: 200,
+      });
+    EOM
+  end
 end

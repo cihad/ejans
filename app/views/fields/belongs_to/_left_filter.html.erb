@@ -10,12 +10,6 @@
                   params[field.machine_name]
                 ),
                 multiple: true,
-                class: "#{field.machine_name}_multiple-select" %>
+                class: field.machine_name %>
 
-<%= javascript_tag do %>
-    $(".<%= field.machine_name %>_multiple-select").multiselect({
-      noneSelectedText: '<%= field.label %>',
-      header: false,
-      selectedList: 2,
-    }).multiselectfilter();
-<% end %>
+<%= multiselect '.' + field.machine_name %>

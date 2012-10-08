@@ -1,13 +1,6 @@
 <%= select_tag  field.machine_name,
                 options_for_select(field.list_items.inject({}) { |hash, item| hash[item.name] = item.id; hash }, params["#{field.machine_name}"]),
                 multiple: true,
-                class: "#{field.machine_name}_multiple-select" %>
+                class: field.machine_name %>
 
-<%= javascript_tag do %>
-    $(".<%= field.machine_name %>_multiple-select").multiselect({
-      noneSelectedText: '<%= field.label %>',
-      header: false,
-      selectedList: 2,
-      minWidth: 200,
-    }).multiselectfilter();
-<% end %>
+<%= multiselect '.' + field.machine_name %>

@@ -28,6 +28,10 @@ module FormFields
       conf.label
     end
 
+    def machine_name
+      conf.machine_name
+    end
+
     def required?
       conf.required
     end
