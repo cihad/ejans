@@ -17,6 +17,8 @@ class Place
 
   field :hierarchy, type: String
 
+  default_scope order_by([:name, :asc])
+
   def level
     ancestors.size
   end
