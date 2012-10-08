@@ -97,6 +97,8 @@ $(function() {
     }
   });
 
+  $('a[rel=tooltip]').tooltip();
+
   $("input[type=submit]").filter($('[rel=popover]')).popover({
     placement: 'top',
     trigger: 'hover',

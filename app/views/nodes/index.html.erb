@@ -5,9 +5,10 @@
     <div class="node-type-header">
       <%= link_to new_node_type_node_path(@node_type),
                   class: "btn btn-success btn-new-node",
-                  rel: "popover",
+                  rel: "tooltip",
                   data: {
-                    content: "Ücretsiz ve üyelik gerektirmez. Sadece email adresiniz yeterli."
+                    placement: "bottom",
+                    original_title: "Ücretsiz ve üyelik gerektirmez. Sadece email adresiniz yeterli."
                   } do %>
         <%= content_tag :i, nil, class: "icon-plus icon-white" %>
         add new node
