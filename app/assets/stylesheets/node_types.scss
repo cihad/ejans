@@ -1,13 +1,16 @@
 .node-type-nodes {
   .page_title {
-    font-size: 26px;
-    line-height: 26px;
+    font-size: 22px;
+    line-height: 28px;
     margin: 0;
   }
 
   .node-type-header {
-    margin: 0 -30px;
-    padding: 0 30px 20px;
+    margin: -21px -30px 5px;
+    padding: 20px 30px 20px;
+    @include border-radius(3px 3px 0 0);
+    background: #262626;
+    color: #fafafa;
 
     .btn-new-node {
       float: right;
