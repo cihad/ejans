@@ -8,10 +8,10 @@
     <% case field.widget_type %>
     <% when :radio_buttons %>
       <label class="radio inline">
-        <%= radio_button_tag "node[#{field.form_key}]", "1", @node.send("#{field.form_key}?") %> <%= field.on_value %>
+        <%= field.f.radio_button field.form_key, "true" %> <%= field.on_value %>
       </label>
       <label class="radio inline">
-        <%= radio_button_tag "node[#{field.form_key}]", "0", !@node.send("#{field.form_key}?") %> <%= field.off_value %>
+        <%= field.f.radio_button field.form_key, "false" %> <%= field.off_value %>
       </label>
 
     <% when :single_on_off %>
