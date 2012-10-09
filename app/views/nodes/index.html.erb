@@ -27,14 +27,16 @@
 
 <% if @node_type.filters_position == :left %>
   <div class="row">
-    <div class="span3">
-      <div class="controls">
-        <h3 class="control-title">filters</h3>
+    <% unless @node_type.filters.blank? %>
+      <div class="span3">
+        <div class="controls">
+          <h3 class="control-title">filters</h3>
+        </div>
+        <%= render 'nodes/filters_left_side/filter_form' %>
       </div>
-      <%= render 'nodes/filters_left_side/filter_form' %>
-    </div>
+    <% end %>
 
-    <div class="span9">
+    <div class="<%= @node_type.filters.blank? ? "span12" : "span9" %>">
       <div class="controls">
         <div class="right-sided-controls btn-group">
           <%= view.view_links %>
@@ -65,7 +67,7 @@
       <div class="right-sided-controls btn-group">
           <%= view.sort_links %>
       </div>
-      <%= render 'nodes/filters_top_side/filter_form' %>
+      <%= render 'nodes/filters_top_side/filter_form' unless @node_type.filters.blank? %>
     </div>
 
     <div id="nodes" class="span12">
