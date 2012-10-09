@@ -24,7 +24,7 @@ Ejans::Application.routes.draw do
   resources :comments, :only => [:create, :destroy]
 
   # Node Types, Feature Configuration, Views
-  resources :node_types do
+  resources :node_types, path: 'nt' do
     namespace :fields do
       resources :field_configurations do
         post :sort, on: :collection
@@ -43,9 +43,9 @@ Ejans::Application.routes.draw do
       resource :place_page, only: [:edit, :update]
     end
 
-    resources :nodes do
+    resources :nodes, path: 'nd' do
       get :manage, on: :collection
-    end    
+    end
   end
 
   namespace :fields do
