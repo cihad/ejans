@@ -141,9 +141,12 @@ class NodeType
     end
   end
 
+  def node_type_path
+    node_type_nodes_path(self)
+  end
+
   def self_data
-    { :"node_type" => self,
-      :"node_type_path" => node_type_nodes_path(self) }
+    { :"node_type" => self }
   end
 
   def conf_data

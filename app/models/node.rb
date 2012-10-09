@@ -84,9 +84,12 @@ class Node
     self.save
   end
 
+  def node_path
+    node_type_node_path(node_type, self)
+  end
+
   def self_data
-    { :"node"      => self,
-      :"node_path" => node_type_node_path(node_type, self) }
+    { :"node" => self }
   end
 
   def mapping(conf_data)
