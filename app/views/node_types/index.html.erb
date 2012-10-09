@@ -5,14 +5,14 @@
   <thead>
     <tr>
       <th>name</th>
-      <th>yayında</th>
+      <th>nodes</th>
       <th>actions</th>
     </tr>
   </thead>
 
   <% @node_types.each do |nt| %>
     <%= content_tag_for :tr, nt do %>
-      <td><%= link_to nt.name, node_type_path(nt) %></td>
+      <td><%= link_to nt.name, node_type_nodes_path(nt) %></td>
       <td><%= nt.nodes.publishing.size %> node</td>
       <td><%= render 'actions', node_type: nt  %></td>
     <% end %>

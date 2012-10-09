@@ -1,5 +1,5 @@
 Ejans::Application.routes.draw do
-  root :to => 'home#index'
+  root :to => 'node_types#index'
   match "/404", :to => "errors#not_found"
   get "home/index"
 
