@@ -1,4 +1,4 @@
-<%= form_for @node_type do |f| %>
+<%= form_for @node_type, html: { multipart: true } do |f| %>
   <table class="table table-form">
     <%= simple_text_field f, :name %>
     <%= simple_text_field f, :title_label %>
@@ -14,6 +14,22 @@
       <% end %>
       <%= f.text_field  :administrator_username_or_email,
                         placeholder: "Username or Email" %>
+    <% end %>
+
+    <%= form_item_layout do %>
+      <%= form_label_layout do %>
+        <%= f.label :background_image %>
+      <% end %>
+      <%= form_value_layout do %>
+        <p><%= image_tag(@node_type.background_image_url) if @node_type.background_image? %></p>
+        <%= f.file_field :background_image %>
+
+        <p>
+          <label class="checkbox">
+            <%= f.check_box :remove_background_image %>
+            Remove image
+          </label>
+      <% end %>
     <% end %>
 
     <%= simple_submit f %>

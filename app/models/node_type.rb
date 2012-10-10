@@ -5,6 +5,8 @@ class NodeType
 
   attr_accessor :administrator_username_or_email
 
+  mount_uploader :background_image, BackgroundImageUploader
+
   field :name, type: String
   validates :name, presence: true
 

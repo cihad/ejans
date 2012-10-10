@@ -6,8 +6,8 @@
   }
 
   .node-type-header {
-    margin: -21px -30px 5px;
-    padding: 20px 30px 20px;
+    margin: -21px -31px 5px;
+    padding: 21px 31px 20px;
     @include border-radius(3px 3px 0 0);
     background: #262626;
     color: #fafafa;
@@ -51,8 +51,8 @@
 }
 
 .node-type-manage ul.nav-controller {
-  margin: -21px -30px 20px;
-  padding: 20px 30px 0;
+  margin: -21px -31px 20px;
+  padding: 21px 31px 0;
   background: $headerbg;
   @include border-radius(3px 3px 0 0)
 }
