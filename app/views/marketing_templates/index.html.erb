@@ -1,0 +1,39 @@
+<% provide :body_class, "node-type-manage" %>
+<%= node_type_navigation %>
+
+<%= error_messages_for @fc if @fc %>
+
+<table class="table table-striped sortable">
+  <thead>
+    <tr>
+      <th>Title</th>
+    </tr>
+  </thead>
+  
+  <tbody>
+    <% @marketing_templates.each do |marketing_template| %>
+      <tr>
+        <td><%= link_to marketing_template.title, node_type_marketing_template_path(@node_type, marketing_template) %></td>
+        <td>
+          <%= link_to t('global.edit'), edit_node_type_marketing_template_path(@node_type, marketing_template) %>
+          <%= link_to t('global.destroy'), node_type_marketing_template_path(@node_type, marketing_template),
+                confirm: "Are you sure?",
+                method: :delete %>
+        </td>
+      </tr>
+    <% end %>
+
+  </tbody>
+
+
+  <%= form_for [@node_type, @node_type.marketing_templates.build],
+        url: new_node_type_marketing_template_path,
+        method: :get  do |f| %>
+    <tr>
+      <td><%= f.text_field :title, placeholder: "Title" %></td>
+      <td><%= f.submit "New Template" %></td>
+    </tr>
+  <% end %>
+</table>
+
+<%= node_type_background %>

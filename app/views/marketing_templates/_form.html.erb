@@ -1,0 +1,23 @@
+<%= javascript 'aceajax/ace.js' %>
+
+<%= form_for [@node_type, @marketing_template] do |f| %>
+  <table class="table table-form">
+    <%= simple_text_field f, :title %>
+    <%= simple_text_field f, :subject %>
+
+    <%= form_item_layout do %>
+      <%= form_label_layout do %>
+        <%= f.label :template %>
+      <% end %>
+
+      <%= form_value_layout do %>
+        <%= f.text_area :template, rows: 5, class: "span6" %>
+        <div style="height: 300px"><div id="template_editor" class="span7" style="height: 300px;"></div></div>
+        <%= ace_editor f, :template %>
+      <% end %>
+    <% end %>
+
+
+    <%= simple_submit f, nil, input: { class: "btn" } %>
+  </table>
+<% end %>

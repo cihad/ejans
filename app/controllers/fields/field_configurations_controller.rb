@@ -62,10 +62,10 @@ module Fields
     end
 
     def must_be_an_administrator
-    unless @node_type.administrators.include?(current_user)
-      redirect_to node_type_nodes_path(@node_type),
-                  alert: "Bunu goruntulemeye yetkilisi degilsiniz."
+      unless @node_type.administrators.include?(current_user)
+        redirect_to node_type_nodes_path(@node_type),
+                    alert: "Bunu goruntulemeye yetkilisi degilsiniz."
+      end
     end
-  end
   end
 end

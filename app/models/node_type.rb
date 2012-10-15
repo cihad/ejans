@@ -26,6 +26,9 @@ class NodeType
   embeds_one :place_page_view, class_name: "Views::PlacePage"
   embeds_many :views, class_name: "Views::View"
 
+  embeds_many :marketing_templates
+  embeds_many :marketing
+  has_and_belongs_to_many :potential_users
   has_and_belongs_to_many :administrators,
                           class_name: "User",
                           inverse_of: :managed_node_types
@@ -37,6 +40,7 @@ class NodeType
   after_initialize { load_node_class if name }
 
   after_save :update_node_type_class
+
 
   def self.unpublish_expired_nodes!
     all.each do |node_type|
@@ -103,18 +107,17 @@ class NodeType
 
   def machine_names
     field_configurations.map(&:machine_name)
-  end  
-
-  def fill_random!(node_count = 100)
-    node_count.times do
-      node = Node.new(title: Faker::Lorem.sentence)
-      node.save(validate: false)
-      node.node_type = self
-      node.fields.each { |f| f.fill_random! }
-      node.save(validates: false)
-    end
   end
 
+  def potential_users=(emails)
+    emails.split("\n").each do |email|
+      email.strip!
+      if potential_user = PotentialUser.find_or_create_by(email: email)
+        potential_users << potential_user unless potential_users.include?(potential_user)
+      end
+    end
+  end
+  
   def build_configuration(params)
     type = params[:_type].safe_constantize
     if Fields::FieldConfiguration.subclasses.include?(type)

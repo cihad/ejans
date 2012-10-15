@@ -26,6 +26,17 @@
   <% end %>
 <% end %>
 
+<%= dropdown_tab "Marketing" do %>
+  <%= tab_item "Marketing templates", node_type_marketing_templates_path(@node_type) %>
+  <%= tab_item "New Marketing", new_node_type_marketing_path(@node_type) %>
+  <%= tab_item "Potential Users", node_type_potential_users_path(@node_type) %>
+  <%= tab_item "New Potential Users", new_node_type_potential_user_path(@node_type) %>
+  <%= content_tag :li, nil, class: "divider" %>
+  <% @node_type.marketing_templates.each do |marketing_template| %>
+    <%= tab_item marketing_template.title, node_type_marketing_template_path(@node_type, marketing_template) unless marketing_template.new_record? %>
+  <% end %>
+<% end %>
+
 <%= dropdown_tab "Nodes" do %>
   <%= tab_item "Public Nodes Page", node_type_nodes_path(@node_type) %>
   <%= tab_item "Manage all nodes", manage_node_type_nodes_path(@node_type) %>

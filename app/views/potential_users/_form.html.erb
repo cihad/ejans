@@ -1,0 +1,8 @@
+<%= form_for :potential_users, url: node_type_potential_users_path(@node_type) do |f| %>  
+  <table class="table table-form">
+    <%= simple_text_field f, :tag %>
+    <%= simple_text_area f, :emails, input: { rows: 20 } %>
+    <%= hidden_field_tag "potential_users[node_type_id]", @node_type.id %>
+    <%= simple_submit f %>
+  </table>
+<% end %>

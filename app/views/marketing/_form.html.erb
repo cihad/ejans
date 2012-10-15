@@ -1,0 +1,26 @@
+<%= form_for [@node_type, @marketing] do |f| %>
+  <table class="table table-form">
+
+    <%= simple_select f,
+          :marketing_template_id,
+          @node_type.marketing_templates.map { |tmp| [tmp.title, tmp.id] } %>
+
+    <%= form_item_layout do %>
+      <%= form_label_layout do %>
+        <%= label_tag "Potential users" %>
+      <% end %>
+
+      <%= form_value_layout do %>
+
+        <% @node_type.potential_users.each do |user| %>
+          <label class="checkbox">
+            <%= check_box_tag "marketing[potential_user_ids][]", user.id %>
+            <%= user.email %>
+          </label>  
+        <% end %>
+      <% end %>
+    <% end %>
+
+    <%= simple_submit f %>
+  </table>
+<% end %>

@@ -1,0 +1,45 @@
+<tr>
+  <td class="w640" width="640">
+    <table id="footer" class="w640" width="640" cellpadding="0" cellspacing="0" border="0" bgcolor="#425470">
+        <tbody>
+          <% unless local_assigns[:permission_reminder].nil? or local_assigns[:street_address].nil? %>
+            <tr>
+              <td class="w30" width="30"></td>
+              <td class="w580 h0" width="360" height="30"></td>
+              <td class="w0" width="60"></td>
+              <td class="w0" width="160"></td><td class="w30" width="30"></td>
+            </tr>
+          <% end %>
+          <tr>
+            <td class="w30" width="30"></td>
+            <td class="w580" width="360" valign="top">
+              <span class="hide">
+                <p id="permission-reminder" align="left" class="footer-content-left">
+                  <%= permission_reminder unless local_assigns[:permission_reminder].nil?  %>
+                </p>
+              </span>
+              <p align="left" class="footer-content-left">
+                  <a href="http://ejansblog.blogspot.com">Blog</a> &nbsp;|&nbsp;
+                  <a href="#">Hakkımızda</a> &nbsp;|&nbsp;
+                  <a href="#">İletişim</a>
+              </p>
+            </td>
+            <td class="hide w0" width="60"></td>
+            <td class="hide w0" width="160" valign="top">
+              <p id="street-address" align="right" class="footer-content-right">
+                <%= street_address unless local_assigns[:street_address].nil?  %>
+              </p>
+            </td>
+            <td class="w30" width="30"></td>
+        </tr>
+        <!-- <tr>
+          <td class="w30" width="30"></td>
+          <td class="w580 h0" width="360" height="15"></td>
+          <td class="w0" width="60"></td>
+          <td class="w0" width="160"></td>
+          <td class="w30" width="30"></td>
+        </tr> -->
+      </tbody>
+    </table>
+  </td>
+</tr>

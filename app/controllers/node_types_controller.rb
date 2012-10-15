@@ -4,6 +4,8 @@ class NodeTypesController < ApplicationController
   before_filter :must_be_an_administrator, only: [:show, :edit, :update]
   before_filter :admin_user, only: [:index, :new]
 
+  # layout "mail"
+
   def index
     @node_types = NodeType.
                     includes(:nodes).
