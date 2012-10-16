@@ -17,7 +17,8 @@ module Fields
     embedded_in :node_type
     delegate :keynames, :machine_names, to: :node_type
 
-    validate :same_label_name, on: :create
+    validate :same_label_name
+    validate :label_couldnt_destructive_fields
     after_destroy :destroy_fields_from_nodes
 
     before_validation do
@@ -114,7 +115,13 @@ module Fields
 
     def same_label_name
       if new_record? and node_type.field_configurations.select { |conf| !conf.new_record? }.map(&:label).include?(label)
-        errors.add(:base, "Daha onceden eklenen bir label var. Ayni label 2 defa eklenemez.")
+        errors.add(:label, "Daha onceden eklenen bir label var. Ayni label 2 defa eklenemez.")
+      end
+    end
+
+    def label_couldnt_destructive_fields
+      if Mongoid.destructive_fields.include?(machine_name.to_sym)
+        errors.add(:label, "Bu label reserve edilmis. Lutfen alternatif baska bir tane deneyiniz.")
       end
     end
 
@@ -132,7 +139,10 @@ module Fields
 
     def destroy_fields_from_nodes
       node_type.nodes.each do |node|
-        node.send("#{keyname}=", nil)
+        begin
+          node.send("#{keyname}=", nil)
+        rescue
+        end
       end
     end
 
