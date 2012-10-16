@@ -1,5 +1,6 @@
 <%= user_navigation %>
 <% provide :title, "#{@user.username}<#{@user.email}>".html_safe %>
+<% body_class "user-manage" %>
 
 
 <h3>Yayında olan node'ler</h3>
@@ -12,7 +13,6 @@
     </tr>
   <% end -%>
 </table>
-
 
 <h3>Yayında olmayan node'ler</h3>
 <table class="table table-striped">

@@ -25,7 +25,7 @@ class NodesController < ApplicationController
     @node ||= @node_type.
               node_classify_name.
               safe_constantize.
-              new(node_type: @node_type, author: current_user)
+              new(node_type_id: @node_type.id, author: current_user)
     @node.save(validate: false)
   end
 

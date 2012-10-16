@@ -50,7 +50,8 @@
   }
 }
 
-.node-type-manage ul.nav-controller {
+.node-type-manage ul.nav-controller,
+.user-manage ul.nav-controller {
   margin: -21px -31px 20px;
   padding: 21px 31px 0;
   background: $headerbg;
