@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!, 
                 only: [:edit, :update, :destroy]
-  before_filter :correct_user, only: [:edit, :update]
+  before_filter :correct_user, only: [:show, :edit, :update]
   skip_before_filter :username_is_nil, only: [:edit]
 
   layout 'small', only: [:new]

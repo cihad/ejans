@@ -27,7 +27,7 @@ class Node
   # Scopes
   scope :approved_queue, where(published: true, approved: false)
   scope :published, where(published: true)
-  scope :unpublished, where(published: false)
+  scope :unpublished, where(published: false).exists(title: true)
   scope :publishing, where(published: true, approved: true)
   scope :time_ago_updated, ->(time) { where(:updated_at.lt => time) }
   scope :blank_nodes_by_anon, where(title: nil).and(author: nil)
@@ -82,6 +82,10 @@ class Node
     self.published = false
     self.approved = false
     self.save
+  end
+
+  def saved?
+    !!self.title.blank?
   end
 
   def node_path
