@@ -1,7 +1,7 @@
 class MarketingTemplatesController < ApplicationController
   before_filter :node_type
-  before_filter :authenticate_user!
-  before_filter :must_be_an_administrator
+  before_filter :authenticate_user!, except: [:show]
+  before_filter :must_be_an_administrator, except: [:show]
   layout "mail", only: [:show]
 
 
