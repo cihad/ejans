@@ -19,7 +19,7 @@ class NodeType
   field :commentable, type: Boolean
   field :node_expiration_day_limit, type: Integer, default: 0
 
-  has_many :nodes
+  has_many :nodes, dependent: :destroy
   embeds_many :field_configurations,
     class_name: "Fields::FieldConfiguration"
   embeds_one :node_view, class_name: "Views::Node"
