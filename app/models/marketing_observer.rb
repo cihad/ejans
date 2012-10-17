@@ -3,7 +3,7 @@ class MarketingObserver < Mongoid::Observer
     marketing_template = marketing.marketing_template
 
     marketing.potential_users.each do |potential_user|
-      NodeTypeMailer.invitation(marketing_template, potential_user).deliver
+      NodeTypeMailer.notify(marketing_template, potential_user).deliver
     end
   end
 end
