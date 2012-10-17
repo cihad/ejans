@@ -33,11 +33,12 @@
         <%= recaptcha_tags display: { theme: 'clean' } %>
       <% end %>
     <% end %>
-
+    <% binding.pry %>
     <%= checkbox_group nil do %>
       <%= f.submit  "Save", 
                     class: "btn",
                     rel: "popover",
+                    name: "#{@node_type.node_classify_name.underscore.parameterize("_") }[save_no_validate]",
                     data: {
                       content: "Formu başarılı bir şekilde kaydettiğinizde eklediğin node yayınlanmaz. Yayınlanabilmesi için publish yapmalısız."
                     } %>

@@ -75,6 +75,7 @@ class NodeType
   def set_unpublishing_expired_nodes
     expired_nodes.each do |node|
       node.set_unpublishing
+      node.save
     end
   end
 

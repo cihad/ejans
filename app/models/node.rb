@@ -72,6 +72,18 @@ class Node
     self.approved = true
   end
 
+  def save_no_validate=(submit_value)
+    @save_no_validate = true
+  end
+
+  def save_no_validate?
+    @save_no_validate
+  end
+
+  def statement_save
+    save_no_validate? ? self.save(validate: false) : self.save
+  end
+
   def set_approved
     self.published = true
     self.approved = true
@@ -81,7 +93,6 @@ class Node
   def set_unpublishing
     self.published = false
     self.approved = false
-    self.save
   end
 
   def saved?
