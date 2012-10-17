@@ -62,6 +62,12 @@ class Node
     end
   end
 
+  def save=(submit_value)
+    if published?
+      @save_no_validate = false
+    end
+  end
+
   def publish=(submit_value)
     self.published = true
     self.approved = false
