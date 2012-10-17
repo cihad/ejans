@@ -220,6 +220,8 @@ GEM
       kgio (~> 2.4)
       rack
       raindrops (~> 0.6)
+    warden (1.2.1)
+      rack (>= 1.0)
     whenever (0.7.3)
       activesupport (>= 2.3.4)
       chronic (~> 0.6.3)
@@ -263,4 +265,5 @@ DEPENDENCIES
   tinymce-rails
   uglifier (>= 1.0.3)
   unicorn (= 4.1.1)
+  warden
   whenever

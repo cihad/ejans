@@ -26,6 +26,7 @@ gem 'geocoder'
 gem 'mongoid_fulltext'
 gem 'bootstrap-sass', '~> 2.1.0.0'
 gem 'markerb'
+gem 'warden'
 
 # Groups
 group :assets do

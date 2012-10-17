@@ -1,24 +1,10 @@
 module SessionsHelper
-
-  def sign_in(user)
-    cookies.permanent[:remember_token] = user.remember_token
-    self.current_user = user
+  def current_user
+    warden.user
   end
 
   def user_signed_in?
     !current_user.nil?
-  end
-
-  def current_user=(user)
-    @current_user = user
-  end
-
-  def current_user
-    @current_user ||= begin
-                        User.find_by(remember_token: cookies[:remember_token])
-                      rescue
-                        nil
-                      end
   end
 
   def current_user?(user)
@@ -30,11 +16,6 @@ module SessionsHelper
       store_location
       redirect_to signin_url, notice: "Please sign in."
     end
-  end
-
-  def sign_out
-    current_user = nil
-    cookies.delete(:remember_token)
   end
 
   def redirect_back_or(default)

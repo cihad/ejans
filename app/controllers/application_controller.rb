@@ -11,4 +11,9 @@ class ApplicationController < ActionController::Base
                   alert: "Lutfen kendinize bir username belirleyiniz."
     end
   end
+
+  def warden
+    env['warden']
+  end
+  helper_method :warden
 end

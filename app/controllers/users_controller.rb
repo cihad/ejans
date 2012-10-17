@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   before_filter :correct_user, only: [:show, :edit, :update]
   skip_before_filter :username_is_nil, only: [:edit]
 
-  layout 'small', only: [:new]
+  layout 'small', only: [:new, :create]
 
   def index
     @users = User.all
@@ -25,8 +25,7 @@ class UsersController < ApplicationController
       UserMailer.first_sign_in(User.find_by(email: @user.email)).deliver
       redirect_to signin_path, notice: @user.errors.messages[:already_sign_up].first
     elsif @user.save
-      sign_in @user
-      flash[:success] = "Welcome to the Sample App!"
+      warden.set_user(@user)
       redirect_to @user
     else
       render 'new'
