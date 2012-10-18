@@ -4,9 +4,13 @@
   <% tree.each_with_index do |level, i| %>
     <td>
       <select id="<%= i %>" name="<%= field.form_machine_names[i] %>" class="span2">
-        <option value=""><%= field.form_level_names[i] %></option>
+        <option value="">--</option>
         <% level.each do |place| %>
-          <option value="<%= place.id %>" class="<%= place.parent_id unless i == 0 %>" <%= "selected" if place.id.to_s == params["#{field.form_machine_names[i]}"] %>><%= place.name %></option>
+          <option value="<%= place.id %>" 
+                  class="<%= place.parent_id unless i == 0 %>"
+                  <%= "selected" if place.id.to_s == params["#{field.form_machine_names[i]}"] %>>
+            <%= place.name %>
+          </option>
         <% end %>
       </select>
     </td>

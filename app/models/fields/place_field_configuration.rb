@@ -21,24 +21,8 @@ module Fields
       self.top_place = ::Place.find_by(name: name.split(">").map(&:strip)[-1]) if name.present?
     end
 
-    def level_names
-      top_place.bottom_level_names.first(level+1)
-    end
-
-    def level_machine_names
-      top_place.bottom_level_machine_names.first(level+1)
-    end
-
-    def form_level_names
-      names = level_names
-      names.shift
-      names
-    end
-
     def form_machine_names
-      names = level_machine_names
-      names.shift
-      names.map { |name| "#{machine_name}_#{name}" }
+      level.times.map { |i| "#{machine_name}_#{i}" }
     end
 
     def filter_query(params = {})

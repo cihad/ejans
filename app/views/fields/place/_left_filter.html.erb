@@ -3,9 +3,7 @@
   <select id="place_<%= field.conf.id %>_<%= i %>"
           name="<%= field.form_machine_names[i] %>"
           class="span2 single-input">
-    <option value="">
-      <%= field.form_level_names[i] %>
-    </option>
+    <option value="">--</option>
     <% level.each do |place| %>
       <option value="<%= place.id %>"
               class="<%= place.parent.id unless i == 0 %>"

@@ -1,19 +1,11 @@
 module FieldFilters
   class PlaceFieldFilter < Filter
-    def level_machine_names
-      conf.level_machine_names
-    end
-
-    def form_level_names
-      conf.form_level_names
-    end
-
     def form_machine_names
-      conf.form_machine_names
+      level.times.map { |i| "#{machine_name}_#{i}"  }
     end
 
     def level
-      conf.level
+      @level ||= conf.level
     end
 
     def tree

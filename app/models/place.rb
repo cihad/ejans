@@ -15,8 +15,6 @@ class Place
   after_validation :geocode, if: :name_changed?
   fulltext_search_in :name
 
-  field :hierarchy, type: String
-
   default_scope order_by([:name, :asc])
 
   def level
@@ -25,34 +23,6 @@ class Place
 
   def level_by_place(place)
     level - place.level
-  end
-
-  # ["Sehir", "Ilce", "Mahalle"]
-  def hierarchy_names
-    root.hierarchy.split(',').map { |r| r.strip }
-  end
-
-  # ["sehir", "ilce", "mahalle"]
-  def hierarcial_machine_names
-    hierarchy_names.map { |r| r.parameterize }
-  end
-
-  # "Mahalle"
-  def level_name
-    hierarchy_names[ancestors_and_self.index(self)]
-  end
-
-  # "mahalle"
-  def level_machine_name
-    hierarcial_machine_names[ancestors_and_self.index(self)]
-  end
-
-  def bottom_level_names
-    hierarchy_names[hierarchy_names.index(level_name)..-1]
-  end
-
-  def bottom_level_machine_names
-    hierarchy_names[hierarchy_names.index(level_name)..-1].map { |r| r.parameterize }
   end
 
   def self.world
