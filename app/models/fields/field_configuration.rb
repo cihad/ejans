@@ -25,6 +25,8 @@ module Fields
       label.strip!
     end
 
+    after_save { node_type.refresh_node_model }
+
     delegate :node_classify_name, to: :node_type
 
     before_save :set_conf_name

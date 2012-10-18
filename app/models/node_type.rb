@@ -37,7 +37,7 @@ class NodeType
   after_create :create_node_view
   validates :name, presence: true
 
-  after_initialize { load_node_class if name }
+  after_initialize { load_node_model if name }
 
   after_save :update_node_type_class
 
@@ -213,14 +213,22 @@ class NodeType
     node_classify_name.underscore.parameterize("_")
   end
 
-  def load_node_class
+  def load_node_model
     begin
       node_classify_name.constantize
     rescue
-      self.class.const_set node_classify_name.demodulize.to_sym, Class.new(Node)
-      node_classify_name.constantize
-      field_configurations.each { |conf| conf.load_node }
+      build_node_model
     end
+  end
+
+  def build_node_model
+    self.class.const_set node_classify_name.demodulize.to_sym, Class.new(Node)
+    node_classify_name.constantize
+    field_configurations.each { |conf| conf.load_node }
+  end
+
+  def refresh_node_model
+    build_node_model
   end
 
   private
