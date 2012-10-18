@@ -66,6 +66,8 @@ module Ejans
     # For Devise and Heroku
     config.assets.initialize_on_precompile = false
 
+    config.assets.paths << Rails.root.join("app", "assets", "fonts")
+
     #config.exceptions_app = self.routes
 
     config.app_config = YAML.load_file("#{Rails.root}/config/app_config.yml")[Rails.env]

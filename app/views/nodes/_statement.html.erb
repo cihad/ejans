@@ -1,0 +1,10 @@
+<div style="float:right; margin-top: 10px;">
+  DURUM:
+  <% if @node.publishing? %>
+    <div style="color: green; display: inline;"> yayında <i class="icon-ok icon-large"></i></div>
+  <% elsif @node.approved_queue? %>
+    <div style="color: #CE780C; display: inline;"> onay bekliyor <i class="icon-bell icon-large"></i> </div>
+  <% elsif !@node.published? %>
+      <div style="color: #BE0000; display: inline;"> yayınlanmıyor <i class="icon-off icon-large"></i> </div>
+  <% end %>
+</div>

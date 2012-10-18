@@ -73,6 +73,14 @@ class Node
     self.approved = false
   end
 
+  def publishing?
+    published? and approved?
+  end
+
+  def approved_queue?
+    published? and !approved?
+  end
+
   def approve=(submit_value)
     self.published = true
     self.approved = true

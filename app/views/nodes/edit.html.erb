@@ -1,4 +1,6 @@
 <%= body_class 'node-form' %>
 <% provide :title, "#{@node.title} - Duzenle".html_safe %>
+
+<%= render 'statement' %>
 <%= page_title "Duzenle" %>
 <%= render "form" %>

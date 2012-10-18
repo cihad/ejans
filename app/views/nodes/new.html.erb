@@ -1,4 +1,6 @@
 <%= body_class 'node-form' %>
 <% provide :title, "#{@node_type.name} - Yeni node ekle" %>
+
+<%= render 'statement' %>
 <%= page_title "#{@node_type.name} &raquo; Yeni node ekle".html_safe %>
 <%= render "form" %>
