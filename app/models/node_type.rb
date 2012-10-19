@@ -110,6 +110,13 @@ class NodeType
     field_configurations.map(&:machine_name)
   end
 
+  def related_node_types
+    NodeType.or(
+      { "field_configurations.child_nodes_node_type_id" => self.id },
+      { "field_configurations.parent_node_node_type_id" => self.id }
+    )
+  end
+
   def potential_users=(emails)
     emails.split("\n").each do |email|
       email.strip!
