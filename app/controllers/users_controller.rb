@@ -3,6 +3,7 @@ class UsersController < ApplicationController
                 only: [:edit, :update, :destroy]
   before_filter :correct_user, only: [:show, :edit, :update]
   skip_before_filter :username_is_nil, only: [:edit]
+  before_filter :must_be_admin, only: [:index]
 
   layout 'small', only: [:new, :create]
 
@@ -56,5 +57,11 @@ class UsersController < ApplicationController
   def correct_user
     @user = User.find(params[:id])
     redirect_to(root_path) unless current_user?(@user)
+  end
+
+  def must_be_admin
+    unless current_user.try :admin?
+      redirect_to root_path
+    end
   end
 end

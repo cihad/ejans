@@ -10,6 +10,7 @@ class User
   field :email
   field :password_digest
   field :remember_token
+  field :role, type: Symbol
 
   has_many :nodes, inverse_of: :author, dependent: :destroy
   has_and_belongs_to_many :managed_node_types,
@@ -39,6 +40,10 @@ class User
             confirmation: true
 
   validates :remember_token, uniqueness: true
+
+  def admin?
+    role == :admin
+  end
 
   def email_name
     email.split('@').first
