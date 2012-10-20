@@ -8,6 +8,7 @@
     <%= simple_number_field f, :node_expiration_day_limit %>
 
     <%= simple_check_box f, :commentable %>
+    <%= simple_check_box f, :signin_required %>
     <%= checkbox_group "Administrators" do %>
       <% @node_type.administrators.each do |admin| %>
         <p><%= admin.username_or_email_name %></p>

@@ -4,6 +4,7 @@ class NodesController < ApplicationController
   before_filter :must_be_an_author_or_an_administrator,
                 only: [:edit, :update, :destroy]
   before_filter :authenticate_user!, only: [:manage]
+  before_filter :user_signin_required, only: [:new]
   before_filter :must_be_an_administrator, only: [:manage]
   layout "small", except: [:index, :manage]
 
@@ -75,6 +76,13 @@ class NodesController < ApplicationController
     unless @node_type.administrators.include?(current_user)
       redirect_to node_type_nodes_path(@node_type),
                   alert: "Bunu goruntulemeye yetkili degilsiniz."
+    end
+  end
+
+  def user_signin_required
+    if @node_type.signin_required? and !user_signed_in?
+      redirect_to node_type_nodes_path(@node_type),
+        alert: "Bu listeye node ekleyebilmek icin kullanici girisi yapmaniz gerekmektedir."
     end
   end
 end

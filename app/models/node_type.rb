@@ -17,6 +17,7 @@ class NodeType
   validates :filters_position, inclusion: { in: FILTERS_POSITIONS }
   
   field :commentable, type: Boolean
+  field :signin_required, type: Boolean
   field :node_expiration_day_limit, type: Integer, default: 0
 
   has_many :nodes, dependent: :destroy

@@ -8,15 +8,29 @@
           <%= page_title @node_type.name %>
         </div>
         <div class="span5 node-type-actions">
-          <%= link_to new_node_type_node_path(@node_type),
-                      class: "btn btn-primary btn-new-node",
-                      rel: "tooltip",
-                      data: {
-                        placement: "bottom",
-                        original_title: "Ücretsiz ve üyelik gerektirmez. Sadece email adresiniz yeterli."
-                      } do %>
-            <%= content_tag :i, nil, class: "icon-plus icon-white" %>
-            add new node
+          <% if @node_type.signin_required? %>
+            <%= link_to new_node_type_node_path(@node_type),
+                        class: "btn btn-primary disabled btn-new-node",
+                        rel: "tooltip",
+                        data: {
+                          placement: "bottom",
+                          original_title: "Node ekleyebilmek icin kullanici girisi yapiniz."
+                        } do %>
+              <%= content_tag :i, nil, class: "icon-plus icon-white" %>
+              add new node
+            <% end %>
+          <% else %>
+            <%= link_to new_node_type_node_path(@node_type),
+                        class: "btn btn-primary btn-new-node",
+                        rel: "tooltip",
+                        data: {
+                          placement: "bottom",
+                          original_title: "Ücretsiz ve üyelik gerektirmez. Sadece email adresiniz yeterli."
+                        } do %>
+              <%= content_tag :i, nil, class: "icon-plus icon-white" %>
+              add new node
+            <% end %>
+
           <% end %>
           <%= dropdown "related node types", class: "btn-inverse" do %>
             <% @node_type.related_node_types.each do |nt| %>
