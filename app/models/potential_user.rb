@@ -14,8 +14,6 @@
 
     email_array = emails.split("\n").map(&:strip)
 
-    binding.pry
-
     email_array.each do |email|
       if potential_user = PotentialUser.find_or_create_by(email: email)
         tags.each do |tag|
