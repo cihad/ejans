@@ -39,7 +39,8 @@ class User
 
   validates :password,
             length: { minimum: 6 },
-            confirmation: true
+            confirmation: true,
+            on: :create
 
   validates :remember_token, uniqueness: true
 
