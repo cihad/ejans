@@ -6,7 +6,7 @@
     <li>
       <%= link_to t('global.destroy'),
                     user_path(user),
-                    remote: true,
+                    method: :delete,
                     confirm: 'Are you sure?' %>
     </li>
   <% end %>

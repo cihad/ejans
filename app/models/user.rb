@@ -10,7 +10,9 @@ class User
   field :email
   field :password_digest
   field :remember_token
-  field :role, type: Symbol
+  field :role, type: Symbol, default: :registered
+  ROLES = [:anonymous, :registered, :authenticated, :admin]
+  before_create { self.role = :admin if User.all.size == 0 }
 
   has_many :nodes, inverse_of: :author, dependent: :destroy
   has_and_belongs_to_many :managed_node_types,
