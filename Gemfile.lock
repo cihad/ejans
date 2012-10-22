@@ -1,3 +1,10 @@
+GIT
+  remote: git://github.com/sshingler/capistrano-resque.git
+  revision: f2ce8ec1c03870b38a0c390ce80fcb85f57afc50
+  specs:
+    capistrano-resque (0.0.7)
+      capistrano
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -244,6 +251,7 @@ DEPENDENCIES
   bootstrap-sass (~> 2.1.0.0)
   breadcrumbs (~> 0.1.6)
   capistrano
+  capistrano-resque!
   carrierwave
   carrierwave-mongoid
   coffee-rails (~> 3.2.1)
