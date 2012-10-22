@@ -62,4 +62,6 @@ Ejans::Application.routes.draw do
     get :find_by_name, on: :collection
   end
   resources :categories
+
+  mount Resque::Server, at: "/resque"
 end

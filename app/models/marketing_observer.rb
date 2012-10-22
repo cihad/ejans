@@ -1,9 +1,5 @@
 class MarketingObserver < Mongoid::Observer
   def after_create(marketing)
-    marketing_template = marketing.marketing_template
-
-    marketing.potential_users.each do |potential_user|
-      NodeTypeMailer.notify(marketing_template, potential_user).deliver
-    end
+    Resque.enqueue(MarketingQueue, marketing.id, marketing.node_type.id)
   end
 end
