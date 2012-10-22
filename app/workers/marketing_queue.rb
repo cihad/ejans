@@ -8,5 +8,7 @@ class MarketingQueue
     marketing.potential_users.each do |potential_user|
       NodeTypeMailer.notify(marketing_template, potential_user).deliver
     end
+
+    Rails.logger.info "Basarili bir sekilde #{marketing.potential_users.size} kisiye mail gonderildi"
   end
 end
