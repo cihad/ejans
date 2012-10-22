@@ -9,6 +9,6 @@ class MarketingQueue
       NodeTypeMailer.notify(marketing_template, potential_user).deliver
     end
 
-    Rails.logger.info "Basarili bir sekilde #{marketing.potential_users.size} kisiye mail gonderildi"
+    Rails.logger.info "MARKETING: Basarili bir sekilde #{marketing.potential_users.size} kisiye mail gonderildi"
   end
 end
