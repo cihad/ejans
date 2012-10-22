@@ -12,9 +12,47 @@
 
       <%= form_value_layout do %>
 
+        <p style="border-bottom: 1px solid #ccc; padding-bottom: 5px;">
+          <script type="text/javascript">
+            $(function () {
+              $("#select-all").click(function(){
+                   $(this).closest('td')
+                          .find(':checkbox').attr('checked', this.checked);
+              });
+
+              $('.inline [type=checkbox]').click(function() {
+                name = $(this).attr('name');
+                // console.log($('.' + name));
+                $('.' + name).attr('checked', this.checked);
+              })
+            });
+          </script>
+          <label class="checkbox inline">
+            <%= check_box_tag "select-all", "" %>
+            Hepsini seç
+          </label>
+
+          <% hash = @node_type.potential_users.inject({}) do |h, u| 
+            u.tags.each do |tag|
+              h[tag] ||= 0
+              h[tag] += 1
+            end
+            h
+          end %>
+
+          <% tags = hash.sort_by { |k,v| v }.reverse.map { |a| a.first.strip } %>
+
+          <% tags.each do |tag| %>        
+            <label class="checkbox inline ">
+              <%= check_box_tag tag, "", nil, class: tag %>
+              <%= tag %>
+            </label>
+          <% end %>
+        </p>
+
         <% @node_type.potential_users.each do |user| %>
           <label class="checkbox">
-            <%= check_box_tag "marketing[potential_user_ids][]", user.id %>
+            <%= check_box_tag "marketing[potential_user_ids][]", user.id, nil, class: user.tags.join(' ') %>
             <%= user.email %>
           </label>  
         <% end %>
