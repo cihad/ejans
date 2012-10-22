@@ -113,7 +113,7 @@ class Node
     !!self.title.blank?
   end
 
-  def node_path
+  def node_typenode_path
     node_type_node_path(node_type, self)
   end
 

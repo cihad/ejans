@@ -145,7 +145,7 @@ class NodeType
   end
 
   def node_template_attrs
-    [:node, :node_path] +
+    [:node] +
     self_data.keys +
     field_configurations.inject([]) do |a, conf|
       a << "node.#{conf.self_data.keys.first}"
@@ -155,7 +155,7 @@ class NodeType
     end
   end
 
-  def node_type_path
+  def nodes_path
     node_type_nodes_path(self)
   end
 
