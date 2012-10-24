@@ -8,4 +8,9 @@ class UserMailer < ActionMailer::Base
       format.html
     end
   end
+
+  def notify_new_user_to_admin(user)
+    @user = user
+    mail(to: "cihad@ejans.com", subject: "Yeni uye - Ejans.com")
+  end
 end

@@ -1,0 +1,29 @@
+<% MailView.new(self) do |m| %>
+   <%= m.html do %>
+    <%= m.head %>
+    <%= m.body do %>
+      <%= m.topbar %>
+
+      <%= m.mail_title do %>
+        Yeni Uye
+      <% end %>
+
+      <%= m.content do %>
+        <%= m.block do %>
+          <%= m.title "Yeni uye eklendi," %>
+          <%= m.block_content do %>
+            Ejans.com'a yeni bir uye kayıt oldu. Uye bilgileri:
+
+            <ul>
+              <li><strong>Username:</strong> <%= @user.username || "NOT_DEFINED" %></li>
+              <li><strong>Email:</strong> <%= @user.email %></li>
+            </ul>
+          <% end %>
+        <%  %>
+      <% end %>
+
+      <%= m.footer %>
+    <% end %>
+  <% end %>
+  
+<% end %>
