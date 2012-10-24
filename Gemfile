@@ -28,7 +28,7 @@ gem 'bootstrap-sass', '~> 2.1.0.0'
 gem 'markerb'
 gem 'warden'
 gem 'resque', require: 'resque/server'
-gem 'capistrano-resque', git: "git://github.com/sshingler/capistrano-resque.git"
+
 
 # Groups
 group :assets do
@@ -39,6 +39,9 @@ end
 
 group :development do
   gem 'capistrano'
+  gem 'capistrano-resque', git: "git://github.com/sshingler/capistrano-resque.git"
+  # gem 'rvm-capistrano'
+  
   gem 'libnotify'
 end
 

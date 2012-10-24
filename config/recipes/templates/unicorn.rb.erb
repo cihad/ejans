@@ -1,0 +1,7 @@
+worker_processes <%= unicorn_workers %>
+working_directory "<%= current_path %>" # available in 0.94.0+
+listen '/tmp/unicorn.<%= application %>.sock', :backlog => 64
+timeout 30
+pid "<%= unicorn_pid %>"
+stderr_path "<%= unicorn_log %>"
+stdout_path "<%= unicorn_log %>"
