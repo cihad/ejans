@@ -5,9 +5,6 @@ class NodeMailer < ActionMailer::Base
   def node_info(node)
     @node = node
     mail( to: @node.author.email,
-          subject: 'Yeni node eklediniz - Ejans.com',) do |format|
-      format.text
-      format.html        
-    end
+          subject: 'Yeni node eklediniz - Ejans.com')
   end
 end

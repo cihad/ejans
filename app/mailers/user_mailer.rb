@@ -1,12 +1,9 @@
 class UserMailer < ActionMailer::Base
   default from: 'info@ejans.com'
 
-  def first_sign_in(user)
+  def first_signin(user)
     @user = user
-    mail(to: user.email, subject: 'Hesap bilgileri - Ejans.com') do |format|
-      format.text
-      format.html
-    end
+    mail(to: user.email, subject: 'Hesap bilgileri - Ejans.com')
   end
 
   def notify_new_user_to_admin(user)

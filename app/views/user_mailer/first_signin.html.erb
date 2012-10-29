@@ -1,0 +1,36 @@
+<% MailView.new(self) do |m| %>
+   <%= m.html do %>
+    <%= m.head %>
+    <%= m.body do %>
+      <%= m.topbar %>
+
+      <%= m.mail_title do %>
+        Hosgeldiniz
+      <% end %>
+
+      <%= m.content do %>
+        <%= m.block do %>
+          <%= m.title "Hesap Bilgileri," %>
+          <%= m.block_content do %>
+            <p>Daha önce sitemizde bulunduğunuz faaliyetlerden dolayı
+            hayalet bir hesabınız vardı. Bu hesabınıza artık kavuşabileceksiniz.
+            Daha önce yazmış olduğunuz yorumlar, nodeler bu hesabınızda
+            görebilirsiniz. Aşağıdaki bilgiler ile sitemize giriş
+            yapabilirsiniz. Giriş yaptıktan sonra kendinize bir kullanıcı adı ve
+            yeni bir parola belirleyiniz.</p>
+
+            <ul>
+              <li><strong>Email:</strong> <%= @user.email %></li>
+              <li><strong>Parola:</strong> <%= @user.remember_token %></li>
+            </ul>
+
+            <p><a href="<%= signin_url %>">Giriş yapmak icin tıklayınız.</a></p>
+          <% end %>
+        <% end %>
+      <% end %>
+
+      <%= m.footer %>
+    <% end %>
+  <% end %>
+  
+<% end %>

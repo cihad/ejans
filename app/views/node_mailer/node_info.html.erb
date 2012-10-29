@@ -1,0 +1,40 @@
+<% MailView.new(self) do |m| %>
+   <%= m.html do %>
+    <%= m.head %>
+    <%= m.body do %>
+      <%= m.topbar %>
+
+      <%= m.mail_title do %>
+        Yeni Node
+      <% end %>
+
+      <%= m.content do %>
+        <%= m.block do %>
+          <%= m.title "'#{@node.title}' baslikli bir node eklediniz," %>
+          <%= m.block_content do %>
+            <p>Aşağıdaki bağlantıları kullanarak eklediğiniz node'yi
+            yönetebilirsiniz.</p>
+
+            <ul>
+              <li>
+                <strong>Göster:</strong>
+                <a href="<%= node_type_node_url(@node.node_type, @node) %>">
+                  <%= @node.title %>
+                </a>
+              </li>
+              <li>
+                <strong>Düzenle:</strong>
+                <a href="<%= edit_node_type_node_url(@node.node_type, @node, token: @node.token) %>">
+                  <%= @node.title %> (düzenle)
+                </a></li>
+            </ul>
+            
+          <% end %>
+        <% end %>
+      <% end %>
+
+      <%= m.footer %>
+    <% end %>
+  <% end %>
+  
+<% end %>
