@@ -23,7 +23,7 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
 
     if !@user.valid? and @user.errors.messages.keys.include?(:already_sign_up)
-      UserMailer.first_sign_in(User.find_by(email: @user.email)).deliver
+      UserMailer.first_signin(User.find_by(email: @user.email)).deliver
       redirect_to signin_path, notice: @user.errors.messages[:already_sign_up].first
     elsif @user.save
       warden.set_user(@user)
