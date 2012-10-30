@@ -92,18 +92,18 @@ module Fields
           year = Integer(params[machine_name])
           start_date = Date.new.change(year: year)
           end_date = Date.new.change(year: year).end_of_year
-          NodeQuery.new.between(keyname => start_date..end_date)
+          BlankCriteria.new.between(keyname => start_date..end_date)
         else
-          NodeQuery.new
+          BlankCriteria.new
         end
       when :range
         if params[start_machine_name].present? or params[end_machine_name].present?
-          query = NodeQuery.new
-          query = query.gte(keyname => value_start(params)) if value_start(params)
-          query = query.lte(keyname => value_end(params)) if value_end(params)
-          query
+          criteria = BlankCriteria.new
+          criteria = criteria.gte(keyname => value_start(params)) if value_start(params)
+          criteria = criteria.lte(keyname => value_end(params)) if value_end(params)
+          criteria
         else
-          NodeQuery.new
+          BlankCriteria.new
         end
       end
     end

@@ -72,17 +72,17 @@ class Place
     keynames = node_types.inject([]) do |a, node_type|
                   a << node_type.keynames.grep(/place/)
                 end.flatten.uniq
-    node_type_query = NodeQuery.new.in(node_type_id: node_types.map(&:id))
+    node_type_query = BlankCriteria.new.in(node_type_id: node_types.map(&:id))
     key_query = keynames.inject([]) do |a, keyname|
       a << { "features.#{keyname}_ids" => { "$in" => [self.id]}}
     end
 
-    place_query = NodeQuery.new.or(key_query)
-    query = NodeQuery.new.and(
+    place_query = BlankCriteria.new.or(key_query)
+    query = BlankCriteria.new.and(
               place_query.selector,
               node_type_query.selector,
-              NodeQuery.new.where(published: true).selector,
-              NodeQuery.new.where(approved: true).selector)
+              BlankCriteria.new.where(published: true).selector,
+              BlankCriteria.new.where(approved: true).selector)
     Node.where(query.selector)
   end
 end

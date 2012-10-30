@@ -16,11 +16,11 @@ module Ejans
           sort = params[:sort]
           direction = params[:direction] || "asc"
           if sort? and sort == machine_name
-            query = NodeQuery.new
-            query = query.order_by(keyname => direction.to_sym)
-            query
+            criteria = BlankCriteria.new
+            criteria = criteria.order_by(keyname => direction.to_sym)
+            criteria
           else
-            NodeQuery.new
+            BlankCriteria.new
           end
         end
       end

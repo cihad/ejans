@@ -4,7 +4,7 @@ describe Features::PlaceFeatureConfiguration do
   let(:node_type) { Fabricate(:node_type) }
   let(:conf) { Fabricate.build(:place_fc) }
   let(:place) { Fabricate(:turkiye) }
-  let(:blank_query) { NodeQuery.new }  
+  let(:blank_query) { BlankCriteria.new }  
 
   before do
     conf.node_type = node_type

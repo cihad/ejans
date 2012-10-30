@@ -2,15 +2,6 @@ module Fields
   class TagFieldConfiguration < FieldConfiguration
     include Ejans::Fields::Filterable
 
-    def filter_query(params = {})
-      if params[machine_name].present?
-        tags = params[machine_name].split(',').map(&:strip)
-        NodeQuery.new.all(keyname => tags)
-      else
-        NodeQuery.new
-      end
-    end
-
     def set_specifies
       node_klass.instance_eval <<-EOM
         field :#{keyname}, type: Array, default: []
@@ -38,6 +29,15 @@ module Fields
           end
         end
       EOM
+    end
+
+    def filter_query(params = {})
+      if params[machine_name].present?
+        tags = params[machine_name].split(',').map(&:strip)
+        BlankCriteria.new.all(keyname => tags)
+      else
+        BlankCriteria.new
+      end
     end
   end
 end

@@ -51,9 +51,9 @@ module Fields
     def filter_query(params = {})
       if params[machine_name].present?
         ids = params[machine_name].map { |id| Moped::BSON::ObjectId(id) }
-        NodeQuery.new.in( :"#{where}" => ids )
+        BlankCriteria.new.in( :"#{where}" => ids )
       else
-        NodeQuery.new
+        BlankCriteria.new
       end
     end
 

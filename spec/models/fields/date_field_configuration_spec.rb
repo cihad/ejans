@@ -170,14 +170,14 @@ describe Fields::DateFieldConfiguration do
       
       context "when params is blank" do
         let(:params) { {} }
-        specify { subject.filter_query(params).should == NodeQuery.new }
+        specify { subject.filter_query(params).should == BlankCriteria.new }
       end
 
       context "when params is filled" do
         let(:params) { {"#{subject.machine_name}" => 2010} }
         specify do
           subject.filter_query(params).should ==
-            NodeQuery.new.
+            BlankCriteria.new.
               between(:"fields.#{subject.keyname}" =>
                         Date.new.change(year: 2010)..Date.new.change(year: 2010).end_of_year)
         end
@@ -192,19 +192,19 @@ describe Fields::DateFieldConfiguration do
 
       context "when params is blank" do
         let(:params) { {} }
-        specify { subject.filter_query(params).should == NodeQuery.new }
+        specify { subject.filter_query(params).should == BlankCriteria.new }
       end
 
       context "when params is only filled by start value" do 
         context "when start value is lower than conf's start year" do
           let(:params) { {  "#{subject.machine_name}_start" => "#{subject.start_year - 1}"} }
-          specify { subject.filter_query(params).should == NodeQuery.new }
+          specify { subject.filter_query(params).should == BlankCriteria.new }
         end
 
         context "when start value is greater than conf's start year" do
           let(:params) { {"#{subject.machine_name}_start" => "#{subject.start_year + 1}"} }
           specify { subject.filter_query(params).should ==
-            NodeQuery.new.gte(:"fields.#{subject.keyname}" => Date.new(subject.start_year + 1))
+            BlankCriteria.new.gte(:"fields.#{subject.keyname}" => Date.new(subject.start_year + 1))
           }
         end
       end
@@ -212,13 +212,13 @@ describe Fields::DateFieldConfiguration do
       context "when params is only filled by end value" do 
         context "when end value is greater than conf's end_year value" do
           let(:params) { {"#{subject.machine_name}_end" => "#{subject.end_year + 1}"} }
-          specify { subject.filter_query(params).should == NodeQuery.new }
+          specify { subject.filter_query(params).should == BlankCriteria.new }
         end
 
         context "when end value is lower than conf's end_year value" do
           let(:params) { {"#{subject.machine_name}_end" => "#{subject.end_year - 1}"} }
           specify { subject.filter_query(params).should ==
-            NodeQuery.new.lte(:"fields.#{subject.keyname}" => Date.new(subject.end_year - 1).end_of_year)
+            BlankCriteria.new.lte(:"fields.#{subject.keyname}" => Date.new(subject.end_year - 1).end_of_year)
           }
         end
       end
@@ -230,7 +230,7 @@ describe Fields::DateFieldConfiguration do
             "#{subject.machine_name}_end" => "#{subject.end_year + 1}"
           }
         end
-        specify { subject.filter_query(params).should == NodeQuery.new }
+        specify { subject.filter_query(params).should == BlankCriteria.new }
       end
     end
   end
@@ -243,27 +243,27 @@ describe Fields::DateFieldConfiguration do
 
     context "when params is blank" do
       let(:params) { {} }
-      specify { subject.sort_query(params).should == NodeQuery.new }
+      specify { subject.sort_query(params).should == BlankCriteria.new }
     end
 
     context "when params filled by foreign keys" do
       let(:params) { {:sort => "this-is-foreign-key", :direction => "asc"} }
       specify { 
-        subject.sort_query(params).should == NodeQuery.new
+        subject.sort_query(params).should == BlankCriteria.new
       }
     end
 
     context "when params filled by own machine name" do
       let(:params) { {:sort => "#{subject.machine_name}", :direction => "asc"} }
       specify {
-        subject.sort_query(params).should == NodeQuery.new.order_by(:"fields.#{subject.keyname}" => :asc)
+        subject.sort_query(params).should == BlankCriteria.new.order_by(:"fields.#{subject.keyname}" => :asc)
       }
     end
 
     context "when params filled by own machine name" do
       let(:params) { {:sort => "#{subject.machine_name}", :direction => "desc"} }
       specify {
-        subject.sort_query(params).should == NodeQuery.new.order_by(:"fields.#{subject.keyname}" => :desc)
+        subject.sort_query(params).should == BlankCriteria.new.order_by(:"fields.#{subject.keyname}" => :desc)
       }
     end
   end

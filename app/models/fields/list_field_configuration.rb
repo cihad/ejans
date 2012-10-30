@@ -20,9 +20,9 @@ module Fields
     def filter_query(params = {})
       if params[machine_name].present?
         list_item_ids = Fields::ListItem.find(params[machine_name]).map(&:id)
-        NodeQuery.new.in(:"#{where}" => list_item_ids)
+        BlankCriteria.new.in(:"#{where}" => list_item_ids)
       else
-        NodeQuery.new
+        BlankCriteria.new
       end
     end
 

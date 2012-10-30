@@ -23,9 +23,9 @@ module Fields
       value = params[machine_name]
       if value.present? and ["0", "1"].include?(value)
         true_or_false = value == "1" ? true : false
-        NodeQuery.new.where(keyname => true_or_false)
+        BlankCriteria.new.where(keyname => true_or_false)
       else
-        NodeQuery.new
+        BlankCriteria.new
       end
     end
   end

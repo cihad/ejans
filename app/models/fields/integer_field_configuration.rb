@@ -72,18 +72,18 @@ module Fields
       when :number_field
         if params[machine_name].present?
           value = Integer(params[machine_name])
-          NodeQuery.new.where(keyname => value)
+          BlankCriteria.new.where(keyname => value)
         else
-          NodeQuery.new
+          BlankCriteria.new
         end
       when :range_with_number_field
         if params[min_machine_name].present? or params[max_machine_name].present?
-          query = NodeQuery.new
-          query = query.gte(keyname => value_min(params)) if value_min(params)
-          query = query.lte(keyname => value_max(params)) if value_max(params)
-          query
+          criteria = BlankCriteria.new
+          criteria = criteria.gte(keyname => value_min(params)) if value_min(params)
+          criteria = criteria.lte(keyname => value_max(params)) if value_max(params)
+          criteria
         else
-          NodeQuery.new
+          BlankCriteria.new
         end
       end
     end

@@ -26,13 +26,13 @@ module Fields
         prm = params[form_machine_names[-(i+1)]]
         if prm.present?
           category_id = Category.find(prm).id
-          @query = NodeQuery.new.in(:"#{where}" => [category_id])
+          @criteria = BlankCriteria.new.in(:"#{where}" => [category_id])
           break
         else
-          @query = NodeQuery.new
+          @criteria = BlankCriteria.new
         end
       end
-      @query
+      @criteria
     end
 
     def set_specifies

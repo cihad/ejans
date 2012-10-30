@@ -4,7 +4,7 @@ describe Features::ListFeatureConfiguration do
 
   let(:node_type) { Fabricate(:node_type) }
   let(:conf) { Fabricate.build(:list_fc) }
-  let(:blank_query) { NodeQuery.new }  
+  let(:blank_query) { BlankCriteria.new }  
 
   before do
     conf.node_type = node_type

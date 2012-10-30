@@ -30,13 +30,13 @@ module Fields
         prm = params[form_machine_names[-(i+1)]]
         if prm.present?
           place_id = Moped::BSON::ObjectId(prm)
-          @query = NodeQuery.new.in(where => [place_id])
+          @criteria = BlankCriteria.new.in(where => [place_id])
           break
         else
-          @query = NodeQuery.new
+          @criteria = BlankCriteria.new
         end
       end
-      @query
+      @criteria
     end
 
     def set_specifies
