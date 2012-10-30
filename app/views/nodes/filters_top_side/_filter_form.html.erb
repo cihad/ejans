@@ -14,7 +14,7 @@
         </td>
       <% end %>
 
-      <% @node_type.filters.each do |conf| %>
+      <% @node_type.filter_configs.each do |conf| %>
         <%= render 'nodes/filters_top_side/filter_block', filter: filter_for(conf) %>
       <% end %>
       <td>

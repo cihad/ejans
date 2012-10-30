@@ -10,8 +10,8 @@ module Fields
     field :help_text, type: String
     field :position, type: Integer, default: 1000
 
-    scope :filters, where(filter: true)
-    scope :sort_confs, where(sort: true)
+    scope :filter_configs, where(filter: true)
+    scope :sortable_configs, where(sort: true)
     default_scope order_by([:position, :asc])
 
     embedded_in :node_type

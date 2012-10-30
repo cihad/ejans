@@ -9,7 +9,7 @@ class NodesController < ApplicationController
   layout "small", except: [:index, :manage]
 
   def index
-    @nodes = @node_type.filter(params)
+    @nodes = NodesQuery.new(@node_type, params).results
   end
 
   def show
