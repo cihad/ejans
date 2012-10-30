@@ -64,15 +64,11 @@ class NodesQuery
   end
 
   def direction
-    params[:direction] || "asc"
+    params[:direction].present? ? params[:direction] : "asc"
   end
 
   def sort
-    params[:sort] || default_sort
-  end
-
-  def default_sort
-    "created_at"
+    params[:sort].present? ? params[:sort] : "created_at"
   end
 
   def node_spesific_options
