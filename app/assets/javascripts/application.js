@@ -11,7 +11,6 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery
-//= require turbolinks
 //= require jquery_ujs
 //= require jquery-ui/jquery.ui.core
 //= require jquery-ui/jquery.ui.widget
