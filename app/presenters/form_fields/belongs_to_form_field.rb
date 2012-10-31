@@ -18,7 +18,7 @@ module FormFields
 
     def options_for_select(author = nil)
       if can_be_added_only_by_belongs_to_node_author?
-        nodes = parent_node_node_type.nodes.where(author_id: author.try(:id))
+        nodes = parent_node_node_type.nodes.where(author_id: author.try(:id)).published
         options_for_select = nodes.map { |node| [node.title, node.id] }
       else
         options_for_select = nodes.published.map { |n| [n.title, n.id] }
