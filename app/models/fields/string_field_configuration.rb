@@ -12,6 +12,8 @@ module Fields
     
     def set_specifies
       node_klass.instance_eval <<-EOM
+        include ActionView::Helpers::TextHelper
+        include ActionView::Helpers::SanitizeHelper
         field :#{keyname}, type: String
 
         validate :#{keyname}_presence_value
@@ -22,7 +24,7 @@ module Fields
       node_klass.class_eval <<-EOM
         def #{machine_name}
           begin
-            #{keyname}
+            sanitize(simple_format(#{keyname}), tags: %w(p img br strong b i em a ul ol li blockquote))
           rescue
             nil
           end
