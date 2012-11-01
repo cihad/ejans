@@ -5,12 +5,9 @@ module Fields
     validates :maximum_image, presence: true
 
     def set_specifies
-      Fields::Image.instance_eval <<-EOM
-        embedded_in :node, class_name: "#{node_klass.to_s}"
-      EOM
-
       node_klass.instance_eval <<-EOM
         embeds_many :#{keyname}, class_name: "Fields::Image",
+          as: :imageable,
           cascade_callbacks: true
 
         validate :#{keyname}_presence_value
