@@ -4,4 +4,4 @@
 
 <%= simple_select f,
       :parent_node_node_type_id,
-      NodeType.all.not.where(id: @node_type.id).map { |nt| [nt.name, nt.id] } %>
+      NodeType.all.where(:id.ne => @node_type.id).map { |nt| [nt.name, nt.id] } %>

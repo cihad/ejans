@@ -40,6 +40,7 @@ end
 group :development do
   gem 'capistrano'
   gem 'capistrano-resque', git: "git://github.com/sshingler/capistrano-resque.git"
+  gem 'capistrano-unicorn', :require => false
   # gem 'rvm-capistrano'
   
   gem 'libnotify'
