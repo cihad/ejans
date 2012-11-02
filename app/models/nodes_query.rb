@@ -6,7 +6,7 @@ class NodesQuery
   def initialize(node_type, params = {}, relation = nil, criteria = BlankCriteria.new)
     @node_type = node_type
     @params = params
-    @relation = relation || node_type.nodes.publishing
+    @relation = relation || node_type.nodes.unscoped.publishing
     @criteria = criteria
     load_criteria
   end
@@ -18,9 +18,9 @@ class NodesQuery
 
   def results
     @relation.
-        send(:where, criteria.selector).
-        send(:order_by, criteria.options[:sort]).
-        page(params[:page])
+      send(:where, criteria.selector).
+      send(:order_by, criteria.options[:sort]).
+      page(params[:page])
   end
 
   def filter_configs
@@ -64,14 +64,14 @@ class NodesQuery
   end
 
   def direction
-    params[:direction].present? ? params[:direction] : "desc"
+    (params[:direction].present? ? params[:direction] : "desc").to_sym
   end
 
   def sort
-    params[:sort].present? ? params[:sort] : "created_at"
+    (params[:sort].present? ? params[:sort] : "created_at").to_sym
   end
 
   def node_spesific_options
-    self.criteria = criteria.order_by(sort.to_sym => direction)
+    self.criteria = criteria.order_by(sort => direction) if sort
   end
 end
