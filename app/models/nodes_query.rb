@@ -20,7 +20,6 @@ class NodesQuery
     @relation.
         send(:where, criteria.selector).
         send(:order_by, criteria.options[:sort]).
-        desc(:created_at).
         page(params[:page])
   end
 
@@ -65,7 +64,7 @@ class NodesQuery
   end
 
   def direction
-    params[:direction].present? ? params[:direction] : "asc"
+    params[:direction].present? ? params[:direction] : "desc"
   end
 
   def sort
