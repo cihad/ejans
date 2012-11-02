@@ -2,7 +2,7 @@ set_default(:unicorn_user) { user }
 set_default(:unicorn_pid) { "#{current_path}/tmp/pids/unicorn.pid" }
 set_default(:unicorn_config) { "#{shared_path}/config/unicorn.rb" }
 set_default(:unicorn_log) { "#{shared_path}/log/unicorn.log" }
-set_default(:unicorn_workers, 2)
+set_default(:unicorn_workers, 1)
 
 namespace :unicorn do
   desc "Setup Unicorn initializer and app configuration"
@@ -22,5 +22,10 @@ namespace :unicorn do
       run "#{sudo} service unicorn_#{application} #{command}"
     end
     after "deploy:#{command}", "unicorn:#{command}"
+  end
+
+  desc "force-stop unicorn"
+  task :force_stop, roles: :app do
+    run "#{sudo} service unicorn_#{application} force-stop"
   end
 end
