@@ -11,7 +11,7 @@ CarrierWave.configure do |config|
       rackspace_servicenet: true
     }
     config.fog_directory = Rails.configuration.app_config['rackspace_fog_directory']
-    config.fog_host = Rails.configuration.app_config['rackspace_fog_host']
+    config.asset_host = Rails.configuration.app_config['rackspace_fog_host']
   else
     config.storage = :file
     config.root = File.join(Rails.root, 'public')

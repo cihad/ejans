@@ -21,7 +21,7 @@ class FieldImageUploader < CarrierWave::Uploader::Base
   end
 
   def store_dir
-    self.class.base_dir(model.node.id)
+    self.class.base_dir(model.imageable.id)
   end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:

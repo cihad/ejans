@@ -24,7 +24,7 @@ module Fields
       node_klass.class_eval <<-EOM
         def #{machine_name}
           begin
-            sanitize(simple_format(#{keyname}), tags: %w(p img br strong b i em a ul ol li blockquote))
+            TextFormative.new(#{keyname}, format: :simple).to_s
           rescue
             nil
           end

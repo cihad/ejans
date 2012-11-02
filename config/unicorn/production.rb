@@ -1,4 +1,4 @@
-APP_PATH = '/var/www/ejans'
+APP_PATH = '/home/deployer/applications/ejans'
 
 worker_processes 1
 working_directory "#{APP_PATH}/current" # available in 0.94.0+
