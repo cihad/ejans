@@ -3,7 +3,7 @@
                   field.
                     parent_node_node_type.
                     nodes.
-                    published.
+                    publishing.
                     inject({}) do |hash, node|
                       hash[node.title] = node.id; hash
                     end,
@@ -12,4 +12,4 @@
                 multiple: true,
                 class: field.machine_name %>
 
-<%= multiselect '.' + field.machine_name %>
+<%= multiselect ".#{field.machine_name}" %>
