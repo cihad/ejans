@@ -25,6 +25,7 @@ class Node
   belongs_to :author, class_name: 'User', inverse_of: :nodes
 
   # Scopes
+  default_scope order_by(created_at: :desc)
   scope :approved_queue, where(published: true, approved: false)
   scope :published, where(published: true)
   scope :unpublished, where(published: false).exists(title: true)
@@ -32,7 +33,6 @@ class Node
   scope :time_ago_updated, ->(time) { where(:updated_at.lt => time) }
   scope :blank_nodes_by_anon, where(title: nil).and(author: nil)
   scope :blank_nodes_by_author, where({"$and"=>[{"title"=>nil}, {"author_id"=>{"$exists"=>true}}]})
-
   # Associations
   belongs_to :node_type
   embeds_many :comments
