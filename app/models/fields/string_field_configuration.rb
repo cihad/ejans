@@ -24,7 +24,7 @@ module Fields
       node_klass.class_eval <<-EOM
         def #{machine_name}
           begin
-            TextFormative.new(#{keyname}, format: :simple).to_s
+            TextFormative.new(#{keyname}).to_s
           rescue
             nil
           end
