@@ -17,17 +17,7 @@ class NodesController < ApplicationController
   end
 
   def new
-    if  user_signed_in? and 
-        @node = current_user.unpublished_nodes(@node_type).first and
-        !@node.try(:valid?)
-      @node.destroy
-      @node = nil
-    end
-    @node ||= @node_type.
-              node_classify_name.
-              safe_constantize.
-              new(node_type_id: @node_type.id, author: current_user)
-    @node.save(validate: false)
+    @node = NewNode.new(@node_type, current_user).node
   end
 
   def edit
