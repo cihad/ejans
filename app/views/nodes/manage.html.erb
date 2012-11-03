@@ -26,7 +26,7 @@
       <td><%= time_ago_in_words(node.created_at) %> önce</td>
       <td><%= time_ago_in_words(node.updated_at) %> önce</td>
       <td><%= node.published? ? "✓" : "&times;".html_safe %></td>
-      <td>          
+      <td>
         <% if node.published? and !node.approved? %>
           <%= render 'approve_button', node: node %>
         <% elsif !node.approved? %>

@@ -1,0 +1,26 @@
+<%= form_for :change_node_owner, url: change_owner_node_type_node_path(@node.node_type, @node) do |f| %>
+  <table class="table table-form">
+    <%= form_item_layout do %>
+      <%= form_label_layout do %>
+        Node
+      <% end %>
+
+      <%= form_value_layout do %>
+        <%= @node.title %>
+      <% end %>
+    <% end %>
+
+    <%= form_item_layout do %>
+      <%= form_label_layout do %>
+        Current Node Author
+      <% end %>
+
+      <%= form_value_layout do %>
+        <%= @node.author.email %>        
+      <% end %>
+    <% end %>
+
+    <%= simple_text_field f, "new_author_email" %>
+    <%= simple_submit f  %>
+  </table>
+<% end %>

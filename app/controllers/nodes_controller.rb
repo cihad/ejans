@@ -1,11 +1,12 @@
 class NodesController < ApplicationController
   respond_to :js, only: [:show]
   before_filter :node_type
+  before_filter :node, only: [:show, :edit, :update, :destroy, :change_owner]
   before_filter :must_be_an_author_or_an_administrator,
                 only: [:edit, :update, :destroy]
   before_filter :authenticate_user!, only: [:manage]
   before_filter :user_signin_required, only: [:new]
-  before_filter :must_be_an_administrator, only: [:manage]
+  before_filter :must_be_an_administrator, only: [:manage, :change_owner]
   layout "small", except: [:index, :manage]
 
   def index
@@ -13,7 +14,6 @@ class NodesController < ApplicationController
   end
 
   def show
-    @node = @node_type.nodes.find(params[:id])
   end
 
   def new
@@ -57,14 +57,24 @@ class NodesController < ApplicationController
     @nodes = @node_type.nodes.published
   end
 
+  def change_owner
+    unless params[:show_form].present?
+      ChangeNodeOwner.new(@node, params[:change_node_owner][:new_author_email]).save
+      redirect_to manage_node_type_nodes_path(@node_type, @node)
+    end
+  end
+
   private
   def node_type
-    @node_type = NodeType.find(params[:node_type_id])
+    @node_type ||= NodeType.find(params[:node_type_id])
+  end
+
+  def node
+    @node ||= node_type.nodes.find(params[:id])
   end
 
   def must_be_an_author_or_an_administrator
-    @node = @node_type.nodes.find(params[:id])
-    unless  @node.author.blank? ||
+    unless  node.author.blank? ||
             (user_signed_in? and @node.can_manage?(current_user)) ||
             params[:token] == @node.token
       redirect_to root_path,

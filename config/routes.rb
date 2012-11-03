@@ -49,6 +49,8 @@ Ejans::Application.routes.draw do
 
     resources :nodes, path: 'nd' do
       get :manage, on: :collection
+      get :change_owner, on: :member
+      post :change_owner, on: :member
     end
   end
 
