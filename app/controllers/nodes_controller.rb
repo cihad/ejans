@@ -24,12 +24,11 @@ class NodesController < ApplicationController
   end
 
   def update
-    recaptcha = if user_signed_in? or @node.email_send?
-                  true
-                else
-                  verify_recaptcha(:model => @node, :message => "Oh! It's error with reCAPTCHA!")
-                end
+    recaptcha = (user_signed_in? or @node.email_send?) || 
+                verify_recaptcha(:model => @node, :message => "Oh! It's error with reCAPTCHA!")
+
     @node.attributes = params[:"node_type_#{@node_type.name.parameterize('_')}"]
+    
     if @node.statement_save && recaptcha
       redirect_to node_type_node_path(@node_type, @node), notice: 'Node was successfully updated.'
     else
