@@ -23,11 +23,8 @@ module Fields
 
       node_klass.class_eval <<-EOM
         def #{machine_name}
-          begin
-            TextFormative.new(#{keyname}).to_s
-          rescue
-            nil
-          end
+          str = TextFormative.new(#{keyname}, format: :#{text_format}).to_s
+          str
         end
         
         private

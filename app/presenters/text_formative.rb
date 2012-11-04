@@ -10,24 +10,26 @@ class TextFormative
                 end
   end
 
-  # URL_REGEX = /((http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?)/i
   EMAIL_REGEX = /([\w+\-.]+@[a-z\d\-.]+\.[a-z]+)/i
-  # IMAGE_REGEX = /((http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?\.(?:gif|jpe?g|png|bmp))/i
 
   def to_mail
-    @str = @str.gsub(EMAIL_REGEX, '<a href=\'mailto:\1\'>\1</a>')
+    @str = @str.gsub(EMAIL_REGEX, '<a href=\'mailto:\1\'>\1</a>').html_safe
   end
 
   def to_br_and_p
-    @str = simple_format(@str)
+    @str = simple_format(@str).html_safe
   end
 
   def standart_formats
-    [:simple]
+    [:plain, :simple]
   end
 
   def simple
     %w(to_br_and_p to_mail)
+  end
+
+  def plain
+    []
   end
 
   def to_s
@@ -35,6 +37,6 @@ class TextFormative
       send(formative.to_sym)
     end
 
-    @str.html_safe
+    @str
   end
 end
