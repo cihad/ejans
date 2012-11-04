@@ -32,11 +32,15 @@
             <% end %>
 
           <% end %>
-          <%= dropdown "related node types", class: "btn-inverse" do %>
-            <% @node_type.related_node_types.each do |nt| %>
-              <li><%= link_to nt.name, node_type_nodes_path(nt) %></li>
+
+          <% unless @node_type.related_node_types.size == 0 %>
+            <%= dropdown "related node types", class: "btn-inverse" do %>
+              <% @node_type.related_node_types.each do |nt| %>
+                <li><%= link_to nt.name, node_type_nodes_path(nt) %></li>
+              <% end %>
             <% end %>
           <% end %>
+          
         </div>
       </div>
     </div>
