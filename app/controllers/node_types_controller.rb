@@ -10,15 +10,13 @@ class NodeTypesController < ApplicationController
     @node_types = NodeType.search(params[:q])
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @node_type = NodeType.new      
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @node_type = NodeType.new(params[:node_type])

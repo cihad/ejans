@@ -21,6 +21,9 @@ class NodeType
   field :signin_required, type: Boolean
   field :node_expiration_day_limit, type: Integer, default: 0
 
+  field :nodes_count, type: Integer, default: 0
+  index nodes_count: 1
+
   has_many :nodes, dependent: :destroy
   embeds_many :field_configurations,
     class_name: "Fields::FieldConfiguration"
@@ -36,18 +39,21 @@ class NodeType
                           inverse_of: :managed_node_types
   accepts_nested_attributes_for :administrators
 
+  scope :sort_by_nodes_count, asc(:nodes_count)
+
   after_create :create_node_view
   validates :name, presence: true
 
   after_initialize { load_node_model if name }
 
-  after_save :update_node_type_class
-
   def self.search(search = nil)
-    if search
-      ::Metadata.fulltext_search(search).map(&:document).uniq
+    if search.present?
+      ::Metadata.fulltext_search(search)
+                .map(&:document)
+                .uniq
+                .sort { |doc1, doc2| doc1.nodes_count <=> doc2.nodes_count }
     else
-      all
+      sort_by_nodes_count
     end
   end
 
@@ -252,14 +258,5 @@ class NodeType
   private
   def create_node_view
     self.build_node_view.save(validate: false)
-  end
-
-  def update_node_type_class
-    if name_changed?
-      nodes.each do |node|
-        node._type = node_classify_name
-        node.save(validate: false)
-      end
-    end
   end
 end
