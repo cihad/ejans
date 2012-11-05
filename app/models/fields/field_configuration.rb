@@ -26,6 +26,7 @@ module Fields
     end
 
     after_save { node_type.refresh_node_model }
+    after_save { node_type.save }
 
     delegate :node_classify_name, to: :node_type
 

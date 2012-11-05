@@ -1,20 +1,15 @@
 <% provide :title, 'Node Types' %>
 <%= page_title 'Node Types' %>
 
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>name</th>
-      <th>nodes</th>
-      <th>actions</th>
-    </tr>
-  </thead>
+<%= form_tag node_types_path, :method => 'get', :id => "node_type_search" do %>
+  <p>
+    <div class="input-append">
+      <%= text_field_tag :q, params[:q], class: "input-xlarge" %>
+      <%= submit_tag "Search", :name => nil, class: "btn" %>
+    </div>
+  </p>
+<% end %>
 
-  <% @node_types.each do |nt| %>
-    <%= content_tag_for :tr, nt do %>
-      <td><%= link_to nt.name, node_type_nodes_path(nt) %></td>
-      <td><%= nt.nodes.publishing.size %> node</td>
-      <td><%= render 'actions', node_type: nt  %></td>
-    <% end %>
-  <% end %>
-</table>
+<div id="node_types">
+  <%= render 'node_types' %>
+</div>

@@ -1,6 +1,7 @@
 class NodeType
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Mongoid::FullTextSearch
   include Rails.application.routes.url_helpers
 
   attr_accessor :administrator_username_or_email
@@ -42,6 +43,23 @@ class NodeType
 
   after_save :update_node_type_class
 
+  def self.search(search = nil)
+    if search
+      ::Metadata.fulltext_search(search).map(&:document).uniq
+    else
+      all
+    end
+  end
+
+  def searchables
+    labels = field_configurations.map(&:label)
+    list_field_configs = field_configurations.where("_type" => Fields::ListFieldConfiguration)
+    list_field_item_names = list_field_configs.inject([]) do |items, config|
+      items += config.list_items.map(&:name)
+    end
+
+    [name] + labels + list_field_item_names
+  end
 
   def self.unpublish_expired_nodes!
     all.each do |node_type|

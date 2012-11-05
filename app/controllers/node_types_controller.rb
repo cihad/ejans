@@ -4,14 +4,10 @@ class NodeTypesController < ApplicationController
   before_filter :must_be_an_administrator, only: [:show, :edit, :update]
   before_filter :admin_user, only: [:index, :new]
 
-  # layout "mail"
+  layout 'small', only: :index
 
   def index
-    @node_types = NodeType.
-                    includes(:nodes).
-                    sort do |nt1, nt2|
-                      nt2.nodes.publishing.size <=> nt1.nodes.publishing.size
-                    end
+    @node_types = NodeType.search(params[:q])
   end
 
   def show

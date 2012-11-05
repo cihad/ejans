@@ -111,6 +111,12 @@ $(function() {
       return $.post($(this).data('update-url'), $(this).sortable('serialize'));
     }
   });
+
+  $("#node_type_search #q").keyup(function() {
+    $node_type_search = $("#node_type_search")
+    $.get($node_type_search.attr("action"), $node_type_search.serialize(), null, "script");
+    return false;
+  });
 });
 
 function remove_fields (link) {
