@@ -1,0 +1,32 @@
+<div class="navbar navbar-static-top" style="margin: 0 -1px;">
+  <div class="navbar-inner">
+    <div class="container">
+      <ul class="nav">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <i class="icon-map-marker" style="font-size: 20px;"></i>
+            <%= current_location.name %>
+          </a>
+          <div class="dropdown-menu" style="padding:5px; min-width: <%= @column_size %>px;">
+            <%= render 'cities_list' %>
+          </div>
+        </li>
+        <li class="divider-vertical"></li>
+      </ul>
+
+      <form class="navbar-search pull-left" style="margin-top: 7px;">
+        <input type="text" class="search-query" placeholder="Search" style="padding-top:2px; padding-bottom: 2px">
+      </form>
+
+      <ul class="nav pull-right">
+        <li class="divider-vertical"></li>
+        <li>
+          <%= link_to node_types_path do %>
+            <i class="icon-plus"></i>
+            Add new node
+          <% end %>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+<% provide :title, @place.name %>
+<% body_class "home" %>
+
+<%= content_for :navbar do %>
+  <li class="dropdown">
+    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+      <%= @place.name %>
+      <b class="caret"></b>
+    </a>
+    <ul class="dropdown-menu">
+      <% tr = Place.find_by(name: "Türkiye") %>
+      <% tr.children.each do |plc| %>
+        <li><%= link_to plc.name, root_path(place_id: plc.id) %></li>
+      <% end %>
+    </ul>
+  </li>
+<% end %>
+
+<%= view = Views::PlacePageView.new(@place, self) %>
+
+<%= javascript 'jquery-plugins/jquery.masonry' %>
+<script>
+var $container = $('#place-nodes');
+$container.imagesLoaded(function(){
+  $container.masonry({
+    itemSelector : '.node'
+  });
+});
+</script>

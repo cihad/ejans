@@ -1,0 +1,11 @@
+<div class="row">
+  <% @cities.in_groups_of(@groups_of) do |group| %>
+    <div class="span2">
+      <ul>
+      <% group.each do |city| %>
+        <li><%= link_to city.name, home_path(city) %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+</div>
