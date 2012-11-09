@@ -32,4 +32,12 @@ module LocationHelper
       [lat, lon]
     end
   end
+
+  def set_place(place)
+    create_coordinates_cookie(place.coordinates)
+  end
+
+  def current_location
+    Place.near_sphere(coordinates: coordinates).first
+  end
 end

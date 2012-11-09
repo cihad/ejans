@@ -6,7 +6,9 @@
     <%= yield :overlay %>
   </div>
 
-    <div class="body">
+  <div class="body">
+    <%= yield :body_top %>
+
     <!-- Container -->
     <div class="container">
 
@@ -31,7 +33,7 @@
   </div>
 
   <%= yield :bottom %>
-  
   <%= render 'shared/analytics' if Rails.env.production? %>
+  <%= yield :scripts %>
 </body>
 </html>

@@ -1,4 +1,5 @@
 class Place
+  include Gmaps4rails::ActsAsGmappable
   include Mongoid::Document
   include Mongoid::Tree
   include Mongoid::Tree::Traversal
@@ -6,16 +7,27 @@ class Place
   include Mongoid::FullTextSearch
 
   attr_accessor :childs
+  acts_as_gmappable position: :lat_lng
 
   field :coordinates, type: Array
   index({ coordinates: "2d" })
 
   field :name, type: String
+
   geocoded_by :name
   after_validation :geocode, if: :name_changed?
+
   fulltext_search_in :name
 
   default_scope order_by([:name, :asc])
+
+  def lat_lng
+    to_coordinates
+  end
+
+  def lng_lat
+    coordinates
+  end
 
   def level
     ancestors.size
@@ -60,11 +72,11 @@ class Place
   end
 
   def self.default_coordinates
-    [39.7767, 30.5206]
+    [35.243322, 38.963745]
   end
 
   def self.default_place
-    near(default_coordinates).first
+    near_sphere(coordinates: default_coordinates).first
   end
 
   def nodes

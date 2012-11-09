@@ -42,6 +42,8 @@
 //= require not_found
 //= require image
 //= require modernizr.custom
+//= require gmaps4rails/gmaps4rails.base
+//= require gmaps4rails/gmaps4rails.googlemaps
 
 $(function() {
 

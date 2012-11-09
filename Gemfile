@@ -28,7 +28,7 @@ gem 'bootstrap-sass', '~> 2.1.0.0'
 gem 'markerb'
 gem 'warden'
 gem 'resque', require: 'resque/server'
-
+gem 'gmaps4rails'
 
 # Groups
 group :assets do

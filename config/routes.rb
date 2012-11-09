@@ -1,7 +1,7 @@
 Ejans::Application.routes.draw do
   root :to => 'node_types#index'
   match "/404", :to => "errors#not_found"
-  get "home/index"
+  resources :home, only: [:index, :show]
 
   # match "/services/:service_id/notifications/:id" => redirect("/service/%{service_id}/%{id}")
   # resources :services, path: 'services', only: [:index, :create]
