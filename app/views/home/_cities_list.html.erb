@@ -1,5 +1,5 @@
 <div class="row">
-  <% @cities.in_groups_of(@groups_of) do |group| %>
+  <% @cities.in_groups_of(@groups_of, false) do |group| %>
     <div class="span2">
       <ul>
       <% group.each do |city| %>
