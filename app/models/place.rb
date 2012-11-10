@@ -13,7 +13,7 @@ class Place
   field :name, type: String
 
   geocoded_by :name
-  after_validation :geocode, if: :name_changed?
+  after_validation :geocode, if: :set_geocode?
 
   fulltext_search_in :name
 
@@ -37,6 +37,10 @@ class Place
 
   def self.world
     root
+  end
+
+  def set_geocode?
+    name_changed? or coordinates.blank?
   end
 
   def hierarchical_name
