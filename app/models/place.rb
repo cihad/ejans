@@ -2,7 +2,6 @@ class Place
   include Mongoid::Document
   include Mongoid::Tree
   include Mongoid::Tree::Traversal
-  include Geocoder::Model::Mongoid
   include Mongoid::FullTextSearch
 
   attr_accessor :childs
@@ -11,9 +10,6 @@ class Place
   index({ coordinates: "2d" })
 
   field :name, type: String
-
-  geocoded_by :name
-  after_validation :geocode, if: :set_geocode?
 
   fulltext_search_in :name
 
