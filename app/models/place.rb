@@ -1,5 +1,4 @@
 class Place
-  include Gmaps4rails::ActsAsGmappable
   include Mongoid::Document
   include Mongoid::Tree
   include Mongoid::Tree::Traversal
@@ -7,7 +6,6 @@ class Place
   include Mongoid::FullTextSearch
 
   attr_accessor :childs
-  acts_as_gmappable position: :lat_lng
 
   field :coordinates, type: Array
   index({ coordinates: "2d" })

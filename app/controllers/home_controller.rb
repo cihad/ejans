@@ -21,16 +21,4 @@ class HomeController < ApplicationController
     set_place(@place)
     redirect_to home_index_path
   end
-
-  private
-  def generate_json_from(places)
-    json = "["
-    json_array = []
-    places.each do |place|
-      json = Gmaps4rails.create_json(place)
-      json_array << json.to_s unless json.nil?
-    end
-    @json << json_array * (",")
-    @json << "]"
-  end
 end
