@@ -4,6 +4,9 @@ class HomeController < ApplicationController
   respond_to :js
 
   def index
+    @places = Node.or( { "zero_places.place_ids" => {"$in" => [@place.id]} },
+                      { "one_places.place_ids" => {"$in" => [@place.id]} })
+
     @cities = Place.default_place.levels.take(2).last
     column_count = case @cities.size
                   when 1..10  then 1

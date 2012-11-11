@@ -37,7 +37,7 @@ module LocationHelper
     create_coordinates_cookie(place.coordinates)
   end
 
-  def current_location
+  def current_place
     Place.near_sphere(coordinates: coordinates).first
   end
 end
