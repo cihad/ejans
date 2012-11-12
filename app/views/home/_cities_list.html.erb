@@ -3,7 +3,7 @@
     <div class="span2">
       <ul>
       <% group.each do |city| %>
-        <li><%= link_to city.name, home_path(city) %></li>
+        <li <%= 'class=active' if city == current_place %>><%= link_to city.name, home_path(city) %></li>
       <% end %>
       </ul>
     </div>
