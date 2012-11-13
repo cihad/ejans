@@ -6,6 +6,9 @@ require "action_mailer/railtie"
 require "active_resource/railtie"
 require "rails/test_unit/railtie"
 require 'rspec/autorun'
+require 'capybara/rails'
+require 'capybara/rspec'
+
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.

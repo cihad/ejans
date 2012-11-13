@@ -29,6 +29,7 @@ gem 'markerb'
 gem 'warden'
 gem 'resque', require: 'resque/server'
 gem 'gmaps4rails'
+gem 'pry'
 
 # Groups
 group :assets do
@@ -53,8 +54,9 @@ end
 group :test, :development do
   gem 'faker'
   gem 'rspec-rails'
-  gem 'pry'
   gem 'guard-rspec'
+  gem 'capybara'
+  gem 'launchy'
 end
 
 group :test do
