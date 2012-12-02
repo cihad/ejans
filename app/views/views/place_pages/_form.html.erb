@@ -3,5 +3,5 @@
 <%= form_for @view, url: node_type_views_place_page_path(@node_type), method: :put do |f| %>
   <%= render 'views/shared/inputs/css', f: f %>
   <%= render 'views/shared/inputs/user_input_node_template', f: f %>
-  <%= f.submit nil, class: "btn" %>
+  <%= f.submit t('views.save'), class: "btn" %>
 <% end %>

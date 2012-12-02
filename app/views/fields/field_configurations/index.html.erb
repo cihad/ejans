@@ -38,11 +38,11 @@
         method: :get  do |f| %>
     <tr>
       <td></td>
-      <td><%= f.text_field :label, placeholder: "Label" %></td>
+      <td><%= f.text_field :label, placeholder: t('fields.label'), class: "span2" %></td>
       <td><%= select_tag "_type",
                 options_for_select(Fields::FieldConfiguration.options_for_types) %></td>
       <td><%= f.check_box :required %></td>
-      <td><%= f.submit "New field" %></td>
+      <td><%= f.submit t('fields.new_field') %></td>
     </tr>
   <% end %>
 

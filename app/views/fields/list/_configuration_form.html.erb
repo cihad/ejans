@@ -1,36 +1,40 @@
 <%= simple_check_box f,
       :filter,
-      input: { data: { toggle: "filter" } } %>
+      input: { data: { toggle: "filter" } },
+      label: { name: t('fields.filter') } %>
 
-<%= simple_number_field f, :maximum_select, help: "0 secilirse sinirsiz secim yapilabilir." %>
+<%= simple_number_field f,
+      :maximum_select,
+      help: t('fields.list.help'),
+      label: { name: t('fields.list.maximum_select') } %>
 
 <%= form_item_layout do %>
   <%= form_label_layout do %>
-    <%= label_tag "List items" %>
+    <%= label_tag t('fields.list.list_items') %>
   <% end %>
   <%= form_value_layout do %>
     <% if f.object.new_record? %>
       <% 5.times { f.object.list_items.build } %>
       <%= f.fields_for :list_items do |list_item| %>
         <div>
-          <%= list_item.text_field :name, placeholder: "name" %>
+          <%= list_item.text_field :name, placeholder: t('fields.list.item') %>
         </div>
       <% end %>
     <% else %>
-      <%= link_to_modal "Edit List Items" %>
+      <%= link_to_modal t('fields.list.edit_list_items') %>
     <% end %>
   <% end %>
 <% end %>
 
 <% unless f.object.new_record? %>
   <% content_for :top do %>
-    <%= modal "List items" do %>
+    <%= modal t('fields.list.list_items') do %>
       <table  class="table">
         <thead>
           <tr>
             <th>&nbsp;</th>
-            <th>Name</th>
-            <th>Actions</th>
+            <th><%= t('fields.list.name') %></th>
+            <th><%= t('fields.list.actions') %></th>
         </thead>
         <tbody class="sortable"
                data-update-url="<%= sort_node_type_fields_field_configuration_list_items_path(@node_type, f.object) %>">
@@ -42,7 +46,7 @@
           <tfoot>
             <tr>
               <td>&nbsp;</td>
-              <td><%= f.text_field :name, placeholder: "name" %>
+              <td><%= f.text_field :name, placeholder: t('fields.list.item') %>
               </td>
               <td><%= f.submit %></td>
           </tfoot>

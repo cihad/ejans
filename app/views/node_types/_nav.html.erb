@@ -1,24 +1,24 @@
-<%= tab_item "#{@node_type.name} Dashboard", @node_type %>
+<%= tab_item t('node_types.dashboard'), @node_type %>
 
-<%= dropdown_tab "Configurations" do %>
-  <%= tab_item "Configurations", edit_node_type_path(@node_type) %>
-  <%= tab_item "New Node Type", new_node_type_path %>
+<%= dropdown_tab t('node_types.configurations') do %>
+  <%= tab_item t('node_types.edit.edit'), edit_node_type_path(@node_type) %>
+  <%= tab_item t('node_types.new_node_type'), new_node_type_path %>
   <%= content_tag :li, nil, class: "divider" %>
-  <%= tab_item "Delete Node Type", node_type_path(@node_type), link_to: { confirm: "Are you sure?", method: :delete } %>
+  <%= tab_item t('node_types.delete_node_type'), node_type_path(@node_type), link_to: { confirm: "Are you sure?", method: :delete } %>
 <% end %>
 
-<%= dropdown_tab "Fields" do %>
-  <%= tab_item "Index", node_type_fields_field_configurations_path(@node_type) %>
+<%= dropdown_tab t('fields.fields') do %>
+  <%= tab_item t("fields.index"), node_type_fields_field_configurations_path(@node_type) %>
   <%= content_tag :li, nil, class: "divider" %>
   <% @node_type.field_configurations.each do |conf| %>
     <%= tab_item conf.label, edit_node_type_fields_field_configuration_path(@node_type, conf) unless conf.new_record? %>
   <% end %>
 <% end %>
 
-<%= dropdown_tab "Views" do %>
-  <%= tab_item "Index", node_type_views_views_path(@node_type) %>
-  <%= tab_item "Edit node view", edit_node_type_views_node_path(@node_type) %>
-  <%= tab_item "Edit place page view", edit_node_type_views_place_page_path(@node_type) if @node_type.place_page_view %>
+<%= dropdown_tab t('views.views') do %>
+  <%= tab_item t('views.index'), node_type_views_views_path(@node_type) %>
+  <%= tab_item t('views.edit_node_view'), edit_node_type_views_node_path(@node_type) %>
+  <%= tab_item t('views.edit_place_page_view'), edit_node_type_views_place_page_path(@node_type) if @node_type.place_page_view %>
   <%= content_tag :li, nil, class: "divider" %>
   <% @node_type.views.each do |view| %>
     <%= tab_item view.type.to_s.humanize,
@@ -26,19 +26,19 @@
   <% end %>
 <% end %>
 
-<%= dropdown_tab "Marketing" do %>
-  <%= tab_item "Marketing templates", node_type_marketing_templates_path(@node_type) %>
-  <%= tab_item "New Marketing", new_node_type_marketing_path(@node_type) %>
-  <%= tab_item "Potential Users", node_type_potential_users_path(@node_type) %>
-  <%= tab_item "New Potential Users", new_node_type_potential_user_path(@node_type) %>
+<%= dropdown_tab t('marketing.marketing') do %>
+  <%= tab_item t('marketing.templates'), node_type_marketing_templates_path(@node_type) %>
+  <%= tab_item t('marketing.new_marketing'), new_node_type_marketing_path(@node_type) %>
+  <%= tab_item t('marketing.potential_users'), node_type_potential_users_path(@node_type) %>
+  <%= tab_item t('marketing.new_potential_users'), new_node_type_potential_user_path(@node_type) %>
   <%= content_tag :li, nil, class: "divider" %>
   <% @node_type.marketing_templates.each do |marketing_template| %>
     <%= tab_item marketing_template.title, node_type_marketing_template_path(@node_type, marketing_template) unless marketing_template.new_record? %>
   <% end %>
 <% end %>
 
-<%= dropdown_tab "Nodes" do %>
-  <%= tab_item "Public Nodes Page", node_type_nodes_path(@node_type) %>
-  <%= tab_item "Manage all nodes", manage_node_type_nodes_path(@node_type) %>
-  <%= tab_item "Add new node", new_node_type_node_path(@node_type) %>
+<%= dropdown_tab t('nodes.nodes') do %>
+  <%= tab_item t('nodes.public_nodes_page'), node_type_nodes_path(@node_type) %>
+  <%= tab_item t('nodes.manage_all_nodes'), manage_node_type_nodes_path(@node_type) %>
+  <%= tab_item t('nodes.add_new_node'), new_node_type_node_path(@node_type) %>
 <% end %>

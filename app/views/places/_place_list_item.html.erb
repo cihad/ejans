@@ -1,8 +1,0 @@
-<%= content_tag_for :li, place do %>
-  <%= link_to place.name, places_path(parent_place_id: place.id, event: "show"), remote: true %>
-  <span class="controls">
-    <%= link_to places_path(parent_place_id: place.id, event: "add_child_places"), remote: true do %>
-      <%= content_tag :i, nil, class: " icon-indent-left" %>
-    <% end %>
-  </span>
-<% end %>

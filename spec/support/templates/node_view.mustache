@@ -1,0 +1,54 @@
+<table class="table table-node table-striped table-hover">
+  <tr>
+    <th><%= {{belongs_to}}.label %></th>
+    <td><%= node.{{belongs_to}}.title %></td>
+  </tr>
+  <tr>
+    <th><%= {{boolean}}.label %></th>
+    <td><%= node.{{boolean}} ? {{boolean}}.on_value : {{boolean}}.off_value %></td>
+  </tr>
+  <tr>
+    <th><%= {{date}}.label %></th>
+    <td><%= node.{{date}} %></td>
+  </tr>
+  <tr>
+    <th><%= {{image}}.label %></th>
+    <td>
+      <% node.{{image}}.each do |image| %>
+        <img src="<%= image.image_url(:thumb) %>" />
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <th><%= {{integer}}.label %></th>
+    <td>
+      <%= {{integer}}.prefix %>
+      <%= node.{{integer}} %>
+      <%= {{integer}}.suffix %>
+    </td>
+  </tr>
+  <tr>
+    <th><%= {{list}}.label %></th>
+    <td><%= node.{{list}}.map(&:name).join(', ') %></td>
+  </tr>
+  <tr>
+    <th><%= {{place}}.label %></th>
+    <td>
+      <% node.{{place}}.each do |row| %>
+        <%= row.places.map(&:name).join(', ') %><br />
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <th><%= {{string}}.label %></th>
+    <td><%= node.{{string}} %></td>
+  </tr>
+  <tr>
+    <th><%= {{tag}}.label %></th>
+    <td><%= node.{{tag}}.join(', ') %></td>
+  </tr>
+  <tr>
+    <th><%= {{tree_category}}.label %></th>
+    <td><%= node.{{tree_category}}.map(&:name).join(', ') %></td>
+  </tr>
+</table>

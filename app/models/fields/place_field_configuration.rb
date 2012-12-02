@@ -56,13 +56,9 @@ module Fields
       EOM
 
       node_klass.class_eval <<-EOM
-        def #{machine_name}
-          begin
-            #{keyname}.unscoped
-          rescue
-            []
-          end
-        end
+        alias :#{machine_name} :#{keyname}
+        alias :#{machine_name}= :#{keyname}=
+
         
         private
         
@@ -82,6 +78,11 @@ module Fields
           true
         end
       EOM
+    end
+
+    def fill_node_with_random_value(node)
+      place = Fields::Place.new(places: top_place.get_just_a_branch, node: node)
+      node.send("#{machine_name}") << place
     end
 
     private

@@ -9,13 +9,7 @@ module Fields
 
     def set_specifies
       node_klass.instance_eval <<-EOM
-        field :#{keyname}, type: Boolean
-      EOM
-
-      node_klass.class_eval <<-EOM
-        def #{machine_name}
-          #{keyname}
-        end
+        field :#{keyname}, as: :#{machine_name}, type: Boolean
       EOM
     end
 
@@ -27,6 +21,10 @@ module Fields
       else
         BlankCriteria.new
       end
+    end
+
+    def fill_node_with_random_value(node)
+      node.send("#{machine_name}=", true)
     end
   end
 end

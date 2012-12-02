@@ -3,7 +3,7 @@ module Fields
     include Ejans::Fields::Filterable
     include Rails.application.routes.url_helpers
     field :inverse_of, type: Symbol
-    field :can_be_added_only_by_belongs_to_node_author, type: Symbol
+    field :can_be_added_only_by_belongs_to_node_author, type: Boolean
     belongs_to :parent_node_node_type, class_name: "NodeType"
     after_create :create_has_many_field_other_side
 
@@ -21,13 +21,8 @@ module Fields
       EOM
       
       node_klass.class_eval <<-EOM
-        def #{machine_name}
-          begin
-            #{keyname}
-          rescue
-            nil
-          end
-        end
+        alias :#{machine_name} :#{keyname}
+        alias :#{machine_name}= :#{keyname}=
 
         private
         def #{keyname}_presence_value
@@ -55,6 +50,15 @@ module Fields
       else
         BlankCriteria.new
       end
+    end
+
+    def fill_node_with_random_value(node)
+      parent_node = if can_be_added_only_by_belongs_to_node_author
+                      node.author.nodes.where(id: parent_node_node_type.id).first
+                    else
+                      parent_node_node_type.nodes.first
+                    end
+      node.send("#{machine_name}=", parent_node)
     end
 
     private

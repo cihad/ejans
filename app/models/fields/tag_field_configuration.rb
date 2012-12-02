@@ -4,22 +4,18 @@ module Fields
 
     def set_specifies
       node_klass.instance_eval <<-EOM
-        field :#{keyname}, type: Array, default: []
+        field :#{keyname}, as: :#{machine_name}, type: Array, default: []
 
         validate :#{keyname}_presence_value
       EOM
 
       node_klass.class_eval <<-EOM
-        def #{machine_name}
-          #{keyname}
-        end
-        
         def #{keyname}_tags=(tags)
           self.#{keyname} = tags.split(',').map(&:strip)
         end
 
         def #{keyname}_tags
-          self.#{keyname}.try(:join, ', ')
+          #{keyname}.join(', ')
         end
 
         private
@@ -38,6 +34,10 @@ module Fields
       else
         BlankCriteria.new
       end
+    end
+
+    def fill_node_with_random_value(node)
+      node.send("#{keyname}_tags=", Faker::Lorem.words.join(','))
     end
   end
 end

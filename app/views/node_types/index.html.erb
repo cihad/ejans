@@ -1,15 +1,4 @@
-<% provide :title, 'Node Types' %>
-<%= page_title 'Node Types' %>
-
-<%= form_tag node_types_path, :method => 'get', :id => "node_type_search" do %>
-  <p>
-    <div class="input-append">
-      <%= text_field_tag :q, params[:q], class: "input-xlarge" %>
-      <%= submit_tag "Search", :name => nil, class: "btn" %>
-    </div>
-  </p>
-<% end %>
-
-<div id="node_types">
-  <%= render 'node_types' %>
-</div>
+<% provide :title, t('node_types.node_types') %>
+<%= page_title t('node_types.node_types') %>
+<%= render 'search_form' %>
+<%= render 'node_types' %>

@@ -1,10 +1,10 @@
 <%= form_for(@user) do |f| %>
   <%= error_messages_for @user %>
   <table class="table table-form">
-    <%= simple_text_field f, :username %>
-    <%= simple_text_field f, :email %>
-    <%= simple_password_field f, :password %>
-    <%= simple_password_field f, :password_confirmation %>
-    <%= simple_submit f, "Kayıt ol" %>
+    <%= simple_text_field f, :username, label: { name: t('users.username') } %>
+    <%= simple_text_field f, :email, label: { name: t('users.email') } %>
+    <%= simple_password_field f, :password, label: { name: t('users.password') } %>
+    <%= simple_password_field f, :password_confirmation, label: { name: t('users.password_confirmation') } %>
+    <%= simple_submit f, t('users.signup') %>
   </table>
 <% end %>

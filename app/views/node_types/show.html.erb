@@ -88,12 +88,16 @@ $(function() {
   <div class="span4 widget">
     <div class="thumbnail">
       <div class="header">
-        <h4>En çok görüntülenenler</h4>
+        <h4>Yönetim Linkleri</h4>
       </div>
       <div class="caption">
         <table class="table" width="100%">
           <tr>
-            <td>#TODO</td>
+            <td>
+              <%= link_to t("node_types.rebuild_node_model"),
+                          rebuild_node_model_node_type_path(@node_type),
+                          class: "btn"  %>
+            </td>
           </tr>
         </table>
       </div>

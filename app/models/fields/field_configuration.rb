@@ -25,7 +25,7 @@ module Fields
       label.strip!
     end
 
-    after_save { node_type.refresh_node_model }
+    after_save { node_type.rebuild_node_model }
     after_save { node_type.save }
 
     delegate :node_classify_name, to: :node_type
@@ -40,12 +40,6 @@ module Fields
 
       define_method(:sortable?) do
         included_modules.include?(Ejans::Fields::Sortable) ? true : false
-      end
-    end
-
-    def self.field_types
-      subclasses.map do |name|
-        to_field(name)
       end
     end
 
@@ -71,12 +65,16 @@ module Fields
       type_class.to_s.underscore.sub('/', '_')
     end
 
+    def self.field_type
+      field_machine_name(self.name)
+    end
+
     def self.options_for_types
       subclasses.map { |class_name| [field_name(class_name), class_name]  }
     end
 
     def field_type
-      self.class.field_machine_name(self.class)
+      self.class.field_type
     end
 
     def field_class_style_type_name
@@ -113,6 +111,8 @@ module Fields
         arr
       end.uniq
     end
+
+    def fill_node_with_random_value(node) end
 
     private
 

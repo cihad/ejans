@@ -1,11 +1,12 @@
-<%= simple_check_box f, :sort %>
+<%= simple_check_box f,
+      :sort,
+      label: { name: t('fields.sort') } %>
 
-<%= simple_number_field f, :row %>
-
-<%= simple_number_field f, :maximum_length %>
-
-<%= simple_number_field f, :minimum_length %>
+<%= simple_number_field f,
+      :row,
+      label: { name: t('fields.string.row') } %>
 
 <%= simple_select f,
       :text_format,
-      f.object.class::TEXT_FORMATS %>
+      f.object.class::TEXT_FORMATS,
+      label: { name: t('fields.string.text_format') } %>

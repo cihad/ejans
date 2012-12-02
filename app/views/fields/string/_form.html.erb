@@ -8,31 +8,12 @@
   <%= form_value_layout do %>
 
     <% if field.text_field? %>
-      <%= field.f.text_field field.form_key,
-            maxlength: field.max %>
+      <%= field.f.text_field field.form_key %>
     <% else %>
-      <%= field.f.text_area field.form_key,
-            rows: field.row,
-            maxlength: field.max,
-            class: "input-xlarge" %>
+      <%= field.f.text_area field.form_key, rows: field.row, class: "input-xlarge" %>
     <% end %>
 
     <%= field.help_text %>
-
-    <% if field.max %>
-      <p class="right-align mini-font no-margin">
-        <span class="chars-left pastelred">
-          <%= field.max %>
-        </span> char left.
-      </p>
-
-      <%= javascript_tag do %>
-        $('textarea').maxlength({
-          'feedback' : '.chars-left'
-        });
-      <% end %>
-    <% end %>
-
     
   <% end %>
 <% end %>

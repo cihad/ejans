@@ -1,10 +1,12 @@
 class NodeTypesController < ApplicationController
-  before_filter :node_type, only: [:show, :edit, :update, :destroy]
-  before_filter :authenticate_user!, except: [:index]
-  before_filter :must_be_an_administrator, only: [:show, :edit, :update]
-  before_filter :admin_user, only: [:index, :new]
+  before_filter :node_type, only: [:show, :edit, :update, :destroy, :rebuild_node_model]
 
-  layout 'small', only: :index
+  # Authorization Filters
+  before_filter :authenticate_user!, except: [:index]
+  before_filter :must_be_an_administrator, only: [:show, :edit, :update, :rebuild_node_model]
+  before_filter :admin_user, only: [:new]
+
+  layout 'small'
 
   def index
     @node_types = NodeType.search(params[:q])
@@ -13,7 +15,7 @@ class NodeTypesController < ApplicationController
   def show; end
 
   def new
-    @node_type = NodeType.new      
+    @node_type = NodeType.new 
   end
 
   def edit; end
@@ -46,6 +48,11 @@ class NodeTypesController < ApplicationController
     end
   end
 
+  def rebuild_node_model
+    @node_type.rebuild_node_model
+    redirect_to :back, notice: "Dugum modeli tekrar yuklendi."
+  end
+
   private
   def node_type
     @node_type = NodeType.find(params[:id])
@@ -59,7 +66,6 @@ class NodeTypesController < ApplicationController
   end
 
   def admin_user
-    # TODO
-    true
+    redirect_to root_path unless current_user.admin?
   end
 end

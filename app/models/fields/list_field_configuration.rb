@@ -35,9 +35,8 @@ module Fields
       EOM
 
       node_klass.class_eval <<-EOM
-        def #{machine_name}
-          #{keyname}
-        end
+        alias :#{machine_name} :#{keyname}
+        alias :#{machine_name}= :#{keyname}=
         
         private
         def #{keyname}_presence_value
@@ -52,6 +51,14 @@ module Fields
           end
         end
       EOM
+    end
+
+    def fill_node_with_random_value(node)
+      max = maximum_select <= 1 ? 1 : maximum_select
+      selected_items = Random.rand(1..max).times.inject([]) do |arr, i|
+        arr << list_items[i]
+      end
+      node.send("#{machine_name}=", selected_items)
     end
 
     private

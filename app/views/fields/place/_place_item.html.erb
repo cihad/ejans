@@ -2,7 +2,7 @@
   <% name = (builder.collection_select :place_ids, field.tree.first, :id, :name, {}).split("name=\"").last.split("\"").first + "[]" %>
   <% field.tree.each_with_index do |level, i| %>
     <p>
-      <select id="place_<%= builder.object.id %>_<%= i %>" name="<%= name %>">
+      <select id="place_<%= counter %>_<%= i %>" name="<%= name %>" class="for_place_test_<%= i %>">
         <option value=""></option>
         <% level.each do |place| %>
           <option value="<%= place.id %>"

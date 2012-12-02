@@ -1,21 +1,24 @@
 class PlacesController < ApplicationController
+  before_filter :should_be_admin, only: [:index, :create, :edit, :update, :destroy]
   respond_to :js, only: [:index]
+  layout 'small', only: [:index]
+  
 
   def show
     @place = Place.find(params[:id])
   end
 
   def index
-    @places = Place.roots
+    @items = Place.roots
     @event = params[:event] if params[:event]
     case @event
     when "show"
-      @parent_place = Place.find(params[:parent_place_id])
-      @child_places = @parent_place.children
-    when "add_child_places"
-      @parent_place = Place.find(params[:parent_place_id])
-    when "add_place"
-      @parent_place = Place.new
+      @parent_item = Place.find(params[:parent_item_id])
+      @child_items = @parent_item.children
+    when "add_child_items"
+      @parent_item = Place.find(params[:parent_item_id])
+    when "add_item"
+      @parent_item = Place.new
     end
   end
 
@@ -53,5 +56,12 @@ class PlacesController < ApplicationController
   def find_by_name
     @places = Place.fulltext_search(params[:query])
     render json: @places.map(&:hierarchical_name)
+  end
+
+  private
+  def should_be_admin
+    unless current_user.try(:admin?)
+      redirect_to root_path
+    end
   end
 end

@@ -8,7 +8,7 @@
     <% name = (field.f.collection_select field.category_ids_name, field.levels.first, :id, :name, {}).split("name=\"").last.split("\"").first + "[]" %>
     <% field.levels.each_with_index do |level, i| %>
       <p>
-        <select id="category_tree_<%= field.conf.id %>_<%= i %>" name="<%= name %>">
+        <select id="category_tree_<%= field.conf.machine_name %>_<%= i %>" name="<%= name %>" class="for_tree_category_test_<%= i %>">
           <option value="">Seçiniz</option>
           <% level.each do |category| %>
             <option value="<%= category.id %>"
@@ -24,7 +24,7 @@
     <%= field.help_text %>
     <%= javascript_tag do %>
       <% (field.levels.count - 1).times do |i| %>
-        $("#category_tree_<%= field.conf.id %>_<%= i+1 %>").chained("#category_tree_<%= field.conf.id %>_<%= i %>");
+        $("#category_tree_<%= field.conf.machine_name %>_<%= i+1 %>").chained("#category_tree_<%= field.conf.machine_name %>_<%= i %>");
       <% end %>
     <% end %>
     

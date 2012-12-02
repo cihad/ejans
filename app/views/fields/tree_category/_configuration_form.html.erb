@@ -1,5 +1,8 @@
-<%= simple_check_box f, :filter %>
+<%= simple_check_box f,
+      :filter,
+      label: { name: t('fields.filter') } %>
 
 <%= simple_select f,
       :category,
-      Category.roots.map { |p| [p.name, p.id]} %>
+      Category.roots.map { |p| [p.name, p.id] },
+      label: { name: t('fields.tree_category.category') } %>

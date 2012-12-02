@@ -56,7 +56,7 @@ module TagsHelper
       form_item_layout(options[:form_item_layout]) do
         concat(
           form_label_layout(options[:form_label_layout]) do
-            f.label(name, label_name.to_s.humanize, options[:label])
+            f.label(name, label_name, options[:label])
           end
         )
         

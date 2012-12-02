@@ -3,50 +3,40 @@ module Fields
     include Ejans::Fields::Filterable
     include Ejans::Fields::Sortable
 
-    field :filter_type, type: Symbol
     FILTER_TYPES = [:number_field, :range_with_number_field]
-    validates :filter_type, inclusion: { in: FILTER_TYPES + [nil] }
+    THOUSAND_MARKERS = [:none, :decimal_point, :comma, :space]
 
+    field :filter_type, type: Symbol
     field :minimum, type: Integer, default: 0
     field :maximum, type: Integer
     field :prefix, type: String
     field :suffix, type: String
     field :thousand_marker, type: Symbol
-    THOUSAND_MARKERS = [:none, :decimal_point, :comma, :space]
+
+    validates :filter_type, inclusion: { in: FILTER_TYPES + [nil] }
     validates :thousand_marker, inclusion: { in: THOUSAND_MARKERS }
     validate :min_can_not_greater_than_max
 
     def delimiter
       case thousand_marker
-      when :none
-        ""
-      when :decimal_point
-        "."
-      when :comma
-        ","
-      when :space
-        " "
-      else
-        ""
+      when :decimal_point then "."
+      when :comma         then ","
+      when :space         then " "
+      else ""
       end
     end
 
     def set_specifies
       node_klass.instance_eval <<-EOM
-        field :#{keyname}, type: Integer
+        field :#{keyname}, as: :#{machine_name}, type: Integer
 
         validate :#{keyname}_presence_value
         validate :#{keyname}_not_greater_than_maximum
         validate :#{keyname}_not_less_than_minimum
       EOM
 
-      node_klass.class_eval <<-EOM
-        def #{machine_name}
-          #{keyname}
-        end
-        
+      node_klass.class_eval <<-EOM        
         private
-
         def #{keyname}_presence_value
           if #{required?} and #{keyname}.blank?
             errors.add(:#{keyname}, "bos birakilamaz.")
@@ -94,6 +84,13 @@ module Fields
 
     def max_machine_name
       "#{machine_name}_max"
+    end
+
+    def fill_node_with_random_value(node)
+      minimum = minimum || 0
+      maximum = maximum || 1000
+      val     = Random.rand(0..1000)
+      node.send("#{machine_name}=", val)
     end
 
     private

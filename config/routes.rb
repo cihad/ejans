@@ -46,17 +46,16 @@ Ejans::Application.routes.draw do
     resources :marketing
     resources :marketing_templates, path: 'mail'
     resources :potential_users
+    get :rebuild_node_model, on: :member
 
     resources :nodes, path: 'nd' do
       get :manage, on: :collection
       get :change_owner, on: :member
       post :change_owner, on: :member
-    end
-  end
 
-  namespace :fields do
-    resources :images do
-      post :sort, on: :collection
+      resources :images do
+        post :sort, on: :collection
+      end
     end
   end
 

@@ -15,9 +15,8 @@ module Fields
       EOM
 
       node_klass.class_eval <<-EOM
-        def #{machine_name}
-          #{keyname}
-        end
+        alias :#{machine_name} :#{keyname}
+        alias :#{machine_name}= :#{keyname}=
 
         def #{keyname}_add_images(params)
           params.inject([]) do |new_images, img|
@@ -45,6 +44,14 @@ module Fields
           end
         end
       EOM
+    end
+
+    def fill_node_with_random_value(node)
+      max_img = maximum_image > 10 ? 10 : maximum_image
+      images = Random.rand(1..maximum_image).times.inject([]) do |arr, i|
+        arr << Fields::Image.new(imageable: node, image: File.new("#{Rails.root}/spec/support/images/home_#{i+1}.jpg"))
+      end
+      node.send("#{machine_name}=", images)
     end
 
     private

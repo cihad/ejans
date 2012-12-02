@@ -44,10 +44,6 @@ class User
 
   validates :remember_token, uniqueness: true
 
-  def admin?
-    role == :admin
-  end
-
   def email_name
     email.split('@').first
   end
@@ -93,9 +89,9 @@ class User
 
   def self.authenticate(email_or_username, password)
     if email?(email_or_username)
-      find_by(email: email_or_username).try(:authenticate, password)
+      where(email: email_or_username).first.try(:authenticate, password)
     elsif username?(email_or_username)
-      find_by(username: email_or_username).try(:authenticate, password)
+      where(username: email_or_username).first.try(:authenticate, password)
     end
   end
 
@@ -113,6 +109,17 @@ class User
 
   def default_password_changed?
     BCrypt::Password.new(password_digest) != remember_token
+  end
+
+  ROLES.each do |role_name|
+    define_method "#{role_name}?" do
+      role == role_name 
+    end
+
+    define_method "make_#{role_name}!" do
+      self.role = role_name
+      self.save(validate: false)  
+    end
   end
 
   private

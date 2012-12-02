@@ -1,25 +1,24 @@
 <%= form_for @node_type, html: { multipart: true } do |f| %>
   <table class="table table-form">
-    <%= simple_text_field f, :name %>
-    <%= simple_text_field f, :title_label %>
-    <%= simple_text_area f, :description, input: { rows: 3 } %>
+    <%= simple_text_field f, :name, label: { name: t('node_types.name') } %>
+    <%= simple_text_field f, :title_label, label: { name: t('node_types.new.title_label') } %>
+    <%= simple_text_area f, :description, label: { name: t('node_types.description') }, input: { rows: 3 } %>
     <%= simple_select f, :filters_position,
-      f.object.class::FILTERS_POSITIONS %>
-    <%= simple_number_field f, :node_expiration_day_limit %>
+      f.object.class::FILTERS_POSITIONS, label: { name: t('node_types.new.filters_position') } %>
+    <%= simple_number_field f, :node_expiration_day_limit, label: { name: t('node_types.new.node_expiration_day_limit') } %>
 
-    <%= simple_check_box f, :commentable %>
-    <%= simple_check_box f, :signin_required %>
-    <%= checkbox_group "Administrators" do %>
+    <%= simple_check_box f, :commentable, label: { name: t('node_types.new.commentable') } %>
+    <%= simple_check_box f, :signin_required, label: { name: t('node_types.new.signin_required') } %>
+    <%= checkbox_group t('node_types.administrators') do %>
       <% @node_type.administrators.each do |admin| %>
         <p><%= admin.username_or_email_name %></p>
       <% end %>
-      <%= f.text_field  :administrator_username_or_email,
-                        placeholder: "Username or Email" %>
+      <%= f.text_field :administrator_username_or_email, placeholder: t('node_types.new.username_or_email') %>
     <% end %>
 
     <%= form_item_layout do %>
       <%= form_label_layout do %>
-        <%= f.label :background_image %>
+        <%= f.label :background_image, t('node_types.new.background_image') %>
       <% end %>
       <%= form_value_layout do %>
         <p><%= image_tag(@node_type.background_image_url) if @node_type.background_image? %></p>
@@ -28,11 +27,11 @@
         <p>
           <label class="checkbox">
             <%= f.check_box :remove_background_image %>
-            Remove image
+            <%= t('images.remove_image') %>
           </label>
       <% end %>
     <% end %>
 
-    <%= simple_submit f %>
+    <%= simple_submit f, t('node_types.new.submit') %>
   </table>
 <% end %>

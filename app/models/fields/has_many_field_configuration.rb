@@ -13,12 +13,6 @@ module Fields
           dependent: :destroy,
           validate: false
       EOM
-      
-      node_klass.class_eval <<-EOM
-        def #{machine_name}
-          #{keyname}
-        end
-      EOM
     end
 
     private

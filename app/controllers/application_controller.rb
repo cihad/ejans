@@ -12,8 +12,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def warden
-    env['warden']
-  end
+  def warden; env['warden']; end
   helper_method :warden
 end

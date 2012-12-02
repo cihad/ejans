@@ -2,6 +2,7 @@ class Category
   include Mongoid::Document
   include Mongoid::Tree
   include Mongoid::Tree::Traversal
+  include Ejans::TreeLevels
 
   attr_accessor :childs
 
@@ -24,22 +25,5 @@ class Category
         taxonomy.save
       end
     end
-  end
-
-  def levels
-    levels = []
-    arr = []
-    lv = level
-    traverse(:breadth_first) do |n|
-      if lv == n.level
-        arr << n
-      else
-        levels << arr
-        arr = [] << n
-        lv = n.level
-      end
-    end
-
-    levels << arr
   end
 end

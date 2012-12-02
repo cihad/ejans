@@ -1,7 +1,16 @@
-<%= simple_check_box f, :filter %>
+<%= simple_check_box f,
+      :filter,
+      label: { name: t('fields.filter') } %>
 
-<%= simple_select f, :widget_type, f.object.class::WIDGET_TYPES %>
+<%= simple_select f,
+      :widget_type,
+      f.object.class::WIDGET_TYPES,
+      label: { name: t('fields.widget_type') } %>
 
-<%= simple_text_field f, :on_value %>
+<%= simple_text_field f,
+      :on_value,
+      label: { name: t('fields.boolean.on_value') } %>
 
-<%= simple_text_field f, :off_value %>
+<%= simple_text_field f,
+      :off_value,
+      label: { name: t('fields.boolean.off_value') } %>

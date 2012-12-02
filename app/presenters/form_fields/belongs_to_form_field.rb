@@ -21,7 +21,8 @@ module FormFields
         nodes = parent_node_node_type.nodes.where(author_id: author.try(:id)).published
         options_for_select = nodes.map { |node| [node.title, node.id] }
       else
-        options_for_select = nodes.published.map { |n| [n.title, n.id] }
+        nodes = parent_node_node_type.nodes.published
+        options_for_select = nodes.map { |n| [n.title, n.id] }
         options_for_select.unshift(['', '']) unless required?
       end
 

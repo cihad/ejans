@@ -1,3 +1,4 @@
 Fabricator :node do
-  title "Title for Node"
+  title { Faker::Name.title }
+  author { Fabricate(:user) }
 end

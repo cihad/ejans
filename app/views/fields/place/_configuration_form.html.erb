@@ -1,10 +1,15 @@
 <%= simple_check_box f,
       :filter,
-      input: { data: { toggle: "filter" } } %>
+      input: { data: { toggle: "filter" } },
+      label: { name: t('fields.filter') } %>
 
-<%= simple_number_field f, :level %>
+<%= simple_number_field f,
+      :level,
+      label: { name: t('fields.place.level') } %>
 
-<%= simple_check_box f, :multiselect %>
+<%= simple_check_box f,
+      :multiselect,
+      label: { name: t('fields.place.multiselect') } %>
 
 <%= simple_text_field f,
       :top_place_name,
@@ -14,6 +19,9 @@
             source_url: find_by_name_places_path 
           },
         autocomplete: "off"
-        } %>
+        },
+      label: { name: t('fields.place.top_place_name') } %>
 
-<%= simple_check_box f, :place_page_list %>
+<%= simple_check_box f,
+      :place_page_list,
+      label: { name: t('fields.place.place_page_list') } %>

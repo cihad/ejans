@@ -1,24 +1,37 @@
 <%= simple_check_box f,
       :filter,
-      input: { data: { toggle: "filter" } } %>
+      input: { data: { toggle: "filter" } },
+      label: { name: t('fields.filter') } %>
       
 <%= simple_select f,
       :filter_type,
       f.object.class::FILTER_TYPES,
-      form_item_layout: { class: "filter-options" } %>
+      form_item_layout: { class: "filter-options" },
+      label: { name: t('fields.filter_type') } %>
 
-<%= simple_check_box f, :sort %>
+<%= simple_check_box f,
+      :sort,
+      label: { name: t('fields.sort') } %>
 
 <%= check_box_option_for("filter") %>
 
-<%= simple_number_field f, :minimum %>
+<%= simple_number_field f,
+      :minimum,
+      label: { name: t('fields.integer.minimum') } %>
 
-<%= simple_number_field f, :maximum %>
+<%= simple_number_field f,
+      :maximum,
+      label: { name: t('fields.integer.maximum') } %>
 
-<%= simple_text_field f, :prefix %>
+<%= simple_text_field f,
+      :prefix,
+      label: { name: t('fields.integer.prefix') } %>
 
-<%= simple_text_field f, :suffix %>
+<%= simple_text_field f,
+      :suffix,
+      label: { name: t('fields.integer.suffix') } %>
 
 <%= simple_select f,
       :thousand_marker,
-      f.object.class::THOUSAND_MARKERS %>
+      f.object.class::THOUSAND_MARKERS,
+      label: { name: t('fields.integer.thousand_marker') } %>

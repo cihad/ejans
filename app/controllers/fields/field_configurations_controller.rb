@@ -4,6 +4,7 @@ module Fields
     before_filter :authenticate_user!
     before_filter :must_be_an_administrator
     include ControllerHelper
+    layout "small"
 
     def index
       @fcs = @node_type.field_configurations

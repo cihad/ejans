@@ -1,0 +1,13 @@
+<% singularize_name = item.class.name.downcase %>
+<% pluralize_name = singularize_name.pluralize %>
+<%= content_tag_for :li, item do %>
+  <%= link_to item.name, send("#{pluralize_name}_path", parent_item_id: item.id, event: "show"), remote: true %>
+  <span class="controls">
+    <%= link_to send("#{pluralize_name}_path", parent_item_id: item.id, event: "add_child_items"), remote: true, class: "add-child-items" do %>
+      <%= content_tag :i, nil, class: " icon-indent-left" %>
+    <% end %>
+    <%= link_to send("#{singularize_name}_path", item), remote: true, method: :delete, confirm: "Are you sure?", class: "delete-item" do %>
+      <%= content_tag :i, nil, class: " icon-remove" %>
+    <% end %>
+  </span>
+<% end %>

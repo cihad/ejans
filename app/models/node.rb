@@ -3,26 +3,24 @@ class Node
   include Mongoid::Timestamps
   include Rails.application.routes.url_helpers
 
-  paginates_per 20
-  attr_accessor :author_email
+  attr_accessor :author_email, :save_with_no_validate
 
   REMOVE_BLANK_NODES_IN_X_DAY = 30
 
+  # Kaminari
+  paginates_per 20
+
   # Fields
   field :title
-  index title: 1
-
   field :published, type: Boolean, default: false
   field :approved, type: Boolean, default: false
   field :token
   field :email_send, type: Boolean
 
-  # Validations
-  validates :title, presence: true
-  validate :valid_email
-
   # Associations
+  belongs_to :node_type
   belongs_to :author, class_name: 'User', inverse_of: :nodes
+  embeds_many :comments
 
   # Scopes
   default_scope order_by(created_at: :desc)
@@ -33,15 +31,19 @@ class Node
   scope :time_ago_updated, ->(time) { where(:updated_at.lt => time) }
   scope :blank_nodes_by_anon, where(title: nil).and(author: nil)
   scope :blank_nodes_by_author, where({"$and"=>[{"title"=>nil}, {"author_id"=>{"$exists"=>true}}]})
-  # Associations
-  belongs_to :node_type
-  embeds_many :comments
+
+  # Validations
+  validates :title, presence: true
+  validate :is_user_email_valid
 
   # Callbacks
+  before_save :save_user
   after_save :send_email
   before_create :set_random_token
 
   # Indexes
+  index title: 1
+
   { integer_value: 4,
     string_value: 3,
     date_value: 2 }.each do |key_prefix, how_many|
@@ -62,15 +64,15 @@ class Node
     end
   end
 
+  # Instance Methods
   def save=(submit_value)
-    if published?
-      @save_no_validate = false
-    end
+    self.save_with_no_validate = true
   end
 
   def publish=(submit_value)
     self.published = true
     self.approved = false
+    self.save_with_no_validate = false
   end
 
   def publishing?
@@ -84,24 +86,17 @@ class Node
   def approve=(submit_value)
     self.published = true
     self.approved = true
-  end
-
-  def save_no_validate=(submit_value)
-    @save_no_validate = true
-  end
-
-  def save_no_validate?
-    @save_no_validate
+    self.save_with_no_validate = true
   end
 
   def statement_save
-    save_no_validate? ? self.save(validate: false) : self.save
+    save_with_no_validate ? self.save(validate: false) : self.save
   end
 
-  def set_approved
+  def set_approved(validate = :true)
     self.published = true
     self.approved = true
-    self.save
+    self.save(validate: validate)
   end
 
   def set_unpublishing
@@ -126,23 +121,11 @@ class Node
   end
   
   def author_email=(email)
-    email.strip!
-    if User::EMAIL_REGEX =~ email
-      user = begin
-              User.find_by(email: email)
-            rescue
-              user = User.new(email: email)
-              user.save(validate: false)
-              user
-            end
-
-      self.send_email = true
-      self.email_send = true
-      self.author = user
-      @author_email = user.email
-    else
-      @author_email = email
-    end
+    @user = User.find_or_initialize_by(email: email)
+    self.send_email = true
+    self.email_send = true
+    self.author = @user
+    @author_email = @user.email
   end
 
   def author_email
@@ -161,6 +144,10 @@ class Node
     user == author || node_type.administrators.include?(user)
   end
 
+  def fill_with_random_values
+    node_type.configs.each do |cfg| cfg.fill_node_with_random_value(self) end
+  end
+
   private
   def send_email
     delivered = NodeMailer.node_info(self).deliver if send_email?
@@ -170,9 +157,13 @@ class Node
     self.token = SecureRandom.urlsafe_base64
   end
 
-  def valid_email
-    unless author_email =~ User::EMAIL_REGEX
-      errors.add(:author_email, "Gecerli bir e-mail adresi giriniz.")
+  def is_user_email_valid
+    if @user and @user.new_record? and !@user.valid? and @user.errors.messages[:email].present?
+      errors.add :author_email, "Gecerli bir e-mail adresi giriniz."
     end
+  end
+
+  def save_user
+    @user.save(validate: false) if @user
   end
 end

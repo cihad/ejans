@@ -1,0 +1,26 @@
+<% name = @parent_item.class.name.downcase.pluralize %>
+<%= form_for @parent_item do |f| %>
+  <table class="table table-form">
+    <% unless @parent_item.root? %>
+      <%= form_item_layout do %>
+        <%= form_label_layout do %>
+          <%= t "#{name}.parent_#{name.singularize}" %>
+        <% end %>
+        <%= form_value_layout do %>
+          <span class="input-xlarge uneditable-input"><%= @parent_item.parent.name %></span>
+        <% end %>
+      <% end %>
+    <% end %>
+
+    <%= simple_text_field f,
+          :name,
+          label: { name: t("#{name}.name") } %>
+
+    <%= simple_text_area f,
+          :childs,
+          label: { name: t("#{name}.children") } %>
+
+    <%= simple_submit f, t('actions.save') %>
+  </table>
+
+<% end %>

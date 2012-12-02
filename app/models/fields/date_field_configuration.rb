@@ -111,7 +111,7 @@ module Fields
     def set_specifies
       node_klass.instance_eval <<-EOM
         include Mongoid::MultiParameterAttributes
-        field :#{keyname}, type: Date
+        field :#{keyname}, as: :#{machine_name}, type: Date
 
         validate :#{keyname}_presence_value
         validate :#{keyname}_start_date
@@ -119,12 +119,7 @@ module Fields
       EOM
 
       node_klass.class_eval <<-EOM
-        def #{machine_name}
-          #{keyname}
-        end
-
         private
-
         def #{keyname}_presence_value
           if #{required?} and #{keyname}_not_defined?
             errors.add(:#{keyname}, "alani bos birakilamaz.")
@@ -147,6 +142,10 @@ module Fields
           #{keyname}.blank? or #{keyname} == Date.new(1) 
         end
       EOM
+    end
+
+    def fill_node_with_random_value(node)
+      node.send("#{machine_name}=", Date.new(Random.rand(start_year...end_year)))
     end
 
     protected

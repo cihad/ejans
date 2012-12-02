@@ -12,11 +12,4 @@ $(function() {
       $(this).closest('form').submit();
     })
   });
-
-  $('.images').sortable({
-    handle: '.handle-move',
-    update: function() {
-      return $.post($(this).data('update-url'), $(this).sortable('serialize') + "&keyname=<%= field.keyname %>&node_id=<%= @node.id %>");
-    }
-  });
 });

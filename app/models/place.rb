@@ -3,6 +3,7 @@ class Place
   include Mongoid::Tree
   include Mongoid::Tree::Traversal
   include Mongoid::FullTextSearch
+  include Ejans::TreeLevels
 
   attr_accessor :childs
 
@@ -50,23 +51,6 @@ class Place
         place.save
       end
     end
-  end
-
-  def levels
-    levels = []
-    arr = []
-    lv = level
-    traverse(:breadth_first) do |n|
-      if lv == n.level
-        arr << n
-      else
-        levels << arr
-        arr = [] << n
-        lv = n.level
-      end
-    end
-
-    levels << arr
   end
 
   def self.default_coordinates

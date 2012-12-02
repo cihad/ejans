@@ -1,4 +1,4 @@
-  class PotentialUser
+class PotentialUser
   include Mongoid::Document
   include Mongoid::Timestamps::Created
   field :email

@@ -43,7 +43,6 @@ group :development do
   gem 'capistrano-resque', git: "git://github.com/sshingler/capistrano-resque.git"
   # gem 'capistrano-unicorn', :require => false
   gem 'rvm-capistrano'
-  
   gem 'libnotify'
 end
 
@@ -55,8 +54,8 @@ group :test, :development do
   gem 'faker'
   gem 'rspec-rails'
   gem 'guard-rspec'
-  gem 'capybara'
   gem 'launchy'
+  gem 'capybara'
 end
 
 group :test do

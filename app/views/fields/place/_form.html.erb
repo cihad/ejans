@@ -8,13 +8,14 @@
     <% field.build_place %>
 
     <div class="places">
+      <% counter = 0 %>
       <%= field.f.fields_for field.form_key do |builder| %>
-        <%= render 'fields/place/place_item', field: field, builder: builder %>
+        <%= render 'fields/place/place_item', field: field, builder: builder, counter: (counter+= 1) %>
       <% end %>
     </div>
 
     <%= javascript_tag do %>
-      $(function() { $('fieldset').treeSelect(); });
+      $(function() { $('fieldset.place-select').treeSelect(); });
     <% end %>
 
     <%= field.link_to_add_place if field.multiselect? %> 

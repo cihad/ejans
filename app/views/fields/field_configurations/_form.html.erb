@@ -10,14 +10,15 @@
   <%= error_messages_for @fc %>
   <table class="table table-form">
     <%= hidden_field_tag "_type", @fc._type %>
-    <%= simple_text_field f, :label %>
-    <%= simple_check_box f, :required %>
+    <%= simple_text_field f, :label, label: { name: t('fields.label') } %>
+    <%= simple_check_box f, :required, label: { name: t('fields.required')} %>
     <%= simple_text_area f,
       :help_text,
       input: { rows: 3 },
-      help: "Bu yazi node formunda gozukur." %> 
+      help: t('fields.help_text_help'),
+      label: { name: t('fields.help_text') } %> 
 
     <%= render "#{@fc.partial_dir}/configuration_form", f: f %>
-    <%= simple_submit f %>
+    <%= simple_submit f, t('fields.add') %>
   </table>
 <% end %>

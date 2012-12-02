@@ -3,180 +3,161 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 tr:
-  global:
-    show: 'Göster'
-    edit: 'Düzenle'
-    destroy: 'Sil'
-    update: 'Güncelle'
-    selection: 'seçenek'
-    selections: 'seçenekler'
-    title: 'Başlık'
-    description: 'Açıklama'
-    actions: 'Eylemler'
-    home: 'Anasayfa'
-    services: 'Servisler'
-    subscribe: 'Abone ol'
-    created: 'Eklenme tarihi'
-    back: 'Geri'
-    credit: 'Kredi'
-    loading: 'yükleniyor...'
-    free: 'Ücretsiz'
-    email: 'Email'
-    denied_access: 'Erişim reddedildi'
-    insufficient_credit: 'Yeterli krediniz yok.'
-    new: 'yeni'
-    be_user: 'Üye ol'
-    sign_in: 'Giriş yap'
-    sign_up_in: 'Üyelik & Giriş'
+  actions:
+    save: "Kaydet"
+    delete: "Sil"
+    destroy: "Sil"
+    edit: "Düzenle"
 
   errors:
     page_not_found: 'Sayfa Bulunamadı'
     not_found_desc: 'Aradığınız sayfayı bulamıyoruz. Kaldırılmış veya adresi değiştirilmiş olabilir.'
 
-  home:
-    desc:
-      meta_description: 'Ejans.com, işiniz ve yaşantınız ile ilgili servisleri sayesinde size duymak istediklerinizi söyler.'
-    slide:
-      what_does_it_do: 'Ne işe yarar?'
-      services: 'İlgi alanına giren servise abone oluyorsun. İşin hakkındaki duyuruları, etkinlikleri, teklifleri, iş ilanlarını bu servis ile takip edebilirsin. Bu da senin güncel kalmanı sağlar.'
-      filters: 'Filtreler'
-      filters_desc: 'Servise abone olurken istediğin filtrelemeyi yaparak sadece senin ile ilgili bildirileri eposta ile alabilirsin. Böylece seninle ilgili olmayan bildirilerle seni rahatsız etmeyiz.'
-      notification: 'Bildiri'
-      notification_desc: 'Servislere bildiri göndererek istediğiniz kitleye ulaşabilirsiniz. Bunun için servis sayfasındaki "Yeni bildiri" bağlantısını kullanarak formu doldurmanız yeterlidir.'
-    index:
-      title: "Anasayfa"
-      about: "Hakkımızda"
-      contact: "İletişim"
-      feedback: "Geri bilirim ve destek"
-
-  account:
-    signin: 'Giriş yap'
-    signup: 'Üye ol'
-    signin_signup: 'Giriş yap & Üye ol'
-    signout: 'Çıkış'
-    password: 'Parola'
-    password_confirmation: 'Parola tekrar'
-    email: 'Eposta'
-    remember_me: 'hatırla beni'
-    forgot_password: 'Parolanızı mı unuttunuz?'
-    edit_email: 'Email adresim'
-    edit_password: 'Parolam'
-    terminate: 'Hesabımı kaldır'
-    edit_subscriptions: 'Aboneliklerim'
-
-  notices:
-    name: 'Bildiriler'
-    no_notice: 'Yeni bildiri yok'
-    my: 'Bildirilerim'
-
-  services:
-    name: 'Servisler'
-    one: 'Servis'
-    subscriber: 'takipçi'
-    sender_credit: 'Gönderen için kredi'
-    receiver_credit: 'Alan için kredi'
-    credit_subscription: 'abone başına kredi'
-    credit_notification: 'bildiri başına kredi'
-    filter_name: 'Filtre adı'
-    add_selection: 'Seçenek ekle'
-    add_group_item: 'Seçenek ekle'
-    delete_group_item: 'Sil'
-    label: 'Etiket'
-    show:
-      notifications: 'Servis Bildirileri'
-      no_notification: 'Hiç bildiri yok. İlk bildiriyi sen gönder. Servisin canlanmasına yardımcı ol'
-    new:
-      add_filter: 'Filtre ekle'
-      new_service: 'Yeni Servis'
-    index:
-      listing_services: 'Servisler'
-    edit:
-      edit_service: 'Servisi düzenle'
-      edit_service_title: '"%{title}" servisini düzenle'
-    subscription_form:
-      receivers: 'Alıcılar'
-    statics:
-      one_subscriber: 'takipçi'
-      many_subscribers: 'takipçi'
-      send: 'Son 1 ayda gönderim'
-      settings: 'Abonelik ayarları'
-
-  notifications:
-    name: 'Bildiriler'
-    one: 'Bildiri'
-    all: 'Tüm bildiriler'
-    title: 'Bildiri başlığı'
-    filter: 'Filtre'
-    filters: 'Filtreler'
-    price: 'Bildiri ücreti'
-    char: '%{char} karakter kaldı'
-    new:
-      new_notification: 'Yeni bildiri'
-    statics:
-      name: 'İstatistikler'
-      title: '%{title} İstatistikleri'
-      sended: 'adet aboneye gönderildi'
-      read: 'kişi tarafından okundu'
-      read_percentage: 'okunma oranı'
-      avarage_time: 'bildiride geçirilen ortalama süre'
-      touched: 'kişi iletişime geçti'
-    show:
-      available: 'tarihine kadar geçerli'
-      selected: 'Bu seçeneğe abonesiniz'
-      add_my_account: 'Bildiriyi hesabıma ekle'
-      insufficient_credit: 'Yetersiz kredi'
-      author: 'gönderen'
-      created_at: 'tarihinde eklendi'
-      read: 'okunma sayısı'
-    notification:
-      insufficient_credit: 'Bu bildiri size gönderildi. Krediniz yetersiz olduğu için bildiriyi alamadınız.'
-      sufficient_credit: 'Şimdi yeterli krediniz var.'
-      before_time: 'Bu bildiri servise abone olmadığınız bir zamanda gönderildiği için göremiyorsunuz.'
-
-  subscriptions:
-    show:
-      insufficient_credit: 'Krediniz yetersiz olduğu için bu bildiriyi göremezsiniz.'
-      buy_credit: 'Kredi almak için tıklayınız.'
-    service:
-      signin: 'Abone olmak için giriş yapın'
-    minimum_select: 'Abonelik için en az bir tane seçin.'
-
-  payments:
-    name: 'Ödemeler'
-
-  search:
-    do: "Ara"
-    no_service: 'Servis bulunamadı'
-    description: 'Aradığınız - %{search} - ile ilgili bir sonuç bulunamadı.'
-    suggestion: 'Öneri'
-    suggestions: 'Öneriler'
-    s1: 'Tüm kelimeleri doğru yazdığınızdan emin olun.'
-    s3: 'Daha genel anahtar kelimeleri deneyin.'
-    s2: 'Başka anahtar kelimeleri deneyin.'
-    notice_me: 'Beni bilgilendir'
-    notice_desc: 'Bu aramayla ilgili yeni bir servis çıkınca size haber etmemizi istiyorsanız aşağıdaki formu doldurun.'
-    submit: 'Gönder'
-    submit_success: 'Öneriniz kaydedilmiştir. Bu aramayla ilgili bir sonuç çıktığında sizi email ile bilgilendireceğiz.'
-
-  comments:
-    comment_title: 'Yorumlar'
-    signin_html: "Yorum yapabilmek için <a data-toggle=\"modal\" href=\"#signin-modal\">giriş</a> yapın."
-    answer: "cevapla"
-
   activerecord:
     errors:
       models:
-        notification:
-          attributes:
-            title:
-              blank: "alanı boş bırakılamaz."
-            sms:
-              blank: "alanına 160 karakter ile bildiriyi özetleyen bir metin girin."
-            description:
-              blank: "alanı boş bırakılamaz."
-            available_until:
-              blank: "alanı boş bırakılamaz."
 
   views:
     pagination:
       truncate: "..."
+
+  sessions:
+    signin: "Giriş"
+    signout: "Çıkış"
+    email_or_username: "Email veya kullanıcı adı"
+    password: "Parola"
+    invalid_information: "Geçersiz bilgiler girdiniz."
+    are_you_new: "Üye değil misin? Kayıt ol"
+
+  users:
+    username: "Kullanıcı adı"
+    email: "Email"
+    password: "Parola"
+    password_confirmation: "Parola tekrar"
+    signup: "Kayıt"
+
+  node_types:
+    node_types: "Listeler"
+    search: "Ara"
+    name: "Adı"
+    default_title: "İlan Başlığı"
+    description: "Açıklama"
+    administrators: "Yöneticiler"
+    new:
+      title_label: "Başlık alanı adı"
+      filters_position: "Filtrelerin konumu"
+      node_expiration_day_limit: "Node expiration day limit"
+      commentable: "Yorum yapılabilsin"
+      signin_required: "Ekleyebilmek için üye girişi gerekli olsun"
+      submit: "Ekle"
+      username_or_email: "Kullanıcı adı veya email"
+      background_image: "Arkaplan resmi"
+    edit:
+      edit: "Düzenle"
+    dashboard: "Kontrol Paneli"
+    configurations: "Ayarlar"
+    rebuild_node_model: "Girdi modelini tekrar yükle"
+    delete_node_type: "Listeyi Sil"
+
+  nodes:
+    node: "Girdi"
+    nodes: "Girdiler"
+    public_nodes_page: "Girdi listesi"
+    manage_all_nodes: "Girdileri yönet"
+    add_new_node: "Yeni girdi ekle"
+    publish: "Yayınla"
+    save: "Kaydet"
+    approve: "Onayla"
+
+  fields:
+    fields: "Alanlar"
+    field: "Alan"
+    new_field: "Yeni alan"
+    index: "İndeks"
+    label: "Alan adı"
+    filter: "Filtre"
+    filter_help: "Girdilerin bu alana göre filtreleme yapılabilmesi için seçebilirsiniz"
+    filter_type: "Filtre türü"
+    sort: "Sıralama yapılabilsin"
+    sort_help: "Girdilerin bu alana göre sıralama yapılabilmesi için seçebilirsiniz."
+    required: "Gerekli"
+    help_text: "Yardım açıklaması"
+    help_text_help: "Bu açıklama girdi formunda gözükür."
+    widget_type: "Widget türü"
+    add: "Ekle"
+    belongs_to:
+      can_be_added_only_by_belongs_to_node_author: "Sadece referans girdi sahibi tarafından eklenebilsin"
+      parent_node_node_type: "Referans Liste"
+    boolean:
+      on_value: "On değeri"
+      off_value: "Off değeri"
+    date:
+      date_type: "Tarih türü"
+      start_date_type: "Başlangıç tarihi türü"
+      x_years_ago_start: "X yıl önce başlasın"
+      specific_start_date: "Özel başlangıç tarihi"
+      end_date_type: "Bitiş tarihi türü"
+      x_years_ago_end: "X yıl önce bitsin"
+      x_years_later_end: "X yıl sonra bitsin"
+      specific_end_date: "Özel bitiş tarihi"
+    has_many:
+      child_nodes_node_type: "Referans liste"
+    image:
+      help: "0 girilirse sınırsız resim eklenebilir demektir."
+      maximum_image: "En fazla ne kadar resim eklenebilsin"
+      add_image: "Resim ekle"
+    integer:
+      minimum: "En az"
+      maximum: "En fazla"
+      prefix: "Ön ek"
+      suffix: "Son ek"
+      thousand_marker: "Yüzdelik ayırma işareti"
+    list:
+      maximum_select: "En fazla ne kadar seçilebilsin"
+      list_items: "Liste"
+      item: "parça"
+      name: "İsim"
+      help: "0 girilirse sınırsız seçim yapılabilir demektir."
+    place:
+      level: "Seviye"
+      multiselect: "Çoklu seçme"
+      top_place_name: "Üst seviye yer adı"
+      place_page_list: "Yer sayfasında listelensin"
+    string:
+      row: "Yazı alanı satır sayısı"
+      text_format: "Biçimlendirme türü"
+    tree_category:
+      category: "Kategori"
+
+  views:
+    views: "Gösterimler"
+    view: "Gösterim"
+    index: "İndeks"
+    edit_node_view: "Node gösterimi"
+    add_new_view: "Yeni gösterim ekle"
+    save: "Kaydet"
+    destroy: "Sil"
+
+  marketing:
+    marketing: "Pazarlama"
+    templates: "Temalar"
+    new_marketing: "Yeni pazarlama"
+    potential_users: "Potansiyel üyeler"
+    new_potential_users: "Yeni potansiyel üye ekle"
+    edit_place_page_view: "Yer sayfasının gösterimi"
+
+  images:
+    remove_image: "Resmi sil"
+    add: "Resim ekle"
+
+  places:
+    add_place: "Yer ekle"
+    parent_place: "Üst yer"
+    name: "İsim"
+    children: "Alt yerler"
+
+  categories:
+    add_category: "Kategori ekle"
+    parent_category: "Üst kategori"
+    name: "İsim"
+    children: "Alt kategoriler"

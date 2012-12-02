@@ -1,6 +1,6 @@
 class PlaceObserver < Mongoid::Observer
   def before_save(place)
-    geocode(place) if place.set_geocode?
+    geocode(place) if place.set_geocode? and !Rails.env.test?
   end
 
   protected

@@ -33,6 +33,7 @@ class NodesController < ApplicationController
       redirect_to node_type_node_path(@node_type, @node), notice: 'Node was successfully updated.'
     else
       @node.set_unpublishing
+      @node.save(validate: false)
       render action: "edit"
     end
   end

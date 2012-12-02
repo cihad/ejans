@@ -1,17 +1,7 @@
-<%= page_title "categories" %>
+<%= page_title "Categories" %>
 
-<%= render 'nav' %>
+<%= render 'trees/nav', items_name: "categories" %>
 
-<%= render 'categories_list', categories: @categories %>
+<%= render 'trees/list', items: @items %>
 
-<script type="text/javascript">
-(function(){
-  $('.categories li .controls').hide();
-
-  $('.category').live('mouseenter', function(){
-    $(this).children('.controls').show();
-  }).live('mouseleave', function(){
-    $(this).children('.controls').hide();
-  })
-})();
-</script>
+<%= render 'trees/js' %>

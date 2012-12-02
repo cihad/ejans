@@ -1,12 +1,9 @@
 class NewNode
   attr_reader :current_user, :node_type
+  attr_accessor :node
 
   def initialize(node_type, current_user)
     @node_type, @current_user = node_type, current_user
-  end
-
-  def unpublished_node
-    @unpublished_node ||= @current_user.unpublished_nodes(node_type).first
   end
 
   def any_unpublished_node?
@@ -18,20 +15,32 @@ class NewNode
   end
 
   def node
-    if previously_saved_valid_a_node?
-      unpublished_node
-    else
-      saved_new_node
-    end
+    set_node
+    @node
+  end
+
+  # private
+  def set_node
+    previously_saved_valid_a_node? ? unpublished_node : saved_new_node
   end
 
   def saved_new_node
-    node = node_type.node_classify_name.constantize.new do |node|
-      node.node_type_id = node_type.id
-      node.author = current_user
+    destroy_old_nodes
+    
+    self.node = node_type.nodes.build({}, node_type.node_classify_name.constantize) do |n|
+      n.node_type = node_type
+      n.author = current_user
+      n.save validate: false
     end
-    node.save(validate: false)
+  end
 
-    node
+  def unpublished_node
+    self.node = current_user.unpublished_nodes(node_type).first
+  end
+
+  def destroy_old_nodes
+    if current_user and (nodes = current_user.nodes.where(node_type_id: node_type.id) and nodes.exists?)
+      nodes.destroy_all
+    end
   end
 end

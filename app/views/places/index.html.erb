@@ -1,17 +1,7 @@
 <%= page_title "Places" %>
 
-<%= render 'nav' %>
+<%= render 'trees/nav', items_name: "places" %>
 
-<%= render 'places_list', places: @places %>
+<%= render 'trees/list', items: @items %>
 
-<script type="text/javascript">
-(function(){
-  $('.places li .controls').hide();
-
-  $('.place').live('mouseenter', function(){
-    $(this).children('.controls').show();
-  }).live('mouseleave', function(){
-    $(this).children('.controls').hide();
-  })
-})();
-</script>
+<%= render 'trees/js' %>

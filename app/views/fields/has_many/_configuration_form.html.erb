@@ -1,3 +1,4 @@
 <%= simple_select f,
       :child_nodes_node_type_id,
-      NodeType.all.map { |nt| [nt.name, nt.id] } %>
+      NodeType.all.map { |nt| [nt.name, nt.id] },
+      label: { name: t('fields.has_many.child_nodes_node_type') } %>

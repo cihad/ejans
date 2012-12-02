@@ -15,10 +15,10 @@
             <%= tab_item "Nodes", user_path(current_user) %>
             <%= tab_item "Configurations", edit_user_path(current_user) %>
             <%= content_tag :li, nil, class: "divider" %>
-            <%= tab_item "Sign out", signout_path, link_to: { method: :delete } %>
+            <%= tab_item t('sessions.signout'), signout_path, link_to: { method: :delete } %>
           <% end %>
         <% else %>
-          <li><%= link_to 'Sign in', signin_path %></li>
+          <li><%= link_to t('sessions.signin'), signin_path %></li>
         <% end %>
       </ul>
     </div>

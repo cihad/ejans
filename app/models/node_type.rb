@@ -5,47 +5,50 @@ class NodeType
   include Rails.application.routes.url_helpers
 
   attr_accessor :administrator_username_or_email
+  FILTERS_POSITIONS = [:top, :left]
 
+  # Carrierwave
   mount_uploader :background_image, BackgroundImageUploader
 
-  field :name, type: String
+  # Fields
+  field :name,                      type: String
+  field :title_label,               type: String, default: I18n.t('node_types.default_title')
+  field :description,               type: String
+  field :filters_position,          type: Symbol, default: :top
+  field :commentable,               type: Boolean
+  field :signin_required,           type: Boolean
+  field :node_expiration_day_limit, type: Integer, default: 0
+  field :nodes_count,               type: Integer, default: 0
+
+  # Validates
+  validates :filters_position, inclusion: { in: FILTERS_POSITIONS }
   validates :name, presence: true
 
-  field :title_label, type: String, default: I18n.t('global.title')
-  field :description, type: String
-  field :filters_position, type: Symbol, default: :top
-  FILTERS_POSITIONS = [:top, :left]
-  validates :filters_position, inclusion: { in: FILTERS_POSITIONS }
-  
-  field :commentable, type: Boolean
-  field :signin_required, type: Boolean
-  field :node_expiration_day_limit, type: Integer, default: 0
-
-  field :nodes_count, type: Integer, default: 0
+  # Indexes
   index nodes_count: 1
 
-  has_many :nodes, dependent: :destroy
-  embeds_many :field_configurations,
-    class_name: "Fields::FieldConfiguration"
-  embeds_one :node_view, class_name: "Views::Node"
-  embeds_one :place_page_view, class_name: "Views::PlacePage"
+  # Associations
+  has_many    :nodes, dependent: :destroy
+  embeds_many :field_configurations, class_name: "Fields::FieldConfiguration"
+  alias :configs :field_configurations
+  embeds_one  :node_view, class_name: "Views::Node"
+  embeds_one  :place_page_view, class_name: "Views::PlacePage"
   embeds_many :views, class_name: "Views::View"
-
   embeds_many :marketing_templates
   embeds_many :marketing
   has_and_belongs_to_many :potential_users
-  has_and_belongs_to_many :administrators,
-                          class_name: "User",
+  has_and_belongs_to_many :administrators, class_name: "User",
                           inverse_of: :managed_node_types
   accepts_nested_attributes_for :administrators
 
+  # Scopes
   scope :sort_by_nodes_count, asc(:nodes_count)
 
-  after_create :create_node_view
-  validates :name, presence: true
-
+  # Callbacks
   after_initialize { load_node_model if name }
+  before_create :create_node_view
 
+  # Class Methods
   def self.search(search = nil)
     if search.present?
       ::Metadata.fulltext_search(search)
@@ -57,6 +60,19 @@ class NodeType
     end
   end
 
+  def self.unpublish_expired_nodes!
+    all.each do |nt| nt.set_unpublishing_expired_nodes end
+  end
+
+  def self.remove_blank_nodes_by_anon!
+    all.each do |nt| nt.remove_blank_nodes_by_anon! end
+  end
+
+  def self.remove_blank_nodes_by_author!
+    all.each do |nt| nt.remove_blank_nodes_by_author! end
+  end
+
+  # Instance Methods
   def searchables
     labels = field_configurations.map(&:label)
     list_field_configs = field_configurations.where("_type" => Fields::ListFieldConfiguration)
@@ -65,24 +81,6 @@ class NodeType
     end
 
     [name] + labels + list_field_item_names
-  end
-
-  def self.unpublish_expired_nodes!
-    all.each do |node_type|
-      node_type.set_unpublishing_expired_nodes
-    end
-  end
-
-  def self.remove_blank_nodes_by_anon!
-    all.each do |node_type|
-      node_type.remove_blank_nodes_by_anon!
-    end
-  end
-
-  def self.remove_blank_nodes_by_author!
-    all.each do |node_type|
-      node_type.remove_blank_nodes_by_author!
-    end
   end
 
   def approved_queue
@@ -133,6 +131,12 @@ class NodeType
 
   def machine_names
     field_configurations.map(&:machine_name)
+  end
+
+  Fields::FieldConfiguration.subclasses.each do |klass|
+    define_method(:"#{klass.field_type}_field_configs") do
+      field_configurations.where("_type" => klass.name)
+    end
   end
 
   def related_node_types
@@ -238,25 +242,28 @@ class NodeType
   end
 
   def load_node_model
-    begin
-      node_classify_name.constantize
-    rescue
+    unless NodeType.const_defined?(node_classify_name.split('::').last)
       build_node_model
     end
   end
 
   def build_node_model
-    self.class.const_set node_classify_name.demodulize.to_sym, Class.new(Node)
+    unless NodeType.const_defined?(node_classify_name.split('::').last)
+      self.class.const_set node_classify_name.demodulize.to_sym, Class.new(Node)
+    end
     node_classify_name.constantize
     field_configurations.each { |conf| conf.load_node }
   end
 
-  def refresh_node_model
+  def rebuild_node_model
+    if self.class.const_defined?(node_classify_name.demodulize.to_sym)
+      self.class.send(:remove_const, node_classify_name.demodulize.to_sym)
+    end
     build_node_model
   end
 
   private
-  def create_node_view
-    self.build_node_view.save(validate: false)
+  def create_node_view  
+    self.build_node_view unless node_view
   end
 end

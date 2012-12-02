@@ -29,7 +29,6 @@
 //= require bootstrap-tab
 //= require bootstrap-popover
 //= require bootstrap-typeahead
-//= require jquery-plugins/jquery.maxlength
 //= require jquery-plugins/jquery.multiselect
 //= require jquery-plugins/jquery.formoption
 //= require jquery-plugins/jquery.multiselect.filter
@@ -60,11 +59,6 @@ $(function() {
 
   $(".line-items").mouseup(function() { // Mouse Up Click
     return false;
-  });
-
-  // Sms field char count
-  $('textarea.limited').maxlength({
-    'feedback' : '.chars-left' // note: looks within the current form
   });
 
   // TinyMCE

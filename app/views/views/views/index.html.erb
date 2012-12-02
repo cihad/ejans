@@ -10,7 +10,7 @@
     <td><%= @node_type.node_view.class.name %></td>
     <td>
       <%= link_to "edit",
-            edit_node_type_views_view_path(@node_type, @node_type.node_view),
+            edit_node_type_views_node_path(@node_type),
             class: "btn btn-mini" %>
     </td>
   </tr>
@@ -20,8 +20,8 @@
         <td><span class="handle">[drag]</span></td>
         <td><%= view.type %></td>
         <td>
-          <%= link_to "edit", edit_node_type_views_view_path(@node_type, view), class: "btn btn-mini" %>
-          <%= link_to "destroy", node_type_views_view_path(@node_type, view), method: :delete, confirm: "Are you sure?", class: "btn btn-mini" %>
+          <%= link_to t('actions.edit'), edit_node_type_views_view_path(@node_type, view), class: "btn btn-mini" %>
+          <%= link_to t('actions.destroy'), node_type_views_view_path(@node_type, view), method: :delete, confirm: "Are you sure?", class: "btn btn-mini" %>
         </td>
       </tr>
     <% end %>
@@ -42,7 +42,7 @@
       <td></td>
       <td><%= select_tag "_type",
                 options_for_select(Views::View.options_for_types) %></td>
-      <td><%= f.submit "Add new view", class: "btn" %></td>
+      <td><%= f.submit t('views.add_new_view'), class: "btn" %></td>
     </tr>
   <% end %>
 </table>

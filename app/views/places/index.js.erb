@@ -1,10 +1,10 @@
 <% case @event %>
-<% when "add_child_places" %>
-  $('#overlay').append("<%=j static_modal(@parent_place.name) {render 'form'} %>")
+<% when "add_child_items" %>
+  $('#overlay').append("<%=j static_modal(@parent_item.name) { render 'trees/form' } %>")
 <% when "show" %>
-  if ( $('#place_<%= @parent_place.id %> ul').size() == 0 ) {
-    $('#place_<%= @parent_place.id %>').append("<%=j render 'places_list', places: @child_places %>");
+  if ( $('#item_<%= @parent_item.id %> ul').size() == 0 ) {
+    $('#place_<%= @parent_item.id %>').append("<%=j render 'trees/list', items: @child_items %>");
   }
-<% when "add_place" %>
-  $('#overlay').append("<%=j static_modal(@parent_place.try(:name)) {render 'form'} %>")
+<% when "add_item" %>
+  $('#overlay').append("<%=j static_modal(@parent_item.try(:name) || "New Item") {render 'trees/form' } %>")
 <% end %>

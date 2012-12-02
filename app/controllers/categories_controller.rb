@@ -1,21 +1,24 @@
 class CategoriesController < ApplicationController
+  before_filter :should_be_admin, only: [:index, :create, :edit, :update, :destroy]
   respond_to :js, only: [:index, :destroy]
+
+  layout 'small', only: [:index]
 
   def show
     @category = Category.find(params[:id])
   end
 
   def index
-    @categories = Category.roots
+    @items = Category.roots
     @event = params[:event] if params[:event]
     case @event
     when "show"
-      @parent_category = Category.find(params[:parent_category_id])
-      @child_categories = @parent_category.children
-    when "add_child_categories"
-      @parent_category = Category.find(params[:parent_category_id])
-    when "add_category"
-      @parent_category = Category.new
+      @parent_item = Category.find(params[:parent_item_id])
+      @child_items = @parent_item.children
+    when "add_child_items"
+      @parent_item = Category.find(params[:parent_item_id])
+    when "add_item"
+      @parent_item = Category.new
     end
   end
 
@@ -46,5 +49,12 @@ class CategoriesController < ApplicationController
   def destroy
     @category = Category.find(params[:id])
     @category.destroy
+  end
+
+  private
+  def should_be_admin
+    unless current_user.try(:admin?)
+      redirect_to root_path
+    end
   end
 end

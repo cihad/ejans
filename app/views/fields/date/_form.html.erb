@@ -1,6 +1,6 @@
 <%= form_item_layout do %>
   <%= form_label_layout do %>
-    <%= field.f.label field.form_key, field.label %>
+    <%= field.f.label "#{field.form_key}_1i", field.label %>
     <%= content_tag :span, "*", class: "required" if field.required? %>
   <% end %>
   <%= form_value_layout do %>

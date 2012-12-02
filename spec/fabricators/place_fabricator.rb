@@ -1,43 +1,40 @@
-Fabricator :place, class_name: "Place" do
-  name { sequence(:name) { |i| "#{i}" } }
-  hierarchy "level1, level2, level3, level4"
+Fabricator :place do
+  name { Faker::Address.city }
 end
 
-Fabricator :child_place, class_name: "Place" do
-  name { sequence(:name) { |i| "#{i}" } }
-end
+Fabricator :world, class_name: "Place" do
+  name "World"
 
-Fabricator :turkiye, class_name: "Place" do
-  name "Turkiye"
-  hierarchy "sehir, ilce, mahalle"
-
-  after_build do |turkiye|
-    turkiye.children.push([
-      Fabricate(:eskisehir)
+  after_build do |world|
+    world.children.push([
+      Fabricate.build(:country),
+      Fabricate.build(:country)
     ])
   end
 end
 
-Fabricator :eskisehir, class_name: "Place" do
-  name "Eskisehir"
+Fabricator :country, class_name: "Place" do
+  name { Faker::Address.country }
 
-  after_build do |esk|
-    esk.children.push([
-      Fabricate(:odunpazari)
+  after_build do |country|
+    country.children.push([
+      Fabricate.build(:city),
+      Fabricate.build(:city)
     ])
   end
 end
 
-Fabricator :odunpazari, class_name: "Place" do
-  name "Odunpazari"
+Fabricator :city, class_name: "Place" do
+  name { Faker::Address.city }
 
-  after_build do |odp|
-    odp.children.push([
-      Fabricate(:kurtulus)
+  after_build do |city|
+    city.children.push([
+      Fabricate.build(:street),
+      Fabricate.build(:street)
     ])
   end
 end
 
-Fabricator :kurtulus, class_name: "Place" do
-  name "Kurtulus Mah"
+Fabricator :street, class_name: "Place" do
+  name { Faker::Address.street_name }
 end

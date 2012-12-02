@@ -18,6 +18,6 @@ Warden::Strategies.add(:password) do
 
   def authenticate!
     user = User.authenticate(params['session']['email_or_username'], params['session']['password'])
-    user ? success!(user) : fail!("Invalid email/password combination")
+    user ? success!(user) : fail!(I18n.t('sessions.invalid_information'))
   end
 end

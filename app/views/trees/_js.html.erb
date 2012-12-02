@@ -1,0 +1,11 @@
+<script type="text/javascript">
+(function(){
+  $('.items li .controls').hide();
+
+  $('.item').live('mouseenter', function(){
+    $(this).children('.controls').show();
+  }).live('mouseleave', function(){
+    $(this).children('.controls').hide();
+  })
+})();
+</script>

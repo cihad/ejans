@@ -44,9 +44,8 @@ module Fields
       EOM
 
       node_klass.class_eval <<-EOM
-        def #{machine_name}
-          #{keyname}
-        end
+        alias :#{machine_name} :#{keyname}
+        alias :#{machine_name}= :#{keyname}=
         
         private
         def #{keyname}_presence_value
@@ -55,6 +54,10 @@ module Fields
           end
         end
       EOM
+    end
+
+    def fill_node_with_random_value(node)
+      node.send("#{machine_name}=", category.get_just_a_branch)
     end
 
     private

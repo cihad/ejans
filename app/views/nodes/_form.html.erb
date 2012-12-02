@@ -35,7 +35,7 @@
     <% end %>
 
     <%= checkbox_group nil do %>
-      <%= f.submit  "Save", 
+      <%= f.submit  t('nodes.save'), 
                     class: "btn",
                     rel: "popover",
                     name: "#{@node_type.node_classify_name.underscore.parameterize("_") }[save]",
@@ -43,7 +43,7 @@
                       content: "Formu başarılı bir şekilde kaydettiğinizde eklediğin node yayınlanmaz. Yayınlanabilmesi için publish yapmalısız."
                     } %>
       <% unless @node.published? %>
-        <%= f.submit  "Publish",
+        <%= f.submit  t('nodes.publish'),
                       class: "btn",
                       name: "#{@node_type.node_classify_name.underscore.parameterize("_") }[publish]",
                       rel: "popover",

@@ -5,22 +5,24 @@
   <% end %>
   
   <%= form_value_layout do %>
-    <% if field.maximum_select == 1 %>
-      <%= field.f.collection_select field.list_item_ids_name,
-                                    field.conf.list_items,
-                                    :id,
-                                    :name,
-                                    include_blank: (field.required? ? false : true) %>
-    <% else %>
-      <%= field.f.collection_select field.list_item_ids_name,
-                                    field.conf.list_items,
-                                    :id,
-                                    :name,
-                                    {},
-                                    multiple: true,
-                                    include_blank: (field.required? ? false : true),
-                                    class: field.machine_name %>
-      <%= multiselect "." + field.machine_name %>
+    <%= content_tag :div, id: field.keyname do %>
+      <% if field.maximum_select == 1 %>
+        <%= field.f.collection_select field.list_item_ids_name,
+                                      field.conf.list_items,
+                                      :id,
+                                      :name,
+                                      include_blank: (field.required? ? false : true) %>
+      <% else %>
+        <%= field.f.collection_select field.list_item_ids_name,
+                                      field.conf.list_items,
+                                      :id,
+                                      :name,
+                                      {},
+                                      multiple: true,
+                                      include_blank: (field.required? ? false : true),
+                                      class: field.machine_name %>
+        <%= multiselect ".#{field.machine_name}" %>
+      <% end %>
     <% end %>
 
     <%= field.help_text %>

@@ -1,0 +1,4 @@
+<%= link_to send("#{items_name}_path", event: "add_item"), remote: true, class: "btn" do %>
+  <%= content_tag :i, nil, class: " icon-plus" %>
+  <%= t "#{items_name}.add_#{items_name.singularize}" %>
+<% end %>
