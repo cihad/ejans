@@ -7,7 +7,6 @@ gem 'breadcrumbs', '~> 0.1.6'
 gem 'kaminari'
 gem 'sinatra', '~> 1.2.6'
 gem 'roadie'
-gem 'tinymce-rails'
 gem 'carrierwave'
 gem 'carrierwave-mongoid', require: 'carrierwave/mongoid'
 gem 'fog'
@@ -36,6 +35,7 @@ group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
   gem 'uglifier', '>= 1.0.3'
+  gem 'therubyracer'
 end
 
 group :development do
