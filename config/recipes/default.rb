@@ -1,8 +1,7 @@
 namespace :deploy do
   desc "Config symlink"
-  task :app_config, :except => { :no_release => true }, :role => :app do
-    put File.read("config/app_config.yml"), "#{shared_path}/config/app_config.yml"
-    run "ln -nfs #{shared_path}/config/app_config.yml #{release_path}/config/database.yml"
+  task :app_config, roles: :app do
+    run "ln -nfs #{shared_path}/config/app_config.yml #{current_path}/config/app_config.yml"
   end
   before "unicorn:start", "deploy:app_config"
 
