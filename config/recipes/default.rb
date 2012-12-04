@@ -4,7 +4,7 @@ namespace :deploy do
     put File.read("config/app_config.yml"), "#{shared_path}/config/app_config.yml"
     run "ln -nfs #{shared_path}/config/app_config.yml #{release_path}/config/database.yml"
   end
-  after "deploy:finalize_update", "deploy:app_config"
+  before "unicorn:start", "deploy:app_config"
 
   desc "Make sure local git is in sync with remote."
   task :check_revision, roles: :web do
