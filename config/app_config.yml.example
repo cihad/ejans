@@ -1,13 +1,38 @@
 defaults: &defaults
   secret_token: SECRET_TOKEN
 
+  smtp_address: SMTP.EXAMPLE.COM
+  smtp_port: SMTP_PORT
+  smtp_domain: localhost:3000
+  smtp_username: SMTP_USERNAME
+  smtp_password: SMTP_PASSWORD
+
+  resque_password: RESQUE_PASSWORD
+
 
 development:
   <<: *defaults
-  perform_authentication: false
+  authentication: false
+
+  smtp_domain: localhost:3000
+  recaptcha_public_key: 6LfKcdYSAAAAAKG8Tb1wgW_2q3uAjOIUcrlakm14
+  recaptcha_private_key: RECAPTCHA_PRIVATE_KEY
+
 
 test:
-  perform_authentication: false
+  <<: *defaults
+  authentication: false
 
 production:
-  perform_authentication: true
+  <<: *defaults
+  authentication: true
+
+  smtp_domain: SMTP_DOMAIN
+
+  rackspace_username: RACKSPACE_USERNAME
+  rackspace_api_key: RACKSPACE_API_KEY
+  rackspace_fog_directory: RACKSPACE_FOG_DIRECTORY
+  rackspace_fog_host: RACKSPACE_FOG_HOST
+
+  recaptcha_public_key: 6LdRcdYSAAAAADfyIKP0UjdP_6opDpEk6QrXQ3kd
+  recaptcha_private_key: RECAPTCHA_PRIVATE_KEY
