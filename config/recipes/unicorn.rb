@@ -23,12 +23,4 @@ namespace :unicorn do
     end
     after "deploy:#{command}", "unicorn:#{command}"
   end
-
-
-  desc "force-stop unicorn"
-  task :force_stop, roles: :app do
-    run "#{sudo} service unicorn_#{application} force-stop"
-  end
-  after "deploy", "unicorn:force_stop"
-  after "deploy", "unicorn:start"
 end
