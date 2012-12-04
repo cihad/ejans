@@ -1,9 +1,10 @@
 namespace :deploy do
   desc "Config symlink"
   task :app_config, roles: :app do
-    # run "ln -nfs #{shared_path}/config/app_config.yml #{release_path}/config/app_config.yml"
+    put File.read("config/app_config.yml"), "#{shared_path}/config/app_config.yml"
+    run "ln -nfs #{shared_path}/config/app_config.yml #{release_path}/config/app_config.yml"
   end
-  before "unicorn:start", "deploy:app_config"
+  before "deploy:assets:precompile", "deploy:app_config"
 
   desc "Make sure local git is in sync with remote."
   task :check_revision, roles: :web do
