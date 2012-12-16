@@ -17,10 +17,6 @@ tr:
     errors:
       models:
 
-  views:
-    pagination:
-      truncate: "..."
-
   sessions:
     signin: "Giriş"
     signout: "Çıkış"
@@ -132,6 +128,12 @@ tr:
       category: "Kategori"
 
   views:
+    pagination:
+      previous: "Önceki"
+      first: "İlk"
+      truncate: "..."
+      next: "Sonraki"
+      last: "Son"
     views: "Gösterimler"
     view: "Gösterim"
     index: "İndeks"
