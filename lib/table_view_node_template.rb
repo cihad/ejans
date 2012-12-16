@@ -5,7 +5,7 @@ class TableViewNodeTemplate
 
   def self.template
     %{<table class="table table-node table-striped table-hover">
-      <%= #{yield} %>
+      #{yield}
     </table>}
   end
 
@@ -50,7 +50,7 @@ class TableViewNodeTemplate
       <%= #{machine_name}.suffix %>}
   end
 
-  def self.list(machine_name)
+  def self.select(machine_name)
     "<%= node.#{machine_name}.map(&:name).join(', ') %>"
   end
 
@@ -78,8 +78,8 @@ class TableViewNodeTemplate
 
   def to_s
     return self.class.template do
-      @node_type.configs.inject("") do |tmpl, config|
-        tmpl << self.class.print_field(config.field_type, config.machine_name)
+      @node_type.nodes_custom_fields.inject("") do |tmpl, field|
+        tmpl << self.class.print_field(field.type, field.machine_name)
       end
     end
   end

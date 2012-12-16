@@ -13,16 +13,16 @@ describe TableViewNodeTemplate do
       doc.css('td').should_not be_blank
     end
 
-    Fields::FieldConfiguration.subclasses.each do |klass|
-      it ".#{klass.field_type}" do
-        str = subject.send(klass.field_type, "#{klass.field_type}_machine_name")
-        str.should =~ /#{klass.field_type}_machine_name/
+    CustomFields::Fields::Default::Field.subclasses.each do |klass|
+      it ".#{klass.type}" do
+        str = subject.send(klass.type, "#{klass.type}_machine_name")
+        str.should =~ /#{klass.type}_machine_name/
       end
     end
 
     it ".print_field" do
-      Fields::FieldConfiguration.subclasses.each do |klass|
-        str = subject.print_field("#{klass.field_type}", "this_is_sample_machine_name")
+      CustomFields::Fields::Default::Field.subclasses.each do |klass|
+        str = subject.print_field("#{klass.type}", "this_is_sample_machine_name")
         str.should =~ /this_is_sample_machine_name/
       end
     end
@@ -39,8 +39,8 @@ describe TableViewNodeTemplate do
 
     it "#to_s" do
       str = subject.to_s
-      node_type.configs.each do |config|
-        str.should =~ /#{config.machine_name}/
+      node_type.nodes_custom_fields.each do |field|
+        str.should =~ /#{field.machine_name}/
       end
     end
   end

@@ -1,9 +1,9 @@
 module Views
   class Node
     include Mongoid::Document
-    field :css, type: String
-    field :js,  type: String
-    field :user_input_node_template, type: String
+    field :css
+    field :js
+    field :user_input_node_template
 
     embedded_in :node_type
 
@@ -19,6 +19,10 @@ module Views
       else
         user_input_node_template
       end
+    end
+
+    def fill_a_sample_view=(whatever)
+      self.user_input_node_template = TableViewNodeTemplate.new(node_type).to_s
     end
   end
 end

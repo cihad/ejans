@@ -139,6 +139,10 @@ tr:
     add_new_view: "Yeni gösterim ekle"
     save: "Kaydet"
     destroy: "Sil"
+    node:
+      fill_a_sample_view: "Örnek bir gösterimle doldur"
+      sample_view_message: "Girdiğiniz tema yapisi bozulacak. Örnek veri ile doldurmak istediğinize emin misiniz?"
+      success_update: "Gösterim başarıyla kaydedildi."
 
   marketing:
     marketing: "Pazarlama"
