@@ -1,23 +1,23 @@
 module FormFields
   class IntegerFormField < FormField
     def maximum
-      conf.maximum
+      field.maximum
     end
 
     def minimum
-      conf.minimum
+      field.minimum
     end
 
     def filter?
-      conf.filter?
+      field.filter?
     end
 
     def filter_type
-      conf.filter_type
+      field.filter_type
     end
 
     def suffix
-      conf.suffix
+      field.suffix
     end
 
     def placeholder

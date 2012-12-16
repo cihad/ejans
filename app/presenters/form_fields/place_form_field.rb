@@ -1,19 +1,19 @@
 module FormFields
   class PlaceFormField < FormField
     def multiselect?
-      conf.multiselect?
+      field.multiselect?
     end
 
     def level
-      conf.level
+      field.level
     end
 
     def top_place
-      conf.top_place
+      field.top_place
     end
 
     def form_level_names
-      conf.form_level_names
+      field.form_level_names
     end
 
     def tree

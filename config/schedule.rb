@@ -21,8 +21,3 @@
 every :day do
   runner "NodeType.unpublish_expired_nodes!"
 end
-
-every :day do
-  runner "NodeType.remove_blank_nodes_by_anon!"
-  runner "NodeType.remove_blank_nodes_by_author!"
-end

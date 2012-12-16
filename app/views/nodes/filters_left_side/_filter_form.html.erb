@@ -14,10 +14,10 @@
     </div>
   <% end %>
 
-  <% @node_type.filter_configs.each do |conf| %>
-    <%= render 'nodes/filters_left_side/filter_block', filter: filter_for(conf) %>
+  <% @node_type.filtered_fields.each do |field| %>
+    <%= render 'nodes/filters_left_side/filter_block', filtered_field: filter_for(field) %>
   <% end %>
 
-  <%= render 'hidden_fields' %>
+  <%= render 'hidden_fields_for_filters' %>
   <%= submit_tag "Filter", class: "btn btn-success" %>
 <% end %>

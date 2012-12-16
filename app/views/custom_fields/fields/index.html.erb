@@ -1,0 +1,61 @@
+<% provide :body_class, "node-type-manage" %>
+<%= node_type_navigation %>
+
+<%= error_messages_for @field if @field %>
+
+<table class="table table-striped sortable">
+  <thead>
+    <tr>
+      <th>&nbsp;</th>
+      <th>Label</th>
+      <th>Type</th>
+      <th>Required?</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  
+  <tbody data-update-url="<%= sort_node_type_custom_fields_fields_url(@node_type) %>">
+    <% @fields.each do |field| %>
+      <tr class="field" id="field_<%= field.id %>">
+        <td><span class="handle">[drag]</span></td>
+        <td><%= link_to field.label, node_type_custom_fields_field_path(@node_type, field) %></td>
+        <td><%= field.type %></td>
+        <td><%= field.required %></td>
+        <td>
+          <%= link_to t('global.edit'), edit_node_type_custom_fields_field_path(@node_type, field) %>
+          <%= link_to t('global.destroy'), node_type_custom_fields_field_path(@node_type, field),
+                confirm: "Are you sure?",
+                method: :delete %>
+        </td>
+      </tr>
+    <% end %>
+
+  </tbody>
+
+<% opts = CustomFields::Fields::Default::Field._types.map { |type| [type.constantize.type.titleize, type.constantize.type] unless type.constantize.type == "default"  }.compact %>
+  <%= form_for [@node_type, @node_type.nodes_custom_fields.build],
+        url: new_node_type_custom_fields_field_path,
+        method: :get,
+        as: "field"  do |f| %>
+    <tr>
+      <td></td>
+      <td><%= f.text_field :label, placeholder: t('fields.label'), class: "span2" %></td>
+      <td><%= f.select :type,
+                options_for_select(opts) %></td>
+      <td><%= f.check_box :required %></td>
+      <td><%= f.submit t('fields.new_field'), class: "btn btn-small" %></td>
+    </tr>
+  <% end %>
+
+  <%= javascript_tag do %>
+    $('.sortable tbody').sortable({
+      axis: 'y',
+      handle: ".handle",
+      update: function() {
+        return $.post($(this).data('update-url'), $(this).sortable('serialize'));
+      }
+    });
+  <% end %>
+</table>
+
+<%= node_type_background %>

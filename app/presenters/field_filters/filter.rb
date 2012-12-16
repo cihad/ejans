@@ -1,38 +1,38 @@
 module FieldFilters
   class Filter
-    attr_accessor :conf
+    attr_accessor :field
 
-    def initialize(conf, template)
-      self.conf = conf
+    def initialize(field, template)
+      @field = field
       @template = template
     end
 
     def position
-      conf.node_type.filters_position
+      field.node_type.filters_position
     end
 
-    def field_type
-      conf.field_type
+    def type
+      field.type
     end
 
     def filter_type
-      conf.filter_type
+      field.filter_type
     end
 
     def machine_name
-      conf.machine_name.to_sym
+      field.machine_name.to_sym
     end
 
     def to_s
-      @template.render "#{conf.partial_dir}/#{position}_filter", field: self
+      @template.render "custom_fields/fields/types/#{field.type}/#{position}_filter", field: self
     end
 
     def label
-      conf.label
+      field.label
     end
 
-    def self.presenter_class(conf)
-      "FieldFilters::#{conf.field_type.camelize}FieldFilter".constantize
+    def self.presenter_class(field)
+      "FieldFilters::#{field.type.camelize}FieldFilter".constantize
     end
   end
 end

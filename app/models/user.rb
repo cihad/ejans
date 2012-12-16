@@ -53,7 +53,7 @@ class User
   end
 
   def unpublished_nodes(node_type)
-    nodes.unpublished.where(node_type: node_type)
+    nodes.not_published.where(node_type: node_type)
   end
 
   def password=(unencrypted_password)
@@ -73,9 +73,9 @@ class User
 
   def self.find_by_username_or_email(email_or_username)
     if email?(email_or_username)
-      find_by(email: email_or_username)
+      where(email: email_or_username).first
     elsif username?(email_or_username)
-      find_by(username: email_or_username)
+      where(username: email_or_username).last
     end
   end
 

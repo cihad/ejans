@@ -1,8 +1,10 @@
 $(function() {
   $('.add-image').on('click', function(e) {
     e.preventDefault();
-    $('#fields_image_image').click();
-    $('#fields_image_image').change(function() {
+    console.log('clicked');
+    $('#image_image').click();
+    $('#image_image').change(function() {
+      console.log(this);
       var view = {
         uploaded: false
       };

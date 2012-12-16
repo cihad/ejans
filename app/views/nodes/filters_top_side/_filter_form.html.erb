@@ -14,11 +14,11 @@
         </td>
       <% end %>
 
-      <% @node_type.filter_configs.each do |conf| %>
-        <%= render 'nodes/filters_top_side/filter_block', filter: filter_for(conf) %>
+      <% @node_type.filtered_fields.each do |field| %>
+        <%= render 'nodes/filters_top_side/filter_block', filtered_field: filter_for(field) %>
       <% end %>
       <td>
-        <%= render 'hidden_fields' %>
+        <%= render 'hidden_fields_for_filters' %>
         <%= submit_tag "Filter", class: "btn btn-success" %>
       </td>
     </tr>

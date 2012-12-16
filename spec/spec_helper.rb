@@ -14,7 +14,6 @@ RSpec.configure do |config|
   config.include Capybara::DSL
   config.include TestHelpers
   config.include SessionHelpers
-  config.include FieldHelpers
   config.include NodeTypeHelpers
   config.include NodeHelpers
   config.include ViewHelpers

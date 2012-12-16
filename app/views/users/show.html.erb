@@ -5,7 +5,7 @@
 
 <h3>Yayında olan node'ler</h3>
 <table class="table table-striped">
-  <% @user.nodes.publishing.each do |node| %>
+  <% @user.nodes.listing.each do |node| %>
     <tr>
       <td><%= link_to node.title, node_type_node_path(node.node_type, node), remote: true %></td>
       <td><%= link_to node.node_type.name, node_type_nodes_path(node.node_type) %></td>
@@ -16,7 +16,7 @@
 
 <h3>Yayında olmayan node'ler</h3>
 <table class="table table-striped">
-  <% @user.nodes.unpublished.each do |node| %>
+  <% @user.nodes.waiting_for_user_action.each do |node| %>
     <tr>
       <td><%= link_to node.title, node_type_node_path(node.node_type, node), remote: true %></td>
       <td><%= link_to node.node_type.name, node_type_nodes_path(node.node_type) %></td>
@@ -26,7 +26,7 @@
 
 <h3>Onay bekleyen node'ler</h3>
 <table class="table table-striped">
-  <% @user.nodes.approved_queue.each do |node| %>
+  <% @user.nodes.queue_for_approve.each do |node| %>
     <tr>
       <td><%= link_to node.title, node_type_node_path(node.node_type, node), remote: true %></td>
       <td><%= link_to node.node_type.name, node_type_nodes_path(node.node_type) %></td>

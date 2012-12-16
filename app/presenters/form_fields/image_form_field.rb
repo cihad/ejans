@@ -1,7 +1,7 @@
 module FormFields
   class ImageFormField < FormField
     def maximum_image
-      conf.maximum_image
+      field.maximum_image
     end
 
     def images

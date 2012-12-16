@@ -1,19 +1,19 @@
 module FormFields
   class FormField
-    attr_reader :f, :conf
+    attr_reader :f, :field
 
-    def initialize(f, conf, template)
-      @f = f
-      @conf = conf
+    def initialize(form_builder, field, template)
+      @f = form_builder
+      @field = field
       @template = template
     end
 
     def keyname
-      conf.keyname
+      field.keyname
     end
 
     def form_key
-      keyname
+      machine_name
     end
 
     def node
@@ -25,33 +25,33 @@ module FormFields
     end
 
     def label
-      conf.label
+      field.label
     end
 
     def machine_name
-      conf.machine_name
+      field.machine_name
     end
 
     def required?
-      conf.required
+      field.required
     end
 
-    def help_text
+    def hint
       @template.content_tag :span,
-        conf.help_text.html_safe,
+        field.hint.html_safe,
         class: "help-block"
     end
 
-    def to_s
-      @template.render "#{conf.partial_dir}/form", field: self
+    def partial_dir
+      "custom_fields/fields/types/#{field.type}/form"
     end
 
-    def self.form_presenter_class(conf)
-      ( 
-        "FormFields::" +
-        conf.field_class_style_type_name +
-        "FormField"
-      ).safe_constantize
+    def to_s
+      @template.render partial_dir, field: self
+    end
+
+    def self.form_presenter_klass(field)
+      "FormFields::#{field.type.classify}FormField".constantize
     end 
   end
 end

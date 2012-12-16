@@ -1,8 +1,9 @@
-<%= form_for  Fields::Image.new,
-              url: node_type_node_images_path(@node_type, @node),
+<%= form_for  CustomFields::Fields::Image::Image.new,
+              url: node_type_node_images_path(@node_type._id, @node._id),
+              as: :image,
               remote: true do |image| %>
   <%= hidden_field_tag 'node_id', @node.id  %>
-  <%= hidden_field_tag 'keyname', keyname  %>
+  <%= hidden_field_tag 'machine_name', machine_name  %>
   <%= image.file_field :image, multiple: true %>
   <%= image.submit t('images.add') %>
 <% end %>

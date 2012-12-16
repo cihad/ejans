@@ -4,24 +4,24 @@ module FormFields
       :"#{super}_id"
     end
 
-    def can_be_added_only_by_belongs_to_node_author?
-      conf.can_be_added_only_by_belongs_to_node_author?
+    def can_be_added_only_by_parent_author?
+      field.can_be_added_only_by_parent_author?
     end
 
-    def parent_node_node_type
-      conf.parent_node_node_type
+    def parent_klass
+      field.class_name.constantize
     end
 
     def nodes
-      parent_node_node_type.nodes
+      parent_klass.all
     end
 
     def options_for_select(author = nil)
-      if can_be_added_only_by_belongs_to_node_author?
-        nodes = parent_node_node_type.nodes.where(author_id: author.try(:id)).published
+      if can_be_added_only_by_parent_author?
+        nodes = self.nodes.where(author_id: author.try(:id)).published
         options_for_select = nodes.map { |node| [node.title, node.id] }
       else
-        nodes = parent_node_node_type.nodes.published
+        nodes = self.nodes.published
         options_for_select = nodes.map { |n| [n.title, n.id] }
         options_for_select.unshift(['', '']) unless required?
       end

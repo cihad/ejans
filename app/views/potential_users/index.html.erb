@@ -12,11 +12,9 @@
   </thead>
 
   <tbody>
-    <% @potential_users.each do |user| %>
-      <%= content_tag_for :tr, user do %>
-        <td><%= user.email %></td>
-        <td><%= user.tags.join(', ') %></td>
-      <% end %>
+    <%= content_tag_for :tr, @potential_users do |user| %>
+      <td><%= user.email %></td>
+      <td><%= user.tags.join(', ') %></td>
     <% end %>
   </tbody>
 </table>

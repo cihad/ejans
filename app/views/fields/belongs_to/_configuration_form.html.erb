@@ -1,8 +1,0 @@
-<%= simple_check_box f, :filter, label: { name: t('fields.filter') } %>
-
-<%= simple_check_box f, :can_be_added_only_by_belongs_to_node_author, label: { name: t('fields.belongs_to.can_be_added_only_by_belongs_to_node_author') } %>
-
-<%= simple_select f,
-      :parent_node_node_type_id,
-      NodeType.all.where(:id.ne => @node_type.id).map { |nt| [nt.name, nt.id] },
-      label: { name: t('fields.belongs_to.parent_node_node_type') } %>

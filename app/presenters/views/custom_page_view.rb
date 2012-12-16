@@ -13,15 +13,11 @@ module Views
     end
 
     def view=(view_id)
-      @view = unless view_id.blank?
-                node_type.views.find(view_id)
-              else
-                default_view
-              end
+      @view = view_id.present? ? views.find(view_id) : views.first
     end
 
-    def default_view
-      nodes_index_views.first
+    def views
+      @views ||= node_type.views
     end
 
     def node_type_template
@@ -36,23 +32,18 @@ module Views
 
     def rendered_nodes
       nodes.inject("") do |str, node|
-        str << NodeView.new(view, node_type, node, conf_data, template).to_s
+        str << NodeView.new(view, node_type, node, field_data, template).to_s
       end.html_safe
     end
-
 
     def paginate
       @template.paginate nodes
     end
 
-    def nodes_index_views
-      node_type.views.reject { |view| view.class == Views::Node }
-    end
-
     def view_links
       params.delete(:node_id)
-      if nodes_index_views.count > 1
-        links = nodes_index_views.inject("") do |output, v|
+      if views.count > 1
+        links = views.inject("") do |output, v|
                   current_class = "active" if v == view
                   output += @template.link_to @template.url_for(params.merge(view_id: v.id.to_s)), class: "btn btn-small data-remote #{current_class}" do
                     @template.content_tag :i, nil, class: "#{v.icon}"

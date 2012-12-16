@@ -1,6 +1,6 @@
 <% singularize_name = item.class.name.downcase %>
 <% pluralize_name = singularize_name.pluralize %>
-<%= content_tag_for :li, item do %>
+<%= content_tag_for :li, item, class: "item" do %>
   <%= link_to item.name, send("#{pluralize_name}_path", parent_item_id: item.id, event: "show"), remote: true %>
   <span class="controls">
     <%= link_to send("#{pluralize_name}_path", parent_item_id: item.id, event: "add_child_items"), remote: true, class: "add-child-items" do %>

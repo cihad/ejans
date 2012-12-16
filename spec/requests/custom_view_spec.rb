@@ -17,20 +17,24 @@ describe Views::Custom do
 
   before do
     signin administrator
-    create_a_custom_view
-    visit node_type_views_views_path(node_type)
   end
 
   describe "adds a custom view", js: true do
     specify do
+      create_a_custom_view
+      visit node_type_views_views_path(node_type)
       page.should have_content("Views/Custom")
     end
   end
 
   describe "deletes the custom view", js: true do
     specify do
-      click_link t('actions.destroy')
-      page.driver.browser.switch_to.alert.accept
+      view = make_custom_view(node_type)
+      visit node_type_views_views_path(node_type)
+      within("#view_#{view.id}") do
+        click_link t('actions.destroy')
+      end
+      alert.accept
       visit node_type_views_views_path(node_type)
       page.should_not have_content("Views/Custom")
     end

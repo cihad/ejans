@@ -81,12 +81,14 @@ tr:
     sort: "Sıralama yapılabilsin"
     sort_help: "Girdilerin bu alana göre sıralama yapılabilmesi için seçebilirsiniz."
     required: "Gerekli"
-    help_text: "Yardım açıklaması"
-    help_text_help: "Bu açıklama girdi formunda gözükür."
+    hint: "Yardım"
+    hint_help: "Bu açıklama girdi formunda gözükür."
     widget_type: "Widget türü"
     add: "Ekle"
+    messages:
+      created: "Alanı başarılı bir şekilde eklendi."
     belongs_to:
-      can_be_added_only_by_belongs_to_node_author: "Sadece referans girdi sahibi tarafından eklenebilsin"
+      can_be_added_only_by_parent_author: "Sadece referans girdi sahibi tarafından eklenebilsin"
       parent_node_node_type: "Referans Liste"
     boolean:
       on_value: "On değeri"
@@ -112,10 +114,10 @@ tr:
       prefix: "Ön ek"
       suffix: "Son ek"
       thousand_marker: "Yüzdelik ayırma işareti"
-    list:
+    select:
       maximum_select: "En fazla ne kadar seçilebilsin"
-      list_items: "Liste"
-      item: "parça"
+      options: "Seçenekler"
+      option: "parça"
       name: "İsim"
       help: "0 girilirse sınırsız seçim yapılabilir demektir."
     place:

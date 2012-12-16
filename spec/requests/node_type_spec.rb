@@ -70,9 +70,9 @@ describe "NodeType" do
         click_link t('node_types.configurations')
         click_link t('node_types.delete_node_type')
         alert.accept
+        ensure_on node_types_path
       }.to change(NodeType, :count).by(-1)
 
-      ensure_on node_types_path
       page.should_not have_link node_type.name
     end
   end

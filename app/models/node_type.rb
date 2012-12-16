@@ -3,12 +3,14 @@ class NodeType
   include Mongoid::Timestamps
   include Mongoid::FullTextSearch
   include Rails.application.routes.url_helpers
+  include CustomFields::Source
 
   attr_accessor :administrator_username_or_email
   FILTERS_POSITIONS = [:top, :left]
 
-  # Carrierwave
+  # Behaviours
   mount_uploader :background_image, BackgroundImageUploader
+  custom_fields_for :nodes
 
   # Fields
   field :name,                      type: String
@@ -29,9 +31,7 @@ class NodeType
 
   # Associations
   has_many    :nodes, dependent: :destroy
-  embeds_many :field_configurations, class_name: "Fields::FieldConfiguration"
-  alias :configs :field_configurations
-  embeds_one  :node_view, class_name: "Views::Node"
+  embeds_one  :node_view, class_name: "Views::Node", autobuild: true
   embeds_one  :place_page_view, class_name: "Views::PlacePage"
   embeds_many :views, class_name: "Views::View"
   embeds_many :marketing_templates
@@ -43,10 +43,6 @@ class NodeType
 
   # Scopes
   scope :sort_by_nodes_count, asc(:nodes_count)
-
-  # Callbacks
-  after_initialize { load_node_model if name }
-  before_create :create_node_view
 
   # Class Methods
   def self.search(search = nil)
@@ -61,26 +57,18 @@ class NodeType
   end
 
   def self.unpublish_expired_nodes!
-    all.each do |nt| nt.set_unpublishing_expired_nodes end
-  end
-
-  def self.remove_blank_nodes_by_anon!
-    all.each do |nt| nt.remove_blank_nodes_by_anon! end
-  end
-
-  def self.remove_blank_nodes_by_author!
-    all.each do |nt| nt.remove_blank_nodes_by_author! end
+    all.each do |nt| nt.set_not_publish_for_expired_nodes end
   end
 
   # Instance Methods
   def searchables
-    labels = field_configurations.map(&:label)
-    list_field_configs = field_configurations.where("_type" => Fields::ListFieldConfiguration)
-    list_field_item_names = list_field_configs.inject([]) do |items, config|
-      items += config.list_items.map(&:name)
+    labels = nodes_custom_fields.map(&:label)
+    select_fields = nodes_custom_fields.where("_type" => CustomFields::Fields::Select::Field)
+    option_names = select_fields.inject([]) do |options, field|
+      options += field.options.map(&:name)
     end
 
-    [name] + labels + list_field_item_names
+    [name] + labels + option_names
   end
 
   def approved_queue
@@ -89,60 +77,36 @@ class NodeType
 
   def expired_nodes
     if node_expiration_day_limit > 0
-      nodes.publishing.time_ago_updated(node_expiration_day_limit.days.ago)
+      nodes.listing.time_ago_updated(node_expiration_day_limit.days.ago)
     else
       []
     end
   end
 
-  def set_unpublishing_expired_nodes
-    expired_nodes.each do |node|
-      node.set_unpublishing
-      node.save
-    end
+  def set_not_publish_for_expired_nodes
+    expired_nodes.each do |node| node.unlist! end
   end
 
-  def remove_blank_nodes_by_anon!
-    nodes.blank_nodes_by_anon.destroy
+  def filtered_fields
+    nodes_custom_fields.filtered_fields
   end
 
-  def remove_blank_nodes_by_author!
-    nodes.
-      blank_nodes_by_author.
-      time_ago_updated(Node::REMOVE_BLANK_NODES_IN_X_DAY.days.ago).
-      destroy
-  end
-
-  def publishing_nodes
-    nodes.publishing
-  end
-
-  def filter_configs
-    field_configurations.filter_configs
-  end
-
-  def sortable_configs
-    field_configurations.sortable_configs
+  def sortable_fields
+    nodes_custom_fields.sortable_fields
   end
 
   def keynames
-    field_configurations.map(&:keyname)
+    nodes_custom_fields.map(&:keyname)
   end
 
   def machine_names
-    field_configurations.map(&:machine_name)
-  end
-
-  Fields::FieldConfiguration.subclasses.each do |klass|
-    define_method(:"#{klass.field_type}_field_configs") do
-      field_configurations.where("_type" => klass.name)
-    end
+    nodes_custom_fields.map(&:machine_name)
   end
 
   def related_node_types
     NodeType.or(
-      { "field_configurations.child_nodes_node_type_id" => self.id },
-      { "field_configurations.parent_node_node_type_id" => self.id }
+      { "nodes_custom_fields.child_nodes_node_type_id" => self.id },
+      { "nodes_custom_fields.parent_node_node_type_id" => self.id }
     )
   end
 
@@ -155,15 +119,6 @@ class NodeType
     end
   end
   
-  def build_configuration(params)
-    type = params[:_type].safe_constantize
-    if Fields::FieldConfiguration.subclasses.include?(type)
-      parameters =  params[Fields::FieldConfiguration.param_name(type)] || 
-                    params[:fields_field_configuration]
-      self.field_configurations.build(parameters, type)
-    end
-  end
-
   def build_view(params)
     type = params[:_type].safe_constantize if params[:_type]
     if Views::View.sub_classes.include?(type)
@@ -175,11 +130,11 @@ class NodeType
   def node_template_attrs
     [:node] +
     self_data.keys +
-    field_configurations.inject([]) do |a, conf|
-      a << "node.#{conf.self_data.keys.first}"
+    nodes_custom_fields.inject([]) do |a, field|
+      a << "node.#{field.machine_name}"
     end +
-    field_configurations.inject([]) do |a, conf|
-      a << conf.self_data.keys.first
+    nodes_custom_fields.inject([]) do |a, field|
+      a << field.to_recipe['machine_name']
     end
   end
 
@@ -191,9 +146,9 @@ class NodeType
     { :"node_type" => self }
   end
 
-  def conf_data
-    field_configurations.inject({}) do |h, conf|
-      h.merge!(conf.self_data)
+  def field_data
+    nodes_custom_fields.inject({}) do |h, field|
+      h.merge!(field.self_data)
     end
   end
 
@@ -203,67 +158,19 @@ class NodeType
       created_at: I18n.t('global.created')
     }
 
-    sortable_configs.each do |conf|
-      hash[conf.machine_name.to_sym] = conf.label
+    sortable_fields.each do |field|
+      hash[field.machine_name.to_sym] = field.label
     end
 
     hash
   end
 
-  def inverse_of_administrators_association
-    self.class.reflect_on_association(:administrators).inverse_of
-  end
-
-  def add_administrator(user)
-    administrators << user
-    user.send("#{inverse_of_administrators_association}") << self
-  end
-
-  def remove_administrator(user)
-    administrators.delete(user)
-    user.send("#{inverse_of_administrators_association}").delete(self)
-  end
-
   def administrator_username_or_email=(username_or_email)
-    begin
-      user = User.find_by_username_or_email(username_or_email)
-      self.administrators << user
-      user.send("#{inverse_of_administrators_association}") << self
-    rescue
-    end
+    user = User.find_by_username_or_email(username_or_email)
+    # self.administrators << user if user and !self.administrator_ids.include?(user.id)
   end
 
-  def node_classify_name
-    "NodeType::" + name.parameterize('_').classify
-  end
-
-  def form_parameterize
-    node_classify_name.underscore.parameterize("_")
-  end
-
-  def load_node_model
-    unless NodeType.const_defined?(node_classify_name.split('::').last)
-      build_node_model
-    end
-  end
-
-  def build_node_model
-    unless NodeType.const_defined?(node_classify_name.split('::').last)
-      self.class.const_set node_classify_name.demodulize.to_sym, Class.new(Node)
-    end
-    node_classify_name.constantize
-    field_configurations.each { |conf| conf.load_node }
-  end
-
-  def rebuild_node_model
-    if self.class.const_defined?(node_classify_name.demodulize.to_sym)
-      self.class.send(:remove_const, node_classify_name.demodulize.to_sym)
-    end
-    build_node_model
-  end
-
-  private
-  def create_node_view  
-    self.build_node_view unless node_view
+  def self.class_name_to_node_type(class_name)
+    find($1) if class_name =~ /^Node(.*)/
   end
 end

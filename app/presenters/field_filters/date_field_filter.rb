@@ -9,11 +9,11 @@ module FieldFilters
     end
 
     def start_year
-      conf.start_year
+      field.start_year
     end
 
     def end_year
-      conf.end_year
+      field.end_year
     end
   end
 end

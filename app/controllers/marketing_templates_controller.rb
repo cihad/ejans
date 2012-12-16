@@ -1,5 +1,8 @@
 class MarketingTemplatesController < ApplicationController
   before_filter :node_type
+  before_filter :marketing_template, only: [:show, :edit, :update, :destroy]
+
+  # Authorization
   before_filter :authenticate_user!, except: [:show]
   before_filter :must_be_an_administrator, except: [:show]
   layout "mail", only: [:show]
@@ -10,7 +13,6 @@ class MarketingTemplatesController < ApplicationController
   end
 
   def show
-    @marketing_template = @node_type.marketing_templates.find(params[:id])
   end
 
   def new
@@ -18,7 +20,6 @@ class MarketingTemplatesController < ApplicationController
   end
 
   def edit
-    @marketing_template = @node_type.marketing_templates.find(params[:id])
   end
 
   def create
@@ -32,7 +33,6 @@ class MarketingTemplatesController < ApplicationController
   end
 
   def update
-    @marketing_template = @node_type.marketing_templates.find(params[:id])
     if @marketing_template.update_attributes(params[:marketing_template])
       redirect_to node_type_marketing_template_path(@node_type, @marketing_template),
         notice: 'Marketing template was successfully updated.'
@@ -42,7 +42,6 @@ class MarketingTemplatesController < ApplicationController
   end
 
   def destroy
-    @marketing_template = @node_type.marketing_templates.find(params[:id])
     if @marketing_template.destroy
       redirect_to node_type_marketing_templates_path(@node_type)
     else
@@ -54,6 +53,10 @@ class MarketingTemplatesController < ApplicationController
   private
   def node_type
     @node_type = NodeType.find(params[:node_type_id])
+  end
+
+  def marketing_template
+    @marketing_template = @node_type.marketing_templates.find(params[:id])    
   end
 
   def must_be_an_administrator

@@ -33,7 +33,7 @@
 //= require jquery-plugins/jquery.formoption
 //= require jquery-plugins/jquery.multiselect.filter
 //= require geolocation
-//= require field_configurations
+//= require field
 //= require chained_select
 //= require places
 //= require not_found

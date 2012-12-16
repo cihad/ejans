@@ -26,12 +26,12 @@ $(function() {
           <thead>
             <tr>
               <th>Yayındaki node sayısı</th>
-              <td><%= @node_type.nodes.publishing.size %></td> 
+              <td><%= @node_type.nodes.approved.size %></td> 
             </tr>
           </thead>
           <tr>
             <th>Onay bekleyen node sayısı</th>
-            <td><%= @node_type.nodes.approved_queue.size %></td> 
+            <td><%= @node_type.nodes.queue_for_approve.size %></td> 
           </tr>
           <tr>
             <th>Üye tarafından başlatılmış node sayısı (30 gün içinde silinir)</th>
@@ -74,7 +74,7 @@ $(function() {
       </div>
       <div class="caption">
         <table class="table approved" width="100%">
-          <% @node_type.nodes.approved_queue.each do |n| %>
+          <% @node_type.nodes.queue_for_approve.each do |n| %>
             <tr>
               <td><%= link_to n.title, node_type_node_path(@node_type, n), remote: true %></td>
               <td><%= render 'nodes/approve_button', node: n %></td>
@@ -91,15 +91,7 @@ $(function() {
         <h4>Yönetim Linkleri</h4>
       </div>
       <div class="caption">
-        <table class="table" width="100%">
-          <tr>
-            <td>
-              <%= link_to t("node_types.rebuild_node_model"),
-                          rebuild_node_model_node_type_path(@node_type),
-                          class: "btn"  %>
-            </td>
-          </tr>
-        </table>
+        
       </div>
     </div>
   </div>

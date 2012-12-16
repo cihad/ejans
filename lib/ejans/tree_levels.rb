@@ -24,6 +24,15 @@ module Ejans
       end
     end
 
+    def levels_size
+      levels.size
+    end
+
+    def levels_unless_self
+      (@levels_unless_self = levels).shift unless @levels_unless_self
+      @levels_unless_self
+    end
+
     def get_just_a_branch
       self.class.get_just_a_branch(self)
     end

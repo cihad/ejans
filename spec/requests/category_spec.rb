@@ -16,11 +16,7 @@ describe Category do
       signin user
       visit categories_path
     end
-
-    specify js: false do
-      current_path.should eq categories_path
-    end
-
+    
     specify do
       click_link t('categories.add_category')
       categories = 3.times.inject([]) { |arr, _| arr << Faker::Lorem.word.capitalize }

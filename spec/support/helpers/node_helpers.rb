@@ -1,14 +1,14 @@
 module NodeHelpers
   def make_node(node_type, user)
-    node = NewNode.new(node_type, user).node
-    if belongs_to_config(node_type)
-      make_node(belongs_to_config(node_type).parent_node_node_type, user)
+    if belongs_to_field(node_type)
+      make_node(NodeType.class_name_to_node_type(belongs_to_field(node_type).class_name), user)
     end
-    node.title = valid_attributes_for(:node)["title"]
-    node.fill_with_random_values
-    node.publish = "Publish"
-    node.statement_save
-    node
+    node = NewNode.new(node_type, user).node.tap do |n|
+      n.title = valid_attributes_for(:node)["title"]
+      n.fill_with_random_values
+      n.published = true
+      n.save
+    end
   end
 
   def get_place_names(node_type)
@@ -16,7 +16,7 @@ module NodeHelpers
   end
 
   def get_places(node_type)
-    get_just_a_branch(place_config(node_type).top_place)
+    get_just_a_branch(place_field(node_type).top_place)
   end
 
   def get_just_a_branch(item)
@@ -32,19 +32,19 @@ module NodeHelpers
   end
 
   def get_categories(node_type)
-    get_just_a_branch(tree_category_config(node_type).category)
+    get_just_a_branch(tree_category_field(node_type).category)
   end
 
-  def get_config(node_type, field_type)
+  def get_field(node_type, type)
     node_type.
-      field_configurations.
-      where("_type" => "Fields::#{field_type.classify}FieldConfiguration").
+      nodes_custom_fields.
+      where("_type" => "CustomFields::Fields::#{type.classify}::Field").
       first
   end
 
-  Fields::FieldConfiguration.subclasses.each do |klass|
-    define_method(:"#{klass.field_type}_config") do |node_type|
-      get_config(node_type, klass.field_type)
+  ::CustomFields::Fields::Default::Field.subclasses.each do |klass|
+    define_method(:"#{klass.type}_field") do |node_type|
+      get_field(node_type, klass.type)
     end
   end
 end

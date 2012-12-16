@@ -9,15 +9,15 @@ module FieldFilters
     end
 
     def min
-      conf.minimum
+      field.minimum
     end
 
     def max
-      conf.maximum
+      field.maximum
     end
 
     def suffix
-      conf.suffix
+      field.suffix
     end
   end
 end

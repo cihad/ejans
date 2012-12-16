@@ -14,7 +14,8 @@
     width: 206px;
   }
 
-  select.single-input {
+  select.single-input,
+  input[type=submit] {
     width: 220px;
   }
 }

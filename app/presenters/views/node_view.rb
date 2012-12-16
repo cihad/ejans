@@ -1,12 +1,12 @@
 module Views
   class NodeView
-    attr_reader :view, :node, :node_type, :conf_data, :template
+    attr_reader :view, :node, :node_type, :field_data, :template
 
-    def initialize(view, node_type, node, conf_data, template)
+    def initialize(view, node_type, node, field_data, template)
       @view = view
       @node_type = node_type
       @node = node
-      @conf_data = conf_data
+      @field_data = field_data
       @template = template
     end
 
@@ -15,7 +15,7 @@ module Views
     end
 
     def locals
-      node.mapping(conf_data)
+      node.mapping(field_data)
     end
 
     def to_s

@@ -1,19 +1,19 @@
 module FormFields
   class StringFormField < FormField
     def text_field?
-      conf.row == 1 ? true : false
+      field.row == 1 ? true : false
     end
 
     def row
-      conf.row
+      field.row
     end
 
     def max
-      conf.maximum_length
+      field.maximum_length
     end
 
     def min
-      conf.minimum_length
+      field.minimum_length
     end
   end
 end

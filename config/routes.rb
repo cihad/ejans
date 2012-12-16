@@ -25,11 +25,11 @@ Ejans::Application.routes.draw do
 
   # Node Types, Feature Configuration, Views
   resources :node_types, path: 'nt' do
-    namespace :fields do
-      resources :field_configurations do
+    namespace :custom_fields do
+      resources :fields do
         post :sort, on: :collection
 
-        resources :list_items, only: [:create, :destroy] do
+        resources :options, only: [:create, :destroy] do
           post :sort, on: :collection
         end
       end
@@ -46,7 +46,6 @@ Ejans::Application.routes.draw do
     resources :marketing
     resources :marketing_templates, path: 'mail'
     resources :potential_users
-    get :rebuild_node_model, on: :member
 
     resources :nodes, path: 'nd' do
       get :manage, on: :collection

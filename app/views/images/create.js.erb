@@ -3,9 +3,9 @@
   
   <% @images.each do |image| %>
     $('.images').append('<%= escape_javascript(render "image",
-      mustache: image_for_mustache(image: image, node: @node, keyname: @keyname) ) %>');
+      mustache: image_for_mustache(image: image, node: @node, machine_name: @machine_name) ) %>');
   <% end %>
 
-  $('#new_fields_image').remove();
-  $('#hidden-form').append( '<%= escape_javascript(render "form", keyname: @keyname) %>' );
+  $('#new_image').remove();
+  $('#hidden-form').append( '<%= escape_javascript(render "form", machine_name: @machine_name) %>' );
 <% end %>

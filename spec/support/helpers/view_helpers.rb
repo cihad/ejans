@@ -6,7 +6,7 @@ module ViewHelpers
   end
 
   def make_custom_view(node_type)
-    node_type.views.build({}, Views::Custom) do |v|
+    node_type.views.build({}, Views::Custom).tap do |v|
       v.user_input_node_type_template = custom_view_node_type_template
       v.user_input_node_template = custom_view_node_template(node_type)
       v.save
@@ -14,8 +14,8 @@ module ViewHelpers
   end
 
   def options_for_node_type(node_type)
-    node_type.field_configurations.inject({}) do |h, config|
-      h[config.field_type.to_sym] = config.machine_name; h
+    node_type.nodes_custom_fields.inject({}) do |h, field|
+      h[field.type.to_sym] = field.machine_name; h
     end
   end
 

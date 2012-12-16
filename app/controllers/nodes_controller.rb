@@ -25,16 +25,15 @@ class NodesController < ApplicationController
 
   def update
     recaptcha = (user_signed_in? or @node.email_send?) || 
-                verify_recaptcha(:model => @node, :message => "Oh! It's error with reCAPTCHA!")
+                verify_recaptcha( :model => @node,
+                                  :message => "Oh! It's error with reCAPTCHA!")
 
-    @node.attributes = params[:"node_type_#{@node_type.name.parameterize('_')}"]
     
-    if @node.statement_save && recaptcha
-      redirect_to node_type_node_path(@node_type, @node), notice: 'Node was successfully updated.'
+    if recaptcha && @node.update_attributes(params[:node])
+      redirect_to node_type_node_path(@node_type, @node),
+        notice: 'Node was successfully updated.'
     else
-      @node.set_unpublishing
-      @node.save(validate: false)
-      render action: "edit"
+      render action: "new"
     end
   end
 
@@ -44,7 +43,7 @@ class NodesController < ApplicationController
   end
 
   def manage
-    @nodes = @node_type.nodes.published
+    @nodes = @node_type.nodes
   end
 
   def change_owner

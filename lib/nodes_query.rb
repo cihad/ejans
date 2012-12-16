@@ -3,10 +3,10 @@ class NodesQuery
   attr_reader :node_type, :params
   attr_accessor :criteria
 
-  def initialize(node_type, params = {}, relation = nil, criteria = BlankCriteria.new)
+  def initialize(node_type, params = {}, relation = nil, criteria = NullCriteria.new)
     @node_type = node_type
     @params = params
-    @relation = relation || node_type.nodes.unscoped.publishing
+    @relation = relation || node_type.nodes.unscoped.listing
     @criteria = criteria
     load_criteria
   end
@@ -23,18 +23,18 @@ class NodesQuery
       page(params[:page])
   end
 
-  def filter_configs
-    @filter_configs ||= node_type.filter_configs
+  def filtered_fields
+    @filtered_fields ||= node_type.filtered_fields
   end
 
   def selections
-    config_selections
-    author_selection
+    field_selectors
+    author_selector
   end
 
-  def config_selections
-    filter_configs.each do |config|
-      self.criteria = criteria.send(:where, config.filter_query(params).selector)
+  def field_selectors
+    filtered_fields.each do |field|
+      self.criteria = criteria.send(:where, field.filter_query(params).selector)
     end
   end
 
@@ -42,23 +42,23 @@ class NodesQuery
     params[:author_id]
   end
 
-  def author_selection
+  def author_selector
     if author_id.present?
       self.criteria = criteria.where(author_id: Moped::BSON::ObjectId(author_id))
     end
   end
 
-  def sortable_configs
-    @sortable_configs ||= node_type.sortable_configs
+  def sortable_fields
+    @sortable_fields ||= node_type.sortable_fields
   end
 
   def options
-    config_options
+    field_options
     node_spesific_options
   end
 
-  def config_options
-    sortable_configs.each do |config|
+  def field_options
+    sortable_fields.each do |config|
       self.criteria = criteria.send(:order_by, config.sort_query(params).options[:sort])
     end
   end

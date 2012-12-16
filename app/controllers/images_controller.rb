@@ -6,8 +6,8 @@ class ImagesController < ApplicationController
   include ControllerHelper
 
   def create
-    @images = @node.send("#{params[:keyname]}_add_images", params[:fields_image][:image])
-    @keyname = params[:keyname]
+    @images = @node.send("#{params[:machine_name]}_add_images", params[:image][:image])
+    @machine_name = params[:machine_name]
   end
 
   def destroy
@@ -30,6 +30,6 @@ class ImagesController < ApplicationController
   end
 
   def images
-    @images = @node.send(params[:keyname])
+    @images = @node.send(params[:machine_name])
   end
 end

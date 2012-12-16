@@ -5,10 +5,10 @@
       <%= pluralize(object.errors.count, "error") %> prohibited this node from being saved:
     </h4>
     
-      <ul>
-        <% object.errors.full_messages.each do |msg| %>
-          <li><p><%= msg %></p></li>
-        <% end %>
-      </ul>
+    <ul>
+      <% object.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
   </div>
 <% end %>

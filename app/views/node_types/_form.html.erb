@@ -10,8 +10,14 @@
     <%= simple_check_box f, :commentable, label: { name: t('node_types.new.commentable') } %>
     <%= simple_check_box f, :signin_required, label: { name: t('node_types.new.signin_required') } %>
     <%= checkbox_group t('node_types.administrators') do %>
-      <% @node_type.administrators.each do |admin| %>
-        <p><%= admin.username_or_email_name %></p>
+      <%= hidden_field_tag "node_type[administrator_ids][]", nil %>
+      <% @node_type.administrators.each do |administrator| %>
+        <label class="checkbox">
+          <%= check_box_tag "node_type[administrator_ids][]",
+                administrator.id,
+                @node_type.administrator_ids.include?(administrator.id) %>
+          <%= administrator.username_or_email_name %>
+        </label>
       <% end %>
       <%= f.text_field :administrator_username_or_email, placeholder: t('node_types.new.username_or_email') %>
     <% end %>

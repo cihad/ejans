@@ -2,51 +2,54 @@ class Node
   include Mongoid::Document
   include Mongoid::Timestamps
   include Rails.application.routes.url_helpers
+  include CustomFields::Target
 
-  attr_accessor :author_email, :save_with_no_validate
-
-  REMOVE_BLANK_NODES_IN_X_DAY = 30
+  attr_accessor :author_email
 
   # Kaminari
   paginates_per 20
 
   # Fields
   field :title
-  field :published, type: Boolean, default: false
-  field :approved, type: Boolean, default: false
+  field :published,   type: Boolean, default: false
+  field :approved,    type: Boolean, default: false
   field :token
-  field :email_send, type: Boolean
+  field :email_send,  type: Boolean
 
   # Associations
-  belongs_to :node_type
-  belongs_to :author, class_name: 'User', inverse_of: :nodes
+  belongs_to  :node_type
+  belongs_to  :author, class_name: 'User', inverse_of: :nodes
   embeds_many :comments
 
   # Scopes
-  default_scope order_by(created_at: :desc)
-  scope :approved_queue, where(published: true, approved: false)
-  scope :published, where(published: true)
-  scope :unpublished, where(published: false).exists(title: true)
-  scope :publishing, where(published: true, approved: true)
-  scope :time_ago_updated, ->(time) { where(:updated_at.lt => time) }
-  scope :blank_nodes_by_anon, where(title: nil).and(author: nil)
-  scope :blank_nodes_by_author, where({"$and"=>[{"title"=>nil}, {"author_id"=>{"$exists"=>true}}]})
+  default_scope                     order_by(created_at: :desc)
+  scope :published,                 where(published: true)
+  scope :not_published,             where(published: false)
+  scope :approved,                  where(approved: true)
+  scope :not_approved,              where(approved: false)
+  scope :queue_for_approve,         where(published: true, approved: false)
+  scope :waiting_for_user_action,   not_published.not_approved
+  scope :listing,                   published.approved
+  scope :time_ago_updated,          ->(time) { where(:updated_at.lt => time) }
+  scope :blank_nodes_by_anon,       where(title: nil).and(author: nil)
+  scope :blank_nodes_by_author,     where({"$and"=>[{"title"=>nil}, {"author_id"=>{"$exists"=>true}}]})
 
   # Validations
   validates :title, presence: true
-  validate :is_user_email_valid
+  validate  :is_user_email_valid
 
   # Callbacks
-  before_save :save_user
-  after_save :send_email
-  before_create :set_random_token
+  before_save     :save_user
+  after_save      :send_email
+  before_create   :set_random_token
+  before_save     :set_publish
 
   # Indexes
   index title: 1
 
-  { integer_value: 4,
-    string_value: 3,
-    date_value: 2 }.each do |key_prefix, how_many|
+  { integer: 4,
+    string: 3,
+    date: 2 }.each do |key_prefix, how_many|
     how_many.times.each_with_index do |i|
       index "#{key_prefix}_#{i}" => 1
     end
@@ -64,48 +67,32 @@ class Node
     end
   end
 
-  # Instance Methods
-  def save=(submit_value)
-    self.save_with_no_validate = true
-  end
-
-  def publish=(submit_value)
+  def publish=(value)
     self.published = true
-    self.approved = false
-    self.save_with_no_validate = false
   end
 
-  def publishing?
-    published? and approved?
+  def approve=(value)
+    self.approved = true
   end
 
-  def approved_queue?
+  def in_queue_for_approve?
     published? and !approved?
   end
 
-  def approve=(submit_value)
-    self.published = true
-    self.approved = true
-    self.save_with_no_validate = true
+  def listing?
+    published? and approved?
   end
 
-  def statement_save
-    save_with_no_validate ? self.save(validate: false) : self.save
+  def list!
+    self.published  = true
+    self.approved   = true
+    save
   end
 
-  def set_approved(validate = :true)
-    self.published = true
-    self.approved = true
-    self.save(validate: validate)
-  end
-
-  def set_unpublishing
-    self.published = false
-    self.approved = false
-  end
-
-  def saved?
-    !!self.title.blank?
+  def unlist!
+    self.published  = false
+    self.approved   = false
+    save
   end
 
   def path
@@ -145,7 +132,7 @@ class Node
   end
 
   def fill_with_random_values
-    node_type.configs.each do |cfg| cfg.fill_node_with_random_value(self) end
+    node_type.nodes_custom_fields.each do |field| field.fill_node_with_random_value(self) end
   end
 
   private
@@ -165,5 +152,9 @@ class Node
 
   def save_user
     @user.save(validate: false) if @user
+  end
+
+  def set_publish
+    self.published = true if valid?
   end
 end

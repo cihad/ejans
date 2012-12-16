@@ -5,13 +5,11 @@ module FieldFilters
     end
 
     def level
-      @level ||= conf.level
+      @level ||= field.level
     end
 
     def tree
-      levels = conf.top_place.levels
-      levels.shift
-      levels.first(level)
+      field.top_place.levels_unless_self.first(level)
     end
   end
 end

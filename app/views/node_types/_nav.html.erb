@@ -8,10 +8,10 @@
 <% end %>
 
 <%= dropdown_tab t('fields.fields') do %>
-  <%= tab_item t("fields.index"), node_type_fields_field_configurations_path(@node_type) %>
+  <%= tab_item t("fields.index"), node_type_custom_fields_fields_path(@node_type) %>
   <%= content_tag :li, nil, class: "divider" %>
-  <% @node_type.field_configurations.each do |conf| %>
-    <%= tab_item conf.label, edit_node_type_fields_field_configuration_path(@node_type, conf) unless conf.new_record? %>
+  <% @node_type.nodes_custom_fields.each do |field| %>
+    <%= tab_item field.label, edit_node_type_custom_fields_field_path(@node_type, field) unless field.new_record? %>
   <% end %>
 <% end %>
 

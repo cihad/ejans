@@ -1,0 +1,12 @@
+<%= content_tag_for :tr, option do %>
+  <td><span class="handle">[drag]</span></td>
+  <td><%= option.name %></td>
+  <td>
+    <%= link_to 'sil',
+                node_type_custom_fields_field_option_path(@node_type, field, option),
+                method: :delete,
+                :'data-confirm' => "Are you sure?",
+                class: "btn btn-mini btn-danger",
+                remote: true %>
+  </td>
+<% end %>

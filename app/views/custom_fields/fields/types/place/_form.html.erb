@@ -1,0 +1,24 @@
+<%= form_item_layout do %>
+  <%= form_label_layout do %>
+    <%= field.f.label field.form_key, field.label %>
+    <%= content_tag :span, "*", class: "required" if field.required? %>
+  <% end %>
+  <%= form_value_layout class: "multiple-places" do %>
+    <% javascript 'jquery-plugins/jquery.chained' %>
+    <% field.build_place %>
+
+    <div class="places">
+      <% counter = 0 %>
+      <%= field.f.fields_for field.keyname do |builder| %>
+        <%= render 'custom_fields/fields/types/place/place_item', field: field, builder: builder, counter: (counter+= 1) %>
+      <% end %>
+    </div>
+
+    <%= javascript_tag do %>
+      $(function() { $('fieldset.place-select').treeSelect(); });
+    <% end %>
+
+    <%= field.link_to_add_place if field.multiselect? %> 
+    <%= field.hint %>
+  <% end %>
+<% end %>

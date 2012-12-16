@@ -1,7 +1,15 @@
 <div id="node_types">
   <table class="table table-hover">
-    <% @node_types.each do |nt| %>
-      <%= render nt %>
+    <%= content_tag_for :tr, @node_types do |node_type| %>
+      <td><%= link_to node_type.name, node_type_nodes_path(node_type) %></td>
+      <td><%= node_type.nodes.published.size %> node</td>
+      <td><%= render 'actions', node_type: node_type  %></td>
+      <td>
+        <%= link_to new_node_type_node_path(node_type), class: "btn btn-mini btn-primary" do %>
+          <i class="icon-plus"></i>
+          Add new node
+        <% end %>
+      </td>
     <% end %>
   </table>
 </div>

@@ -15,7 +15,7 @@ class NodeTypesController < ApplicationController
   def show; end
 
   def new
-    @node_type = NodeType.new 
+    @node_type = current_user.managed_node_types.new 
   end
 
   def edit; end
@@ -24,8 +24,8 @@ class NodeTypesController < ApplicationController
     @node_type = NodeType.new(params[:node_type])
 
     if @node_type.save
-      @node_type.add_administrator(current_user)
-      redirect_to node_type_fields_field_configurations_path(@node_type),
+      @node_type.administrators << current_user
+      redirect_to node_type_custom_fields_fields_path(@node_type),
                   notice: 'Node type was successfully created.'
     else
       render action: "new"
@@ -46,11 +46,6 @@ class NodeTypesController < ApplicationController
       redirect_to node_types_path,
                   notice: "#{@node_type.name} basarili bir sekilde kaldirildi."
     end
-  end
-
-  def rebuild_node_model
-    @node_type.rebuild_node_model
-    redirect_to :back, notice: "Dugum modeli tekrar yuklendi."
   end
 
   private

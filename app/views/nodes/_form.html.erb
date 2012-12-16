@@ -1,26 +1,16 @@
 <%= form_for  [@node_type, @node],
-              url: node_type_node_path(@node_type, @node),
-              html: { multipart: true } do |f| %>
-  <% if @node.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@node.errors.count, "error") %> prohibited this node from being saved:</h2>
+              url: node_type_node_path(@node_type._id, @node._id),
+              html: { multipart: true },
+              as: :node do |f| %>
 
-      <ul>
-      <% @node.errors.messages.delete(:features) %>
-      <% @node.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= error_messages_for @node %>
   
   <table class="table table-form">
-    <%= f.hidden_field :node_type_id %>
     <%= hidden_field_tag "token", params[:token] %>
     <%= simple_text_field f, :title, label: { name: @node_type.title_label } %>
 
-    <% @node_type.field_configurations.each do |conf| %>
-      <%= FormFields::FormField.form_presenter_class(conf).new(f, conf, self) %>
+    <% @node_type.nodes_custom_fields.each do |field| %>
+      <%= FormFields::FormField.form_presenter_klass(field).new(f, field, self) %>
     <% end %>
 
     <% unless user_signed_in? or f.object.email_send? %>
@@ -34,23 +24,7 @@
       <% end %>
     <% end %>
 
-    <%= checkbox_group nil do %>
-      <%= f.submit  t('nodes.save'), 
-                    class: "btn",
-                    rel: "popover",
-                    name: "#{@node_type.node_classify_name.underscore.parameterize("_") }[save]",
-                    data: {
-                      content: "Formu başarılı bir şekilde kaydettiğinizde eklediğin node yayınlanmaz. Yayınlanabilmesi için publish yapmalısız."
-                    } %>
-      <% unless @node.published? %>
-        <%= f.submit  t('nodes.publish'),
-                      class: "btn",
-                      name: "#{@node_type.node_classify_name.underscore.parameterize("_") }[publish]",
-                      rel: "popover",
-                      data: {
-                        content: "Bu node'u yayınlamak için bu butonu kullanınız."
-                      } %>
-      <% end %>
-    <% end %>
+    <%= simple_submit f, t('nodes.save'), class: "btn" %>
+
   </table>
 <% end %>

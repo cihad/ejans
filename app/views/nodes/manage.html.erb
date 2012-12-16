@@ -8,35 +8,26 @@
   <tr>
     <th>Node Title</th>
     <th>Author</th>
-    <th>Created At</th>
     <th>Updated At</th>
-    <th>Published?</th>
+    <th>Listing?</th>
     <th>Approve</th>
     <th>Actions</th>
   </tr>
 
   <% @nodes.each do |node| %>
-    <%= content_tag_for :tr, node do %>
-      <td>
-        <%= link_to (node.title || "!!!NOT DEFINED!!!"),
-                    node_type_node_path(@node_type, node),
-                    remote: true %>
-      </td>
-      <td><%= node.author.try(:username) || node.author.try(:email) %></td>
-      <td><%= time_ago_in_words(node.created_at) %> önce</td>
+    <tr class="node" id="node_<%= node.id %>">
+      <td><%= link_to node.title, node_type_node_path(@node_type, node), remote: true %></td>
+      <td><%= node.author.try(:username_or_email_name) %></td>
       <td><%= time_ago_in_words(node.updated_at) %> önce</td>
-      <td><%= node.published? ? "✓" : "&times;".html_safe %></td>
-      <td>
-        <% if node.published? and !node.approved? %>
-          <%= render 'approve_button', node: node %>
-        <% elsif !node.approved? %>
-          &times;
-        <% else %>
-          ✓
-        <% end %>
+      <td><%= node.listing? ? "✓" : "&times;".html_safe %></td>
+      <td><% if node.in_queue_for_approve? %>
+            <%= render 'approve_button', node: node %>
+          <% else %>
+            ✓
+          <% end %>
       </td>
       <td><%= render 'node_actions', node: node %></td>
-    <% end %>
+    </tr>
   <% end %>
 
 </table>
