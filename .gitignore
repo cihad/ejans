@@ -5,7 +5,6 @@ tmp/
 
 config/*.conf
 config/app_config.yml
-config/deploy.rb
 config/unicorn.rb
 
 db/sphinx/*
