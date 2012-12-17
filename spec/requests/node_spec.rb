@@ -103,4 +103,20 @@ describe "Node" do
       page.should have_content node.title
     end
   end
+
+  describe "index page" do
+    describe "pagination", js: true do
+      it "not shows less than or equal to 20 nodes and shows greater than 20 nodes" do
+        20.times { make_node(node_type, user).list! }
+
+        visit node_type_nodes_path(node_type)
+        page.should_not have_css ".pagination"
+
+        # one more time
+        1.times { make_node(node_type, user).list! }
+        visit node_type_nodes_path(node_type)
+        page.should have_css ".pagination"
+      end
+    end
+  end
 end
