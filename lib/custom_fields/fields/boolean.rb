@@ -26,7 +26,7 @@ module CustomFields
         def boolean_criteria(params, rule)
           value = params[rule['machine_name']]
           true_or_false = %w(1 true yes).include?(value) ? true : false
-          ::CustomFields::BlankCriteria.new.where( where_is_boolean(rule) => true_or_false)
+          ::CustomFields::Criteria.new.where( where_is_boolean(rule) => true_or_false)
         end
 
         def boolean_param_exist?(params, rule)
