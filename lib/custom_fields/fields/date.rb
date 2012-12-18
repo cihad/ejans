@@ -61,7 +61,7 @@ module CustomFields
             year = params[rule['machine_name']].to_i
             start_date = Date.new.change(year: year).beginning_of_year
             end_date   = Date.new.change(year: year).end_of_year
-            criteria.between( where_is_date(rule) => start_date..end_date)
+            criteria = criteria.between( where_is_date(rule) => start_date..end_date)
           when :range
             if value_start(params)
               criteria = criteria.gte(

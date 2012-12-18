@@ -40,9 +40,9 @@ module CustomFields
 
           case rule['filter_type'].to_sym
           when :single
-            criteria.where(where_is_integer(rule) => value)
+            criteria = criteria.where(where_is_integer(rule) => value)
           when :range
-            criteria.between(
+            criteria = criteria.between(
               where_is_integer(rule) =>
                 params[integer_min_machine_name(rule)]..params[integer_max_machine_name(rule)]
             )

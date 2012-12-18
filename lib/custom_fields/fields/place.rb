@@ -41,11 +41,10 @@ module CustomFields
       module Query
         def place_criteria(params, rule)
           criteria = ::CustomFields::Criteria.new
-
           rule['level'].times do |i|
             id = params[place_machine_names(rule)[-(i+1)]]
             if id.present?
-              criteria.in(where_is_place(rule) => [Moped::BSON::ObjectId(prm)])
+              criteria = criteria.in(where_is_place(rule) => [Moped::BSON::ObjectId(id)])
               break
             end
           end

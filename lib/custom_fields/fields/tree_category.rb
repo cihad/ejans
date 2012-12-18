@@ -39,7 +39,7 @@ module CustomFields
           levels_size.times do |i|
             id = params[machine_names[-(i+1)]]
             if id.present?
-              criteria.in(where_is_tree_category(rule) => [id])
+              criteria = criteria.in(where_is_tree_category(rule) => [id])
               break
             end
           end
