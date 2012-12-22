@@ -1,11 +1,11 @@
 class CategoriesController < ApplicationController
-  before_filter :should_be_admin, only: [:index, :create, :edit, :update, :destroy]
   respond_to :js, only: [:index, :destroy]
 
   layout 'small', only: [:index]
 
+  before_filter :category, only: [:show, :edit, :update, :destroy]
+
   def show
-    @category = Category.find(params[:id])
   end
 
   def index
@@ -33,12 +33,9 @@ class CategoriesController < ApplicationController
   end
 
   def edit
-    @category = Category.find(params[:id])
   end
 
   def update
-    @category = Category.find(params[:id])
-
     if @category.update_attributes(params[:category])
       redirect_to categories_path
     else
@@ -47,14 +44,13 @@ class CategoriesController < ApplicationController
   end
 
   def destroy
-    @category = Category.find(params[:id])
     @category.destroy
   end
 
-  private
-  def should_be_admin
-    unless current_user.try(:admin?)
-      redirect_to root_path
-    end
+private
+
+  def category
+    @category = Category.find(params[:id])
   end
+
 end

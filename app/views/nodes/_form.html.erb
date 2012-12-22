@@ -10,7 +10,7 @@
     <%= simple_text_field f, :title, label: { name: @node_type.title_label } %>
 
     <% @node_type.nodes_custom_fields.each do |field| %>
-      <%= FormFields::FormField.form_presenter_klass(field).new(f, field, self) %>
+      <%= FormFields::FormField.presenter(f, field, self) %>
     <% end %>
 
     <% unless user_signed_in? or f.object.email_send? %>

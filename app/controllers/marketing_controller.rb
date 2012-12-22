@@ -1,7 +1,5 @@
 class MarketingController < ApplicationController
   before_filter :node_type
-  before_filter :authenticate_user!
-  before_filter :must_be_an_administrator
 
   def new
     @marketing = Marketing.new
@@ -19,10 +17,7 @@ class MarketingController < ApplicationController
     @node_type = NodeType.find(params[:node_type_id])
   end
 
-  def must_be_an_administrator
-    unless @node_type.administrators.include?(current_user)
-      redirect_to node_type_nodes_path(@node_type),
-                  alert: "Bunu goruntulemeye yetkilisi degilsiniz."
-    end
+  def current_resource
+    @current_resource ||= node_type if params[:node_type_id]
   end
 end

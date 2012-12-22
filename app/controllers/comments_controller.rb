@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
   before_filter :node
+  before_filter :comment, only: :destroy
   respond_to :js
 
   def create
@@ -8,13 +9,20 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    @comment = @node.comments.find(params[:id])
     @comment.destroy
   end
 
   private
 
   def node
-    @node = Node.find(params[:comment][:node_id])
+    @node ||= Node.find(params[:comment][:node_id])
+  end
+
+  def comment
+    @comment ||= node.comments.find(params[:id])
+  end
+
+  def current_resorce
+    @current_resorce ||= comment if params[:id]
   end
 end

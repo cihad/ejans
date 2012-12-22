@@ -10,8 +10,9 @@ tr:
     edit: "Düzenle"
 
   errors:
-    page_not_found: 'Sayfa Bulunamadı'
-    not_found_desc: 'Aradığınız sayfayı bulamıyoruz. Kaldırılmış veya adresi değiştirilmiş olabilir.'
+    page_not_found: "Sayfa Bulunamadı"
+    not_found_desc: "Aradığınız sayfayı bulamıyoruz. Kaldırılmış veya adresi değiştirilmiş olabilir."
+    not_authorized: "Bu hareketinize izin verilmiyor."
 
   activerecord:
     errors:
@@ -31,6 +32,7 @@ tr:
     password: "Parola"
     password_confirmation: "Parola tekrar"
     signup: "Kayıt"
+    already_registered: "Zaten kayıtlı bir kullanıcısınız."
 
   node_types:
     node_types: "Listeler"
@@ -52,7 +54,6 @@ tr:
       edit: "Düzenle"
     dashboard: "Kontrol Paneli"
     configurations: "Ayarlar"
-    rebuild_node_model: "Girdi modelini tekrar yükle"
     delete_node_type: "Listeyi Sil"
 
   nodes:
@@ -82,7 +83,7 @@ tr:
     widget_type: "Widget türü"
     add: "Ekle"
     messages:
-      created: "Alanı başarılı bir şekilde eklendi."
+      created: "Alan eklendi."
     belongs_to:
       can_be_added_only_by_parent_author: "Sadece referans girdi sahibi tarafından eklenebilsin"
       parent_node_node_type: "Referans Liste"

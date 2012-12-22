@@ -1,7 +1,10 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery
   include SessionsHelper
   include LocationHelper
+  include Ejans::Authorization
+
+  protect_from_forgery
+  
   before_filter :username_is_nil
 
   private
@@ -12,6 +15,8 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def warden; env['warden']; end
+  def warden
+    env['warden']
+  end
   helper_method :warden
 end

@@ -22,7 +22,7 @@ class ImagesController < ApplicationController
 
   private
   def node_type
-    @node_type = NodeType.find(params[:node_type_id])
+    @node_type ||= NodeType.find(params[:node_type_id])
   end
 
   def node
@@ -31,5 +31,9 @@ class ImagesController < ApplicationController
 
   def images
     @images = @node.send(params[:machine_name])
+  end
+
+  def current_resource
+    @current_resource ||= node if params[:node_id]
   end
 end

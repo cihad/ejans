@@ -13,7 +13,7 @@ describe "Signup" do
       fill_in t('users.email'),             with: email
       fill_in "user_password",              with: password
       fill_in "user_password_confirmation", with: password_confirmation
-      click_button t('users.signup')
+      click_button t('actions.save')
     end
   end
 

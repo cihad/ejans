@@ -1,0 +1,5 @@
+<% @images.each do |image| %>
+  <%= render "image",
+    mustache: image_for_mustache(image: image, node: @node, machine_name: @machine_name)
+  %>
+<% end %>

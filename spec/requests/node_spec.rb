@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "Node" do
   let(:node_type) { Fabricate(:full_featured_node_type) }
-  let(:administrator) { node_type.administrators.first }
+  let(:super_administrator) { node_type.super_administrator }
   let(:user) { Fabricate(:user) }
 
   before do
@@ -72,7 +72,7 @@ describe "Node" do
       click_button t('nodes.save')
 
       signout user
-      signin administrator
+      signin super_administrator
       
       # Manage nodes page
       visit manage_node_type_nodes_path(node_type)
@@ -95,7 +95,7 @@ describe "Node" do
     end
 
     it "on approved it shows on nodes page", js: true do
-      signin administrator
+      signin super_administrator
       visit node_type_path(node_type)
       page.should have_content node.title
       click_on t('nodes.approve')

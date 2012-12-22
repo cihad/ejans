@@ -13,9 +13,9 @@ class NodeType
   custom_fields_for :nodes
 
   # Fields
-  field :name,                      type: String
-  field :title_label,               type: String, default: I18n.t('node_types.default_title')
-  field :description,               type: String
+  field :name
+  field :title_label,               default: I18n.t('node_types.default_title')
+  field :description
   field :filters_position,          type: Symbol, default: :top
   field :commentable,               type: Boolean
   field :signin_required,           type: Boolean
@@ -40,6 +40,7 @@ class NodeType
   has_and_belongs_to_many :administrators, class_name: "User",
                           inverse_of: :managed_node_types
   accepts_nested_attributes_for :administrators
+  belongs_to  :super_administrator, class_name: "User", inverse_of: :own_node_types
 
   # Scopes
   scope :sort_by_nodes_count, asc(:nodes_count)

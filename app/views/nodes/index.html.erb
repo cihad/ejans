@@ -8,24 +8,24 @@
           <%= page_title @node_type.name %>
         </div>
         <div class="span5 node-type-actions">
-          <% if @node_type.signin_required? and !user_signed_in? %>
-            <%= link_to new_node_type_node_path(@node_type),
-                        class: "btn btn-primary disabled btn-new-node",
-                        rel: "tooltip",
-                        data: {
-                          placement: "bottom",
-                          original_title: "Node ekleyebilmek icin kullanici girisi yapiniz."
-                        } do %>
-              <%= content_tag :i, nil, class: "icon-plus icon-white" %>
-              <%=t 'nodes.add_new_node' %>
-            <% end %>
-          <% else %>
+          <% if allow? :nodes, :create, @node %>
             <%= link_to new_node_type_node_path(@node_type),
                         class: "btn btn-primary btn-new-node",
                         rel: "tooltip",
                         data: {
                           placement: "bottom",
                           original_title: "Ücretsiz ve üyelik gerektirmez. Sadece email adresiniz yeterli."
+                        } do %>
+              <%= content_tag :i, nil, class: "icon-plus icon-white" %>
+              <%=t 'nodes.add_new_node' %>
+            <% end %>
+          <% else %>
+            <%= link_to new_node_type_node_path(@node_type),
+                        class: "btn btn-primary disabled btn-new-node",
+                        rel: "tooltip",
+                        data: {
+                          placement: "bottom",
+                          original_title: "Node ekleyebilmek icin kullanici girisi yapiniz."
                         } do %>
               <%= content_tag :i, nil, class: "icon-plus icon-white" %>
               <%=t 'nodes.add_new_node' %>

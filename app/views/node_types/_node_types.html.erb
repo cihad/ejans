@@ -3,11 +3,11 @@
     <%= content_tag_for :tr, @node_types do |node_type| %>
       <td><%= link_to node_type.name, node_type_nodes_path(node_type) %></td>
       <td><%= node_type.nodes.published.size %> node</td>
-      <td><%= render 'actions', node_type: node_type  %></td>
+      <td><%= render 'actions', node_type: node_type if allow? :node_types, :destroy, node_type %></td>
       <td>
         <%= link_to new_node_type_node_path(node_type), class: "btn btn-mini btn-primary" do %>
           <i class="icon-plus"></i>
-          Add new node
+          <%= t('nodes.add_new_node') %>
         <% end %>
       </td>
     <% end %>

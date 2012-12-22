@@ -50,8 +50,8 @@ module FormFields
       @template.render partial_dir, field: self
     end
 
-    def self.form_presenter_klass(field)
-      "FormFields::#{field.type.classify}FormField".constantize
+    def self.presenter(form_builder, field, template)
+      "FormFields::#{field.type.classify}FormField".constantize.new(form_builder, field, template)
     end 
   end
 end

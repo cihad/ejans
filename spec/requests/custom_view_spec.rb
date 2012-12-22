@@ -1,8 +1,9 @@
 require 'spec_helper'
+require 'requests/shared/view_authorization'
 
 describe Views::Custom do
   let(:node_type) { Fabricate(:full_featured_node_type) }
-  let(:administrator) { node_type.administrators.first }
+  let(:super_administrator) { node_type.super_administrator }
 
   def create_a_custom_view
     visit node_type_views_views_path(node_type)
@@ -15,11 +16,15 @@ describe Views::Custom do
     click_button t('views.save')
   end
 
-  before do
-    signin administrator
+  it_behaves_like "view authorization" do
+    let(:path) { node_type_views_views_path(node_type) }
   end
 
   describe "adds a custom view", js: true do
+    before do
+      signin super_administrator
+    end
+
     specify do
       create_a_custom_view
       visit node_type_views_views_path(node_type)
@@ -28,6 +33,10 @@ describe Views::Custom do
   end
 
   describe "deletes the custom view", js: true do
+    before do
+      signin super_administrator
+    end
+
     specify do
       view = make_custom_view(node_type)
       visit node_type_views_views_path(node_type)

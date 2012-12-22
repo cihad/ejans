@@ -7,7 +7,7 @@ Fabricator :node_type do
   commentable false
   signin_required false
   after_build do |nt|
-    nt.administrators << Fabricate(:user)
+    nt.super_administrator = Fabricate(:user)
   end
 end
 

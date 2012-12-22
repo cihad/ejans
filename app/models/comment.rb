@@ -2,8 +2,10 @@ class Comment
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  embedded_in :node
-  field :body, type: String
+  field :body
 
+  embedded_in :node
+  belongs_to :author, class_name: "User", inverse_of: nil
+  
   validates :body, presence: true
 end

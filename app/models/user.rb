@@ -2,74 +2,41 @@ require 'bcrypt'
 class User
   include Mongoid::Document
   include Mongoid::Timestamps
-  attr_accessor :password,
-                :password_confirmation,
-                :email_or_username
+  attr_accessor :password, :password_confirmation, :email_or_username
 
+  ROLES = [:anonymous, :registered, :admin]
+  USERNAME_REGEX = /\A[A-Za-z0-9_]+\z/
+  EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+
+  ## fields
   field :username
   field :email
   field :password_digest
   field :remember_token
-  field :role, type: Symbol, default: :registered
-  ROLES = [:anonymous, :registered, :authenticated, :admin]
+  field :role, type: Symbol, default: :anonymous
   before_create { self.role = :admin if User.all.size == 0 }
 
+  ## associations
   has_many :nodes, inverse_of: :author, dependent: :destroy
-  has_and_belongs_to_many :managed_node_types,
-                          class_name: "NodeType",
+  has_many :own_node_types, class_name: "NodeType", inverse_of: :super_administrator
+  has_and_belongs_to_many :managed_node_types, class_name: "NodeType",
                           inverse_of: :administrators
-  before_save { |user| user.email = email.downcase }
-  before_create :create_remember_token
-  before_create :create_password_digest
 
-  USERNAME_REGEX = /\A[A-Za-z0-9_]+\z/
-  validates :username,
-            presence: true,
-            length: { maximum: 50 },
+  ## validations
+  validates :username, presence: true, length: { maximum: 50 },
             format: { with: USERNAME_REGEX },
             uniqueness: { case_sensitive: false }
-
-  EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  validates :email,
-            presence: true,
-            format: { with: EMAIL_REGEX },
+  validates :email, presence: true, format: { with: EMAIL_REGEX },
             uniqueness: { case_sensitive: false }
-
+  validates :password, length: { minimum: 6 }, confirmation: true, on: :create
+  validates :remember_token, uniqueness: true
   validate :already_sign_up
 
-  validates :password,
-            length: { minimum: 6 },
-            confirmation: true,
-            on: :create
-
-  validates :remember_token, uniqueness: true
-
-  def email_name
-    email.split('@').first
-  end
-
-  def username_or_email_name
-    username || email_name
-  end
-
-  def unpublished_nodes(node_type)
-    nodes.not_published.where(node_type: node_type)
-  end
-
-  def password=(unencrypted_password)
-    unless unencrypted_password.blank?
-      @password = unencrypted_password
-      self.password_digest = BCrypt::Password.create(unencrypted_password)
-    end
-  end
-
-  def email_or_username=(email_or_username)
-    if self.email?(email_or_username)
-      @email = email_or_username
-    elsif self.username?(email_or_username)
-      @username = email_or_username
-    end
-  end
+  ## callbacks  
+  before_create :create_remember_token
+  before_create :create_password_digest
+  before_validation { email.downcase! }
+  before_save { self.role = :registered if anonymous? }
 
   def self.find_by_username_or_email(email_or_username)
     if email?(email_or_username)
@@ -95,12 +62,40 @@ class User
     end
   end
 
-  def authenticate(unencrypted_password)
-    BCrypt::Password.new(password_digest) == unencrypted_password && self
-  end
-
   def self.authenticate_with_token(email, token)
     find_by(email: email).try(:authenticate_with_token, token)
+  end
+
+  def email_name
+    email.split('@').first
+  end
+
+  def username_or_email_name
+    username || email_name
+  end
+
+  def password=(unencrypted_password)
+    unless unencrypted_password.blank?
+      @password = unencrypted_password
+      self.password_digest = BCrypt::Password.create(unencrypted_password)
+    end
+  end
+
+  def email_or_username=(email_or_username)
+    if self.email?(email_or_username)
+      @email = email_or_username
+    elsif self.username?(email_or_username)
+      @username = email_or_username
+    end
+  end
+
+  def allow?(controller, action, resource = nil, params = nil)
+    @permission ||= Permission.new(self, params)
+    @permission.allow?(controller, action, resource)
+  end
+
+  def authenticate(unencrypted_password)
+    BCrypt::Password.new(password_digest) == unencrypted_password && self
   end
 
   def authenticate_with_token(token)

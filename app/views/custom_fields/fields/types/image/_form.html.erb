@@ -13,13 +13,9 @@
       <%= field.info %>
     </div>
 
-    <ul class="inline-list images" data-update-url="<%= sort_node_type_node_images_path(@node_type._id, @node._id) %>">
-      <% field.images.each do |image| %>
-        <%= render "images/image", 
-              mustache: image_for_mustache( image: image,
-                                            node: @node,
-                                            machine_name: field.machine_name) %>
-      <% end %>
+    <ul class="inline-list images" data-update-url="<%= sort_node_type_node_images_path(@node_type._id, @node._id, token: params[:token]) %>">
+      <% @images = field.images %>
+      <%= render 'images/images' %>
     </ul>
 
     <script type="text/javascript">

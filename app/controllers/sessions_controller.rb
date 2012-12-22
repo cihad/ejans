@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
   skip_before_filter :username_is_nil
   layout "small"
-  
+
   def new
     flash.now.alert = warden.message
   end

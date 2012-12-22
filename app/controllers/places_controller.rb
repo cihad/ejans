@@ -1,14 +1,13 @@
 class PlacesController < ApplicationController
-  before_filter :should_be_admin, only: [:index, :create, :edit, :update, :destroy]
   respond_to :js, only: [:index]
   layout 'small', only: [:index]
   
-
   def show
     @place = Place.find(params[:id])
   end
 
   def index
+
     @items = Place.roots
     @event = params[:event] if params[:event]
     case @event
@@ -49,19 +48,12 @@ class PlacesController < ApplicationController
   def destroy
     @place = Place.find(params[:id])
     if @place.destroy
-
+      redirect_to places_path, notice: 'Successfully destroyed.'
     end
   end
 
   def find_by_name
     @places = Place.fulltext_search(params[:query])
     render json: @places.map(&:hierarchical_name)
-  end
-
-  private
-  def should_be_admin
-    unless current_user.try(:admin?)
-      redirect_to root_path
-    end
   end
 end

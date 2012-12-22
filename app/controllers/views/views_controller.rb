@@ -1,6 +1,7 @@
 module Views
   class ViewsController < BaseController
     include ControllerHelper
+
     layout "small"
     
     def index

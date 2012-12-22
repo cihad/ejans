@@ -3,18 +3,6 @@ Ejans::Application.routes.draw do
   match "/404", :to => "errors#not_found"
   resources :home, only: [:index, :show]
 
-  # match "/services/:service_id/notifications/:id" => redirect("/service/%{service_id}/%{id}")
-  # resources :services, path: 'services', only: [:index, :create]
-  # resources :services, path: 'service'
-  # resources :services, path: 'service', only: []  do
-  #   post :sort, on: :collection
-  #   get :selections, on: :member
-
-  #   resources :notifications, path: '', except: :index do
-  #     get :calculate, on: :collection
-  #     get :statistics, on: :member
-  #   end
-  # end
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
   match '/signup',  to: 'users#new'
@@ -23,7 +11,7 @@ Ejans::Application.routes.draw do
 
   resources :comments, :only => [:create, :destroy]
 
-  # Node Types, Feature Configuration, Views
+  # Node Types, Fields, Views, Nodes
   resources :node_types, path: 'nt' do
     namespace :custom_fields do
       resources :fields do

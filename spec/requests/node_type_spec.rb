@@ -58,10 +58,10 @@ describe "NodeType" do
 
   describe "#destroy" do
     let(:node_type) { Fabricate(:full_featured_node_type) }
-    let(:administrator) { node_type.administrators.first }
+    let(:super_administrator) { node_type.super_administrator }
 
     before do
-      signin administrator
+      signin super_administrator
       visit node_type_path(node_type)
     end
 

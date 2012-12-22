@@ -1,25 +1,26 @@
 class UsersController < ApplicationController
-  before_filter :authenticate_user!, 
-                only: [:edit, :update, :destroy]
-  before_filter :correct_user, only: [:show, :edit, :update]
   skip_before_filter :username_is_nil, only: [:edit]
-  before_filter :must_be_admin, only: [:index]
 
   layout 'small', only: [:new, :create]
+
+  skip_before_filter :authorize, only: [:new, :create]
+
+  before_filter :user, only: [:show, :edit, :update]
 
   def index
     @users = User.all
   end
 
   def show
-    @user = User.find(params[:id])
   end
 
   def new
+    authorize message: t('users.already_registered')
     @user = User.new
   end
 
   def create
+    authorize message: t('users.already_registered')
     @user = User.new(params[:user])
 
     if !@user.valid? and @user.errors.messages.keys.include?(:already_sign_up)
@@ -34,33 +35,29 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = current_user
   end
 
   def update
     if @user.update_attributes(params[:user])
-      flash[:success] = "Profile updated"
-      redirect_to @user
+      redirect_to @user, notice: "Profile updated"
     else
       render 'edit'
     end
   end
 
   def destroy
-    User.find(params[:id]).destroy
+    @user.destroy
     flash[:success] = "User destroyed."
     redirect_to users_url
   end
 
-  private
-  def correct_user
-    @user = User.find(params[:id])
-    redirect_to(root_path) unless current_user?(@user)
+private
+
+  def user
+    @user = current_user
   end
 
-  def must_be_admin
-    unless current_user.try :admin?
-      redirect_to root_path
-    end
+  def current_resource
+    @current_resource ||= user if params[:id]
   end
 end

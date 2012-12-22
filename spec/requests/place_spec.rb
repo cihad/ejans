@@ -1,11 +1,9 @@
 require 'spec_helper'
+require 'requests/shared/tree_page_authorization'
 
 describe Place do
-  describe "index page authorization" do
-    specify do
-      visit places_path
-      current_path.should_not eq(places_path)
-    end
+  it_behaves_like "tree"  do
+    let(:path) { places_path }
   end
   
   describe "adds a place", js: true do
