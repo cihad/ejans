@@ -69,6 +69,11 @@ GEM
     css_parser (1.2.6)
       addressable
       rdoc
+    devise (2.1.2)
+      bcrypt-ruby (~> 3.0)
+      orm_adapter (~> 0.1)
+      railties (~> 3.1)
+      warden (~> 1.2.1)
     diff-lcs (1.1.3)
     erubis (2.7.0)
     excon (0.16.10)
@@ -157,6 +162,7 @@ GEM
       activesupport
       i18n
     origin (1.0.11)
+    orm_adapter (0.4.0)
     polyglot (0.3.3)
     pry (0.9.10)
       coderay (~> 1.0.5)
@@ -287,6 +293,7 @@ DEPENDENCIES
   carrierwave
   carrierwave-mongoid
   coffee-rails (~> 3.2.1)
+  devise (= 2.1.2)
   fabrication
   faker
   fog
