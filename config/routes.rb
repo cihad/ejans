@@ -39,6 +39,7 @@ Ejans::Application.routes.draw do
       get :manage, on: :collection
       get :change_owner, on: :member
       post :change_owner, on: :member
+      get :change_status, on: :member
 
       resources :images do
         post :sort, on: :collection

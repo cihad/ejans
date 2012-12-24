@@ -19,9 +19,10 @@
       <td><%= link_to node.title, node_type_node_path(@node_type, node), remote: true %></td>
       <td><%= node.author.try(:username_or_email_name) %></td>
       <td><%= time_ago_in_words(node.updated_at) %> önce</td>
-      <td><%= node.listing? ? "✓" : "&times;".html_safe %></td>
-      <td><% if node.in_queue_for_approve? %>
-            <%= render 'approve_button', node: node %>
+      <td><%= node.published? ? "✓" : "&times;".html_safe %></td>
+      <td><% if node.pending_approval? %>
+            <%= link_to_change_status node, "reject" %>
+            <%= link_to_change_status node, "accept" %>
           <% else %>
             ✓
           <% end %>

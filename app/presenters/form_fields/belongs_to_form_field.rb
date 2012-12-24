@@ -18,10 +18,10 @@ module FormFields
 
     def options_for_select(author = nil)
       if can_be_added_only_by_parent_author?
-        nodes = self.nodes.where(author_id: author.try(:id)).published
+        nodes = self.nodes.where(author_id: author.try(:id))
         options_for_select = nodes.map { |node| [node.title, node.id] }
       else
-        nodes = self.nodes.published
+        nodes = self.nodes.active
         options_for_select = nodes.map { |n| [n.title, n.id] }
         options_for_select.unshift(['', '']) unless required?
       end

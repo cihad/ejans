@@ -6,7 +6,6 @@ module NodeHelpers
     node = NewNode.new(node_type, user).node.tap do |n|
       n.title = valid_attributes_for(:node)["title"]
       n.fill_with_random_values
-      n.published = true
       n.save
     end
   end

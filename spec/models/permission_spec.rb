@@ -15,7 +15,7 @@ describe Permission, focus: true do
     let(:node) { Fabricate(:node, node_type: node_type) }
     subject { Permission.new(nil, { token: node.token }) }
 
-    describe "nodes" do
+    describe "for nodes" do
       it "with valid token" do
         should allow "nodes", "index"
         should_not allow "nodes", "new", signin_required_node
@@ -26,17 +26,19 @@ describe Permission, focus: true do
         should allow "nodes", "edit", node
         should allow "nodes", "update", node
         should allow "nodes", "destroy", node
+        should_not allow "nodes", "change_status", node
       end
 
       it "with unvalid token" do
         subject.params[:token] = "thisisaunvalidtoken"
         should_not allow "nodes", "edit", node
         should_not allow "nodes", "update", node
-        should_not allow "nodes", "destroy", node 
+        should_not allow "nodes", "destroy", node
+        should_not allow "nodes", "change_status", node
       end
     end
 
-    describe "images" do
+    describe "for images" do
       it "with valid token" do
         should allow "images", "create", node
         should allow "images", "destroy", node
@@ -51,7 +53,7 @@ describe Permission, focus: true do
       end
     end
 
-    it "node_types" do
+    it "for node_types" do
       should allow "node_types", "index"
       should_not allow "node_types", "new"
       should_not allow "node_types", "create"
@@ -61,27 +63,27 @@ describe Permission, focus: true do
       should_not allow "node_types", "destroy"
     end
 
-    it "fields" do
-      should_not allow "fields", "index"
-      should_not allow "fields", "new"
-      should_not allow "fields", "create"
-      should_not allow "fields", "show"
-      should_not allow "fields", "edit"
-      should_not allow "fields", "update"
-      should_not allow "fields", "destroy"
+    it "for custom_fields/fields" do
+      should_not allow "custom_fields/fields", "index"
+      should_not allow "custom_fields/fields", "new"
+      should_not allow "custom_fields/fields", "create"
+      should_not allow "custom_fields/fields", "show"
+      should_not allow "custom_fields/fields", "edit"
+      should_not allow "custom_fields/fields", "update"
+      should_not allow "custom_fields/fields", "destroy"
     end
 
-    it "views" do
-      should_not allow "views", "index"
-      should_not allow "views", "new"
-      should_not allow "views", "create"
-      should_not allow "views", "show"
-      should_not allow "views", "edit"
-      should_not allow "views", "update"
-      should_not allow "views", "destroy"
+    it "for views/base" do
+      should_not allow "views/base", "index"
+      should_not allow "views/base", "new"
+      should_not allow "views/base", "create"
+      should_not allow "views/base", "show"
+      should_not allow "views/base", "edit"
+      should_not allow "views/base", "update"
+      should_not allow "views/base", "destroy"
     end
 
-    it "marketing" do
+    it "for marketing" do
       should_not allow "marketing", "index"
       should_not allow "marketing", "new"
       should_not allow "marketing", "create"
@@ -91,7 +93,7 @@ describe Permission, focus: true do
       should_not allow "marketing", "destroy"
     end
 
-    it "potential_users" do
+    it "for potential_users" do
       should_not allow "potential_users", "index"
       should_not allow "potential_users", "new"
       should_not allow "potential_users", "create"
@@ -101,7 +103,7 @@ describe Permission, focus: true do
       should_not allow "potential_users", "destroy"
     end
 
-    it "comments" do
+    it "for comments" do
       should allow "comments", "create"
       should_not allow "comments", "destroy"
     end
@@ -109,13 +111,13 @@ describe Permission, focus: true do
 
 
   describe "as registered" do
-    let(:user) { u = Fabricate(:user); u.make_registered!; u }
-    let(:node) { Fabricate(:node, author: user) }
-    let(:other_node) { Fabricate(:node) }
-    let(:node_type) { Fabricate(:node_type) }
-    subject { Permission.new(user) }
+    let(:node_type)  { Fabricate(:node_type) }
+    let(:user)       { u = Fabricate(:user); u.make_registered!; u }
+    let(:node)       { Fabricate(:node, node_type: node_type, author: user) }
+    let(:other_node) { Fabricate(:node, node_type: node_type) }
+    subject          { Permission.new(user) }
 
-    it "nodes" do
+    it "for nodes" do
       should allow "nodes", "index"
       should allow "nodes", "new"
       should allow "nodes", "create"
@@ -126,9 +128,10 @@ describe Permission, focus: true do
       should_not allow "nodes", "edit", other_node
       should_not allow "nodes", "update", other_node
       should_not allow "nodes", "destroy", other_node
+      should_not allow "nodes", "change_status", node
     end
     
-    it "images" do
+    it "for images" do
       should allow "images", "create", node
       should allow "images", "destroy", node
       should allow "images", "sort", node
@@ -139,33 +142,36 @@ describe Permission, focus: true do
 
     context "node_types" do
 
-      it "default actions" do
+      it "for default actions" do
         should allow "node_types", "index"
         should_not allow "node_types", "new"
         should_not allow "node_types", "create"
       end
 
-      it "when not an administrator" do
+      it "for when not an administrator" do
         should_not allow "node_types", "show", node_type
         should_not allow "node_types", "edit", node_type
         should_not allow "node_types", "update", node_type
         should_not allow "node_types", "destroy", node_type
+        should_not allow "nodes", "change_status", node
       end
 
-      it "when an administrator" do
+      it "for when an administrator" do
         node_type.administrators << user
         should allow "node_types", "show", node_type
         should allow "node_types", "edit", node_type
         should allow "node_types", "update", node_type
         should_not allow "node_types", "destroy", node_type
+        should allow "nodes", "change_status", node
       end
 
-      it "when a super administrator" do
+      it "for when a super administrator" do
         permission = Permission.new(node_type.super_administrator)
         permission.should allow "node_types", "show", node_type
         permission.should allow "node_types", "edit", node_type
         permission.should allow "node_types", "update", node_type
         permission.should allow "node_types", "destroy", node_type
+        permission.should allow "nodes", "change_status", node
       end
     end
 
@@ -178,25 +184,25 @@ describe Permission, focus: true do
       end
 
       context "as registered" do
-        it "fields" do
-          should_not allow "fields", "index", node_type
-          should_not allow "fields", "new", node_type
-          should_not allow "fields", "create", node_type
-          should_not allow "fields", "update", node_type
-          should_not allow "fields", "destroy",node_type
-          should_not allow "fields", "sort", node_type
+        it "for custom_fields/fields" do
+          should_not allow "custom_fields/fields", "index", node_type
+          should_not allow "custom_fields/fields", "new", node_type
+          should_not allow "custom_fields/fields", "create", node_type
+          should_not allow "custom_fields/fields", "update", node_type
+          should_not allow "custom_fields/fields", "destroy",node_type
+          should_not allow "custom_fields/fields", "sort", node_type
         end
 
-        it "views" do
-          should_not allow "views", "index", node_type
-          should_not allow "views", "new", node_type
-          should_not allow "views", "create", node_type
-          should_not allow "views", "update", node_type
-          should_not allow "views", "destroy",node_type
-          should_not allow "views", "sort", node_type
+        it "for views/base" do
+          should_not allow "views/base", "index", node_type
+          should_not allow "views/base", "new", node_type
+          should_not allow "views/base", "create", node_type
+          should_not allow "views/base", "update", node_type
+          should_not allow "views/base", "destroy",node_type
+          should_not allow "views/base", "sort", node_type
         end
 
-        it "marketing" do
+        it "for marketing" do
           should_not allow "marketing", "index", node_type
           should_not allow "marketing", "new", node_type
           should_not allow "marketing", "create", node_type
@@ -206,7 +212,7 @@ describe Permission, focus: true do
           should_not allow "marketing", "destroy", node_type
         end
 
-        it "potential_users" do
+        it "for potential_users" do
           should_not allow "potential_users", "index", node_type
           should_not allow "potential_users", "new", node_type
           should_not allow "potential_users", "create", node_type
@@ -217,25 +223,25 @@ describe Permission, focus: true do
       context "as administrator" do
         subject { Permission.new(administrator) }
 
-        it "fields" do
-          should allow "fields", "index", node_type
-          should allow "fields", "new", node_type
-          should allow "fields", "create", node_type
-          should allow "fields", "update", node_type
-          should allow "fields", "destroy",node_type
-          should allow "fields", "sort", node_type
+        it "for custom_fields/fields" do
+          should allow "custom_fields/fields", "index", node_type
+          should allow "custom_fields/fields", "new", node_type
+          should allow "custom_fields/fields", "create", node_type
+          should allow "custom_fields/fields", "update", node_type
+          should allow "custom_fields/fields", "destroy",node_type
+          should allow "custom_fields/fields", "sort", node_type
         end
 
-        it "views" do
-          should allow "views", "index", node_type
-          should_not allow "views", "new", node_type
-          should_not allow "views", "create", node_type
-          should_not allow "views", "update", node_type
-          should_not allow "views", "destroy",node_type
-          should allow "views", "sort", node_type
+        it "for views/base" do
+          should allow "views/base", "index", node_type
+          should_not allow "views/base", "new", node_type
+          should_not allow "views/base", "create", node_type
+          should_not allow "views/base", "update", node_type
+          should_not allow "views/base", "destroy",node_type
+          should allow "views/base", "sort", node_type
         end
 
-        it "marketing" do
+        it "for marketing" do
           should allow "marketing", "index", node_type
           should_not allow "marketing", "new", node_type
           should_not allow "marketing", "create", node_type
@@ -245,7 +251,7 @@ describe Permission, focus: true do
           should allow "marketing", "destroy", node_type
         end
 
-        it "potential_users" do
+        it "for potential_users" do
           should allow "potential_users", "index", node_type
           should allow "potential_users", "new", node_type
           should allow "potential_users", "create", node_type
@@ -256,25 +262,25 @@ describe Permission, focus: true do
       context "as super administrator" do
         subject { Permission.new(super_administrator) }
 
-        it "fields" do
-          should allow "fields", "index", node_type
-          should allow "fields", "new", node_type
-          should allow "fields", "create", node_type
-          should allow "fields", "update", node_type
-          should allow "fields", "destroy",node_type
-          should allow "fields", "sort", node_type
+        it "for custom_fields/fields" do
+          should allow "custom_fields/fields", "index", node_type
+          should allow "custom_fields/fields", "new", node_type
+          should allow "custom_fields/fields", "create", node_type
+          should allow "custom_fields/fields", "update", node_type
+          should allow "custom_fields/fields", "destroy",node_type
+          should allow "custom_fields/fields", "sort", node_type
         end
 
-        it "views" do
-          should allow "views", "index", node_type
-          should allow "views", "new", node_type
-          should allow "views", "create", node_type
-          should allow "views", "update", node_type
-          should allow "views", "destroy",node_type
-          should allow "views", "sort", node_type
+        it "for views/base" do
+          should allow "views/base", "index", node_type
+          should allow "views/base", "new", node_type
+          should allow "views/base", "create", node_type
+          should allow "views/base", "update", node_type
+          should allow "views/base", "destroy",node_type
+          should allow "views/base", "sort", node_type
         end
 
-        it "marketing" do
+        it "for marketing" do
           should allow "marketing", "index", node_type
           should allow "marketing", "new", node_type
           should allow "marketing", "create", node_type
@@ -284,7 +290,7 @@ describe Permission, focus: true do
           should allow "marketing", "destroy", node_type
         end
 
-        it "potential_users" do
+        it "for potential_users" do
           should allow "potential_users", "index", node_type
           should allow "potential_users", "new", node_type
           should allow "potential_users", "create", node_type

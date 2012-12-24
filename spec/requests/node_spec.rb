@@ -94,13 +94,25 @@ describe "Node" do
       page.should_not have_content node.title
     end
 
-    it "on approved it shows on nodes page", js: true do
-      signin super_administrator
-      visit node_type_path(node_type)
-      page.should have_content node.title
-      click_on t('nodes.approve')
-      visit node_type_nodes_path(node_type)
-      page.should have_content node.title
+    context "when administrator action" do
+      before do
+        node.submit!
+        signin super_administrator
+        visit node_type_path(node_type)
+        page.should have_content node.title
+      end
+
+      it "on accept it shows on nodes page", js: true do
+        click_on t('nodes.accept')
+        visit node_type_nodes_path(node_type)
+        page.should have_content node.title
+      end
+
+      it "on reject it doesnt shows on nodes page", js: true do
+        click_on t('nodes.reject')
+        visit node_type_nodes_path(node_type)
+        page.should_not have_content node.title
+      end
     end
   end
 

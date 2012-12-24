@@ -77,7 +77,14 @@ class Permission
 
     allow :nodes, [:index, :show, :new, :create]
     allow :nodes, [:edit, :update, :destroy] do |node|
-      node.author_id == user.id
+      node.author_id == user.id or
+      node.node_type.administrator_ids.include?(user.id) or
+      node.node_type.super_administrator_id == user.id
+    end
+
+    allow :nodes, :change_status do |node|
+      node.node_type.administrator_ids.include?(user.id) or
+      node.node_type.super_administrator_id == user.id
     end
 
     allow :images, [:create, :destroy, :sort] do |node|

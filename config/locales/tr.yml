@@ -62,9 +62,18 @@ tr:
     public_nodes_page: "Girdi listesi"
     manage_all_nodes: "Girdileri yönet"
     add_new_node: "Yeni girdi ekle"
-    publish: "Yayınla"
+    submit: "Gönder"
     save: "Kaydet"
-    approve: "Onayla"
+    accept: "Onayla"
+    reject: "Reddet"
+    status_changed: "Durum '%{status}' olarak değiştirildi."
+    status_not_changed: "Durum '%{expected_status}' olarak değiştirilemedi. Durum halen '%{current_status}'"
+    new: "yeni"
+    pending_approval: "onay bekliyor"
+    published: "yayınlandı"
+    expired: "süresi sona erdi"
+    rejected: "reddeddildi"
+
 
   fields:
     fields: "Alanlar"

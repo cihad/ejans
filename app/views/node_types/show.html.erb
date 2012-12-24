@@ -26,26 +26,20 @@ $(function() {
           <thead>
             <tr>
               <th>Yayındaki node sayısı</th>
-              <td><%= @node_type.nodes.approved.size %></td> 
+              <td><%= @node_type.nodes.published.size %></td> 
             </tr>
           </thead>
           <tr>
             <th>Onay bekleyen node sayısı</th>
-            <td><%= @node_type.nodes.queue_for_approve.size %></td> 
+            <td><%= @node_type.nodes.pending_approval.size %></td> 
           </tr>
           <tr>
-            <th>Üye tarafından başlatılmış node sayısı (30 gün içinde silinir)</th>
-            <td><%= blank_nodes_by_author = @node_type.nodes.blank_nodes_by_author.size %></td>
-          </tr>
-          <tr>
-            <th>Anon tarafından başlatılmış node sayısı (cronda silinir)</th>
-            <td>
-              <%= blank_nodes_by_anon = @node_type.nodes.blank_nodes_by_anon.size %>
-            </td> 
+            <th>Günü geçmiş node sayısı</th>
+            <td><%= @node_type.nodes.expired.size %></td> 
           </tr>
           <tr>
             <th>Toplam</th>
-            <td><%= @node_type.nodes.size %></td>
+            <td><%= @node_type.nodes.active.size %></td>
           </tr>
         </table>
       </div>
@@ -73,12 +67,13 @@ $(function() {
         <h4>Onay bekleyen nodeler <span class="label label-info">p:true, a:false</span></h4>
       </div>
       <div class="caption">
-        <table class="table approved" width="100%">
-          <% @node_type.nodes.queue_for_approve.each do |n| %>
-            <tr>
-              <td><%= link_to n.title, node_type_node_path(@node_type, n), remote: true %></td>
-              <td><%= render 'nodes/approve_button', node: n %></td>
-            </tr>
+        <table class="table pending-approval" width="100%">
+          <%= content_tag_for :tr, @node_type.nodes.pending_approval do |node| %>
+            <td><%= link_to node.title,
+                            node_type_node_path(@node_type, node),
+                            remote: true %></td>
+            <td><%= link_to_change_status node, "reject" %>
+                <%= link_to_change_status node, "accept" %></td>
           <% end %>
         </table>
       </div>

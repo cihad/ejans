@@ -2,7 +2,7 @@ class NodesController < ApplicationController
   respond_to :js, only: [:show]
 
   before_filter :node_type
-  before_filter :node, only: [:show, :edit, :update, :destroy, :change_owner]
+  before_filter :node, except: [:index, :manage]
 
   layout "small", except: [:index, :manage]
 
@@ -27,7 +27,7 @@ class NodesController < ApplicationController
                                   :message => "Oh! It's error with reCAPTCHA!")
 
     
-    if recaptcha && @node.update_attributes(params[:node])
+    if recaptcha && @node.update_attributes(params[:node]) && @node.submit!
       redirect_to node_type_node_path(@node_type, @node),
         notice: 'Node was successfully updated.'
     else
@@ -42,6 +42,18 @@ class NodesController < ApplicationController
 
   def manage
     @nodes = @node_type.nodes
+  end
+
+  def change_status
+    
+    if (event = params[:event]) and @node.send("#{event}!")
+      redirect_to :back, notice: t( 'nodes.status_changed',
+                                    status: t("nodes.#{event}") )
+    else
+      redirect_to :back, alert: t(  'nodes.status_not_changed',
+                                    expected_status: t("nodes.#{event}"),
+                                    current_status: t("nodes.#{@node.status}")  )
+    end
   end
 
   def change_owner

@@ -264,6 +264,10 @@ GEM
     whenever (0.8.0)
       activesupport (>= 2.3.4)
       chronic (>= 0.6.3)
+    workflow (0.8.6)
+    workflow_on_mongoid (0.8.0.7)
+      mongoid
+      workflow (~> 0.8)
     xpath (1.0.0)
       nokogiri (~> 1.3)
 
@@ -313,3 +317,4 @@ DEPENDENCIES
   unicorn (= 4.1.1)
   warden
   whenever
+  workflow_on_mongoid

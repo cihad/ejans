@@ -75,8 +75,7 @@ class Place
     query = BlankCriteria.new.and(
               place_query.selector,
               node_type_query.selector,
-              BlankCriteria.new.where(published: true).selector,
-              BlankCriteria.new.where(approved: true).selector)
+              BlankCriteria.new.where(status: "published").selector)
     Node.where(query.selector)
   end
 end

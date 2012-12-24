@@ -72,13 +72,9 @@ class NodeType
     [name] + labels + option_names
   end
 
-  def approved_queue
-    nodes.approved_queue
-  end
-
   def expired_nodes
     if node_expiration_day_limit > 0
-      nodes.listing.time_ago_updated(node_expiration_day_limit.days.ago)
+      nodes.published.time_ago_updated(node_expiration_day_limit.days.ago)
     else
       []
     end

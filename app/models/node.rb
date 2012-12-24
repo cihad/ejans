@@ -3,18 +3,21 @@ class Node
   include Mongoid::Timestamps
   include Rails.application.routes.url_helpers
   include CustomFields::Target
+  include Workflow
 
   attr_accessor :author_email
 
   # Kaminari
   paginates_per 20
 
+  # Workflow
+  workflow_column :status
+
   # Fields
   field :title
-  field :published,   type: Boolean, default: false
-  field :approved,    type: Boolean, default: false
+  field :status
   field :token
-  field :email_send,  type: Boolean
+  field :email_send, type: Boolean
 
   # Associations
   belongs_to  :node_type
@@ -22,17 +25,14 @@ class Node
   embeds_many :comments
 
   # Scopes
-  default_scope                     order_by(created_at: :desc)
-  scope :published,                 where(published: true)
-  scope :not_published,             where(published: false)
-  scope :approved,                  where(approved: true)
-  scope :not_approved,              where(approved: false)
-  scope :queue_for_approve,         where(published: true, approved: false)
-  scope :waiting_for_user_action,   not_published.not_approved
-  scope :listing,                   published.approved
-  scope :time_ago_updated,          ->(time) { where(:updated_at.lt => time) }
-  scope :blank_nodes_by_anon,       where(title: nil).and(author: nil)
-  scope :blank_nodes_by_author,     where({"$and"=>[{"title"=>nil}, {"author_id"=>{"$exists"=>true}}]})
+  default_scope                 order_by(created_at: :desc)
+  scope :published,             where(status: "published")
+  scope :pending_approval,      where(status: "pending_approval")
+  scope :expired,               where(status: "expired")
+  scope :rejected,              where(status: "rejected")
+  scope :active,                ne(status: "new")
+  scope :time_ago_updated,      ->(time) { where(:updated_at.lt => time) }
+  scope :blank_nodes_by_author, where({"$and"=>[{"title"=>nil}, {"author_id"=>{"$exists"=>true}}]})
 
   # Validations
   validates :title, presence: true
@@ -42,7 +42,6 @@ class Node
   before_save     :save_user
   after_save      :send_email
   before_create   :set_random_token
-  before_save     :set_publish
 
   # Indexes
   index title: 1
@@ -67,44 +66,39 @@ class Node
     end
   end
 
-  def publish=(value)
-    self.published = true
-  end
+  workflow do
+    state :new do
+      event :submit, :transitions_to => :pending_approval
+    end
 
-  def approve=(value)
-    self.approved = true
-  end
+    state :pending_approval do
+      event :accept, :transitions_to => :published
+      event :reject, :transitions_to => :rejected
+    end
 
-  def in_queue_for_approve?
-    published? and !approved?
-  end
+    state :published do
+      event :expire, :transitions_to => :expired
+    end
 
-  def listing?
-    published? and approved?
-  end
+    state :expired do
+      event :submit, :transitions_to => :pending_approval
+    end
 
-  def list!
-    self.published  = true
-    self.approved   = true
-    save
-  end
-
-  def unlist!
-    self.published  = false
-    self.approved   = false
-    save
+    state :rejected do
+      event :submit, :transitions_to => :pending_approval
+    end
   end
 
   def path
-    node_type_node_path(node_type, self)
+    node_type_node_path(node_type_id, self.id)
   end
 
   def self_data
     { :"node" => self }
   end
 
-  def mapping(conf_data)
-    conf_data.merge(self_data).merge(node_type.self_data)
+  def mapping(field_data)
+    field_data.merge(self_data).merge(node_type.self_data)
   end
   
   def author_email=(email)
@@ -152,9 +146,5 @@ class Node
 
   def save_user
     @user.save(validate: false) if @user
-  end
-
-  def set_publish
-    self.published = true if valid?
   end
 end

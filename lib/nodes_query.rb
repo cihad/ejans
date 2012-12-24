@@ -6,7 +6,7 @@ class NodesQuery
   def initialize(node_type, params = {}, relation = nil, criteria = NullCriteria.new)
     @node_type = node_type
     @params = params
-    @relation = relation || node_type.nodes.unscoped.listing
+    @relation = relation || node_type.nodes.unscoped.published
     @criteria = criteria
     load_criteria
   end

@@ -29,6 +29,7 @@ gem 'warden'
 gem 'resque', require: 'resque/server'
 gem 'gmaps4rails'
 gem 'pry'
+gem 'workflow_on_mongoid'
 
 # Groups
 group :assets do
