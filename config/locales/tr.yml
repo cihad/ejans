@@ -8,6 +8,7 @@ tr:
     delete: "Sil"
     destroy: "Sil"
     edit: "Düzenle"
+    update: "Güncelle"
 
   errors:
     page_not_found: "Sayfa Bulunamadı"
@@ -19,20 +20,35 @@ tr:
       models:
 
   sessions:
-    signin: "Giriş"
-    signout: "Çıkış"
-    email_or_username: "Email veya kullanıcı adı"
+    signin: "Oturum aç"
+    signout: "Oturumu kapat"
+    email: "Eposta"
     password: "Parola"
-    invalid_information: "Geçersiz bilgiler girdiniz."
+    remember_me: "Beni hatırla"
     are_you_new: "Üye değil misin? Kayıt ol"
 
   users:
-    username: "Kullanıcı adı"
     email: "Email"
     password: "Parola"
-    password_confirmation: "Parola tekrar"
+    password_confirmation: "Parolayı tekrarla"
     signup: "Kayıt"
     already_registered: "Zaten kayıtlı bir kullanıcısınız."
+
+  devise:
+    confirmations:
+      didnt_receive: "Onaylama talimatları gelmedi mi?"
+      resend: "Onaylama talimatlarını tekrar gönder"
+      send: "Gönder"
+    passwords:
+      confirm_new_password: "Yeni parolayı tekrarla"
+      change: "Parolayı değiştir"
+    registrations:
+      leave_blank: "Değiştirmek istemiyorsanız boş bırakın."
+      current_password: "Şu anki parolanız"
+      confirm_current_password: "Değişiklikleri kaydedebilmek için şu anki parolanızı girmelisiniz."
+
+  visitors:
+    invalid_email: "Geçersiz email adresi"
 
   node_types:
     node_types: "Listeler"

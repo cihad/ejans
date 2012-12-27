@@ -31,7 +31,7 @@ module TagsHelper
     content_tag :td, *args, &block
   end
 
-  %w[text_field number_field check_box text_area select
+  %w[text_field number_field email_field check_box text_area select
       collection_select, password_field].each do |method|
     define_method("simple_#{method}") do |f, name, *args|
 

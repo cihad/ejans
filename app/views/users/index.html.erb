@@ -1,20 +1,19 @@
-<% provide :title, 'Users' %>
-<%= page_title 'Users' %>
+<% provide :title, "Users" %>
 
 <table class="table">
-    <tr>
-      <th>User</th>
-      <th>Email</th>
-      <th>Default Password changed?</th>
-      <th>Actions</th>
-    </tr>
+  <tr>
+    <th>User</th>
+    <th>Email</th>
+    <th>Default Password changed?</th>
+    <th>Actions</th>
+  </tr>
 
-    <% @users.each do |user| %>
-      <%= content_tag_for(:tr, user) do %>
-        <td><%= link_to user.username_or_email_name, user_path(user) %></td>
-        <td><%= link_to user.email %></td>
-        <td><%= user.default_password_changed? %></td>
-        <td><%= render 'user_actions_menu', user: user %></td>
-      <% end %>
+  <% @users.each do |user| %>
+    <%= content_tag_for(:tr, user) do %>
+      <td><%= link_to user.username_or_email_name, user_path(user) %></td>
+      <td><%= link_to user.email %></td>
+      <td><%= user.default_password_changed? %></td>
+      <td><%= render 'user_actions_menu', user: user %></td>
     <% end %>
+  <% end %>
 </table>

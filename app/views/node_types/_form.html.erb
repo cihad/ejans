@@ -16,7 +16,7 @@
           <%= check_box_tag "node_type[administrator_ids][]",
                 administrator.id,
                 @node_type.administrator_ids.include?(administrator.id) %>
-          <%= administrator.username_or_email_name %>
+          <%= administrator.email %>
         </label>
       <% end %>
       <%= f.text_field :administrator_username_or_email, placeholder: t('node_types.new.username_or_email') %>

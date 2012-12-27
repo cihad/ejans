@@ -1,144 +1,52 @@
-require 'bcrypt'
 class User
   include Mongoid::Document
   include Mongoid::Timestamps
-  attr_accessor :password, :password_confirmation, :email_or_username
-
-  ROLES = [:anonymous, :registered, :admin]
-  USERNAME_REGEX = /\A[A-Za-z0-9_]+\z/
-  EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  include Workflow
+  include Ejans::Registerable
 
   ## fields
-  field :username
-  field :email
-  field :password_digest
-  field :remember_token
-  field :role, type: Symbol, default: :anonymous
-  before_create { self.role = :admin if User.all.size == 0 }
+  field :role, default: "anonymous"
 
   ## associations
   has_many :nodes, inverse_of: :author, dependent: :destroy
-  has_many :own_node_types, class_name: "NodeType", inverse_of: :super_administrator
-  has_and_belongs_to_many :managed_node_types, class_name: "NodeType",
-                          inverse_of: :administrators
 
-  ## validations
-  validates :username, presence: true, length: { maximum: 50 },
-            format: { with: USERNAME_REGEX },
-            uniqueness: { case_sensitive: false }
-  validates :email, presence: true, format: { with: EMAIL_REGEX },
-            uniqueness: { case_sensitive: false }
-  validates :password, length: { minimum: 6 }, confirmation: true, on: :create
-  validates :remember_token, uniqueness: true
-  validate :already_sign_up
+  has_many :own_node_types, class_name: "NodeType",
+    inverse_of: :super_administrator
 
-  ## callbacks  
-  before_create :create_remember_token
-  before_create :create_password_digest
-  before_validation { email.downcase! }
-  before_save { self.role = :registered if anonymous? }
+  has_and_belongs_to_many :managed_node_types,
+    class_name: "NodeType",
+    inverse_of: :administrators
 
-  def self.find_by_username_or_email(email_or_username)
-    if email?(email_or_username)
-      where(email: email_or_username).first
-    elsif username?(email_or_username)
-      where(username: email_or_username).last
-    end
-  end
+  ## callbacks
+  before_create :set_role
 
-  def self.email?(email_or_username)
-    !!(email_or_username =~ EMAIL_REGEX)
-  end
+  ## workflow
+  workflow_column :role
 
-  def self.username?(email_or_username)
-    !!(email_or_username =~ USERNAME_REGEX)
-  end
-
-  def self.authenticate(email_or_username, password)
-    if email?(email_or_username)
-      where(email: email_or_username).first.try(:authenticate, password)
-    elsif username?(email_or_username)
-      where(username: email_or_username).first.try(:authenticate, password)
-    end
-  end
-
-  def self.authenticate_with_token(email, token)
-    find_by(email: email).try(:authenticate_with_token, token)
-  end
-
-  def email_name
-    email.split('@').first
-  end
-
-  def username_or_email_name
-    username || email_name
-  end
-
-  def password=(unencrypted_password)
-    unless unencrypted_password.blank?
-      @password = unencrypted_password
-      self.password_digest = BCrypt::Password.create(unencrypted_password)
-    end
-  end
-
-  def email_or_username=(email_or_username)
-    if self.email?(email_or_username)
-      @email = email_or_username
-    elsif self.username?(email_or_username)
-      @username = email_or_username
-    end
-  end
-
-  def allow?(controller, action, resource = nil, params = nil)
-    @permission ||= Permission.new(self, params)
-    @permission.allow?(controller, action, resource)
-  end
-
-  def authenticate(unencrypted_password)
-    BCrypt::Password.new(password_digest) == unencrypted_password && self
-  end
-
-  def authenticate_with_token(token)
-    remember_token == token && self
-  end
-
-  def default_password_changed?
-    BCrypt::Password.new(password_digest) != remember_token
-  end
-
-  ROLES.each do |role_name|
-    define_method "#{role_name}?" do
-      role == role_name 
+  workflow do
+    state :anonymous do
+      event :signup, transitions_to: :registered
+      event :visitor, transitions_to: :pending_for_signup
     end
 
-    define_method "make_#{role_name}!" do
-      self.role = role_name
-      self.save(validate: false)  
+    state :pending_for_signup do
+      event :signup, transitions_to: :registered
     end
-  end
 
-  private
-
-  def create_remember_token
-    self.remember_token = SecureRandom.urlsafe_base64
-  end
-
-  def create_password_digest
-    unless password_digest
-      self.password_digest = BCrypt::Password.create(remember_token)
+    state :registered do
+      event :admin, transitions_to: :admin
     end
+    
+    state :admin
   end
 
-  def already_sign_up
-    user = User.where(email: email).first
-    if !user.nil? and user.username.nil? and !user.default_password_changed?
-      user = User.where(email: email).first
-      errors.add(:already_sign_up, "Daha once bu email ile sitemizde bazi
-                                    aktivitelerde bulunmussunuz. Bundan dolayi
-                                    kullanici hesabiniz zaten acilmis durumda.
-                                    Hesabiniza kavusabilmeniz #{user.email} adresinize
-                                    bir baglanti gonderdik. Bu baglanti ile 
-                                    hesabiniza kavusabilirsiniz.")
+private
+
+  def set_role
+    if valid?
+      self.role = "registered"
+    elsif email.present? && encrypted_password.blank?
+      self.role = "pending_for_signup"
     end
   end
 end

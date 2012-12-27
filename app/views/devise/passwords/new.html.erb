@@ -1,0 +1,12 @@
+<%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
+  <legend><%=t 'devise.passwords.forget' %></legend>
+  <%#= devise_error_messages! %>
+  <%= error_messages_for resource %>
+
+  <table class="table table-form">
+    <%= simple_email_field f, :email, label: { name: t('users.email') } %>  
+    <%= simple_submit f, t('devise.passwords.send_new') %>
+  </table>
+<% end %>
+
+<%= render "devise/shared/links" %>

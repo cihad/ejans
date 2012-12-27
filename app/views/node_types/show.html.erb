@@ -130,7 +130,7 @@ $(function() {
         <table class="table" width="100%">
           <% @node_type.administrators.each do |adm| %>
             <tr>
-              <td><%= adm.username_or_email_name %></td>
+              <td><%= adm.email %></td>
             </tr>
           <% end %>
         </table>

@@ -7,12 +7,11 @@ describe Place do
   end
   
   describe "adds a place", js: true do
-    let(:user) { Fabricate(:user) }
+    let(:admin) { Fabricate(:admin) }
     let(:place_attributes) { valid_attrinutes_for :place }
 
     before do
-      user.make_admin!
-      signin user
+      signin admin
       visit places_path
     end
 

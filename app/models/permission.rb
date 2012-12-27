@@ -5,6 +5,7 @@ class Permission
   def initialize(user = nil, params = {})
     @user = user || User.new
     @params = params
+    
     allow_for_everyone
     send(@user.role)
   end
@@ -34,8 +35,7 @@ class Permission
 
     allow :comments, :create
 
-    allow :users, [:new, :create]
-    allow :sessions, [:new, :create]
+    allow :users, :show
   end
 
   def registered
@@ -97,11 +97,7 @@ class Permission
       comment.author_id == user.id
     end
 
-    allow :users, [:show, :edit, :update] do |u|
-      u.id = user.id
-    end
-
-    allow :sessions, :destroy
+    allow :users, :show
   end
 
   def allow?(controller, action, resource = nil)

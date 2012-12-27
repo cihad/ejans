@@ -12,9 +12,7 @@ describe "Field" do
     end
 
     it "as registered" do
-      user = Fabricate(:user).tap do |u|
-        u.make_registered!
-      end
+      user = Fabricate(:user)
 
       signin user
       visit node_type_custom_fields_fields_path(node_type)
@@ -23,9 +21,7 @@ describe "Field" do
     end
 
     it "as administrator" do
-      user = Fabricate(:user).tap do |u|
-        u.make_registered!
-      end
+      user = Fabricate(:user)
 
       node_type.administrators << user
       signin user
@@ -42,9 +38,7 @@ describe "Field" do
     end
 
     it "as admin" do
-      admin = Fabricate(:user).tap do |u|
-        u.make_admin!
-      end
+      admin = Fabricate(:admin)
       signin admin
       visit node_type_custom_fields_fields_path(node_type)
       current_path.should eq(node_type_custom_fields_fields_path(node_type))
@@ -54,7 +48,7 @@ describe "Field" do
 
   describe "creates", js: true do
     before do
-      super_administrator.make_admin!
+      super_administrator.admin!
       signin super_administrator
       visit node_type_custom_fields_fields_path(node_type)
     end

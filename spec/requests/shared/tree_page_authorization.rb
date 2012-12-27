@@ -8,7 +8,6 @@ shared_examples "tree" do
 
     it "as registered" do
       user = Fabricate(:user)
-      user.make_registered!
       signin user
       visit path
       current_path.should_not eq(path)
@@ -16,8 +15,7 @@ shared_examples "tree" do
     end
 
     it "as admin" do
-      admin = Fabricate(:user)
-      admin.make_admin!
+      admin = Fabricate(:admin)
       signin admin
       visit path 
       current_path.should eq(path)

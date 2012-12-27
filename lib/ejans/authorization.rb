@@ -4,7 +4,7 @@ module Ejans
 
     included do
       
-      before_filter :authorize
+      before_filter :authorize, unless: :devise_controller?
 
       delegate :allow?, to: :current_permission
       helper_method :allow?

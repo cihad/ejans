@@ -6,6 +6,12 @@ Rspec::Matchers.define :allow do |*args|
   end
 end
 
+shared_examples "allow_for_everyone" do
+  it "for errors"  do
+    should allow "errors", "not_found"
+  end
+end
+
 describe Permission, focus: true do
   let(:signin_required_node_type) { Fabricate(:node_type, signin_required: true) }
   let(:node_type) { Fabricate(:node_type, signin_required: false) }
@@ -14,6 +20,8 @@ describe Permission, focus: true do
     let(:signin_required_node) { Fabricate(:node, node_type: signin_required_node_type) }
     let(:node) { Fabricate(:node, node_type: node_type) }
     subject { Permission.new(nil, { token: node.token }) }
+
+    it_behaves_like "allow_for_everyone"
 
     describe "for nodes" do
       it "with valid token" do
@@ -112,10 +120,12 @@ describe Permission, focus: true do
 
   describe "as registered" do
     let(:node_type)  { Fabricate(:node_type) }
-    let(:user)       { u = Fabricate(:user); u.make_registered!; u }
+    let(:user)       { Fabricate(:user) }
     let(:node)       { Fabricate(:node, node_type: node_type, author: user) }
     let(:other_node) { Fabricate(:node, node_type: node_type) }
     subject          { Permission.new(user) }
+
+    it_behaves_like "allow_for_everyone"
 
     it "for nodes" do
       should allow "nodes", "index"
@@ -141,7 +151,6 @@ describe Permission, focus: true do
     end
 
     context "node_types" do
-
       it "for default actions" do
         should allow "node_types", "index"
         should_not allow "node_types", "new"
@@ -307,7 +316,5 @@ describe Permission, focus: true do
         should allow "comments", "destroy", comment
       end
     end
-
   end
-
 end

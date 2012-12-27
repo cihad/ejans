@@ -17,7 +17,7 @@
   <% @nodes.each do |node| %>
     <tr class="node" id="node_<%= node.id %>">
       <td><%= link_to node.title, node_type_node_path(@node_type, node), remote: true %></td>
-      <td><%= node.author.try(:username_or_email_name) %></td>
+      <td><%= node.author.email %></td>
       <td><%= time_ago_in_words(node.updated_at) %> önce</td>
       <td><%= node.published? ? "✓" : "&times;".html_safe %></td>
       <td><% if node.pending_approval? %>

@@ -1,13 +1,23 @@
 Ejans::Application.routes.draw do
-  root :to => 'node_types#index'
-  match "/404", :to => "errors#not_found"
-  resources :home, only: [:index, :show]
 
-  resources :users
-  resources :sessions, only: [:new, :create, :destroy]
-  match '/signup',  to: 'users#new'
-  match '/signin',  to: 'sessions#new'
-  match '/signout', to: 'sessions#destroy', via: :delete
+  root :to => 'node_types#index'
+
+  get '/user'      => 'users#show'
+
+  devise_for :users,
+    path: 'user',
+    path_names: { sign_in: "signin", sign_out: "signout", sign_up: "signup" }
+
+  as :user do
+    get    "/signin"  => "devise/sessions#new",       as: :signin
+    delete "/signout" => "devise/sessions#destroy",   as: :signout
+    get    "/signup"  => "devise/registrations#new",  as: :signup
+    get  '/user/edit' => 'devise/registrations#edit', as: :edit_user
+  end
+
+  match "/404", :to => "errors#not_found"
+
+  resources :home, only: [:index, :show]
 
   resources :comments, :only => [:create, :destroy]
 

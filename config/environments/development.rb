@@ -35,22 +35,10 @@ Ejans::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 
-  # For Devise
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
 
   # set delivery method to :smtp, :sendmail or :test
   config.action_mailer.delivery_method = :smtp
-
-  # these options are only needed if you choose smtp delivery
-  # config.action_mailer.smtp_settings = {
-  #   address:              Rails.configuration.app_config['smtp_address'],
-  #   port:                 Rails.configuration.app_config['smtp_port'].to_i,
-  #   domain:               Rails.configuration.app_config['smtp_domain'],
-  #   authentication:       :login,
-  #   enable_starttls_auto: true,
-  #   user_name:            Rails.configuration.app_config['smtp_username'],
-  #   password:             Rails.configuration.app_config['smtp_password']
-  # }
 
   config.i18n.available_locales = :tr
 end

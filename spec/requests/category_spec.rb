@@ -7,10 +7,9 @@ describe Category do
   end
   
   describe "adds a category", js: true do
-    let(:user) { Fabricate(:user) }
+    let(:user) { Fabricate(:admin) }
 
     before do
-      user.make_admin!
       signin user
       visit categories_path
     end

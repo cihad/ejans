@@ -6,6 +6,6 @@
     <li><%= link_to t('account.edit_password'), settings_password_path %></li>
     <li><%= link_to t('account.edit_subscriptions'), edit_subscriptions_path %></li>
     <li class="divider"></li>
-    <li><%= link_to t('account.signout'), destroy_account_session_path, :method => :delete %></li>
+    <li><%= link_to t('account.signout'), signout_path, :method => :delete %></li>
   </ul>
 </li>

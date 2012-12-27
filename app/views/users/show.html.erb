@@ -1,5 +1,5 @@
 <%= user_navigation %>
-<% provide :title, "#{@user.username}<#{@user.email}>".html_safe %>
+<% provide :title, @user.email %>
 <% body_class "user-manage" %>
 
 

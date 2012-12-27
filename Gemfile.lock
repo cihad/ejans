@@ -326,6 +326,5 @@ DEPENDENCIES
   therubyracer (= 0.10.2)
   uglifier (>= 1.0.3)
   unicorn (= 4.1.1)
-  warden
   whenever
   workflow_on_mongoid

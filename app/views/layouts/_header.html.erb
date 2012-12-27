@@ -11,9 +11,9 @@
       <ul class="nav pull-right">
         <li class="divider-vertical"></li>
         <% if user_signed_in? %>
-          <%= dropdown_tab current_user.username_or_email_name do %>
-            <%= tab_item "Nodes", user_path(current_user) %>
-            <%= tab_item "Configurations", edit_user_path(current_user) %>
+          <%= dropdown_tab current_user.email do %>
+            <%= tab_item "Nodes", user_path %>
+            <%= tab_item "Configurations", edit_user_path %>
             <%= content_tag :li, nil, class: "divider" %>
             <%= tab_item t('sessions.signout'), signout_path, link_to: { method: :delete } %>
           <% end %>

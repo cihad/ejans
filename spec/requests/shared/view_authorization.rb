@@ -8,7 +8,6 @@ shared_examples "view authorization" do
 
     it "as registered" do
       user = Fabricate(:user)
-      user.make_registered!
       signin user
       visit path
       current_path.should_not be path
@@ -17,7 +16,6 @@ shared_examples "view authorization" do
 
     it "as administrator" do
       user = Fabricate(:user)
-      user.make_registered!
       
       node_type.administrators << user
       signin user
@@ -34,7 +32,7 @@ shared_examples "view authorization" do
     end
 
     it "as admin" do  
-      super_administrator.make_admin! unless super_administrator.admin?
+      super_administrator.admin!
       signin super_administrator
       visit path
       current_path.should eq path

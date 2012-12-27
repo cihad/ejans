@@ -1,0 +1,40 @@
+<%= user_navigation %>
+<% provide :title, resource.email %>
+<% body_class "user-manage" %>
+
+<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
+
+  <legend>
+    <%=t 'edit_user' %>
+    <p class="pull-right">
+      <%= link_to "Delete my account",
+        registration_path(resource_name),
+        :data => { :confirm => "Are you sure?" },
+        :method => :delete,
+        class: "badge badge-important" %>
+    </p>
+  </legend>
+
+  <%#= devise_error_messages! %>
+  <%= error_messages_for resource %>
+
+  <table class="table table-form">
+    <%= simple_email_field f, :email, label: { name: t('users.email') } %>
+
+    <%= simple_password_field f,
+          :password,
+          label: { name: t('devise.passwords.new_password') },
+          help: t('devise.registrations.leave_blank') %>
+
+    <%= simple_password_field f,
+          :password_confirmation,
+          label: { name: t('users.password_confirmation') } %>
+
+    <%= simple_password_field f,
+          :current_password,
+          label: { name: t('devise.registrations.current_password') },
+          help: t('devise.registrations.confirm_current_password') %>
+
+    <%= simple_submit f, t('actions.update')  %>
+  </table>
+<% end %>

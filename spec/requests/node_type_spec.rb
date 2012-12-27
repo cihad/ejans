@@ -6,7 +6,6 @@ describe "NodeType" do
       let(:user) { Fabricate(:user) }
 
       specify do
-        user.make_registered!
         signin user
         visit new_node_type_path
         current_path.should_not == new_node_type_path
@@ -14,7 +13,6 @@ describe "NodeType" do
       end
 
       specify do
-        user.make_admin!
         signin user
         visit new_node_type_path
         current_path.should == new_node_type_path
@@ -22,12 +20,11 @@ describe "NodeType" do
     end
 
     describe "creates new node type" do
-      let(:user) { Fabricate(:user) }
+      let(:admin) { Fabricate(:admin) }
       let(:attributes) { valid_attributes_for(:node_type) }
 
       specify do
-        user.make_admin!
-        signin user
+        signin admin
         
         visit new_node_type_path
 

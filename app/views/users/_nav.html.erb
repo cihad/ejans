@@ -1,9 +1,8 @@
-<%= tab_item "Dashboard", @user %>
+<%= tab_item "Dashboard", user_path %>
 
 <%= dropdown_tab "Ayarlar" do %>
-  <%= tab_item "Hesabımı düzenle", edit_user_path(@user) %>
+  <%= tab_item "Hesabımı düzenle", edit_user_path %>
   <%= content_tag :li, nil, class: "divider" %>
-  <%= tab_item "Hesabımı kapat", user_path(@user), link_to: { confirm: "Are you sure?", method: :delete } %>
 <% end %>
 
 <%= dropdown_tab "Yönettiğim Node Types" do %>
