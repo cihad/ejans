@@ -1,7 +1,7 @@
 module FieldFilters
   class SelectFieldFilter < Filter
-    def select_options
-      field.select_options
-    end
+
+    delegate :select_options, to: :field
+    
   end
 end

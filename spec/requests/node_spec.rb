@@ -10,22 +10,21 @@ describe "Node" do
     make_custom_view(node_type)
   end
 
-  describe "adds a node", js: true do
-    specify do
-      signin user
+  it "adds a node", js: true do
+    signin user
 
-      # Make new nodes to belongs to node type
-      3.times do
-        make_node(NodeType.class_name_to_node_type(belongs_to_field(node_type).class_name), user)
-      end
+    # Make new nodes to belongs to node type
+    3.times do
+      make_node(NodeType.class_name_to_node_type(belongs_to_field(node_type).class_name), user)
+    end
 
+    expect {
       # Node type nodes page actions
       visit node_type_nodes_path(node_type)
       click_link t('nodes.add_new_node')
 
       # Title
-      title = Faker::Name.title
-      fill_in node_type.title_label, with: title
+      fill_in node_type.title_label, with: Faker::Name.title
 
       # Belongs To Field
       select  belongs_to_field(node_type).class_name.constantize.all.first.title,
@@ -70,65 +69,49 @@ describe "Node" do
 
       # Submit
       click_button t('nodes.save')
-
-      signout user
-      signin super_administrator
-      
-      # Manage nodes page
-      visit manage_node_type_nodes_path(node_type)
-      page.should have_content(title)
-    end
+    }.to change(Node.pending_approval, :count).by(1)
   end
 
   context "when node added" do
-    let(:node) do
-      make_node(node_type, user)
-    end
-
-    before do
-      node
-    end
+    let(:node) { make_node(node_type, user) }
+    before { node }
 
     it "it doesnt shows on nodes page" do
       visit node_type_nodes_path(node_type)
       page.should_not have_content node.title
     end
 
-    context "when administrator action" do
-      before do
-        node.submit!
-        signin super_administrator
-        visit node_type_path(node_type)
-        page.should have_content node.title
-      end
+    it "on publish it shows on nodes page" do
+      signin super_administrator
+      visit node_type_path(node_type)
+      page.should have_content node.title
+      click_on t('nodes.publish')
+      visit node_type_nodes_path(node_type)
+      page.should have_content node.title
+    end
 
-      it "on accept it shows on nodes page", js: true do
-        click_on t('nodes.accept')
-        visit node_type_nodes_path(node_type)
-        page.should have_content node.title
-      end
-
-      it "on reject it doesnt shows on nodes page", js: true do
-        click_on t('nodes.reject')
-        visit node_type_nodes_path(node_type)
-        page.should_not have_content node.title
-      end
+    it "on reject it doesnt shows on nodes page" do
+      signin super_administrator
+      visit node_type_path(node_type)
+      page.should have_content node.title
+      
+      click_on t('nodes.reject')
+      visit node_type_nodes_path(node_type)
+      page.should_not have_content node.title
     end
   end
 
-  describe "index page" do
-    describe "pagination", js: true do
-      it "not shows less than or equal to 20 nodes and shows greater than 20 nodes" do
-        20.times { make_node(node_type, user).list! }
+  it "pagination" do
+    1.times { make_node(node_type, user).publish! }
 
-        visit node_type_nodes_path(node_type)
-        page.should_not have_css ".pagination"
+    Node.paginates_per 1
 
-        # one more time
-        1.times { make_node(node_type, user).list! }
-        visit node_type_nodes_path(node_type)
-        page.should have_css ".pagination"
-      end
-    end
+    visit node_type_nodes_path(node_type)
+    page.should_not have_css ".pagination"
+
+    # one more time
+    1.times { make_node(node_type, user).publish! }
+    visit node_type_nodes_path(node_type)
+    page.should have_css ".pagination"
   end
 end

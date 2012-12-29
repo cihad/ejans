@@ -1,7 +1,10 @@
 module FieldFilters
   class TreeCategoryFieldFilter < Filter
+
+    delegate :category, to: :field
+
     def levels
-      @levels ||= field.category.levels_unless_self
+      @levels ||= category.levels_unless_self
     end
 
     def form_machine_names

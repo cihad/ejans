@@ -43,6 +43,7 @@ describe Permission, focus: true do
         should_not allow "nodes", "update", node
         should_not allow "nodes", "destroy", node
         should_not allow "nodes", "change_status", node
+        should_not allow "nodes", "change_status", node_type
       end
     end
 
@@ -69,6 +70,7 @@ describe Permission, focus: true do
       should_not allow "node_types", "edit"
       should_not allow "node_types", "update"
       should_not allow "node_types", "destroy"
+      should_not allow "node_types", "manage"
     end
 
     it "for custom_fields/fields" do
@@ -139,6 +141,7 @@ describe Permission, focus: true do
       should_not allow "nodes", "update", other_node
       should_not allow "nodes", "destroy", other_node
       should_not allow "nodes", "change_status", node
+      should_not allow "nodes", "manage", node
     end
     
     it "for images" do
@@ -162,6 +165,7 @@ describe Permission, focus: true do
         should_not allow "node_types", "edit", node_type
         should_not allow "node_types", "update", node_type
         should_not allow "node_types", "destroy", node_type
+        should_not allow "node_types", "manage", node_type
         should_not allow "nodes", "change_status", node
       end
 
@@ -171,6 +175,7 @@ describe Permission, focus: true do
         should allow "node_types", "edit", node_type
         should allow "node_types", "update", node_type
         should_not allow "node_types", "destroy", node_type
+        should allow "node_types", "manage", node_type
         should allow "nodes", "change_status", node
       end
 
@@ -180,6 +185,7 @@ describe Permission, focus: true do
         permission.should allow "node_types", "edit", node_type
         permission.should allow "node_types", "update", node_type
         permission.should allow "node_types", "destroy", node_type
+        permission.should allow "node_types", "manage", node_type
         permission.should allow "nodes", "change_status", node
       end
     end
@@ -226,7 +232,11 @@ describe Permission, focus: true do
           should_not allow "potential_users", "new", node_type
           should_not allow "potential_users", "create", node_type
           should_not allow "potential_users", "destroy", node_type
-        end        
+        end
+
+        it "for manage" do
+          should_not allow "nodes", "manage", node_type
+        end
       end
 
       context "as administrator" do
@@ -266,6 +276,10 @@ describe Permission, focus: true do
           should allow "potential_users", "create", node_type
           should allow "potential_users", "destroy", node_type
         end
+
+        it "for manage" do
+          should allow "nodes", "manage", node_type
+        end
       end
 
       context "as super administrator" do
@@ -304,6 +318,10 @@ describe Permission, focus: true do
           should allow "potential_users", "new", node_type
           should allow "potential_users", "create", node_type
           should allow "potential_users", "destroy", node_type
+        end
+
+        it "for manage" do
+          should_not allow "nodes", "manage", node_type
         end
       end
     end

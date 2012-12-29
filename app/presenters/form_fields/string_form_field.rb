@@ -1,19 +1,13 @@
 module FormFields
   class StringFormField < FormField
+
+    delegate :row, :maximum_length, :minimum_length, to: :field
+    alias :max :maximum_length
+    alias :min :minimum_length
+
     def text_field?
-      field.row == 1 ? true : false
+      row == 1 ? true : false
     end
 
-    def row
-      field.row
-    end
-
-    def max
-      field.maximum_length
-    end
-
-    def min
-      field.minimum_length
-    end
   end
 end

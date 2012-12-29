@@ -4,9 +4,7 @@ module FormFields
       :"#{super}_id"
     end
 
-    def can_be_added_only_by_parent_author?
-      field.can_be_added_only_by_parent_author?
-    end
+    delegate :can_be_added_only_by_parent_author?, to: :field
 
     def parent_klass
       field.class_name.constantize

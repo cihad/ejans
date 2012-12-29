@@ -7,7 +7,7 @@
 
     <td>
       <div>
-        <%= @node.author.try(:username) || @node.author.try(:email_name) || "Anonymous user" %>
+        <%= @node.author.try(:email_name) %>
         <%= link_to "(nodes)", author_nodes_path %>
       </div>
       <div class="info-label">author</div>

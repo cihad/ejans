@@ -1,15 +1,10 @@
 module FormFields
   class DateFormField < FormField
-    def start_year
-      field.start_year
-    end
 
-    def end_year
-      field.end_year
-    end
+    delegate :start_year, :end_year, :date_type, to: :field
 
     def prompt
-      case field.date_type
+      case date_type
       when :year
         { year: "Select year" }
       when :year_month
@@ -20,7 +15,7 @@ module FormFields
     end
 
     def discards
-      case field.date_type
+      case date_type
       when :year
         { discard_month: true, discard_day: true }
       when :year_month
@@ -37,7 +32,7 @@ module FormFields
 
     [:year, :month, :day].each do |time|
       define_method(:"discard_#{time}") do
-        if field.date_type.to_s.split("_").include?(time.to_s)
+        if date_type.to_s.split("_").include?(time.to_s)
           false
         else
           true

@@ -21,7 +21,7 @@
       </p>
 
     <% end %>
-    <%= field.hint %>
+    <%= field.help %>
     <%= javascript_tag do %>
       <% (field.levels.count - 1).times do |i| %>
         $("#category_tree_<%= field.field.machine_name %>_<%= i+1 %>").chained("#category_tree_<%= field.field.machine_name %>_<%= i %>");

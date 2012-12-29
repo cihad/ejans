@@ -7,6 +7,5 @@ describe User do
 
   it { should be_new_record }
   it { should be_valid }
-  it { should respond_to :username }
   it { should respond_to :email }
 end

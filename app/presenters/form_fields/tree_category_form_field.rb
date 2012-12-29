@@ -1,5 +1,6 @@
 module FormFields
   class TreeCategoryFormField < FormField
+    
     def category
       @category ||= field.category
     end

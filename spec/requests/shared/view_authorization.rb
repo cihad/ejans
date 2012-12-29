@@ -14,14 +14,14 @@ shared_examples "view authorization" do
       page.should have_content t('errors.not_authorized')
     end
 
-    it "as administrator" do
+    it "as administrator", js: true do
       user = Fabricate(:user)
       
       node_type.administrators << user
       signin user
       visit path
-      current_path.should_not be path
-      page.should have_content t('errors.not_authorized')
+      current_path.should be path
+      page.should_not have_content t('errors.not_authorized')
     end
 
     it "as super administrator" do

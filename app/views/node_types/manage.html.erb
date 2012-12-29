@@ -22,7 +22,7 @@
       <td><%= node.published? ? "✓" : "&times;".html_safe %></td>
       <td><% if node.pending_approval? %>
             <%= link_to_change_status node, "reject" %>
-            <%= link_to_change_status node, "accept" %>
+            <%= link_to_change_status node, "publish" %>
           <% else %>
             ✓
           <% end %>

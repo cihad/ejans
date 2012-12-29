@@ -5,7 +5,7 @@ class NodeType
   include Rails.application.routes.url_helpers
   include CustomFields::Source
 
-  attr_accessor :administrator_username_or_email
+  attr_accessor :administrator_email
   FILTERS_POSITIONS = [:top, :left]
 
   # Behaviours
@@ -162,9 +162,9 @@ class NodeType
     hash
   end
 
-  def administrator_username_or_email=(username_or_email)
-    user = User.find_by_username_or_email(username_or_email)
-    # self.administrators << user if user and !self.administrator_ids.include?(user.id)
+  def administrator_email=(email)
+    user = User.where(email: email).first
+    self.administrators << user if user and !administrator_ids.include?(user.id)
   end
 
   def self.class_name_to_node_type(class_name)

@@ -1,8 +1,7 @@
 module FormFields
   class ImageFormField < FormField
-    def maximum_image
-      field.maximum_image
-    end
+
+    delegate :maximum_image, to: :field
 
     def images
       value
@@ -10,9 +9,7 @@ module FormFields
 
     def info
       if maximum_image != 0
-        @template.content_tag :span, <<-EOM
-          En fazla #{maximum_image} resim eklebilirsiniz.
-        EOM
+        content_tag :span, "En fazla #{maximum_image} resim eklebilirsiniz."
       end
     end
   end

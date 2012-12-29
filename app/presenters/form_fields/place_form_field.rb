@@ -1,20 +1,7 @@
 module FormFields
   class PlaceFormField < FormField
-    def multiselect?
-      field.multiselect?
-    end
 
-    def level
-      field.level
-    end
-
-    def top_place
-      field.top_place
-    end
-
-    def form_level_names
-      field.form_level_names
-    end
+    delegate :multiselect?, :level, :top_place, :form_level_names, to: :field
 
     def tree
       @tree ||= levels
@@ -40,20 +27,20 @@ module FormFields
       new_object = value.build
       id = new_object.object_id
       fields = f.fields_for form_key, new_object, child_index: id do |builder|
-        @template.render 'fields/place/place_item', field: self, builder: builder
+        render 'fields/place/place_item', field: self, builder: builder
       end
 
-      @template.link_to 'add_place',
-                        '#add',
-                        class: "add-place",
-                        data: {
-                          id: id,
-                          fields: fields.gsub('\n', '')
-                        }
+      link_to 'add_place',
+              '#add',
+              class: "add-place",
+              data: {
+                id: id,
+                fields: fields.gsub('\n', '')
+              }
     end
 
     def link_to_remove_place
-      @template.link_to 'remove', '#remove', class: 'destroy-place btn btn-danger'
+      link_to 'remove', '#remove', class: 'destroy-place btn btn-danger'
     end
   end
 end

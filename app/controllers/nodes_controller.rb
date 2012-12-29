@@ -2,9 +2,9 @@ class NodesController < ApplicationController
   respond_to :js, only: [:show]
 
   before_filter :node_type
-  before_filter :node, except: [:index, :manage]
+  before_filter :node, except: :index
 
-  layout "small", except: [:index, :manage]
+  layout "small", except: :index
 
   def index
     @nodes = NodesQuery.new(@node_type, params).results
@@ -40,12 +40,7 @@ class NodesController < ApplicationController
     redirect_to @node_type, notice: "Node was successfully destroyed."
   end
 
-  def manage
-    @nodes = @node_type.nodes
-  end
-
-  def change_status
-    
+  def change_status    
     if (event = params[:event]) and @node.send("#{event}!")
       redirect_to :back, notice: t( 'nodes.status_changed',
                                     status: t("nodes.#{event}") )
@@ -59,7 +54,7 @@ class NodesController < ApplicationController
   def change_owner
     unless params[:show_form].present?
       ChangeNodeOwner.new(@node, params[:change_node_owner][:new_author_email]).save
-      redirect_to manage_node_type_nodes_path(@node_type, @node)
+      redirect_to manage_node_types_path(@node_type, @node)
     end
   end
 

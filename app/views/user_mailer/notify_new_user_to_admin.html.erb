@@ -14,10 +14,7 @@
           <%= m.block_content do %>
             Ejans.com'a yeni bir uye kayıt oldu. Uye bilgileri:
 
-            <ul>
-              <li><strong>Username:</strong> <%= @user.username || "NOT_DEFINED" %></li>
-              <li><strong>Email:</strong> <%= @user.email %></li>
-            </ul>
+            <strong>Email:</strong> <%= @user.email %>
           <% end %>
         <%  %>
       <% end %>

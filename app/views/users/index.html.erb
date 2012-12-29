@@ -2,7 +2,6 @@
 
 <table class="table">
   <tr>
-    <th>User</th>
     <th>Email</th>
     <th>Default Password changed?</th>
     <th>Actions</th>
@@ -10,8 +9,7 @@
 
   <% @users.each do |user| %>
     <%= content_tag_for(:tr, user) do %>
-      <td><%= link_to user.username_or_email_name, user_path(user) %></td>
-      <td><%= link_to user.email %></td>
+      <td><%= link_to user.email, user_path(user) %></td>
       <td><%= user.default_password_changed? %></td>
       <td><%= render 'user_actions_menu', user: user %></td>
     <% end %>

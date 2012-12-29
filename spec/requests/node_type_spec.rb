@@ -1,77 +1,68 @@
 require 'spec_helper'
 
 describe "NodeType" do
-  describe "#new" do
-    describe "authorization" do
-      let(:user) { Fabricate(:user) }
-
-      specify do
-        signin user
-        visit new_node_type_path
-        current_path.should_not == new_node_type_path
-        current_path.should == root_path
-      end
-
-      specify do
-        signin user
-        visit new_node_type_path
-        current_path.should == new_node_type_path
-      end
-    end
-
-    describe "creates new node type" do
-      let(:admin) { Fabricate(:admin) }
-      let(:attributes) { valid_attributes_for(:node_type) }
-
-      specify do
-        signin admin
-        
-        visit new_node_type_path
-
-        expect {
-          fill_in t('node_types.name'), with: attributes[:name]
-          fill_in t('node_types.new.title_label'), with: attributes[:title_label]
-          fill_in t('node_types.description'), with: attributes[:description]
-          select attributes[:filters_position].to_s, from: t('node_types.new.filters_position')
-          fill_in t('node_types.new.node_expiration_day_limit'), with: attributes[:node_expiration_day_limit]
-          checkbox(t('node_types.new.commentable'), attributes[:commentable])
-          checkbox(t('node_types.new.signin_required'), attributes[:signin_required])
-          attach_file(t('node_types.new.background_image'), "#{Rails.root}/spec/support/images/wood_background.jpg")
-          click_button t('node_types.new.submit')          
-        }.to change(NodeType, :count).by(1)
-
-        page.should have_content t('node_types.dashboard')
-        page.should have_content t('node_types.configurations')
-        page.should have_content t('fields.fields')
-        page.should have_content t('views.views')
-        page.should have_content t('marketing.marketing')
-        page.should have_content t('nodes.nodes')
-
-        visit node_types_path
-        page.should have_link attributes[:name]
-      end
-    end
+  it "not be creatable by registered user" do
+    user = Fabricate(:user)
+    signin user
+    visit new_node_type_path
+    current_path.should_not == new_node_type_path
+    current_path.should == root_path
   end
 
-  describe "#destroy" do
-    let(:node_type) { Fabricate(:full_featured_node_type) }
-    let(:super_administrator) { node_type.super_administrator }
+  it "be creatable by admin " do
+    admin = Fabricate(:admin)
+    signin admin
+    visit new_node_type_path
+    current_path.should == new_node_type_path
+  end
 
-    before do
-      signin super_administrator
-      visit node_type_path(node_type)
-    end
+  it "creates new node type" do
+    admin = Fabricate(:admin)
+    attributes = valid_attributes_for(:node_type)
 
-    it "deletes the node type", js: true do
-      expect {
-        click_link t('node_types.configurations')
-        click_link t('node_types.delete_node_type')
-        alert.accept
-        ensure_on node_types_path
-      }.to change(NodeType, :count).by(-1)
+    signin admin
+    
+    visit new_node_type_path
 
-      page.should_not have_link node_type.name
-    end
+    expect {
+      fill_in t('node_types.name'), with: attributes[:name]
+      fill_in t('node_types.new.title_label'), with: attributes[:title_label]
+      fill_in t('node_types.description'), with: attributes[:description]
+      select attributes[:filters_position].to_s, from: t('node_types.new.filters_position')
+      fill_in t('node_types.new.node_expiration_day_limit'), with: attributes[:node_expiration_day_limit]
+      checkbox(t('node_types.new.commentable'), attributes[:commentable])
+      checkbox(t('node_types.new.signin_required'), attributes[:signin_required])
+      attach_file(t('node_types.new.background_image'), "#{Rails.root}/spec/support/images/wood_background.jpg")
+      click_button t('node_types.new.submit')          
+    }.to change(NodeType, :count).by(1)
+
+
+    page.should have_content t('node_types.dashboard')
+    page.should have_content t('node_types.configurations')
+    page.should have_content t('fields.fields')
+    page.should have_content t('views.views')
+    page.should have_content t('marketing.marketing')
+    page.should have_content t('nodes.nodes')
+
+    visit node_types_path
+    page.should have_link attributes[:name]
+  end
+
+  it "#destroy", js: true do
+    node_type = Fabricate(:full_featured_node_type)
+    super_administrator = node_type.super_administrator
+
+    signin super_administrator
+    visit node_type_path(node_type)
+
+    expect {
+      click_link t('node_types.configurations')
+      click_link t('node_types.delete_node_type')
+      alert.accept
+      ensure_on node_types_path
+    }.to change(NodeType, :count).by(-1)
+
+    page.should_not have_link node_type.name
   end
 
   describe "#index" do
@@ -102,5 +93,6 @@ describe "NodeType" do
         page.should have_link node_type.name
       end
     end
+
   end
 end

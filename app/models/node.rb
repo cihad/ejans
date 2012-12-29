@@ -72,7 +72,7 @@ class Node
     end
 
     state :pending_approval do
-      event :accept, :transitions_to => :published
+      event :publish, :transitions_to => :published
       event :reject, :transitions_to => :rejected
     end
 

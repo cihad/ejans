@@ -1,16 +1,15 @@
 module FormFields
-  class FormField
-    attr_reader :f, :field
+  class FormField < BasePresenter
+    attr_reader :f
 
-    def initialize(form_builder, field, template)
+    presents :field
+
+    def initialize(form_builder, *args)
       @f = form_builder
-      @field = field
-      @template = template
+      super(*args)
     end
 
-    def keyname
-      field.keyname
-    end
+    delegate :label, :machine_name, :keyname, :required?, :hint, to: :field
 
     def form_key
       machine_name
@@ -24,22 +23,8 @@ module FormFields
       node.send(keyname)
     end
 
-    def label
-      field.label
-    end
-
-    def machine_name
-      field.machine_name
-    end
-
-    def required?
-      field.required
-    end
-
-    def hint
-      @template.content_tag :span,
-        field.hint.html_safe,
-        class: "help-block"
+    def help
+      content_tag :span, hint.html_safe, class: "help-block"
     end
 
     def partial_dir
@@ -47,11 +32,17 @@ module FormFields
     end
 
     def to_s
-      @template.render partial_dir, field: self
+      render partial_dir, field: self
     end
 
     def self.presenter(form_builder, field, template)
       "FormFields::#{field.type.classify}FormField".constantize.new(form_builder, field, template)
-    end 
+    end
+
+    # def method_missing(*args, &block)
+    #   @f.send(*args, &block)
+    # rescue NoMethodError
+    #   super
+    # end
   end
 end

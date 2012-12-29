@@ -4,11 +4,11 @@ describe User do
 
   describe "sessions" do
     context "#confirm!" do
-      let(:user) { User.create(valid_attributes_for(:user).merge(:password => "123456")) }
+      let(:unconfirmed_user) { Fabricate(:unconfirmed_user) }
 
       it "not confirmed user doesnt sign" do
         visit signin_path
-        fill_in I18n.t('sessions.email'), with: user.email
+        fill_in I18n.t('sessions.email'), with: unconfirmed_user.email
         fill_in I18n.t('sessions.password'), with: "123456"
         click_button I18n.t('sessions.signin')
         page.should_not have_content t('devise.sessions.signed_in')
@@ -16,9 +16,9 @@ describe User do
       end
 
       it "confirmed user do sign" do
-        user.confirm!
+        unconfirmed_user.confirm!
         visit signin_path
-        fill_in I18n.t('sessions.email'), with: user.email
+        fill_in I18n.t('sessions.email'), with: unconfirmed_user.email
         fill_in I18n.t('sessions.password'), with: "123456"
         click_button I18n.t('sessions.signin')
         page.should have_content t('devise.sessions.signed_in')
@@ -27,9 +27,11 @@ describe User do
     end
 
     describe "when correct information" do
+      let(:user) { Fabricate(:user) }
+
       it "sign in" do
         signin user
-        page.should have_content t('sessions.signed_in')
+        page.should have_content t('devise.sessions.signed_in')
         page.should have_content t('sessions.signout')
       end
 
@@ -42,6 +44,8 @@ describe User do
     end
 
     describe "when incorrect information" do
+      let(:user) { Fabricate(:user) }
+
       it "doesnt signin with unvalid email" do
         signin_with "incorrect_email@example.com"
         page.should_not have_content t('sessions.signout')
@@ -96,36 +100,6 @@ describe User do
       within "legend" do
         page.should have_content t('devise.confirmations.resend')
       end
-    end
-  end
-
-  describe "authorization" do
-    it "cant edit" do
-      visit edit_user_path
-      current_path.should_not eq edit_user_path
-      page.should have_content t('errors.not_authorized')
-    end
-
-    it "can edit self" do
-      signin user
-      visit user_path
-      current_path.should eq user_path
-
-      visit edit_user_path
-      current_path.should eq edit_user_path
-      page.should_not have_content t('errors.not_authorized')
-    end
-
-    it "can update self" do
-      signin user
-
-      visit edit_user_path
-      fill_in t('users.email'), with: "a_different_email@example.com"
-      fill_in t('devise.registrations.current_password'), with: "123456"
-      click_button t('actions.update')
-
-      visit root_path
-      page.should have_content "a_different_email@example.com"
     end
   end
 end

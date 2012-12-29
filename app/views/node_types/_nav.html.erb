@@ -39,6 +39,6 @@
 
 <%= dropdown_tab t('nodes.nodes') do %>
   <%= tab_item t('nodes.public_nodes_page'), node_type_nodes_path(@node_type) %>
-  <%= tab_item t('nodes.manage_all_nodes'), manage_node_type_nodes_path(@node_type) %>
+  <%= tab_item t('node_types.manage_all_nodes'), manage_node_types_path(@node_type) %>
   <%= tab_item t('nodes.add_new_node'), new_node_type_node_path(@node_type) %>
 <% end %>

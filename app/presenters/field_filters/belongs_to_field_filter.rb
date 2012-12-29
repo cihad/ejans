@@ -1,7 +1,7 @@
 module FieldFilters
   class BelongsToFieldFilter < Filter
-    def parent_node_node_type
-      field.parent_node_node_type
-    end
+
+    delegate :parent_node_node_type, to: :field
+    
   end
 end

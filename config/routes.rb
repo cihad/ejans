@@ -23,6 +23,8 @@ Ejans::Application.routes.draw do
 
   # Node Types, Fields, Views, Nodes
   resources :node_types, path: 'nt' do
+    get :manage, on: :collection
+    
     namespace :custom_fields do
       resources :fields do
         post :sort, on: :collection
@@ -46,7 +48,6 @@ Ejans::Application.routes.draw do
     resources :potential_users
 
     resources :nodes, path: 'nd' do
-      get :manage, on: :collection
       get :change_owner, on: :member
       post :change_owner, on: :member
       get :change_status, on: :member

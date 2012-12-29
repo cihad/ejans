@@ -45,7 +45,7 @@ describe Node do
 
     it "is published after accept" do
       subject.submit!
-      subject.accept!
+      subject.publish!
       subject.should be_published
     end
 
@@ -57,7 +57,7 @@ describe Node do
 
     it "is expired after expire" do
       subject.submit!
-      subject.accept!
+      subject.publish!
       subject.expire!
       subject.should be_expired
     end

@@ -44,6 +44,10 @@ class NodeTypesController < ApplicationController
     end
   end
 
+  def manage
+    @nodes = @node_type.nodes
+  end
+
   private
 
   def node_type

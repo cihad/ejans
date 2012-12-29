@@ -47,17 +47,27 @@ class Permission
       node_type.super_administrator_id == user.id
     end
 
+    allow :node_types, :manage do |node_type|
+      node_type.administrator_ids.include?(user.id) or
+      node_type.super_administrator_id == user.id
+    end
+    
     allow :"custom_fields/fields", [:index, :new, :create, :edit, :update, :destroy, :sort] do |node_type|
       node_type.administrator_ids.include?(user.id) or
       node_type.super_administrator_id == user.id
     end
 
-    allow :"views/base", [:index, :sort] do |node_type|
+    allow :"views/nodes", [:edit, :update] do |node_type|
       node_type.administrator_ids.include?(user.id) or
       node_type.super_administrator_id == user.id
     end
 
-    allow :"views/base", [:new, :create, :edit, :update, :destroy] do |node_type|
+    allow :"views/views", [:index, :sort] do |node_type|
+      node_type.administrator_ids.include?(user.id) or
+      node_type.super_administrator_id == user.id
+    end
+
+    allow :"views/views", [:new, :create, :edit, :update, :destroy] do |node_type|
       node_type.super_administrator_id == user.id
     end
 
@@ -86,6 +96,7 @@ class Permission
       node.node_type.administrator_ids.include?(user.id) or
       node.node_type.super_administrator_id == user.id
     end
+
 
     allow :images, [:create, :destroy, :sort] do |node|
       node.author_id == user.id

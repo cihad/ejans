@@ -9,7 +9,7 @@
           <%= label_tag "Author" %>
           <label class="checkbox">
             <%= check_box_tag "author_id", params[:author_id], true %>
-            <%= User.where(id: params[:author_id]).first.username_or_email_name %>
+            <%= User.where(id: params[:author_id]).first.email_name %>
           </label>
         </td>
       <% end %>
