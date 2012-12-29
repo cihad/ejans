@@ -10,7 +10,7 @@ shared_examples "view authorization" do
       user = Fabricate(:user)
       signin user
       visit path
-      current_path.should_not be path
+      current_path.should_not eq path
       page.should have_content t('errors.not_authorized')
     end
 
@@ -20,7 +20,7 @@ shared_examples "view authorization" do
       node_type.administrators << user
       signin user
       visit path
-      current_path.should be path
+      current_path.should eq path
       page.should_not have_content t('errors.not_authorized')
     end
 
