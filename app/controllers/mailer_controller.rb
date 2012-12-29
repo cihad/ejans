@@ -1,13 +1,13 @@
-class MarketingController < ApplicationController
+class MailerController < ApplicationController
   before_filter :node_type
 
   def new
-    @marketing = Marketing.new
+    @mailer = Mailer.new
   end
 
   def create
-    @marketing = @node_type.marketing.new(params[:marketing])
-    if @marketing.save
+    @mailer = @node_type.mailers.new(params[:mailer])
+    if @mailer.save
       redirect_to @node_type, notice: "Sending email..."
     end
   end

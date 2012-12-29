@@ -71,6 +71,6 @@ module Ejans
     #config.exceptions_app = self.routes
 
     config.app_config = YAML.load_file("#{config.root}/config/app_config.yml")[Rails.env]
-    config.mongoid.observers = :node_type_observer, :marketing_observer, :user_observer, :place_observer
+    config.mongoid.observers = :node_type_observer, :mailer_observer, :user_observer, :place_observer
   end
 end

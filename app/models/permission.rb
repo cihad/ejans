@@ -71,12 +71,12 @@ class Permission
       node_type.super_administrator_id == user.id
     end
 
-    allow :marketing, [:index, :show, :destroy] do |node_type|
+    allow :mailers, [:index, :show, :destroy] do |node_type|
       node_type.administrator_ids.include?(user.id) or
       node_type.super_administrator_id == user.id
     end
 
-    allow :marketing, [:new, :create, :edit, :update] do |node_type|
+    allow :mailers, [:new, :create, :edit, :update] do |node_type|
       node_type.super_administrator_id == user.id
     end
 

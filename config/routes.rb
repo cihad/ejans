@@ -43,8 +43,8 @@ Ejans::Application.routes.draw do
       resource :place_page, only: [:edit, :update]
     end
 
-    resources :marketing
-    resources :marketing_templates, path: 'mail'
+    resources :mailers
+    resources :mailer_templates, path: 'mail'
     resources :potential_users
 
     resources :nodes, path: 'nd' do

@@ -11,12 +11,12 @@
   </thead>
   
   <tbody>
-    <% @marketing_templates.each do |marketing_template| %>
+    <% @mailer_templates.each do |mailer_template| %>
       <tr>
-        <td><%= link_to marketing_template.title, node_type_marketing_template_path(@node_type, marketing_template) %></td>
+        <td><%= link_to mailer_template.title, node_type_mailer_template_path(@node_type, mailer_template) %></td>
         <td>
-          <%= link_to t('global.edit'), edit_node_type_marketing_template_path(@node_type, marketing_template) %>
-          <%= link_to t('global.destroy'), node_type_marketing_template_path(@node_type, marketing_template),
+          <%= link_to t('global.edit'), edit_node_type_mailer_template_path(@node_type, mailer_template) %>
+          <%= link_to t('global.destroy'), node_type_mailer_template_path(@node_type, mailer_template),
                 confirm: "Are you sure?",
                 method: :delete %>
         </td>
@@ -26,8 +26,8 @@
   </tbody>
 
 
-  <%= form_for [@node_type, @node_type.marketing_templates.build],
-        url: new_node_type_marketing_template_path,
+  <%= form_for [@node_type, @node_type.mailer_templates.build],
+        url: new_node_type_mailer_template_path,
         method: :get  do |f| %>
     <tr>
       <td><%= f.text_field :title, placeholder: "Title" %></td>

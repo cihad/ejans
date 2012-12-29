@@ -93,14 +93,14 @@ describe Permission, focus: true do
       should_not allow "views/base", "destroy"
     end
 
-    it "for marketing" do
-      should_not allow "marketing", "index"
-      should_not allow "marketing", "new"
-      should_not allow "marketing", "create"
-      should_not allow "marketing", "show"
-      should_not allow "marketing", "edit"
-      should_not allow "marketing", "update"
-      should_not allow "marketing", "destroy"
+    it "for mailers" do
+      should_not allow "mailers", "index"
+      should_not allow "mailers", "new"
+      should_not allow "mailers", "create"
+      should_not allow "mailers", "show"
+      should_not allow "mailers", "edit"
+      should_not allow "mailers", "update"
+      should_not allow "mailers", "destroy"
     end
 
     it "for potential_users" do
@@ -217,14 +217,14 @@ describe Permission, focus: true do
           should_not allow "views/base", "sort", node_type
         end
 
-        it "for marketing" do
-          should_not allow "marketing", "index", node_type
-          should_not allow "marketing", "new", node_type
-          should_not allow "marketing", "create", node_type
-          should_not allow "marketing", "show", node_type
-          should_not allow "marketing", "edit", node_type
-          should_not allow "marketing", "update", node_type
-          should_not allow "marketing", "destroy", node_type
+        it "for mailers" do
+          should_not allow "mailers", "index", node_type
+          should_not allow "mailers", "new", node_type
+          should_not allow "mailers", "create", node_type
+          should_not allow "mailers", "show", node_type
+          should_not allow "mailers", "edit", node_type
+          should_not allow "mailers", "update", node_type
+          should_not allow "mailers", "destroy", node_type
         end
 
         it "for potential_users" do
@@ -260,14 +260,14 @@ describe Permission, focus: true do
           should allow "views/base", "sort", node_type
         end
 
-        it "for marketing" do
-          should allow "marketing", "index", node_type
-          should_not allow "marketing", "new", node_type
-          should_not allow "marketing", "create", node_type
-          should allow "marketing", "show", node_type
-          should_not allow "marketing", "edit", node_type
-          should_not allow "marketing", "update", node_type
-          should allow "marketing", "destroy", node_type
+        it "for mailers" do
+          should allow "mailers", "index", node_type
+          should_not allow "mailers", "new", node_type
+          should_not allow "mailers", "create", node_type
+          should allow "mailers", "show", node_type
+          should_not allow "mailers", "edit", node_type
+          should_not allow "mailers", "update", node_type
+          should allow "mailers", "destroy", node_type
         end
 
         it "for potential_users" do
@@ -303,14 +303,14 @@ describe Permission, focus: true do
           should allow "views/base", "sort", node_type
         end
 
-        it "for marketing" do
-          should allow "marketing", "index", node_type
-          should allow "marketing", "new", node_type
-          should allow "marketing", "create", node_type
-          should allow "marketing", "show", node_type
-          should allow "marketing", "edit", node_type
-          should allow "marketing", "update", node_type
-          should allow "marketing", "destroy", node_type
+        it "for mailers" do
+          should allow "mailers", "index", node_type
+          should allow "mailers", "new", node_type
+          should allow "mailers", "create", node_type
+          should allow "mailers", "show", node_type
+          should allow "mailers", "edit", node_type
+          should allow "mailers", "update", node_type
+          should allow "mailers", "destroy", node_type
         end
 
         it "for potential_users" do

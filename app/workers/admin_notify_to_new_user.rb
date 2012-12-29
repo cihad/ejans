@@ -1,5 +1,5 @@
 class AdminNotifyToNewUser
-  @queue = :marketing_queue
+  @queue = :mailer_queue
 
   def perform(user_id)
     user = User.find(user_id)

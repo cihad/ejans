@@ -26,14 +26,14 @@
   <% end %>
 <% end %>
 
-<%= dropdown_tab t('marketing.marketing') do %>
-  <%= tab_item t('marketing.templates'), node_type_marketing_templates_path(@node_type) %>
-  <%= tab_item t('marketing.new_marketing'), new_node_type_marketing_path(@node_type) %>
-  <%= tab_item t('marketing.potential_users'), node_type_potential_users_path(@node_type) %>
-  <%= tab_item t('marketing.new_potential_users'), new_node_type_potential_user_path(@node_type) %>
+<%= dropdown_tab t('mailers.mailer') do %>
+  <%= tab_item t('mailers.templates'), node_type_mailer_templates_path(@node_type) %>
+  <%= tab_item t('mailers.new_mailer'), new_node_type_mailer_path(@node_type) %>
+  <%= tab_item t('mailers.potential_users'), node_type_potential_users_path(@node_type) %>
+  <%= tab_item t('mailers.new_potential_users'), new_node_type_potential_user_path(@node_type) %>
   <%= content_tag :li, nil, class: "divider" %>
-  <% @node_type.marketing_templates.each do |marketing_template| %>
-    <%= tab_item marketing_template.title, node_type_marketing_template_path(@node_type, marketing_template) unless marketing_template.new_record? %>
+  <% @node_type.mailer_templates.each do |mailer_template| %>
+    <%= tab_item mailer_template.title, node_type_mailer_template_path(@node_type, mailer_template) unless mailer_template.new_record? %>
   <% end %>
 <% end %>
 

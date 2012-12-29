@@ -172,10 +172,10 @@ tr:
       sample_view_message: "Girdiğiniz tema yapisi bozulacak. Örnek veri ile doldurmak istediğinize emin misiniz?"
       success_update: "Gösterim başarıyla kaydedildi."
 
-  marketing:
-    marketing: "Pazarlama"
+  mailers:
+    mailer: "Postacı"
     templates: "Temalar"
-    new_marketing: "Yeni pazarlama"
+    new_mailer: "Yeni posta"
     potential_users: "Potansiyel üyeler"
     new_potential_users: "Yeni potansiyel üye ekle"
     edit_place_page_view: "Yer sayfasının gösterimi"

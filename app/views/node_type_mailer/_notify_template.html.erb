@@ -2,14 +2,14 @@
    <%= m.html do %>
     <%= m.head %>
     <%= m.body do %>
-      <%= m.topbar web_version_url: node_type_marketing_template_url(@marketing_template.node_type, @marketing_template) %>
+      <%= m.topbar web_version_url: node_type_mailer_template_url(@mailer_template.node_type, @mailer_template) %>
 
       <%= m.mail_title do %>
-        <%= @marketing_template.subject %>
+        <%= @mailer_template.subject %>
       <% end %>
 
       <%= m.content do %>
-        <%= render inline: @marketing_template.template, locals: { m: m } %>
+        <%= render inline: @mailer_template.template, locals: { m: m } %>
       <% end %>
 
       <%= m.footer %>

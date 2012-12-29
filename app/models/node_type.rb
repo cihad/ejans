@@ -34,8 +34,8 @@ class NodeType
   embeds_one  :node_view, class_name: "Views::Node", autobuild: true
   embeds_one  :place_page_view, class_name: "Views::PlacePage"
   embeds_many :views, class_name: "Views::View"
-  embeds_many :marketing_templates
-  embeds_many :marketing
+  embeds_many :mailer_templates
+  embeds_many :mailers
   has_and_belongs_to_many :potential_users
   has_and_belongs_to_many :administrators, class_name: "User",
                           inverse_of: :managed_node_types
