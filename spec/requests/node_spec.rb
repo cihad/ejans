@@ -37,11 +37,13 @@ describe "Node" do
       select "1990", from: date_field(node_type).label
 
       # ImageField
-      page.execute_script "$('#hidden-form').show()"
-      within("#new_image") do
-        attach_file "image_image", "#{images_dir}/image-800-600.jpg"
-        click_button t('images.add')
-      end
+      page.execute_script("$('#node_#{image_field(node_type).machine_name}').css({
+        'opacity': 1,
+        'position': 'relative',
+        'transform': 'none'  
+      })")
+      attach_file "node_#{image_field(node_type).machine_name}", "#{images_dir}/image-800-600.jpg"
+      click_button t('fields.image.start_upload')
       
       # DateField
       fill_in integer_field(node_type).label, with: "500"

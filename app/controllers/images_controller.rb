@@ -5,9 +5,11 @@ class ImagesController < ApplicationController
   respond_to :js
   include ControllerHelper
 
-  def create
-    @images = @node.send("#{params[:machine_name]}_add_images", params[:image][:image])
-    @machine_name = params[:machine_name]
+  def update
+    @image = @node.send("#{params[:machine_name]}_add_images", Array(params[:node][params[:machine_name]])).first
+    respond_to do |format|
+      format.json { render json: [ImagePresenter.new(@image).as_json].to_json }
+    end
   end
 
   def destroy

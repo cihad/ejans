@@ -1,5 +1,26 @@
-<% @images.each do |image| %>
-  <%= render "image",
-    mustache: image_for_mustache(image: image, node: @node, machine_name: @machine_name)
-  %>
+<%= content_tag_for :li, images, class: "template-download fade in span2" do |image| %>
+  <div class="thumbnail">
+    <div class="sticky">
+      <span class="preview">
+        <%= link_to image.upload.url(:original),
+                    title: image.upload_file_name,
+                    download: image.upload_file_name,
+                    rel: "gallery",
+                    download: image.upload_file_name do %>
+
+          <%= image_tag image.upload.url(:original) %>
+        <% end %>
+      </span>
+    </div>
+
+    <div class="controls">
+      <span class="delete">
+        <button class="btn btn-mini btn-danger"
+                data-type="DELETE"
+                data-url="<%= image_path(image) %>">
+          <i class="icon-trash"></i>
+        </button>
+      </span>
+    </div>
+  </div>
 <% end %>

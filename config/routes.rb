@@ -54,6 +54,7 @@ Ejans::Application.routes.draw do
 
       resources :images do
         post :sort, on: :collection
+        post :add_image, on: :collection
       end
     end
   end

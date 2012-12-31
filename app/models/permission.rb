@@ -29,7 +29,7 @@ class Permission
       node.token == params[:token]
     end
 
-    allow :images, [:create, :destroy, :sort] do |node|
+    allow :images, [:update, :destroy, :sort] do |node|
       node.token == params[:token]
     end
 
@@ -98,7 +98,7 @@ class Permission
     end
 
 
-    allow :images, [:create, :destroy, :sort] do |node|
+    allow :images, [:update, :destroy, :sort] do |node|
       node.author_id == user.id
     end
 

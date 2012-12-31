@@ -1,8 +1,0 @@
-<%= remotipart_response do %>
-  $('.images .not-uploaded').remove();
-
-  $('.images').append('<%= escape_javascript(render "images") %>')
-
-  $('#new_image').remove();
-  $('#hidden-form').append( '<%= escape_javascript(render "form", machine_name: @machine_name) %>' );
-<% end %>

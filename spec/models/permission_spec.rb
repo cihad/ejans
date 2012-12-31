@@ -49,14 +49,14 @@ describe Permission, focus: true do
 
     describe "for images" do
       it "with valid token" do
-        should allow "images", "create", node
+        should allow "images", "update", node
         should allow "images", "destroy", node
         should allow "images", "sort", node
       end
 
       it "with unvalid token" do
         subject.params[:token] = "thisisaunvalidtoken"
-        should_not allow "images", "create", node
+        should_not allow "images", "update", node
         should_not allow "images", "destroy", node
         should_not allow "images", "sort", node
       end
@@ -145,10 +145,10 @@ describe Permission, focus: true do
     end
     
     it "for images" do
-      should allow "images", "create", node
+      should allow "images", "update", node
       should allow "images", "destroy", node
       should allow "images", "sort", node
-      should_not allow "images", "create", other_node
+      should_not allow "images", "update", other_node
       should_not allow "images", "destroy", other_node
       should_not allow "images", "sort", other_node
     end

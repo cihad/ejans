@@ -9,6 +9,8 @@ tr:
     destroy: "Sil"
     edit: "Düzenle"
     update: "Güncelle"
+    start: "Başla"
+    cancel: "Vazgeç"
 
   errors:
     page_not_found: "Sayfa Bulunamadı"
@@ -129,7 +131,8 @@ tr:
     image:
       help: "0 girilirse sınırsız resim eklenebilir demektir."
       maximum_image: "En fazla ne kadar resim eklenebilsin"
-      add_image: "Resim ekle"
+      add_image: "Resim ekle..."
+      start_upload: "Yüklemeye başla"
     integer:
       minimum: "En az"
       maximum: "En fazla"

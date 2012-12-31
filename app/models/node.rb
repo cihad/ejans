@@ -72,11 +72,13 @@ class Node
     end
 
     state :pending_approval do
+      event :submit, :transitions_to => :pending_approval
       event :publish, :transitions_to => :published
       event :reject, :transitions_to => :rejected
     end
 
     state :published do
+      event :submit, :transitions_to => :published
       event :expire, :transitions_to => :expired
     end
 

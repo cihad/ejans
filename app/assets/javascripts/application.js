@@ -41,12 +41,13 @@
 //= require modernizr.custom
 //= require gmaps4rails/gmaps4rails.base
 //= require gmaps4rails/gmaps4rails.googlemaps
+//= require jquery-fileupload/index
 
 $(function() {
 
   // Add filter form
   $(".add-group-item").click(function() {
-    $(this).parent().parent().find(".group-item-body").toggle();
+    $(this).closest(".group-item-body").toggle();
     $(this).toggleClass("open");
     $(this).parent().parent().toggleClass("opened-group-item");
   });
