@@ -1,7 +1,0 @@
-<%= form_for :session, url: sessions_path do |f| %>
-  <table class="table table-form">
-    <%= simple_text_field f, :email_or_username, label: { name: t('sessions.email_or_username')  } %>
-    <%= simple_password_field f, :password, label: { name: t('sessions.password') } %>
-    <%= simple_submit f, t('sessions.signin') %>
-  </table>
-<% end %>

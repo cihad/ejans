@@ -3,7 +3,7 @@
 <% body_class "user-manage" %>
 
 
-<h3>Yayında olan node'ler</h3>
+<legend>Yayında olan node'ler</legend>
 <table class="table table-striped">
   <% @user.nodes.published.each do |node| %>
     <tr>
@@ -14,7 +14,7 @@
   <% end -%>
 </table>
 
-<h3>Yayında olmayan node'ler</h3>
+<legend>Yayında olmayan node'ler</legend>
 <table class="table table-striped">
   <% @user.nodes.expired.each do |node| %>
     <tr>
@@ -24,7 +24,7 @@
   <% end -%>
 </table>
 
-<h3>Onay bekleyen node'ler</h3>
+<legend>Onay bekleyen node'ler</legend>
 <table class="table table-striped">
   <% @user.nodes.pending_approval.each do |node| %>
     <tr>

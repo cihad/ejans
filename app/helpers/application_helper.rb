@@ -7,6 +7,10 @@ module ApplicationHelper
     content_tag :h1, title, {class: "page_title"}, *args
   end
 
+  def form_title(title)
+    content_tag :legend, title
+  end
+
   def meta_description(desc)
     meta_tag = "<meta name=\"description\" content=\""
     meta_tag += desc.truncate(160, :omission => "")

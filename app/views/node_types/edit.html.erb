@@ -4,8 +4,7 @@
 <% provide :title, page_name %>
 <% provide :body_class, "node-type-manage" %>
 
-<%= content_tag :h2, page_name %>
-
+<%= form_title page_name %>
 <%= render 'form' %>
 
 <%= node_type_background %>
