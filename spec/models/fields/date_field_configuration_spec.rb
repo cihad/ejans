@@ -15,11 +15,11 @@ describe Fields::DateFieldConfiguration do
   it { should respond_to :filter_type }
   it { should respond_to :start_date_type }
   it { should respond_to :x_years_ago_start }
-  it { should respond_to :spesific_start_date }
+  it { should respond_to :specific_start_date }
   it { should respond_to :end_date_type }
   it { should respond_to :x_years_ago_end }
   it { should respond_to :x_years_later_end }
-  it { should respond_to :spesific_end_date }
+  it { should respond_to :specific_end_date }
   it { should respond_to :filter_query }
   it { should be_new_record }
   it { should be_valid }
@@ -61,7 +61,7 @@ describe Fields::DateFieldConfiguration do
 
       specify { subject.start_year.should == Time.now.to_date.year  }
 
-      [:x_years_ago_start, :spesific_start_date].each do |type|
+      [:x_years_ago_start, :specific_start_date].each do |type|
         specify do
           subject.send(type).should ==  subject.class.default_value(type)
         end
@@ -77,17 +77,17 @@ describe Fields::DateFieldConfiguration do
       specify { subject.start_year.should == (Time.now.to_date.year - subject.x_years_ago_start) }
 
       specify do
-        subject.spesific_start_date.should == subject.class.default_value(:spesific_start_date)
+        subject.specific_start_date.should == subject.class.default_value(:specific_start_date)
       end
     end
 
-    context "when :spesific_start_date" do
+    context "when :specific_start_date" do
       before do
-        subject.start_date_type = :spesific_start_date
+        subject.start_date_type = :specific_start_date
         subject.save
       end
 
-      specify { subject.start_year.should == subject.spesific_start_date.year }
+      specify { subject.start_year.should == subject.specific_start_date.year }
 
       specify do
         subject.x_years_ago_start.should == subject.class.default_value(:x_years_ago_start)
@@ -104,7 +104,7 @@ describe Fields::DateFieldConfiguration do
 
       specify { subject.end_year.should == Time.now.to_date.year  }
 
-      [:x_years_ago_end, :x_years_later_end, :spesific_end_date].each do |type|
+      [:x_years_ago_end, :x_years_later_end, :specific_end_date].each do |type|
         specify do
           subject.send(type).should == subject.class.default_value(type)
         end
@@ -119,7 +119,7 @@ describe Fields::DateFieldConfiguration do
 
       specify { subject.end_year.should == subject.x_years_ago_end.years.ago.to_date.year  }
 
-      [:x_years_later_end, :spesific_end_date].each do |type|
+      [:x_years_later_end, :specific_end_date].each do |type|
         specify do
           subject.send(type).should == subject.class.default_value(type)
         end
@@ -134,20 +134,20 @@ describe Fields::DateFieldConfiguration do
 
       specify { subject.end_year.should == (-subject.x_years_later_end).years.ago.to_date.year  }
 
-      [:x_years_ago_end, :spesific_end_date].each do |type|
+      [:x_years_ago_end, :specific_end_date].each do |type|
         specify do
           subject.send(type).should == subject.class.default_value(type)
         end
       end
     end
 
-    context "when :spesific_end_date" do
+    context "when :specific_end_date" do
       before do
-        subject.end_date_type = :spesific_end_date
+        subject.end_date_type = :specific_end_date
         subject.save
       end
 
-      specify { subject.end_year.should == subject.spesific_end_date.year }
+      specify { subject.end_year.should == subject.specific_end_date.year }
 
       [:x_years_later_end, :x_years_ago_end].each do |type|
         specify do

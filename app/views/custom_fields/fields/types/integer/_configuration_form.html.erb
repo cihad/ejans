@@ -1,37 +1,16 @@
-<%= simple_check_box f,
-      :filter,
-      input: { data: { toggle: "filter" } },
-      label: { name: t('fields.filter') } %>
-      
-<%= simple_select f,
-      :filter_type,
-      f.object.class::FILTER_TYPES,
-      form_item_layout: { class: "filter-options" },
-      label: { name: t('fields.filter_type') } %>
-
-<%= simple_check_box f,
-      :sort,
-      label: { name: t('fields.sort') } %>
-
-<%= check_box_option_for("filter") %>
-
-<%= simple_number_field f,
-      :minimum,
-      label: { name: t('fields.integer.minimum') } %>
-
-<%= simple_number_field f,
-      :maximum,
-      label: { name: t('fields.integer.maximum') } %>
-
-<%= simple_text_field f,
-      :prefix,
-      label: { name: t('fields.integer.prefix') } %>
-
-<%= simple_text_field f,
-      :suffix,
-      label: { name: t('fields.integer.suffix') } %>
-
-<%= simple_select f,
-      :thousand_marker,
-      f.object.class::THOUSAND_MARKERS,
-      label: { name: t('fields.integer.thousand_marker') } %>
+<%= f.input :filter,
+            input_html: { :"data-toggle" => 'filter-options' },
+            as: :boolean %>
+<%= f.input :filter_type,
+            collection: f.object.class::FILTER_TYPES,
+            as: :radio_buttons,
+            wrapper_html: { class: "filter-options" } %>
+<%= check_box_option_for("filter-options") %>
+<%= f.input :sort, as: :boolean %>
+<%= f.input :minimum, as: :integer %>
+<%= f.input :maximum, as: :integer %>
+<%= f.input :prefix %>
+<%= f.input :suffix %>
+<%= f.input :thousand_marker,
+            collection: f.object.class::THOUSAND_MARKERS,
+            as: :radio_buttons %>

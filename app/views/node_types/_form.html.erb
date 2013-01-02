@@ -1,43 +1,20 @@
-<%= form_for @node_type, html: { multipart: true } do |f| %>
-  <table class="table table-form">
-    <%= simple_text_field f, :name, label: { name: t('node_types.name') } %>
-    <%= simple_text_field f, :title_label, label: { name: t('node_types.new.title_label') } %>
-    <%= simple_text_area f, :description, label: { name: t('node_types.description') }, input: { rows: 3 } %>
-    <%= simple_select f, :filters_position,
-      f.object.class::FILTERS_POSITIONS, label: { name: t('node_types.new.filters_position') } %>
-    <%= simple_number_field f, :node_expiration_day_limit, label: { name: t('node_types.new.node_expiration_day_limit') } %>
-
-    <%= simple_check_box f, :commentable, label: { name: t('node_types.new.commentable') } %>
-    <%= simple_check_box f, :signin_required, label: { name: t('node_types.new.signin_required') } %>
-    <%= checkbox_group t('node_types.administrators') do %>
-      <%= hidden_field_tag "node_type[administrator_ids][]", nil %>
-      <% @node_type.administrators.each do |administrator| %>
-        <label class="checkbox">
-          <%= check_box_tag "node_type[administrator_ids][]",
-                administrator.id,
-                @node_type.administrator_ids.include?(administrator.id) %>
-          <%= administrator.email %>
-        </label>
-      <% end %>
-      <%= f.text_field :administrator_email, placeholder: t('node_types.new.administrator_email') %>
-    <% end %>
-
-    <%= form_item_layout do %>
-      <%= form_label_layout do %>
-        <%= f.label :background_image, t('node_types.new.background_image') %>
-      <% end %>
-      <%= form_value_layout do %>
-        <p><%= image_tag(@node_type.background_image_url) if @node_type.background_image? %></p>
-        <%= f.file_field :background_image %>
-
-        <p>
-          <label class="checkbox">
-            <%= f.check_box :remove_background_image %>
-            <%= t('images.remove_image') %>
-          </label>
-      <% end %>
-    <% end %>
-
-    <%= simple_submit f, t('node_types.new.submit') %>
-  </table>
+<%= simple_form_for @node_type, html: { multipart: true } do |f| %>
+  <%= f.input :name %>
+  <%= f.input :title_label %>
+  <%= f.input :description,
+              as: :text,
+              input_html: { rows: 3, class: "span4" } %>
+  <%= f.input :filters_position,
+              collection: f.object.class::FILTERS_POSITIONS,
+              as: :radio_buttons,
+              item_wrapper_class: "inline" %>
+  <%= f.input :node_expiration_day_limit, as: :integer %>
+  <%= f.input :commentable, as: :boolean %>
+  <%= f.input :signin_required, as: :boolean %>
+  <%= f.association :administrators, collection: @node_type.administrators.map { |u| [u.email, u.id] }, as:  :check_boxes %>
+  <%= f.input :administrator_email, placeholder: "email" %>
+  <%= f.input :background_image, as: :file, image_url: @node_type.background_image_url, wrapper: :single_image %>
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
 <% end %>

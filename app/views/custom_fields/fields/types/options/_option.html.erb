@@ -3,9 +3,9 @@
   <td><%= option.name %></td>
   <td>
     <%= link_to 'sil',
-                node_type_custom_fields_field_option_path(@node_type, field, option),
+                node_type_custom_fields_field_option_path(@node_type.id, field.id, option.id),
                 method: :delete,
-                :'data-confirm' => "Are you sure?",
+                confirm: "Are you sure?",
                 class: "btn btn-mini btn-danger",
                 remote: true %>
   </td>

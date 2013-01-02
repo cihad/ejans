@@ -4,6 +4,7 @@ gem 'rails', '3.2.8'
 gem 'jquery-rails'
 
 gem 'devise', '2.1.2'
+gem 'simple_form'
 gem 'breadcrumbs', '~> 0.1.6'
 gem 'kaminari'
 gem 'sinatra', '~> 1.2.6'

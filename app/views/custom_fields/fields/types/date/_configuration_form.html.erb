@@ -1,61 +1,47 @@
-<%= simple_check_box f,
-      :filter,
-      input: { data: { toggle: "filter" } },
-      label: { name: t('fields.filter') },
-      help: t('fields.filter_help') %>
+<%= f.input :filter,
+            input_html: { :"data-toggle" => 'filter-options' },
+            as: :boolean %>
 
-<%= simple_select f,
-      :filter_type,
-      f.object.class::FILTER_TYPES,
-      form_item_layout: { class: "filter-options" },
-      label: { name: t('fields.filter_type') } %>
+<%= f.input :filter_type,
+            collection: f.object.class::FILTER_TYPES,
+            as: :radio_buttons,
+            wrapper_html: { class: "filter-options" } %>
 
-<%= simple_check_box f,
-      :sort,
-      help: t('fields.sort_help'),
-      label: { name: t('fields.sort') } %>
+<%= check_box_option_for("filter-options") %>
 
-<%= simple_select f,
-      :date_type,
-      f.object.class::DATE_TYPES,
-      label: { name: t('fields.date.date_type') } %>
+<%= f.input :sort, as: :boolean %>
 
-<%= simple_select f,
-      :start_date_type,
-      f.object.class::START_DATE_TYPES,
-      label: { name: t('fields.date.start_date_type') } %>
+<%= f.input :date_type, collection: f.object.class::DATE_TYPES %>
 
-<%= simple_number_field f,
-      :x_years_ago_start,
-      form_item_layout: { class: "x_years_ago_start" },
-      label: { name: t('fields.date.x_years_ago_start') } %>
+<%= f.input :start_date_type,
+            collection: f.object.class::START_DATE_TYPES,
+            include_blank: false %>
 
-<%= simple_number_field f,
-      :spesific_start_date,
-      form_item_layout: { class: "spesific_start_date" },
-      label: { name: t('fields.date.specific_start_date') } %>
+<%= f.input :x_years_ago_start,
+            on: :integer,
+            wrapper_html: { class: "x_years_ago_start" }  %>
 
-<%= simple_select f,
-      :end_date_type,
-      f.object.class::END_DATE_TYPES,
-      label: { name: t('fields.date.end_date_type') } %>
-
-<%= simple_number_field f,
-      :x_years_ago_end,
-      form_item_layout: { class: "x_years_ago_end" },
-      label: { name: t('fields.date.x_years_ago_end') } %>
-
-<%= simple_number_field f,
-      :x_years_later_end,
-      form_item_layout: { class: "x_years_later_end" },
-      label: { name: t('fields.date.x_years_later_end') } %>
-
-<%= simple_number_field f,
-      :spesific_end_date,
-      form_item_layout: { class: "spesific_end_date" },
-      label: { name: t('fields.date.specific_end_date') } %>
+<%= f.input :specific_start_date,
+            on: :integer,
+            wrapper_html: { class: "specific_start_date" }  %>
 
 <%= select_option_for "#field_start_date_type" %>
-<%= select_option_for "#field_end_date_type" %>
 
-<%= check_box_option_for("filter") %>
+
+<%= f.input :end_date_type,
+            collection: f.object.class::END_DATE_TYPES,
+            include_blank: false %>
+
+<%= f.input :x_years_ago_end,
+            on: :integer,
+            wrapper_html: { class: "x_years_ago_end" }  %>
+
+<%= f.input :x_years_later_end,
+            on: :integer,
+            wrapper_html: { class: "x_years_later_end" }  %>
+
+<%= f.input :specific_end_date,
+            on: :integer,
+            wrapper_html: { class: "specific_end_date" }  %>
+            
+<%= select_option_for "#field_end_date_type" %>

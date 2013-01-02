@@ -4,32 +4,13 @@
             node_type_custom_fields_field_path
           end %>
 
-<%= form_for [@node_type, @field], url: url, as: :field do |f| %>
-
-  <%= error_messages_for @field %>
-
-  <table class="table table-form">
-
-    <%= f.hidden_field :type %>
-
-    <%= simple_text_field f,
-          :label,
-          label: { name: t('fields.label') } %>
-
-    <%= simple_check_box f,
-          :required,
-          label: { name: t('fields.required')} %>
-
-    <%= simple_text_area f,
-          :hint,
-          input: { rows: 3 },
-          help: t('fields.hint_help'),
-          label: { name: t('fields.hint') } %> 
-
-    <%= render "custom_fields/fields/types/#{@field.type}/configuration_form", f: f %>
-
-    <%= simple_submit f, t('fields.add') %>
-
-  </table>
-
+<%= simple_form_for [@node_type, @field], url: url, as: :field do |f| %>
+  <%= f.input :type, as: :hidden %>
+  <%= f.input :label %>
+  <%= f.input :required, as: :boolean %>
+  <%= f.input :hint %>
+  <%= render "custom_fields/fields/types/#{@field.type}/configuration_form", f: f %>
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
 <% end %>

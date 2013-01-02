@@ -6,7 +6,7 @@ class NodeType
   include CustomFields::Source
 
   attr_accessor :administrator_email
-  FILTERS_POSITIONS = [:top, :left]
+  FILTERS_POSITIONS = %w(top left).map(&:to_sym)
 
   # Behaviours
   mount_uploader :background_image, BackgroundImageUploader
@@ -23,8 +23,10 @@ class NodeType
   field :nodes_count,               type: Integer, default: 0
 
   # Validates
+  validates :filters_position, presence: true
   validates :filters_position, inclusion: { in: FILTERS_POSITIONS }
   validates :name, presence: true
+  validates :title_label, presence: true
 
   # Indexes
   index nodes_count: 1

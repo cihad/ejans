@@ -115,8 +115,8 @@ module CustomFields
 
         DATE_TYPES = [:year, :year_month, :year_month_day]
         FILTER_TYPES = [:single, :range]
-        START_DATE_TYPES = [:start_now, :x_years_ago_start, :spesific_start_date]
-        END_DATE_TYPES = [:end_now, :x_years_ago_end, :x_years_later_end, :spesific_end_date]
+        START_DATE_TYPES = [:start_now, :x_years_ago_start, :specific_start_date]
+        END_DATE_TYPES = [:end_now, :x_years_ago_end, :x_years_later_end, :specific_end_date]
         
         ## fields
         field :date_type,           type: ::Symbol
@@ -124,14 +124,15 @@ module CustomFields
 
         field :start_date_type,     type: ::Symbol
         field :x_years_ago_start,   type: ::Integer, default: 0
-        field :spesific_start_date, type: ::Date
+        field :specific_start_date, type: ::Date
 
         field :end_date_type,       type: ::Symbol
         field :x_years_ago_end,     type: ::Integer, default: 0
         field :x_years_later_end,   type: ::Integer, default: 0
-        field :spesific_end_date,   type: ::Date
+        field :specific_end_date,   type: ::Date
 
         ## validates
+        validates_presence_of :date_type, :start_date_type, :end_date_type
         validates :date_type, inclusion: { in: DATE_TYPES }
         validates :filter_type, inclusion: { in: FILTER_TYPES + [nil] }
         validates :start_date_type, inclusion: { in: START_DATE_TYPES }
@@ -141,13 +142,13 @@ module CustomFields
 
         def self.non_fields_for_date_types
           {
-            start_now:            [:x_years_ago_start,  :spesific_start_date],
-            x_years_ago_start:    [:spesific_start_date],
-            spesific_start_date:  [:x_years_ago_start],
-            end_now:              [:x_years_ago_end, :x_years_later_end, :spesific_end_date],
-            x_years_ago_end:      [:x_years_later_end, :spesific_end_date],
-            x_years_later_end:    [:x_years_ago_end, :spesific_end_date],
-            spesific_end_date:    [:x_years_later_end, :x_years_ago_end]
+            start_now:            [:x_years_ago_start,  :specific_start_date],
+            x_years_ago_start:    [:specific_start_date],
+            specific_start_date:  [:x_years_ago_start],
+            end_now:              [:x_years_ago_end, :x_years_later_end, :specific_end_date],
+            x_years_ago_end:      [:x_years_later_end, :specific_end_date],
+            x_years_later_end:    [:x_years_ago_end, :specific_end_date],
+            specific_end_date:    [:x_years_later_end, :x_years_ago_end]
           }
         end
 
@@ -163,7 +164,7 @@ module CustomFields
           case start_date_type
           when :start_now           then self.class.now_year
           when :x_years_ago_start   then self.class.to_year(x_years_ago_start)
-          when :spesific_start_date then spesific_start_date.year
+          when :specific_start_date then specific_start_date.year
           end
         end
 
@@ -172,7 +173,7 @@ module CustomFields
           when :end_now           then self.class.now_year
           when :x_years_ago_end   then self.class.to_year(x_years_ago_end)
           when :x_years_later_end then self.class.to_year(-x_years_later_end)
-          when :spesific_end_date then spesific_end_date.year
+          when :specific_end_date then specific_end_date.year
           end
         end
 
@@ -181,11 +182,11 @@ module CustomFields
             'filter_type'         => filter_type,
             'start_date_type'     => start_date_type,
             'x_years_ago_start'   => x_years_ago_start,
-            'spesific_start_date' => (spesific_start_date || nil),
+            'specific_start_date' => (specific_start_date || nil),
             'end_date_type'       => end_date_type,
             'x_years_ago_end'     => x_years_ago_end,
             'x_years_later_end'   => x_years_later_end,
-            'spesific_end_date'   => spesific_end_date }
+            'specific_end_date'   => specific_end_date }
         end
 
         def fill_node_with_random_value(node)

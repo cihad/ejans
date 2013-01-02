@@ -1,16 +1,4 @@
-<%= simple_check_box f,
-      :filter,
-      label: { name: t('fields.filter') } %>
-
-<%= simple_select f,
-      :widget_type,
-      f.object.class::WIDGET_TYPES,
-      label: { name: t('fields.widget_type') } %>
-
-<%= simple_text_field f,
-      :on_value,
-      label: { name: t('fields.boolean.on_value') } %>
-
-<%= simple_text_field f,
-      :off_value,
-      label: { name: t('fields.boolean.off_value') } %>
+<%= f.input :filter, as: :boolean %>
+<%= f.input :widget_type, collection: f.object.class::WIDGET_TYPES, as: :radio_buttons %>
+<%= f.input :on_value %>
+<%= f.input :off_value %>

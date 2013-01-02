@@ -25,15 +25,15 @@ describe "NodeType" do
     visit new_node_type_path
 
     expect {
-      fill_in t('node_types.name'), with: attributes[:name]
-      fill_in t('node_types.new.title_label'), with: attributes[:title_label]
-      fill_in t('node_types.description'), with: attributes[:description]
-      select attributes[:filters_position].to_s, from: t('node_types.new.filters_position')
-      fill_in t('node_types.new.node_expiration_day_limit'), with: attributes[:node_expiration_day_limit]
-      checkbox(t('node_types.new.commentable'), attributes[:commentable])
-      checkbox(t('node_types.new.signin_required'), attributes[:signin_required])
-      attach_file(t('node_types.new.background_image'), "#{Rails.root}/spec/support/images/wood_background.jpg")
-      click_button t('node_types.new.submit')          
+      fill_in 'node_type_name', with: attributes[:name]
+      fill_in 'node_type_title_label', with: attributes[:title_label]
+      fill_in 'node_type_description', with: attributes[:description]
+      choose "node_type_filters_position_#{attributes[:filters_position]}"
+      fill_in 'node_type_node_expiration_day_limit', with: attributes[:node_expiration_day_limit]
+      checkbox 'node_type_commentable', attributes[:commentable]
+      checkbox 'node_type_signin_required', attributes[:signin_required]
+      attach_file 'node_type_background_image', "#{Rails.root}/spec/support/images/wood_background.jpg"
+      click_button t('simple_form.labels.node_type.create')
     }.to change(NodeType, :count).by(1)
 
 

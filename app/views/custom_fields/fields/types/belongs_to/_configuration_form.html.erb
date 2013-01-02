@@ -1,12 +1,3 @@
-<%= simple_check_box f,
-      :filter,
-      label: { name: t('fields.filter') } %>
-
-<%= simple_check_box f,
-      :can_be_added_only_by_parent_author,
-      label: { name: t('fields.belongs_to.can_be_added_only_by_parent_author') } %>
-
-<%= simple_select f,
-      :class_name,
-      options_for_belongs_to_class_name,
-      label: { name: t('fields.belongs_to.parent_node_node_type') } %>
+<%= f.input :filter, as: :boolean %>
+<%= f.input :can_be_added_only_by_parent_author, as: :boolean %>
+<%= f.input :class_name, collection: options_for_belongs_to_class_name %>

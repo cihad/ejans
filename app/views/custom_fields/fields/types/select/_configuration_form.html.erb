@@ -1,57 +1,52 @@
-<%= simple_check_box f,
-      :filter,
-      input: { data: { toggle: "filter" } },
-      label: { name: t('fields.filter') } %>
+<%= f.input :filter, as: :boolean %>
 
-<%= simple_number_field f,
-      :maximum_select,
-      help: t('fields.select.help'),
-      label: { name: t('fields.select.maximum_select') } %>
+<%= f.input :maximum_select, as: :integer %>
 
-<%= form_item_layout do %>
-  <%= form_label_layout do %>
-    <%= label_tag t('fields.select.options') %>
-  <% end %>
-  <%= form_value_layout do %>
-    <% if f.object.new_record? %>
+
+<%= f.input :options do %>
+
+  <% if f.object.new_record? %>
+
       <% 5.times { f.object.options.build } %>
-      <%= f.fields_for :options do |option| %>
-        <div>
-          <%= option.text_field :name, placeholder: t('fields.select.option') %>
-        </div>
-      <% end %>
-    <% else %>
-      <%= link_to_modal t('fields.select.edit_options') %>
-    <% end %>
-  <% end %>
-<% end %>
 
-<% unless f.object.new_record? %>
-  <% content_for :top do %>
-    <%= modal t('fields.select.options') do %>
-      <table  class="table">
-        <thead>
-          <tr>
-            <th>&nbsp;</th>
-            <th><%= t('fields.select.name') %></th>
-            <th><%= t('fields.select.actions') %></th>
-        </thead>
-        <tbody class="sortable"
-               data-update-url="<%= sort_node_type_custom_fields_field_options_path(@node_type, f.object) %>">
-          <% f.object.options.each do |option| %>
-            <%= render 'custom_fields/fields/types/options/option', option: option, field: f.object %>
-          <% end %>
-        </tbody>
-        <%= form_for f.object.options.build, url: node_type_custom_fields_field_options_path(@node_type, f.object), remote: true do |f| %>
-          <tfoot>
+      <%= f.association :options do |o| %>
+        <%= o.input :name,
+                    label: false,
+                    placeholder: t('fields.select.option'),
+                    wrapper: :embedded_fields %>
+      <% end %>
+
+  <% else %>
+
+    <%= link_to_modal t('fields.select.edit_options') %>
+
+    <% content_for :top do %>
+      <%= modal t('fields.select.options') do %>
+        <table  class="table">
+          <thead>
             <tr>
-              <td>&nbsp;</td>
-              <td><%= f.text_field :name, placeholder: t('fields.select.option') %>
-              </td>
-              <td><%= f.submit class: "btn btn-small" %></td>
-          </tfoot>
-        <% end %>
-      </table>
+              <th>&nbsp;</th>
+              <th><%= t('fields.select.option') %></th>
+              <th></th>
+          </thead>
+          <tbody class="sortable"
+                 data-update-url="<%= sort_node_type_custom_fields_field_options_path(@node_type, f.object) %>">
+            <% f.object.options.each do |option| %>
+              <%= render 'custom_fields/fields/types/options/option', option: option, field: f.object %>
+            <% end %>
+          </tbody>
+          <%= form_for f.object.options.build, url: node_type_custom_fields_field_options_path(@node_type, f.object), remote: true do |f| %>
+            <tfoot>
+              <tr>
+                <td>&nbsp;</td>
+                <td><%= f.text_field :name, placeholder: t('fields.select.option') %>
+                </td>
+                <td><%= f.submit class: "btn btn-small" %></td>
+            </tfoot>
+          <% end %>
+        </table>
+      <% end %>
     <% end %>
+
   <% end %>
 <% end %>

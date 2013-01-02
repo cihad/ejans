@@ -55,20 +55,7 @@ tr:
   node_types:
     node_types: "Listeler"
     search: "Ara"
-    name: "Adı"
-    default_title: "İlan Başlığı"
-    description: "Açıklama"
-    administrators: "Yöneticiler"
     manage_all_nodes: "Girdileri yönet"
-    new:
-      title_label: "Başlık alanı adı"
-      filters_position: "Filtrelerin konumu"
-      node_expiration_day_limit: "Node expiration day limit"
-      commentable: "Yorum yapılabilsin"
-      signin_required: "Ekleyebilmek için üye girişi gerekli olsun"
-      submit: "Ekle"
-      administrator_email: "Yönetici email adresi"
-      background_image: "Arkaplan resmi"
     edit:
       edit: "Düzenle"
     dashboard: "Kontrol Paneli"
@@ -94,67 +81,17 @@ tr:
 
 
   fields:
+    label: "Label"
     fields: "Alanlar"
     field: "Alan"
     new_field: "Yeni alan"
     index: "İndeks"
-    label: "Alan adı"
-    filter: "Filtre"
-    filter_help: "Girdilerin bu alana göre filtreleme yapılabilmesi için seçebilirsiniz"
-    filter_type: "Filtre türü"
-    sort: "Sıralama yapılabilsin"
-    sort_help: "Girdilerin bu alana göre sıralama yapılabilmesi için seçebilirsiniz."
-    required: "Gerekli"
-    hint: "Yardım"
-    hint_help: "Bu açıklama girdi formunda gözükür."
-    widget_type: "Widget türü"
     add: "Ekle"
     messages:
       created: "Alan eklendi."
-    belongs_to:
-      can_be_added_only_by_parent_author: "Sadece referans girdi sahibi tarafından eklenebilsin"
-      parent_node_node_type: "Referans Liste"
-    boolean:
-      on_value: "On değeri"
-      off_value: "Off değeri"
-    date:
-      date_type: "Tarih türü"
-      start_date_type: "Başlangıç tarihi türü"
-      x_years_ago_start: "X yıl önce başlasın"
-      specific_start_date: "Özel başlangıç tarihi"
-      end_date_type: "Bitiş tarihi türü"
-      x_years_ago_end: "X yıl önce bitsin"
-      x_years_later_end: "X yıl sonra bitsin"
-      specific_end_date: "Özel bitiş tarihi"
-    has_many:
-      child_nodes_node_type: "Referans liste"
-    image:
-      help: "0 girilirse sınırsız resim eklenebilir demektir."
-      maximum_image: "En fazla ne kadar resim eklenebilsin"
-      add_image: "Resim ekle..."
-      start_upload: "Yüklemeye başla"
-    integer:
-      minimum: "En az"
-      maximum: "En fazla"
-      prefix: "Ön ek"
-      suffix: "Son ek"
-      thousand_marker: "Yüzdelik ayırma işareti"
     select:
-      maximum_select: "En fazla ne kadar seçilebilsin"
       options: "Seçenekler"
-      option: "parça"
-      name: "İsim"
-      help: "0 girilirse sınırsız seçim yapılabilir demektir."
-    place:
-      level: "Seviye"
-      multiselect: "Çoklu seçme"
-      top_place_name: "Üst seviye yer adı"
-      place_page_list: "Yer sayfasında listelensin"
-    string:
-      row: "Yazı alanı satır sayısı"
-      text_format: "Biçimlendirme türü"
-    tree_category:
-      category: "Kategori"
+      option: "Seçenek"
 
   views:
     pagination:
@@ -198,3 +135,125 @@ tr:
     parent_category: "Üst kategori"
     name: "İsim"
     children: "Alt kategoriler"
+
+  helpers:
+    submit:
+      create: "Ekle"
+      update: "Güncelle"
+
+  simple_form:
+    labels:
+      node_type:
+        name: "Adı"
+        title_label: "Başlık alanı adı"
+        description: "Açıklama"
+        administrators: "Yöneticiler"
+        filters_position: "Filtrelerin konumu"
+        node_expiration_day_limit: "Node expiration day limit"
+        commentable: "Yorum"
+        signin_required: "Üye girişi"
+        create: "Ekle"
+        update: "Güncelle"
+        administrator_email: "Yeni Yönetici"
+        background_image: "Arkaplan resmi"
+      field:
+        label: "Label"
+        required: "Gerekli"
+        hint: "Yardım"
+        filter: "Filtre"
+        filter_type: "Filtre türü"
+        sort: "Sıralama yapılabilsin"
+        widget_type: "Widget türü"
+        create: "Ekle"
+        update: "Güncelle"
+
+        # belongs_to
+        can_be_added_only_by_parent_author: "Sadece referans girdi sahibi tarafından eklenebilsin"
+        class_name: "Referans Liste"
+
+        # boolean
+        on_value: "On değeri"
+        off_value: "Off değeri"
+
+        # date
+        date_type: "Tarih türü"
+        start_date_type: "Başlangıç tarihi türü"
+        x_years_ago_start: "X yıl önce başlasın"
+        specific_start_date: "Özel başlangıç tarihi"
+        end_date_type: "Bitiş tarihi türü"
+        x_years_ago_end: "X yıl önce bitsin"
+        x_years_later_end: "X yıl sonra bitsin"
+        specific_end_date: "Özel bitiş tarihi"
+
+        #image
+        maximum_image: "Maksimum resim sayısı"
+
+        # integer
+        minimum: "En az"
+        maximum: "En fazla"
+        prefix: "Ön ek"
+        suffix: "Son ek"
+        thousand_marker: "Bindelik ayırma işareti"
+
+        # place
+        multiselect: "Çoklu seçim"
+        level: "Seviye"
+        top_place_name: "Üst seviye yer adı"
+        place_page_list: "Yer sayfasında listelensin"
+
+        # select
+        maximum_select: "Maksimum seçim"
+        options: "Seçenekler"
+        option: "seçenek"
+
+        # string
+        row: "Yazı alanı satır sayısı"
+        text_format: "Biçimlendirme türü"
+
+        # tree_category
+        category: "Kategori"
+
+
+    hints:
+      node_type:
+        commentable: "Yorum yapılabilsin"
+        signin_required: "Girdi ekleyebilmek için üye giriş gerekli olsun mu?"
+      field:
+        filter: "Girdilerin bu alana göre filtreleme yapılabilmesi için seçebilirsiniz"
+        sort: "Girdilerin bu alana göre sıralama yapılabilmesi için seçebilirsiniz."
+        hint: "Bu açıklama girdi formunda gözükür."
+        maximum_image: "0 girilirse sınırsız resim eklenebilir."
+        level: "Üst seviyedeki yerden sonra kaç seviye seçilebileceğini gösterir. Örneğin üst seviye 'Türkiye' ve level '2' ise 'Eskişehir > Odunpazarı İlçesi' ne kadar seçilebilir."
+        maximum_select: "0 girilirse sınırsız seçim yapılabilir."
+
+    options:
+      node_type:
+        filters_position:
+          top: "Yukarda"
+          left: "Solda"
+      field:
+        thousand_marker:
+          none: "Ayırma yok (örn: 23000)"
+          decimal_point: "Nokta (örn: 23.000)"
+          comma: "Virgül (örn: 23,000)"
+          space: "Boşluk (örn: 23 000)"
+        widget_type:
+          radio_buttons: "Radyo butonları"
+          single_on_off: "On/Off"
+        date_type:
+          year: "Yıl"
+          year_month: "Yıl ve ay"
+          year_month: "Yıl, ay ve gün"
+        start_date_type:
+          start_now: "Bu yıldan başlasın"
+          x_years_ago_start: "X yıl önce başlasın"
+          specific_start_date: "Özel başlangıç tarihi"
+        end_date_type:
+          end_now: "Bu yıl bitsin"
+          x_years_ago_end: "X yıl önce bitsin"
+          x_years_later_end: "X yıl sonra bitsin"
+          specific_end_date: "Özel bitiş tarihi"
+        text_format:
+          plain: "Düz."
+          simple: "Basit. Satırlar paragrafa, url'ler linke dönüştürülür."
+          extended: "Gelişmiş."

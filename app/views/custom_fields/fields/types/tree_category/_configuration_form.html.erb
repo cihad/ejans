@@ -1,8 +1,3 @@
-<%= simple_check_box f,
-      :filter,
-      label: { name: t('fields.filter') } %>
+<%= f.input :filter, as: :boolean %>
 
-<%= simple_select f,
-      :category_id,
-      Category.roots.map { |p| [p.name, p.id] },
-      label: { name: t('fields.tree_category.category') } %>
+<%= f.association :category, collection: Category.roots.map { |p| [p.name, p.id] } %>
