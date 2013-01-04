@@ -1,30 +1,27 @@
-<%= form_for  [@node_type, @node],
+<%= horizontal_form_for  [@node_type, @node],
               url: node_type_node_path(@node_type._id, @node._id),
               html: { multipart: true },
               as: :node do |f| %>
 
-  <%= error_messages_for @node %>
-  
-  <table class="table table-form">
-    <%= hidden_field_tag "token", params[:token] %>
-    <%= simple_text_field f, :title, label: { name: @node_type.title_label } %>
+  <%= hidden_field_tag "token", params[:token] %>
+  <%= f.input :title, label: @node_type.title_label %>
 
-    <% @node_type.nodes_custom_fields.each do |field| %>
-      <%= FormFields::FormField.presenter(f, field, self) %>
+  <% @node_type.nodes_custom_fields.each do |field| %>
+    <%= FormFields::FormField.presenter(f, field, self) %>
+  <% end %>
+
+  <% unless user_signed_in? or f.object.email_send? %>
+    <%= f.input :author_email,
+                hint: "Uye olmadan veya giris yapmadan ilan ekleyebilirsiniz. Bunun
+                      icin sadece email adresinizi yazmanız yeterli." %>
+
+    <%= f.input :captcha do %>
+      <%= recaptcha_tags display: { theme: 'clean' } %>
     <% end %>
+  <% end %>
 
-    <% unless user_signed_in? or f.object.email_send? %>
-      <%= simple_text_field f,
-            :author_email,
-            help: "Uye olmadan veya giris yapmadan ilan ekleyebilirsiniz. Bunun
-                  icin sadece email adresinizi yazmanız yeterli." %>
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
 
-      <%= checkbox_group "Captcha" do %>
-        <%= recaptcha_tags display: { theme: 'clean' } %>
-      <% end %>
-    <% end %>
-
-    <%= simple_submit f, t('nodes.save'), class: "btn", name: "node[publish]" %>
-
-  </table>
 <% end %>

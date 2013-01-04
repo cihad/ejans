@@ -1,19 +1,8 @@
-<%= render layout: 'views/shared/fieldset' do %>
-  <%= render(
-        layout: 'views/shared/textarea_edit',
-        locals: { title: "CSS" }
-      ) do %>
-    <%= f.text_area :css, rows: 5, class: "span6" %>
-    <div id="css_editor" class="span7" style="height: 300px;"></div>
-    <%= ace_editor f, :css, mode: "css" %>
-  <% end %>
+<%= f.input :css, label: false, wrapper: :ace,
+            ace: { for: :css, mode: "css", width: "600" } %>
 
-  <%= render(
-        layout: 'views/shared/instructions',
-        locals: { title: "Instructions for CSS" }
-      ) do %>
-    <ul>
-      <li>Twitter bootstrap siniflarini kullanabilirsiniz.</li>
-    </ul>    
-  <% end %>
+<%= f.input :js_ins, label: false do %>
+  <ul>
+    <li>Twitter bootstrap siniflarini kullanabilirsiniz.</li>
+  </ul>
 <% end %>

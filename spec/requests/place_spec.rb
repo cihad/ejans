@@ -24,9 +24,9 @@ describe Place do
       countries = 3.times.inject([]) { |arr, _| arr << Faker::Address.country }
 
       within("#new_place") do
-        fill_in t('places.name'), with: "World"
-        fill_in t('places.children'), with: countries.join("\n")
-        click_button t('actions.save')
+        fill_in "place_name", with: "World"
+        fill_in "place_childs", with: countries.join("\n")
+        click_button t('helpers.submit.create')
       end
 
       page.should have_content "World"
@@ -38,7 +38,7 @@ describe Place do
         page.should have_link country
         find('li .place', text: country).find('.add-child-items').click
         find('.uneditable-input').text.should eq "World"
-        find_field(t 'places.name').value.should eq country
+        find_field(t 'simple_form.labels.place.name').value.should eq country
         find('.btn-close').click
       end
     end

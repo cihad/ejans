@@ -1,21 +1,17 @@
-<%= form_item_layout do %>
-  <%= form_label_layout do %>
-    <%= field.f.label field.form_key, field.label %>
-    <%= content_tag :span, "*", class: "required" if field.required? %>
-  <% end %>
-  <%= form_value_layout do %>
-    <% if field.can_be_added_only_by_parent_author? and
-          field.options_for_select(current_user).blank? %>
-        <div class="alert alert-error">
-          <strong>DİKKAT!</strong> İlk olarak
-          <%= link_to "#{field.parent_klass.name}", node_type_path(field.parent_node_node_type) %>
-          listesine bir node ekleyip yayınlamalisiniz. Sonra gelip buradan <%= field.label %>
-          seçebilisiniz.
-        </div>
-    <% else %>
-      <%= field.f.select field.form_key, field.options_for_select(current_user) %>
-    <% end %>
+<% if field.can_be_added_only_by_parent_author? and field.options_for_select(current_user).blank? %>
+  <div class="alert alert-error">
+    <strong>DİKKAT!</strong> İlk olarak
+    <%= link_to "#{field.parent_klass.name}", node_type_path(field.parent_node_node_type) %>
+    listesine bir node ekleyip yayınlamalisiniz. Sonra gelip buradan <%= field.label %>
+    seçebilisiniz.
+  </div>
 
-    <%= field.help %>
-  <% end %>
+<% else %>
+
+  <%= field.f.input field.form_key,
+                    label: field.label,
+                    hint: field.hint,
+                    collection: field.options_for_select(current_user),
+                    include_blank: field.include_blank? %>
+
 <% end %>

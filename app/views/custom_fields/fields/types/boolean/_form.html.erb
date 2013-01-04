@@ -1,25 +1,19 @@
-<%= form_item_layout do %>
-  <%= form_label_layout do %>
-    <%= field.f.label field.form_key, field.label %>
-    <%= content_tag :span, "*", class: "required" if field.required? %>
-  <% end %>
-  <%= form_value_layout do %>
+<% case field.widget_type %>
+<% when :radio_buttons %>
 
-    <% case field.widget_type %>
-    <% when :radio_buttons %>
-      <label class="radio inline">
-        <%= field.f.radio_button field.form_key, "true" %> <%= field.on_value %>
-      </label>
-      <label class="radio inline">
-        <%= field.f.radio_button field.form_key, "false" %> <%= field.off_value %>
-      </label>
+  <%= field.f.input field.form_key,
+        collection: [[field.on_value, true], [field.off_value, false]],
+        as: :radio_buttons,
+        label: field.label,
+        hint: field.hint,
+        item_wrapper_class: "inline" %>
 
-    <% when :single_on_off %>
-      <label class="checkbox inline">
-        <%= field.f.check_box field.form_key %> <%= field.on_value %>
-      </label>
-    <% end %>
-          
-    <%= field.help %>
-  <% end %>
+<% when :single_on_off %>
+
+  <%= field.f.input field.form_key,
+        as: :boolean,
+        label: field.label,
+        hint: field.hint %>
+
 <% end %>
+

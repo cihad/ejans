@@ -19,9 +19,9 @@ describe Category do
       categories = 3.times.inject([]) { |arr, _| arr << Faker::Lorem.word.capitalize }
 
       within("#new_category") do
-        fill_in t('categories.name'), with: "A Category"
-        fill_in t('categories.children'), with: categories.join("\n")
-        click_button t('actions.save')
+        fill_in "category_name", with: "A Category"
+        fill_in "category_childs", with: categories.join("\n")
+        click_button t('helpers.submit.create')
       end
 
       page.should have_content "A Category"

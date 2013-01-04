@@ -1,5 +1,5 @@
 <fieldset class="place-select">
-  <% name = (builder.collection_select :place_ids, field.tree.first, :id, :name, {}).split("name=\"").last.split("\"").first + "[]" %>
+  <% name = (builder.input :place_ids, collection: field.tree.first.map { |p| [p.id, p.name] }).split("name=\"").last.split("\"").first + "[]" %>
   <% field.tree.each_with_index do |level, i| %>
     <p>
       <select id="place_<%= counter %>_<%= i %>" name="<%= name %>" class="for_place_test_<%= i %>">

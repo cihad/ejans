@@ -1,23 +1,18 @@
 <%= javascript 'aceajax/ace.js' %>
 
-<%= form_for [@node_type, @mailer_template] do |f| %>
-  <table class="table table-form">
-    <%= simple_text_field f, :title %>
-    <%= simple_text_field f, :subject %>
+<%= horizontal_form_for [@node_type, @mailer_template] do |f| %>
 
-    <%= form_item_layout do %>
-      <%= form_label_layout do %>
-        <%= f.label :template %>
-      <% end %>
+  <%= f.input :title %>
 
-      <%= form_value_layout do %>
-        <%= f.text_area :template, rows: 5, class: "span6" %>
-        <div style="height: 300px"><div id="template_editor" class="span7" style="height: 300px;"></div></div>
-        <%= ace_editor f, :template %>
-      <% end %>
-    <% end %>
+  <%= f.input :subject %>
 
+  <%= f.input :template,
+              as: :text,
+              ace: { for: :template },
+              wrapper: :ace  %>
 
-    <%= simple_submit f, nil, input: { class: "btn" } %>
-  </table>
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+  
 <% end %>

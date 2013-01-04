@@ -6,8 +6,13 @@ class Category
 
   attr_accessor :childs
 
-  # Fields
+  ## fields
   field :name, type: String
+
+  ## validations
+  validates_presence_of :name
+
+  ## callbacks
   before_destroy :delete_descendants
 
   def level

@@ -16,7 +16,7 @@ describe "NodeView" do
     click_link t('views.edit_node_view')
     page.execute_script("$('#views_node_user_input_node_template').show()")
     fill_in "views_node_user_input_node_template", with: user_input_node_template(node_type)
-    click_button t('views.save')
+    click_button t('helpers.submit.update')
   end
 
   it "fills a sample view", js: true do

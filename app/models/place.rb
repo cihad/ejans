@@ -7,13 +7,20 @@ class Place
 
   attr_accessor :childs
 
+  ## fields
   field :coordinates, type: Array
-  index({ coordinates: "2d" })
-
   field :name, type: String
 
+  ## validations
+  validates_presence_of :name
+
+  ## indexes
+  index({ coordinates: "2d" })
+
+  ## behaviours
   fulltext_search_in :name
 
+  ## scopes
   default_scope order_by([:name, :asc])
 
   def lat_lng

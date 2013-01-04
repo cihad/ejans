@@ -29,8 +29,8 @@
 <%= dropdown_tab t('mailers.mailer') do %>
   <%= tab_item t('mailers.templates'), node_type_mailer_templates_path(@node_type) %>
   <%= tab_item t('mailers.new_mailer'), new_node_type_mailer_path(@node_type) %>
-  <%= tab_item t('mailers.potential_users'), node_type_potential_users_path(@node_type) %>
-  <%= tab_item t('mailers.new_potential_users'), new_node_type_potential_user_path(@node_type) %>
+  <%= tab_item t('potential_users.potential_users'), node_type_potential_users_path(@node_type) %>
+  <%= tab_item t('potential_users.new'), new_node_type_potential_user_path(@node_type) %>
   <%= content_tag :li, nil, class: "divider" %>
   <% @node_type.mailer_templates.each do |mailer_template| %>
     <%= tab_item mailer_template.title, node_type_mailer_template_path(@node_type, mailer_template) unless mailer_template.new_record? %>
@@ -39,6 +39,6 @@
 
 <%= dropdown_tab t('nodes.nodes') do %>
   <%= tab_item t('nodes.public_nodes_page'), node_type_nodes_path(@node_type) %>
-  <%= tab_item t('node_types.manage_all_nodes'), manage_node_types_path(@node_type) %>
+  <%= tab_item t('node_types.manage_all_nodes'), manage_node_type_path(@node_type) %>
   <%= tab_item t('nodes.add_new_node'), new_node_type_node_path(@node_type) %>
 <% end %>

@@ -31,6 +31,7 @@ SimpleForm.setup do |config|
     b.wrapper :tag => 'div', :class => 'controls' do |input|
       input.wrapper :tag => 'div', :class => 'input-append' do |append|
         append.use :input
+        append.use :append
       end
       input.use :hint,  :wrap_with => { :tag => 'span', :class => 'help-block' }
       input.use :error, :wrap_with => { :tag => 'span', :class => 'help-inline' }
@@ -63,16 +64,23 @@ SimpleForm.setup do |config|
     b.use :hint,  :wrap_with => { :tag => 'p', :class => 'help-block' }
   end
 
+  config.wrappers :ace, :tag => 'div', :class => 'control-group', :error_class => 'error' do |b|
+    b.use :html5
+    b.use :placeholder
+    b.use :label
+    b.wrapper :tag => 'div', :class => 'controls' do |ba|
+      ba.use :input
+      ba.use :ace_editor
+      ba.use :error, :wrap_with => { :tag => 'span', :class => 'help-inline' }
+      ba.use :hint,  :wrap_with => { :tag => 'p', :class => 'help-block' }
+    end
+  end
 
 
-  # Wrappers for forms and inputs using the Twitter Bootstrap toolkit.
-  # Check the Bootstrap docs (http://twitter.github.com/bootstrap)
-  # to learn about the different styles for forms and inputs,
-  # buttons and other elements.
   config.default_wrapper = :bootstrap
 
   config.label_class = 'control-label'
-  config.form_class = 'simple_form form-horizontal'
+  config.form_class = 'simple_form'
 end
 
 
@@ -94,4 +102,61 @@ module ::SimpleForm::Components::SingleImage
   end
 end
 
+module ::SimpleForm::Components::AceEditor
+  def ace_editor
+    @ace_editor ||= begin
+      height = options[:ace].delete(:height) || 300
+      width  = options[:ace].delete(:width) || 450
+      id     = options[:ace].delete(:for)
+
+      "<div style='height: #{height}px'>
+        <div id='#{id}_editor'
+             style='height: #{height}px; width: #{width}px'>
+        </div>
+      </div>" +
+      ace_generator(@builder, id, options[:ace])
+    end
+  end
+
+  def ace_generator(f, field, options = {})
+    mode        = options.delete(:mode) || "html"
+    class_name  = f.object.class.name.underscore.gsub('/', '_')
+    selector    = "#{class_name}_#{field}"
+    area        = "#{field}_editor"
+    <<-JS
+      <script type="text/javascript">
+        $(function(){
+          var #{area} = ace.edit("#{area}");
+          #{area}.setTheme("ace/theme/chrome");
+          #{area}.getSession().setFoldStyle("manual");
+          #{area}.getSession().setMode("ace/mode/#{mode}");
+          #{area}.setHighlightActiveLine(false);
+          var #{area}_textarea = $('##{selector}').hide();
+          #{area}.getSession().setValue(#{area}_textarea.val());
+          #{area}.getSession().on('change', function(){
+            #{area}_textarea.val(#{area}.getSession().getValue());
+          });
+        });
+      </script>
+    JS
+  end
+end
+
+module ::SimpleForm::Components::Append
+  def append
+    @append ||= begin
+      if options[:append].present?
+        "<span class='add-on'>#{options[:append]}</span>"
+      end
+    end
+  end
+
+  def has_append?
+    append.presend?
+  end
+end
+
 ::SimpleForm::Inputs::Base.send(:include, ::SimpleForm::Components::SingleImage)
+::SimpleForm::Inputs::Base.send(:include, ::SimpleForm::Components::AceEditor)
+::SimpleForm::Inputs::Base.send(:include, ::SimpleForm::Components::Append)
+

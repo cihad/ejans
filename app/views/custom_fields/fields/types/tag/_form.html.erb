@@ -1,12 +1,2 @@
-<%= form_item_layout do %>
-  <%= form_label_layout do %>
-    <%= field.f.label field.form_key, field.label %>
-    <%= content_tag :span, "*", class: "required" if field.required? %>
-  <% end %>
-  <%= form_value_layout do %>
-    <%= field.f.text_field field.form_key, class: "input-xlarge" %>
-    
-    <p>Etiketler arasına virgül koyunuz.</p>
-    <%= field.help %>
-  <% end %>
-<% end %>
+<%= field.f.input field.form_key, label: field.label,
+      hint: "Etiketler arasına virgül koyunuz. " + field.hint %>

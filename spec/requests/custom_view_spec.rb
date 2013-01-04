@@ -8,19 +8,24 @@ describe Views::Custom do
   def create_a_custom_view
     visit node_type_views_views_path(node_type)
     select "Custom", from: "_type"
-    click_button t('views.add_new_view')
-    page.execute_script("$('#views_custom_user_input_node_type_template').show()")
+    click_button t('views.new')
+
+    # within ".tabbable" do click_link "Node Type" end
+    # page.execute_script("$('#views_custom_user_input_node_type_template').show()")
     fill_in "views_custom_user_input_node_type_template", with: custom_view_node_type_template
-    page.execute_script("$('#views_custom_user_input_node_template').show()")
+
+    # within ".tabbable" do click_link "Node" end
+    # page.execute_script("$('#views_custom_user_input_node_template').show()")
     fill_in "views_custom_user_input_node_template", with: custom_view_node_template(node_type)
-    click_button t('views.save')
+    binding.pry
+    click_button t('helpers.submit.create')
   end
 
   it_behaves_like "view authorization" do
     let(:path) { node_type_views_views_path(node_type) }
   end
 
-  it "adds a custom view", js: true do
+  it "adds a custom view" do
     signin super_administrator
 
     create_a_custom_view

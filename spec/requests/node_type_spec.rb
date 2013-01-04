@@ -33,7 +33,7 @@ describe "NodeType" do
       checkbox 'node_type_commentable', attributes[:commentable]
       checkbox 'node_type_signin_required', attributes[:signin_required]
       attach_file 'node_type_background_image', "#{Rails.root}/spec/support/images/wood_background.jpg"
-      click_button t('simple_form.labels.node_type.create')
+      click_button t('helpers.submit.create')
     }.to change(NodeType, :count).by(1)
 
 

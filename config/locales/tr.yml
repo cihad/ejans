@@ -73,6 +73,7 @@ tr:
     reject: "Reddet"
     status_changed: "Durum '%{status}' olarak değiştirildi."
     status_not_changed: "Durum '%{expected_status}' olarak değiştirilemedi. Durum halen '%{current_status}'"
+    add_new: "Yeni girdi ekle"
     new: "yeni"
     pending_approval: "onay bekliyor"
     published: "yayınlandı"
@@ -100,11 +101,12 @@ tr:
       truncate: "..."
       next: "Sonraki"
       last: "Son"
-    views: "Gösterimler"
-    view: "Gösterim"
+    views: "Görünümler"
+    view: "Görünüm"
     index: "İndeks"
-    edit_node_view: "Node gösterimi"
-    add_new_view: "Yeni gösterim ekle"
+    new: "Yeni görünüm ekle"
+    edit: "Görünümü düzenle"
+    edit_node_view: "Girdi gösterimini düzenle"
     save: "Kaydet"
     destroy: "Sil"
     node:
@@ -116,25 +118,28 @@ tr:
     mailer: "Postacı"
     templates: "Temalar"
     new_mailer: "Yeni posta"
-    potential_users: "Potansiyel üyeler"
-    new_potential_users: "Yeni potansiyel üye ekle"
     edit_place_page_view: "Yer sayfasının gösterimi"
 
   images:
+    add: "Resim ekle..."
+    start_upload: "Yüklemeye başla"
     remove_image: "Resmi sil"
-    add: "Resim ekle"
 
   places:
     add_place: "Yer ekle"
     parent_place: "Üst yer"
-    name: "İsim"
+    name: "Yer"
     children: "Alt yerler"
 
   categories:
     add_category: "Kategori ekle"
     parent_category: "Üst kategori"
-    name: "İsim"
+    name: "Kategori"
     children: "Alt kategoriler"
+
+  potential_users:
+    potential_users: "Potansiyel üyeler"
+    new: "Yeni potansiyel üye ekle"
 
   helpers:
     submit:
@@ -142,6 +147,18 @@ tr:
       update: "Güncelle"
 
   simple_form:
+    "yes": 'Evet'
+    "no": 'Hayır'
+    required:
+      text: 'gerekli'
+      mark: '*'
+      # You can uncomment the line below if you need to overwrite the whole required html.
+      # When using html, text and mark won't be used.
+      # html: '<abbr title="required">*</abbr>'
+
+    error_notification:
+      default_message: "Please review the problems below:"
+
     labels:
       node_type:
         name: "Adı"
@@ -152,8 +169,6 @@ tr:
         node_expiration_day_limit: "Node expiration day limit"
         commentable: "Yorum"
         signin_required: "Üye girişi"
-        create: "Ekle"
-        update: "Güncelle"
         administrator_email: "Yeni Yönetici"
         background_image: "Arkaplan resmi"
       field:
@@ -213,6 +228,30 @@ tr:
         # tree_category
         category: "Kategori"
 
+      place:
+        parent_node_name: "Üst yer"
+        name: "Yer"
+        childs: "Alt yerler"
+
+      category:
+        parent_node_name: "Üst kategori"
+        name: "Kategori"
+        childs: "Alt kategoriler"
+
+      mailer_template:
+        title: "Başlık"
+        subject: "Konu"
+        template: "Mail teması"
+
+      mailer:
+        mailer_template_id: "Mail teması"
+        potential_users: "Potansiyel kullanıcılar"
+        create: "Gönder"
+
+      potential_users:
+        tag: "Etiket"
+        emails: "Email adresleri"
+
 
     hints:
       node_type:
@@ -225,6 +264,12 @@ tr:
         maximum_image: "0 girilirse sınırsız resim eklenebilir."
         level: "Üst seviyedeki yerden sonra kaç seviye seçilebileceğini gösterir. Örneğin üst seviye 'Türkiye' ve level '2' ise 'Eskişehir > Odunpazarı İlçesi' ne kadar seçilebilir."
         maximum_select: "0 girilirse sınırsız seçim yapılabilir."
+      place:
+        childs: "Her satıra bir yer gelecek şekilde giriniz."
+      category:
+        childs: "Her satıra bir kategori gelecek şekilde giriniz."
+      potential_users:
+        emails: "Her satıra bir email adresi gelecek şekilde giriniz."
 
     options:
       node_type:

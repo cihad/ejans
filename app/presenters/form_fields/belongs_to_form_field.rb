@@ -14,17 +14,18 @@ module FormFields
       parent_klass.all
     end
 
-    def options_for_select(author = nil)
-      if can_be_added_only_by_parent_author?
-        nodes = self.nodes.where(author_id: author.try(:id))
-        options_for_select = nodes.map { |node| [node.title, node.id] }
-      else
-        nodes = self.nodes.active
-        options_for_select = nodes.map { |n| [n.title, n.id] }
-        options_for_select.unshift(['', '']) unless required?
-      end
+    def include_blank?
+      !required?
+    end
 
-      options_for_select
+    def options_for_select(author = nil)
+      nodes = if can_be_added_only_by_parent_author?
+                self.nodes.where(author_id: author.try(:id))
+              else
+                self.nodes.active
+              end
+
+      nodes.map { |n| [n.title, n.id] }
     end
   end
 end

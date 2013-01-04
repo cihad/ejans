@@ -34,7 +34,7 @@ describe "Node" do
       choose boolean_field(node_type).on_value
 
       # DateField
-      select "1990", from: date_field(node_type).label
+      select "1990", from: "node_#{date_field(node_type).machine_name}_1i"
 
       # ImageField
       page.execute_script("$('#node_#{image_field(node_type).machine_name}').css({
@@ -43,9 +43,9 @@ describe "Node" do
         'transform': 'none'  
       })")
       attach_file "node_#{image_field(node_type).machine_name}", "#{images_dir}/image-800-600.jpg"
-      click_button t('fields.image.start_upload')
+      click_button t('images.start_upload')
       
-      # DateField
+      # IntegerField
       fill_in integer_field(node_type).label, with: "500"
 
       # SelectField
@@ -70,7 +70,7 @@ describe "Node" do
       end
 
       # Submit
-      click_button t('nodes.save')
+      click_button t('helpers.submit.update')
     }.to change(Node.pending_approval, :count).by(1)
   end
 

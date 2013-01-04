@@ -1,7 +1,12 @@
 <%= javascript 'aceajax/ace.js' %>
 
-<%= form_for @view, url: node_type_views_place_page_path(@node_type), method: :put do |f| %>
+<%= simple_form_for @view, url: node_type_views_place_page_path(@node_type), method: :put do |f| %>
+
   <%= render 'views/shared/inputs/css', f: f %>
+  
   <%= render 'views/shared/inputs/user_input_node_template', f: f %>
-  <%= f.submit t('views.save'), class: "btn" %>
+
+  <div class="form_actions">
+    <%= f.button :submit %>
+  </div>
 <% end %>

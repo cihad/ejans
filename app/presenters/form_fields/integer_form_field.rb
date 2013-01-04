@@ -2,6 +2,8 @@ module FormFields
   class IntegerFormField < FormField
 
     delegate :maximum, :minimum, :filter?, :filter_type, :suffix, to: :field
+    alias :min :minimum
+    alias :max :maximum
 
     def placeholder
       if minimum and maximum

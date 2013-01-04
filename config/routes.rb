@@ -23,7 +23,7 @@ Ejans::Application.routes.draw do
 
   # Node Types, Fields, Views, Nodes
   resources :node_types, path: 'nt' do
-    get :manage, on: :collection
+    get :manage, on: :member
     
     namespace :custom_fields do
       resources :fields do

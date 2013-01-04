@@ -1,32 +1,28 @@
-<%= form_item_layout do %>
-  <%= form_label_layout do %>
-    <%= field.f.label field.form_key, field.label %>
-    <%= content_tag :span, "*", class: "required" if field.required? %>
-  <% end %>
-  <%= form_value_layout do %>
-    <% javascript 'jquery-plugins/jquery.chained' %>
-    <% name = (field.f.collection_select field.category_ids_name, field.levels.first, :id, :name, {}).split("name=\"").last.split("\"").first + "[]" %>
-    <% field.levels.each_with_index do |level, i| %>
-      <p>
-        <select id="category_tree_<%= field.field.machine_name %>_<%= i %>" name="<%= name %>" class="for_tree_category_test_<%= i %>">
-          <option value="">Seçiniz</option>
-          <% level.each do |category| %>
-            <option value="<%= category.id %>"
-                    class="<%= category.parent_id unless i == 0 %>"
-                    <%= "selected" if field.category_ids.include? category.id %>>
-              <%= category.name %>
-            </option>
-          <% end %>
-        </select>
-      </p>
+<% javascript 'jquery-plugins/jquery.chained' %>
 
-    <% end %>
-    <%= field.help %>
-    <%= javascript_tag do %>
-      <% (field.levels.count - 1).times do |i| %>
-        $("#category_tree_<%= field.field.machine_name %>_<%= i+1 %>").chained("#category_tree_<%= field.field.machine_name %>_<%= i %>");
-      <% end %>
-    <% end %>
-    
+<%= field.f.input field.form_key, label: field.label, hint: field.hint do %>
+
+  <% name = (field.f.collection_select field.category_ids_name, field.levels.first, :id, :name, {}).split("name=\"").last.split("\"").first + "[]" %>
+
+  <% field.levels.each_with_index do |level, i| %>
+    <p>
+      <select id="category_tree_<%= field.field.machine_name %>_<%= i %>" name="<%= name %>" class="for_tree_category_test_<%= i %>">
+        <option value="">Seçiniz</option>
+        <% level.each do |category| %>
+          <option value="<%= category.id %>"
+                  class="<%= category.parent_id unless i == 0 %>"
+                  <%= "selected" if field.category_ids.include? category.id %>>
+            <%= category.name %>
+          </option>
+        <% end %>
+      </select>
+    </p>
   <% end %>
+
+  <%= javascript_tag do %>
+    <% (field.levels.count - 1).times do |i| %>
+      $("#category_tree_<%= field.field.machine_name %>_<%= i+1 %>").chained("#category_tree_<%= field.field.machine_name %>_<%= i %>");
+    <% end %>
+  <% end %>
+
 <% end %>

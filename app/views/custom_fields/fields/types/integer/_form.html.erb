@@ -1,16 +1,9 @@
-<%= form_item_layout do %>
-  <%= form_label_layout do %>
-    <%= field.f.label field.form_key, field.label %>
-    <%= content_tag :span, "*", class: "required" if field.required? %>
-  <% end %>
-  <%= form_value_layout do %>
-    <%= field.f.number_field  field.form_key,
-                              class: "input-xlarge",
-                              placeholder: "#{field.placeholder}",
-                              min: field.minimum,
-                              max: field.maximum %>
-    <%= field.suffix %>
-    
-    <%= field.help %>
-  <% end %>
-<% end %>
+<%= field.f.input field.form_key,
+      as: :integer,
+      label: field.label,
+      hint: field.hint,
+      placeholder: field.placeholder,
+      min: field.min,
+      max: field.max,
+      wrapper: :append,
+      append: field.suffix %>

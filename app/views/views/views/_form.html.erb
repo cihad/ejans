@@ -4,46 +4,23 @@
             node_type_views_view_path
           end %>
 
-<%= form_for [@node_type, @view],
-    url: url do |f| %>
+<%= simple_form_for [@node_type, @view], url: url do |f| %>
 
-  <%= error_messages_for @view %>
 
-  <table class="table table-form">
-    <%= hidden_field_tag "_type", @view._type %>
+  <%= f.input :_type, as: :hidden %>
 
-      <label class="checkbox inline">
-        <%= f.radio_button :icon, "icon-th-large" %>
-        <i class="icon-th-large"></i>
+  <div class="btn-group pull-right">
+    <%= %w(th-large th th-list list-alt align-justify list).each do |i| %>
+      <label class="btn btn-small">
+        <%= f.radio_button :icon, "icon-#{i}" %>
+        <i class="icon-<%= i %>"></i>
       </label>
+    <% end %>
+  </div>
 
-      <label class="checkbox inline">
-        <%= f.radio_button :icon, "icon-th" %>
-        <i class="icon-th"></i>
-      </label>
+  <%= render "#{@view.partial_dir}/form", f: f %>
 
-      <label class="checkbox inline">
-        <%= f.radio_button :icon, "icon-th-list" %>
-        <i class="icon-th-list"></i>
-      </label>
-
-      <label class="checkbox inline">
-        <%= f.radio_button :icon, "icon-list-alt" %>
-        <i class="icon-list-alt"></i>
-      </label>
-
-      <label class="checkbox inline">
-        <%= f.radio_button :icon, "icon-align-justify" %>
-        <i class="icon-align-justify"></i>
-      </label>
-
-      <label class="checkbox inline">
-        <%= f.radio_button :icon, "icon-list" %>
-        <i class="icon-list"></i>
-      </label>
-    
-
-    <%= render "#{@view.partial_dir}/form", f: f %>
-    <%= simple_submit f, t('views.save') %>
-  </table>
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
 <% end %>

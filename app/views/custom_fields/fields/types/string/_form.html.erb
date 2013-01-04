@@ -1,19 +1,10 @@
-<%= form_item_layout do %>
-  <%= form_label_layout do %>
-    <%= field.f.label  field.form_key,
-                                    field.label %>
-    <%= content_tag :span, "*", class: "required" if field.required? %>
-  <% end %>
+<% if field.text_field? %>
+
+  <%= field.f.input field.form_key, hint: field.hint, label: field.label %>
+
+<% else %>
+
+  <%= field.f.input field.form_key, as: :text, hint: field.hint, label: field.label,
+                    input_html: { rows: field.row, class: "input-xlarge" } %>
   
-  <%= form_value_layout do %>
-
-    <% if field.text_field? %>
-      <%= field.f.text_field field.form_key %>
-    <% else %>
-      <%= field.f.text_area field.form_key, rows: field.row, class: "input-xlarge" %>
-    <% end %>
-
-    <%= field.help %>
-    
-  <% end %>
 <% end %>

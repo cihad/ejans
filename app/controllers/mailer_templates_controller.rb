@@ -3,14 +3,14 @@ class MailerTemplatesController < ApplicationController
 
   before_filter :mailer_template, only: [:show, :edit, :update, :destroy]
 
-  layout "mail", only: [:show]
-
+  layout :set_layout
 
   def index
     @mailer_templates = @node_type.mailer_templates
   end
 
   def show
+    layout "mail"
   end
 
   def new
@@ -55,5 +55,13 @@ class MailerTemplatesController < ApplicationController
 
   def mailer_template
     @mailer_template = @node_type.mailer_templates.find(params[:id])    
+  end
+
+  def set_layout
+    if params[:action] == "show"
+      "mail"
+    else
+      "small"
+    end
   end
 end
