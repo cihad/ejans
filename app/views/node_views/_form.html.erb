@@ -1,0 +1,36 @@
+<%= button_to t('node_views.fill_a_sample_view'),
+      node_type_node_view_path(@node_type),
+      method: "put",
+      name: "node_view[fill_a_sample_view]",
+      confirm: t('node_views.sample_view_message'),
+      class: "btn pull-right" %>
+
+<%= javascript 'aceajax/ace.js' %>
+
+<%= simple_form_for [@node_type, @node_view] do |f| %>
+
+  <div class="tabbable">
+    <ul class="nav nav-tabs">
+      <li><a href="#tab1" data-toggle="tab">CSS</a></li>
+      <li><a href="#tab2" data-toggle="tab">JS</a></li>
+      <li class="active"><a href="#tab3" data-toggle="tab">Node</a></li>
+    </ul>
+    <div class="tab-content">
+      <div class="tab-pane" id="tab1">
+        <%= render 'shared/view_inputs/css', f: f %>
+      </div>
+
+      <div class="tab-pane" id="tab2">
+        <%= render 'shared/view_inputs/js', f: f %>
+      </div>
+
+      <div class="tab-pane active" id="tab3">
+        <%= render 'shared/view_inputs/user_input_node_template', f: f %>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

@@ -35,13 +35,11 @@ Ejans::Application.routes.draw do
       end
     end
 
-    namespace :views do
-      resources :views do
-        post :sort, on: :collection
-      end
-      resource :node, only: [:edit, :update]
-      resource :place_page, only: [:edit, :update]
+    resources :node_type_views do
+      post :sort, on: :collection
     end
+    resource :node_view, only: [:edit, :update]
+    resource :place_page_view, only: [:edit, :update]
 
     resources :mailers
     resources :mailer_templates, path: 'mail'

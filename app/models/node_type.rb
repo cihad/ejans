@@ -14,7 +14,7 @@ class NodeType
 
   # Fields
   field :name
-  field :title_label,               default: I18n.t('node_types.default_title')
+  field :title_label,               default: I18n.t('node_types.default_label')
   field :description
   field :filters_position,          type: Symbol, default: :top
   field :commentable,               type: Boolean
@@ -23,19 +23,19 @@ class NodeType
   field :nodes_count,               type: Integer, default: 0
 
   # Validates
-  validates :filters_position, presence: true
-  validates :filters_position, inclusion: { in: FILTERS_POSITIONS }
   validates :name, presence: true
   validates :title_label, presence: true
+  validates :filters_position, presence: true
+  validates :filters_position, inclusion: { in: FILTERS_POSITIONS }
 
   # Indexes
   index nodes_count: 1
 
   # Associations
   has_many    :nodes, dependent: :destroy
-  embeds_one  :node_view, class_name: "Views::Node", autobuild: true
-  embeds_one  :place_page_view, class_name: "Views::PlacePage"
-  embeds_many :views, class_name: "Views::View"
+  embeds_one  :node_view, autobuild: true
+  embeds_one  :place_page_view
+  embeds_many :node_type_views
   embeds_many :mailer_templates
   embeds_many :mailers
   has_and_belongs_to_many :potential_users
@@ -103,10 +103,9 @@ class NodeType
   end
 
   def related_node_types
-    NodeType.or(
-      { "nodes_custom_fields.child_nodes_node_type_id" => self.id },
-      { "nodes_custom_fields.parent_node_node_type_id" => self.id }
-    )
+    nodes_custom_fields.exists(class_name: true).map(&:class_name).map do |class_name|
+      self.class.class_name_to_node_type(class_name)
+    end
   end
 
   def potential_users=(emails)
@@ -118,16 +117,9 @@ class NodeType
     end
   end
   
-  def build_view(params)
-    type = params[:_type].safe_constantize if params[:_type]
-    if Views::View.sub_classes.include?(type)
-      parameters = params[Views::View.param_name(type)] || {}
-      self.views.build(parameters, type)
-    end
-  end
-
+  # TODO: this is a presenter method
   def node_template_attrs
-    [:node] +
+    ["node"] +
     self_data.keys +
     nodes_custom_fields.inject([]) do |a, field|
       a << "node.#{field.machine_name}"
@@ -137,20 +129,24 @@ class NodeType
     end
   end
 
+  # TODO: this is a presenter method
   def nodes_path
     node_type_nodes_path(self)
   end
 
+  # TODO: this is a presenter method
   def self_data
     { :"node_type" => self }
   end
 
+  # TODO: this is a presenter method
   def field_data
     nodes_custom_fields.inject({}) do |h, field|
       h.merge!(field.self_data)
     end
   end
 
+  # TODO: this is a presenter method
   def sort_data
     hash = {
       title: title_label,

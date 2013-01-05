@@ -13,14 +13,13 @@ describe "Node" do
   it "adds a node", js: true do
     signin user
 
-    # Make new nodes to belongs to node type
-    3.times do
-      make_node(NodeType.class_name_to_node_type(belongs_to_field(node_type).class_name), user)
-    end
+    # Make new node for belongs to node type
+    make_node(NodeType.class_name_to_node_type(belongs_to_field(node_type).class_name), user)
 
     expect {
       # Node type nodes page actions
       visit node_type_nodes_path(node_type)
+
       click_link t('nodes.add_new_node')
 
       # Title

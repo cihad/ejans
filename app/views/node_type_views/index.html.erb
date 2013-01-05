@@ -1,0 +1,50 @@
+<%= node_type_navigation %>
+<% title = "Views" %>
+<% provide :title, title %>
+<% provide :body_class, "node-type-manage" %>
+
+
+<%= content_tag :legend, title %>
+
+<table class="table table-hover sortable" data-update-url="<%= sort_node_type_node_type_views_url %>">
+  <tbody>
+    <%= content_tag_for :tr, @node_type_views do |node_type_view| %>
+      <td><span class="handle">[drag]</span></td>
+      <td><i class="icon <%= node_type_view.icon %>"></i> <%=t 'node_type_views.view' %></td>
+      <td>
+        <%= link_to t('actions.edit'),
+              edit_node_type_node_type_view_path(@node_type, node_type_view),
+              class: "btn btn-mini" %>
+              
+        <%= link_to t('actions.destroy'),
+              node_type_node_type_view_path(@node_type, node_type_view),
+              method: :delete,
+              confirm: "Are you sure?",
+              class: "btn btn-mini" %>
+      </td>
+    <% end %>
+  </tbody>
+
+  <tfoot>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>
+        <%= link_to t('node_type_views.add_new_node_type_views'), new_node_type_node_type_view_path(@node_type) %>
+      </td>
+    </tr>
+  </tfoot>
+
+</table>
+
+<%= javascript_tag do %>
+  $('.sortable tbody').sortable({
+    axis: 'y',
+    handle: ".handle",
+    update: function() {
+      return $.post($(this).data('update-url'), $(this).sortable('serialize'));
+    }
+  });
+<% end %>
+
+<%= node_type_background %>

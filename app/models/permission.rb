@@ -57,17 +57,17 @@ class Permission
       node_type.super_administrator_id == user.id
     end
 
-    allow :"views/nodes", [:edit, :update] do |node_type|
+    allow :"node_views", [:edit, :update] do |node_type|
       node_type.administrator_ids.include?(user.id) or
       node_type.super_administrator_id == user.id
     end
 
-    allow :"views/views", [:index, :sort] do |node_type|
+    allow :"node_type_views", [:index, :sort] do |node_type|
       node_type.administrator_ids.include?(user.id) or
       node_type.super_administrator_id == user.id
     end
 
-    allow :"views/views", [:new, :create, :edit, :update, :destroy] do |node_type|
+    allow :"node_type_views", [:new, :create, :edit, :update, :destroy] do |node_type|
       node_type.super_administrator_id == user.id
     end
 

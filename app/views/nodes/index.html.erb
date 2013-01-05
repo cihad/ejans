@@ -47,73 +47,68 @@
   </div>
 </div>
 
-<% view = Views::CustomPageView.new(
-  params.clone,
-  @node_type,
-  @nodes,
-  self)
-%>
+<% NodeTypeViewPresenter.new(@node_type, @nodes, params, self) do |view| %>
 
-<% if @node_type.filters_position == :left %>
-  <div class="row">
-    <% unless @node_type.filtered_fields.blank? %>
-      <div class="span3">
-        <div class="controls">
-          <h3 class="control-title">FILTERS</h3>
+  <% if @node_type.filters_position == :left %>
+    <div class="row">
+      <% unless @node_type.filtered_fields.blank? %>
+        <div class="span3">
+          <div class="controls">
+            <h3 class="control-title">FILTERS</h3>
+          </div>
+          <%= render 'nodes/filters_left_side/filter_form' %>
         </div>
-        <%= render 'nodes/filters_left_side/filter_form' %>
-      </div>
-    <% end %>
+      <% end %>
 
-    <div class="<%= @node_type.filtered_fields.blank? ? "span12" : "span9" %>">
-      <div class="controls">
+      <div class="<%= @node_type.filtered_fields.blank? ? "span12" : "span9" %>">
+        <div class="controls">
+          <div class="right-sided-controls btn-group">
+            <%= view.view_links %>
+          </div>
+          <div class="right-sided-controls btn-group">
+            <%= view.sort_links %>
+          </div>
+          <h3 class="control-title">NODES</h3>
+        </div>
+
+        <div id="nodes">
+          <%= view %>
+        </div>
+
+        <div id="paging">
+          <%= view.paginate %>
+        </div>
+      </div>
+    </div>
+
+  <% else %>
+
+    <div class="row">
+      <div class="span12 controls">
         <div class="right-sided-controls btn-group">
           <%= view.view_links %>
         </div>
         <div class="right-sided-controls btn-group">
           <%= view.sort_links %>
         </div>
-        <h3 class="control-title">NODES</h3>
+        <%= render 'nodes/filters_top_side/filter_form' unless @node_type.filtered_fields.blank? %>
       </div>
 
-      <div id="nodes">
+      <div id="nodes" class="span12">
         <%= view %>
       </div>
 
-      <div id="paging">
+      <div id="paging" class="span12">
         <%= view.paginate %>
       </div>
     </div>
-  </div>
+    
+  <% end %>
 
-<% else %>
+  <%= view.css %>
 
-  <div class="row">
-    <div class="span12 controls">
-      <div class="right-sided-controls btn-group">
-        <%= view.view_links %>
-      </div>
-      <div class="right-sided-controls btn-group">
-          <%= view.sort_links %>
-      </div>
-      <%= render 'nodes/filters_top_side/filter_form' unless @node_type.filtered_fields.blank? %>
-    </div>
+  <%= view.js %>
 
-    <div id="nodes" class="span12">
-      <%= view %>
-    </div>
-
-    <div id="paging" class="span12">
-      <%= view.paginate %>
-    </div>
-  </div>
-  
 <% end %>
 
-<!-- Custom CSS for NodeType -->
-<%= view.css %>
-
 <%= node_type_background %>
-
-<!-- Custom JS for NodeType -->
-<%= view.js %>

@@ -1,0 +1,43 @@
+<%= simple_form_for [@node_type, @node_type_view] do |f| %>
+
+  <div class="btn-group pull-right">
+    <%= %w(th-large th th-list list-alt align-justify list).each do |i| %>
+      <label class="btn btn-small">
+        <%= f.radio_button :icon, "icon-#{i}" %>
+        <i class="icon-<%= i %>"></i>
+      </label>
+    <% end %>
+  </div>
+
+  <%= javascript 'aceajax/ace.js' %>
+
+  <div class="tabbable">
+    <ul class="nav nav-tabs">
+      <li><a href="#tab1" data-toggle="tab">CSS</a></li>
+      <li><a href="#tab2" data-toggle="tab">JS</a></li>
+      <li><a href="#tab3" data-toggle="tab">Node Type</a></li>
+      <li class="active"><a href="#tab4" data-toggle="tab">Node</a></li>
+    </ul>
+    <div class="tab-content">
+      <div class="tab-pane" id="tab1">
+        <%= render 'shared/view_inputs/css', f: f %>
+      </div>
+
+      <div class="tab-pane" id="tab2">
+        <%= render 'shared/view_inputs/js', f: f %>
+      </div>
+
+      <div class="tab-pane" id="tab3">
+        <%= render 'shared/view_inputs/user_input_node_type_template', f: f %>
+      </div>
+
+      <div class="tab-pane active" id="tab4">
+        <%= render 'shared/view_inputs/user_input_node_template', f: f %>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

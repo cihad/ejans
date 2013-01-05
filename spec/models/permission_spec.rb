@@ -83,14 +83,15 @@ describe Permission, focus: true do
       should_not allow "custom_fields/fields", "destroy"
     end
 
-    it "for views/base" do
-      should_not allow "views/base", "index"
-      should_not allow "views/base", "new"
-      should_not allow "views/base", "create"
-      should_not allow "views/base", "show"
-      should_not allow "views/base", "edit"
-      should_not allow "views/base", "update"
-      should_not allow "views/base", "destroy"
+    it "for node_type_views" do
+      should_not allow "node_type_views", "index"
+      should_not allow "node_type_views", "new"
+      should_not allow "node_type_views", "create"
+      should_not allow "node_type_views", "show"
+      should_not allow "node_type_views", "edit"
+      should_not allow "node_type_views", "update"
+      should_not allow "node_type_views", "destroy"
+      should_not allow "node_type_views", "sort"
     end
 
     it "for mailers" do
@@ -208,13 +209,13 @@ describe Permission, focus: true do
           should_not allow "custom_fields/fields", "sort", node_type
         end
 
-        it "for views/base" do
-          should_not allow "views/base", "index", node_type
-          should_not allow "views/base", "new", node_type
-          should_not allow "views/base", "create", node_type
-          should_not allow "views/base", "update", node_type
-          should_not allow "views/base", "destroy",node_type
-          should_not allow "views/base", "sort", node_type
+        it "for node_type_views" do
+          should_not allow "node_type_views", "index", node_type
+          should_not allow "node_type_views", "new", node_type
+          should_not allow "node_type_views", "create", node_type
+          should_not allow "node_type_views", "update", node_type
+          should_not allow "node_type_views", "destroy",node_type
+          should_not allow "node_type_views", "sort", node_type
         end
 
         it "for mailers" do
@@ -251,13 +252,13 @@ describe Permission, focus: true do
           should allow "custom_fields/fields", "sort", node_type
         end
 
-        it "for views/base" do
-          should allow "views/base", "index", node_type
-          should_not allow "views/base", "new", node_type
-          should_not allow "views/base", "create", node_type
-          should_not allow "views/base", "update", node_type
-          should_not allow "views/base", "destroy",node_type
-          should allow "views/base", "sort", node_type
+        it "for node_type_views" do
+          should allow "node_type_views", "index", node_type
+          should_not allow "node_type_views", "new", node_type
+          should_not allow "node_type_views", "create", node_type
+          should_not allow "node_type_views", "update", node_type
+          should_not allow "node_type_views", "destroy",node_type
+          should allow "node_type_views", "sort", node_type
         end
 
         it "for mailers" do
@@ -294,13 +295,13 @@ describe Permission, focus: true do
           should allow "custom_fields/fields", "sort", node_type
         end
 
-        it "for views/base" do
-          should allow "views/base", "index", node_type
-          should allow "views/base", "new", node_type
-          should allow "views/base", "create", node_type
-          should allow "views/base", "update", node_type
-          should allow "views/base", "destroy",node_type
-          should allow "views/base", "sort", node_type
+        it "for node_type_views" do
+          should allow "node_type_views", "index", node_type
+          should allow "node_type_views", "new", node_type
+          should allow "node_type_views", "create", node_type
+          should allow "node_type_views", "update", node_type
+          should allow "node_type_views", "destroy",node_type
+          should allow "node_type_views", "sort", node_type
         end
 
         it "for mailers" do

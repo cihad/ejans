@@ -53,6 +53,7 @@ tr:
     invalid_email: "Geçersiz email adresi"
 
   node_types:
+    default_label: "Başlık"
     node_types: "Listeler"
     search: "Ara"
     manage_all_nodes: "Girdileri yönet"
@@ -101,18 +102,27 @@ tr:
       truncate: "..."
       next: "Sonraki"
       last: "Son"
+
+  node_type_views:
+    pagination:
+      previous: "Önceki"
+      first: "İlk"
+      truncate: "..."
+      next: "Sonraki"
+      last: "Son"
     views: "Görünümler"
     view: "Görünüm"
     index: "İndeks"
     new: "Yeni görünüm ekle"
     edit: "Görünümü düzenle"
-    edit_node_view: "Girdi gösterimini düzenle"
     save: "Kaydet"
     destroy: "Sil"
-    node:
-      fill_a_sample_view: "Örnek bir gösterimle doldur"
-      sample_view_message: "Girdiğiniz tema yapisi bozulacak. Örnek veri ile doldurmak istediğinize emin misiniz?"
-      success_update: "Gösterim başarıyla kaydedildi."
+
+  node_views:
+    edit_node_view: "Girdi gösterimini düzenle"
+    fill_a_sample_view: "Örnek bir gösterimle doldur"
+    sample_view_message: "Girdiğiniz tema yapisi bozulacak. Örnek veri ile doldurmak istediğinize emin misiniz?"
+    success_update: "Gösterim başarıyla kaydedildi."
 
   mailers:
     mailer: "Postacı"

@@ -15,14 +15,14 @@
   <% end %>
 <% end %>
 
-<%= dropdown_tab t('views.views') do %>
-  <%= tab_item t('views.index'), node_type_views_views_path(@node_type) %>
-  <%= tab_item t('views.edit_node_view'), edit_node_type_views_node_path(@node_type) %>
-  <%= tab_item t('views.edit_place_page_view'), edit_node_type_views_place_page_path(@node_type) if @node_type.place_page_view %>
+<%= dropdown_tab t('node_type_views.views') do %>
+  <%= tab_item t('node_type_views.index'), node_type_node_type_views_path(@node_type) %>
+  <%= tab_item t('node_views.edit_node_view'), edit_node_type_node_view_path(@node_type) %>
+  <%= tab_item t('place_page_view.edit_place_page_view'), edit_node_type_place_page_view_path(@node_type) if @node_type.place_page_view %>
   <%= content_tag :li, nil, class: "divider" %>
-  <% @node_type.views.each do |view| %>
-    <%= tab_item view.type.to_s.humanize,
-          edit_node_type_views_view_path(@node_type, view) unless view.new_record? %>
+  <% @node_type.node_type_views.each do |node_type_view| %>
+    <%= tab_item "<i class='icon #{node_type_view.icon}'></i> #{t('node_type_views.view')}".html_safe,
+      edit_node_type_node_type_view_path(@node_type, node_type_view) unless node_type_view.new_record? %>
   <% end %>
 <% end %>
 

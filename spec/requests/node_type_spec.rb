@@ -40,7 +40,7 @@ describe "NodeType" do
     page.should have_content t('node_types.dashboard')
     page.should have_content t('node_types.configurations')
     page.should have_content t('fields.fields')
-    page.should have_content t('views.views')
+    page.should have_content t('node_type_views.views')
     page.should have_content t('mailers.mailer')
     page.should have_content t('nodes.nodes')
 

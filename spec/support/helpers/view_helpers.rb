@@ -6,7 +6,7 @@ module ViewHelpers
   end
 
   def make_custom_view(node_type)
-    node_type.views.build({}, Views::Custom).tap do |v|
+    node_type.node_type_views.build.tap do |v|
       v.user_input_node_type_template = custom_view_node_type_template
       v.user_input_node_template = custom_view_node_template(node_type)
       v.save

@@ -1,0 +1,12 @@
+<%= javascript 'aceajax/ace.js' %>
+
+<%= simple_form_for @place_page_view do |f| %>
+
+  <%= render 'shared/view_inputs/inputs/css', f: f %>
+  
+  <%= render 'shared/view_inputs/inputs/user_input_node_template', f: f %>
+
+  <div class="form_actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

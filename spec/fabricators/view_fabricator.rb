@@ -1,2 +1,2 @@
-Fabricator :node_view, class_name: "Views::Node" do
+Fabricator :node_view do
 end
