@@ -10,7 +10,7 @@
   <%= f.input :required, as: :boolean %>
   <%= f.input :hint %>
   <%= render "custom_fields/fields/types/#{@field.type}/configuration_form", f: f %>
-  <div class="form-actions">
+  <div class="form-actions page-bottom-actions">
     <%= f.button :submit %>
   </div>
 <% end %>
