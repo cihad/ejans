@@ -1,11 +1,11 @@
 Fabricator :mailer_template do
   title { Faker::Name.title }
   subject { Faker::Name.title }
-  template %q{
+  template %Q{
     <%= m.block do %>
-      <%= m.block_title Faker::Name.title %>
+      <%= m.title "#{Faker::Name.title}" %>
       <%= m.block_content do %>
-        <%= Faker::Lorem.paragraph %>
+        <p>#{Faker::Lorem.paragraph}</p>
       <% end %>
     <% end %>}
 end

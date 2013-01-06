@@ -1,9 +1,11 @@
 class Mailer
 
   include Mongoid::Document
+  include Workflow
 
   ## fields
   field :mailer_template_id, type: Moped::BSON::ObjectId
+  field :status
   
   ## assciations
   embedded_in :node_type
@@ -16,5 +18,14 @@ class Mailer
   def mailer_template
     node_type.mailer_templates.find(mailer_template_id)
   end
-  
+
+  workflow_column :status
+  workflow do
+    state :pending do
+      event :transport, :transitions_to => :sended
+    end
+
+    state :sended
+  end
+
 end

@@ -11,5 +11,8 @@ class MailerTemplate
 
   ## associations
   embedded_in :node_type
+
+  ## validtions
+  validates_presence_of :title, :subject, :template
   
 end

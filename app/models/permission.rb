@@ -16,6 +16,7 @@ class Permission
 
   def allow_for_everyone
     allow :errors, :not_found
+    allow :mailer_templates, :show
   end
 
   def anonymous
@@ -78,6 +79,12 @@ class Permission
 
     allow :mailers, [:new, :create, :edit, :update] do |node_type|
       node_type.super_administrator_id == user.id
+    end
+
+    # everyone: allow :mailer_templates, :show 
+    allow :mailer_templates, [:new, :create, :edit, :update, :destroy] do |node_type|
+      node_type.super_administrator_id == user.id or
+      node_type.administrator_ids.include?(user.id)
     end
 
     allow :potential_users, [:index, :new, :create, :destroy] do |node_type|

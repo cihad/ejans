@@ -15,6 +15,7 @@ describe Mailer do
   subject { mailer }
 
   it { should be_respond_to :mailer_template_id }
+  it { should be_respond_to :status }
   it { should be_respond_to :mailer_template }
   it { should be_valid }
 
@@ -29,6 +30,13 @@ describe Mailer do
 
   it "embbedded_in node_type" do
     subject._parent.should == node_type
+  end
+
+  it "workflow" do
+    subject.should be_pending
+    subject.save
+    subject.transport!
+    subject.should be_sended
   end
 
 

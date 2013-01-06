@@ -59,6 +59,11 @@ tr:
     configurations: "Ayarlar"
     delete_node_type: "Listeyi Sil"
 
+  mailer_templates:
+    successfully:
+      created: "Mail teması başarılı bir şekilde kaydedildi."
+      updated: "Mail teması başarılı bir şekilde güncellendi."
+
   nodes:
     node: "Girdi"
     nodes: "Girdiler"
