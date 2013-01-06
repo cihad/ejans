@@ -2,7 +2,7 @@
 <% provide :title, resource.email %>
 <% body_class "user-manage" %>
 
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
+<%= horizontal_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
 
   <legend>
     <%=t 'edit_user' %>
@@ -16,25 +16,18 @@
   </legend>
 
   <%#= devise_error_messages! %>
-  <%= error_messages_for resource %>
+  <%#= error_messages_for resource %>
 
-  <table class="table table-form">
-    <%= simple_email_field f, :email, label: { name: t('users.email') } %>
+  <%= f.input :email, as: :email %>
 
-    <%= simple_password_field f,
-          :password,
-          label: { name: t('devise.passwords.new_password') },
-          help: t('devise.registrations.leave_blank') %>
+  <%= f.input :password, as: :password %>
 
-    <%= simple_password_field f,
-          :password_confirmation,
-          label: { name: t('users.password_confirmation') } %>
+  <%= f.input :password_confirmation, as: :password %>
 
-    <%= simple_password_field f,
-          :current_password,
-          label: { name: t('devise.registrations.current_password') },
-          help: t('devise.registrations.confirm_current_password') %>
+  <%= f.input :current_password, as: :password %>
 
-    <%= simple_submit f, t('actions.update')  %>
-  </table>
+  <div class="form-actions page-bottom-actions">
+    <%= f.button :submit %><%#, t('actions.update')  %>
+  </div>
+
 <% end %>

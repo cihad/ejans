@@ -1,15 +1,18 @@
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+<%= horizontal_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
   <legend><%=t 'users.signup' %></legend>
 
   <%#= devise_error_messages! %>  
-  <%= error_messages_for resource %>
+  <%#= error_messages_for resource %>
 
-  <table class="table table-form">
-    <%= simple_email_field    f, :email, label: { name: t('users.email') } %>
-    <%= simple_password_field f, :password, label: { name: t('users.password') } %>
-    <%= simple_password_field f, :password_confirmation, label: { name: t('users.password_confirmation') } %>
-    <%= simple_submit f, t('users.signup') %>
-  </table>
+  <%= f.input :email, as: :email %>
+  <%= f.input :password, as: :password, hint: false %>
+  <%= f.input :password_confirmation, as: :password %>
+
+  <div class="control-group">
+    <div class="controls">
+      <%= f.button :submit, t('users.signup') %>
+    </div>
+  </div>
 <% end %>
 
 <%= render "devise/shared/links" %>

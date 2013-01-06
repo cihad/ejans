@@ -44,10 +44,6 @@ tr:
     passwords:
       confirm_new_password: "Yeni parolayı tekrarla"
       change: "Parolayı değiştir"
-    registrations:
-      leave_blank: "Değiştirmek istemiyorsanız boş bırakın."
-      current_password: "Şu anki parolanız"
-      confirm_current_password: "Değişiklikleri kaydedebilmek için şu anki parolanızı girmelisiniz."
 
   visitors:
     invalid_email: "Geçersiz email adresi"
@@ -262,6 +258,12 @@ tr:
         tag: "Etiket"
         emails: "Email adresleri"
 
+      user:
+        email: "Eposta"
+        password: "Parola"
+        password_confirmation: "Parola tekrar"
+        current_password: "Şu anki parolanız"
+
 
     hints:
       node_type:
@@ -280,6 +282,9 @@ tr:
         childs: "Her satıra bir kategori gelecek şekilde giriniz."
       potential_users:
         emails: "Her satıra bir email adresi gelecek şekilde giriniz."
+      user:
+        password: "Değiştirmek istemiyorsanız boş bırakın."
+        current_password: "Değişiklikleri kaydedebilmek için şu anki parolanızı girmelisiniz."
 
     options:
       node_type:
