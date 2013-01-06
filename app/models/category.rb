@@ -4,7 +4,7 @@ class Category
   include Mongoid::Tree::Traversal
   include Ejans::TreeLevels
 
-  attr_accessor :childs
+  attr_reader :childs
 
   ## fields
   field :name, type: String
@@ -14,21 +14,22 @@ class Category
 
   ## callbacks
   before_destroy :delete_descendants
+  after_save :create_child_categories
 
   def level
-    ancestors.size
-  end
-
-  def level_by_place(place)
-    level - place.level
+    parent_ids.size
   end
 
   def childs=(text)
-    text.split("\r\n").each do |name|
-      unless name.blank?
-        taxonomy = self.class.new(name: name, parent: self)
-        taxonomy.save
-      end
+    @childs = text.split("\n").map(&:strip).reject(&:blank?)
+  end
+
+private
+  
+  def create_child_categories
+    Array(childs).each do |name|
+      self.class.find_or_create_by(parent: self, name: name)
     end
   end
+
 end
