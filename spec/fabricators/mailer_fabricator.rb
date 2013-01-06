@@ -1,0 +1,2 @@
+Fabricator :mailer do
+end
