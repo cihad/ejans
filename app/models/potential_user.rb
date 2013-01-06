@@ -1,9 +1,13 @@
 class PotentialUser
   include Mongoid::Document
   include Mongoid::Timestamps::Created
+
+  ## fields
   field :email
-  validates_format_of :email, with: Devise.email_regexp
   field :tags, type: Array, default: []
+
+  ## validations
+  validates_format_of :email, with: Devise.email_regexp
 
   def self.create_potential_users(params)
     tags = params[:tag].split(',')

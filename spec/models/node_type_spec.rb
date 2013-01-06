@@ -105,6 +105,16 @@ describe NodeType do
     subject.administrators.should be_include user
   end
 
+  it ".sort_by_nodes_count" do
+    Fabricate(:node, node_type: subject)
+    subject.save
+
+    node_type = Fabricate(:node_type)
+
+    subject.class.sort_by_nodes_count.to_a.should == [subject, node_type]
+    subject.class.sort_by_nodes_count(:asc).to_a.should == [node_type, subject]
+  end
+
   describe "#nodes" do
     it "have 0 node" do
       subject.should have(0).nodes
@@ -152,23 +162,63 @@ describe NodeType do
   end
 
   describe "#node_type_views" do
+    it "have 0 item" do
+      subject.node_type_views.should have(0).items
+    end
+
+    it "have 1 item" do
+      subject.save
+      Fabricate(:node_type_view, node_type: subject)
+      subject.node_type_views.should have(1).items
+    end
   end
 
   describe "#node_view" do
+    it "doesnt be blank" do
+      subject.node_view.should_not be_nil
+    end
   end
 
   describe "#mailer_templates" do
+    it "have 0 item" do
+      subject.mailer_templates.should have(0).items
+    end
+
+    it "have 1 item" do
+      subject.save
+      Fabricate(:mailer_template, node_type: subject)
+      subject.mailer_templates.should have(1).items
+    end
   end
 
   describe "#mailers" do
+    it "have 0 item" do
+      subject.mailers.should have(0).items
+    end
+
+    it "have 1 item" do
+      mailer_template = Fabricate(:mailer_template, node_type: subject)
+      potential_user = Fabricate(:potential_user)
+      subject.potential_users << potential_user
+      Mailer.new.tap do |mailer|
+        mailer.mailer_template_id = mailer_template.id
+        mailer.node_type = subject
+        mailer.potential_user_ids = subject.potential_user_ids
+      end.save
+
+      subject.mailers.should have(1).items
+    end
   end
 
   describe "#potential_users" do
-  end
+    it "have 0 item" do
+      subject.potential_users.should have(0).items
+    end
 
-  describe "scopes" do
-  end
-
-  describe "#nodes_custom_fields" do
+    it "have 1 item" do
+      pu = Fabricate(:potential_user)
+      subject.potential_users << pu
+      subject.potential_users.should have(1).items
+    end
   end
 end

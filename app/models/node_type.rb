@@ -45,7 +45,7 @@ class NodeType
   belongs_to  :super_administrator, class_name: "User", inverse_of: :own_node_types
 
   # Scopes
-  scope :sort_by_nodes_count, asc(:nodes_count)
+  scope :sort_by_nodes_count, ->(dir = :desc) { send(dir, :nodes_count) }
 
   # Class Methods
   def self.search(search = nil)
