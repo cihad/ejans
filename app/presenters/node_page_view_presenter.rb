@@ -9,9 +9,15 @@ class NodePageViewPresenter
     yield self if block_given?
   end
 
-  delegate :css, :js, :user_input_node_template, :node_type_template, to: :node_view
+  delegate :css, :js, :user_input_node_template, to: :node_view
   
   alias :h :template
+
+  def wrapper
+    %q{<div class='node'>
+      <%= node %>
+    </div>}
+  end
 
   def rendered_css
     h.content_tag :style, css, type: Mime::CSS
@@ -30,7 +36,7 @@ class NodePageViewPresenter
   end
 
   def to_s
-    h.render inline: node_type_template, locals: { node: rendered_node }
+    h.render inline: wrapper, locals: { node: rendered_node }
   end
 
 private
