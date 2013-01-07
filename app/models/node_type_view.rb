@@ -17,7 +17,7 @@ class NodeTypeView
   embedded_in :node_type
 
   ## validations
-  validates_presence_of :user_input_node_template, :user_input_node_type_template
+  validates_presence_of :user_input_node_template
   validate :view_count
   
   ## scopes
