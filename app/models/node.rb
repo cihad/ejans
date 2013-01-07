@@ -45,6 +45,7 @@ class Node
 
   # Indexes
   index title: 1
+  index status: 1
 
   { integer: 4,
     string: 3,

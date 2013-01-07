@@ -116,7 +116,7 @@ class NodeType
       end
     end
   end
-  
+
   # TODO: this is a presenter method
   def node_template_attrs
     ["node"] +
