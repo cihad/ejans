@@ -9,7 +9,7 @@ class PlaceObserver < Mongoid::Observer
     search += ", #{place.parent.try(:name)}" if place.parent.present?
     geo = Geocoder.search(search).first
     if geo.try(:longitude) and geo.try(:latitude)
-      place.coordinates = [geo.longitude, geo.latitude]
+      place.lng_lat = [geo.longitude, geo.latitude]
     end
   end
 end

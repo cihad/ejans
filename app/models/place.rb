@@ -5,17 +5,17 @@ class Place
   include Mongoid::FullTextSearch
   include Ejans::TreeLevels
 
-  attr_accessor :childs
+  attr_reader :childs
 
   ## fields
-  field :coordinates, type: Array
+  field :lng_lat, type: Array
   field :name, type: String
 
   ## validations
   validates_presence_of :name
 
   ## indexes
-  index({ coordinates: "2d" })
+  index({ lng_lat: "2d" })
 
   ## behaviours
   fulltext_search_in :name
@@ -23,20 +23,15 @@ class Place
   ## scopes
   default_scope order_by([:name, :asc])
 
-  def lat_lng
-    to_coordinates
-  end
+  ## callbacks
+  after_save :create_child_places
 
-  def lng_lat
-    coordinates
+  def lat_lng
+    lng_lat.reverse
   end
 
   def level
-    ancestors.size
-  end
-
-  def level_by_place(place)
-    level - place.level
+    parent_ids.size
   end
 
   def self.world
@@ -44,7 +39,7 @@ class Place
   end
 
   def set_geocode?
-    name_changed? or coordinates.blank?
+    name_changed? or lng_lat.blank?
   end
 
   def hierarchical_name
@@ -52,20 +47,15 @@ class Place
   end
 
   def childs=(text)
-    text.split("\r\n").each do |name|
-      unless name.blank?
-        place = Place.new(name: name, parent: self)
-        place.save
-      end
-    end
+    @childs = text.split("\n").map(&:strip).reject(&:blank?)
   end
 
-  def self.default_coordinates
+  def self.default_lng_lat
     [35.243322, 38.963745]
   end
 
   def self.default_place
-    near_sphere(coordinates: default_coordinates).first
+    near_sphere(lng_lat: default_lng_lat).first
   end
 
   def nodes
@@ -84,5 +74,13 @@ class Place
               node_type_query.selector,
               BlankCriteria.new.where(status: "published").selector)
     Node.where(query.selector)
+  end
+
+private
+  
+  def create_child_places
+    Array(childs).each do |name|
+      self.class.find_or_create_by(parent: self, name: name)
+    end
   end
 end

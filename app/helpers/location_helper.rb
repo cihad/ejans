@@ -1,43 +1,43 @@
 module LocationHelper
   def find_place
-    @place = Place.near_sphere(coordinates: coordinates).first
+    @place = Place.near_sphere(lng_lat: lng_lat).first
   end
 
-  def coordinates
-    @coordinates ||=  get_coordinates_from_cookie ||
-                      get_coordinates_from_request ||
-                      Place.default_coordinates
+  def lng_lat
+    @lng_lat ||=  get_lng_lat_from_cookie ||
+                  get_lng_lat_from_request ||
+                  Place.default_lng_lat
   end
 
-  def coordinates_cookie_present?
-    cookies[:coordinates].present?
+  def lng_lat_cookie_present?
+    cookies[:lng_lat].present?
   end
 
-  def create_coordinates_cookie(coordinates = [])
-    cookies[:coordinates] = coordinates.join('|')
-    coordinates.map(&:to_f)
+  def create_lng_lat_cookie(lng_lat = [])
+    cookies[:lng_lat] = lng_lat.join('|')
+    lng_lat.map(&:to_f)
   end
 
-  def get_coordinates_from_cookie
-    cookies[:coordinates].split('|').map(&:to_f) if cookies[:coordinates].present?
+  def get_lng_lat_from_cookie
+    cookies[:lng_lat].split('|').map(&:to_f) if cookies[:lng_lat].present?
   end
 
-  def get_coordinates_from_request
+  def get_lng_lat_from_request
     # request.location is dependency by GeoCoder
     location = request.location
     lat = location.latitude
-    lon = location.longitude
+    lng = location.longitude
     unless (lat != "0" or lat.blank?) and (lon != "0" or lon.blank?)
-      create_coordinates_cookie([lat, lon])
-      [lat, lon]
+      create_lng_lat_cookie([lng, lat])
+      [lng, lat]
     end
   end
 
   def set_place(place)
-    create_coordinates_cookie(place.coordinates)
+    create_lng_lat_cookie(place.lng_lat)
   end
 
   def current_place
-    Place.near_sphere(coordinates: coordinates).first
+    Place.near_sphere(lng_lat: lng_lat).first
   end
 end
