@@ -42,8 +42,8 @@ describe Place do
     descendant_place.level.should == 2
   end
 
-  it "#childs=" do
-    subject.childs = %q{
+  it "#child_nodes=" do
+    subject.child_nodes = %q{
       A Sample Place
       Other Sample Place
     }

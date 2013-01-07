@@ -1,6 +1,9 @@
-Fabricator :unconfirmed_user, class_name: "User" do
+Fabricator :anonymous_user, class_name: "User" do
   email { Faker::Internet.email }
   password "123456"
+end
+
+Fabricator :unconfirmed_user, from: :anonymous_user do
   role "registered"
 end
 

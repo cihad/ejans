@@ -6,7 +6,7 @@ describe Place do
     let(:path) { places_path }
   end
   
-  describe "adds a place", js: true do
+  describe "adds a place" do
     let(:admin) { Fabricate(:admin) }
     let(:place_attributes) { valid_attrinutes_for :place }
 
@@ -15,17 +15,17 @@ describe Place do
       visit places_path
     end
 
-    specify js: false do
+    specify do
       current_path.should eq(places_path)
     end
 
-    specify do
+    specify js: true do
       click_link t('places.add_place')
       countries = 3.times.inject([]) { |arr, _| arr << Faker::Address.country }
 
       within("#new_place") do
         fill_in "place_name", with: "World"
-        fill_in "place_childs", with: countries.join("\n")
+        fill_in "place_child_nodes", with: countries.join("\n")
         click_button t('helpers.submit.create')
       end
 

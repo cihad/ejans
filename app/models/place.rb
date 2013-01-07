@@ -3,13 +3,11 @@ class Place
   include Mongoid::Tree
   include Mongoid::Tree::Traversal
   include Mongoid::FullTextSearch
-  include Ejans::TreeLevels
-
-  attr_reader :childs
+  include Ejans::Tree
 
   ## fields
   field :lng_lat, type: Array
-  field :name, type: String
+  field :name
 
   ## validations
   validates_presence_of :name
@@ -23,15 +21,8 @@ class Place
   ## scopes
   default_scope order_by([:name, :asc])
 
-  ## callbacks
-  after_save :create_child_places
-
   def lat_lng
     lng_lat.reverse
-  end
-
-  def level
-    parent_ids.size
   end
 
   def self.world
@@ -44,10 +35,6 @@ class Place
 
   def hierarchical_name
     ancestors.map(&:name).push(name).join(' > ')
-  end
-
-  def childs=(text)
-    @childs = text.split("\n").map(&:strip).reject(&:blank?)
   end
 
   def self.default_lng_lat
@@ -76,11 +63,4 @@ class Place
     Node.where(query.selector)
   end
 
-private
-  
-  def create_child_places
-    Array(childs).each do |name|
-      self.class.find_or_create_by(parent: self, name: name)
-    end
-  end
 end

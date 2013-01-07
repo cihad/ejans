@@ -17,7 +17,6 @@ describe Category do
 
 
   it { should respond_to :name }
-  it { should respond_to :childs }
   it { should be_valid }
 
   it "#name validation" do
@@ -26,11 +25,13 @@ describe Category do
   end
 
   it "#level" do
+    root_category.level.should == 0
     subject.level.should == 1
+    descendant_category.level.should == 2
   end
 
-  it "#childs=" do
-    subject.childs = %q{
+  it "#child_nodes=" do
+    subject.child_nodes = %q{
       A Sample Category
       Other Sample Category
     }
