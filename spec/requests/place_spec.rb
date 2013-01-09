@@ -6,7 +6,7 @@ describe Place do
     let(:path) { places_path }
   end
   
-  describe "adds a place" do
+  describe "adds a place", js: true do
     let(:admin) { Fabricate(:admin) }
     let(:place_attributes) { valid_attrinutes_for :place }
 
@@ -19,8 +19,9 @@ describe Place do
       current_path.should eq(places_path)
     end
 
-    specify js: true do
+    specify do
       click_link t('places.add_place')
+
       countries = 3.times.inject([]) { |arr, _| arr << Faker::Address.country }
 
       within("#new_place") do
@@ -36,7 +37,7 @@ describe Place do
 
       countries.each do |country|
         page.should have_link country
-        find('li .place', text: country).find('.add-child-items').click
+        find('li .place', text: country).find('.add-child-nodes').click
         find('.uneditable-input').text.should eq "World"
         find_field(t 'simple_form.labels.place.name').value.should eq country
         find('.btn-close').click

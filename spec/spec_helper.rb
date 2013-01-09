@@ -15,11 +15,13 @@ RSpec.configure do |config|
   config.run_all_when_everything_filtered = true
 
   config.include Capybara::DSL
-  config.include TestHelpers
-  config.include SessionHelpers
-  config.include NodeTypeHelpers
-  config.include NodeHelpers
-  config.include ViewHelpers
+  config.include Devise::TestHelpers, :type => :controller
+  config.include ControllerMacros, :type => :controller
+  config.include TestHelpers, type: :request
+  config.include SessionHelpers, type: :request
+  config.include NodeTypeHelpers, type: :request
+  config.include NodeHelpers, type: :request
+  config.include ViewHelpers, type: :request
 
   # Clean up all collections before each spec runs.
   config.before do

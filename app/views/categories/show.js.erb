@@ -1,0 +1,3 @@
+if ( $('#<%= dom_id @node %> ul').size() == 0 ) {
+  $('#<%= dom_id @node %>').append("<%=j render 'trees/list', nodes: @node.children %>");
+}

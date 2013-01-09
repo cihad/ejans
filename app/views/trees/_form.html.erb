@@ -1,7 +1,7 @@
-<%= horizontal_form_for @parent_item do |f| %>
-  <% unless @parent_item.root? %>
+<%= horizontal_form_for @node do |f| %>
+  <% unless @node.root? %>
     <%= f.input :parent_node_name do %>
-      <span class="span4 uneditable-input"><%= @parent_item.parent.name %></span>
+      <span class="span4 uneditable-input"><%= @node.parent.name %></span>
     <% end %>
   <% end %>
 

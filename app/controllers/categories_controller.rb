@@ -1,56 +1,51 @@
 class CategoriesController < ApplicationController
-  respond_to :js, only: [:index, :destroy]
+
+  respond_to :js, only: [:edit, :show, :new, :destroy]
 
   layout 'small', only: [:index]
 
-  before_filter :category, only: [:show, :edit, :update, :destroy]
-
-  def show
+  def index
+    @nodes = Category.roots
   end
 
-  def index
-    @items = Category.roots
-    @event = params[:event] if params[:event]
-    case @event
-    when "show"
-      @parent_item = Category.find(params[:parent_item_id])
-      @child_items = @parent_item.children
-    when "add_child_items"
-      @parent_item = Category.find(params[:parent_item_id])
-    when "add_item"
-      @parent_item = Category.new
-    end
+  def show
+    @node = Category.find(params[:id])
+    respond_with @node
+  end
+
+  def edit
+    @node = Category.find(params[:id])
+    respond_with @node
+  end
+
+  def new
+    @node = Category.new
+    respond_with @node
   end
 
   def create
-    @category = Category.new(params[:category])
+    @node = Category.new(params[:category])
 
-    if @category.save
+    if @node.save
       redirect_to categories_path, notice: 'Successfully created.'
     else
       redirect_to categories_path, alert: 'Wrooongg.'
     end
   end
 
-  def edit
-  end
-
   def update
-    if @category.update_attributes(params[:category])
+    @node = Category.find(params[:id])
+
+    if @node.update_attributes(params[:category])
       redirect_to categories_path
     else
-      redirect_to categories_path(parent_category_id: params[:parent_category_id])
+      redirect_to categories_path
     end
   end
 
   def destroy
-    @category.destroy
+    @node = Category.find(params[:id])
+    @node.destroy
+    respond_with @node
   end
-
-private
-
-  def category
-    @category = Category.find(params[:id])
-  end
-
 end

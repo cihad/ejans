@@ -1,0 +1,21 @@
+<% singularize_name = node.class.name.downcase %>
+<% pluralize_name = singularize_name.pluralize %>
+
+<%= content_tag_for :li, node, class: "node" do %>
+
+  <!-- show link -->
+  <%= link_to node.name, send("#{singularize_name}_path", node), remote: true %>
+
+  <span class="controls">
+
+    <!-- edit link -->
+    <%= link_to send("edit_#{singularize_name}_path", node.id), remote: true, class: "add-child-nodes" do %>
+      <%= content_tag :i, nil, class: " icon-indent-left" %>
+    <% end %>
+
+    <!-- delete link -->
+    <%= link_to send("#{singularize_name}_path", node), remote: true, method: :delete, confirm: "Are you sure?", class: "delete-node" do %>
+      <%= content_tag :i, nil, class: " icon-remove" %>
+    <% end %>
+  </span>
+<% end %>

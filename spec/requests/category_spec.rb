@@ -18,9 +18,11 @@ describe Category do
       click_link t('categories.add_category')
       categories = 3.times.inject([]) { |arr, _| arr << Faker::Lorem.word.capitalize }
 
+      binding.pry
+
       within("#new_category") do
         fill_in "category_name", with: "A Category"
-        fill_in "category_childs", with: categories.join("\n")
+        fill_in "category_child_nodes", with: categories.join("\n")
         click_button t('helpers.submit.create')
       end
 
@@ -31,10 +33,10 @@ describe Category do
 
       categories.each do |category|
         page.should have_link category
-        list = all('.items li .category').find { |list| list.text == category }
-        list.find('.controls a.add-child-items').click
+        list = all('.nodes li .category').find { |list| list.text == category }
+        list.find('.controls a.add-child-nodes').click
         find('.uneditable-input').text.should eq "A Category"
-        find_field(t 'categories.name').value.should eq category
+        find_field(t 'simple_form.labels.category.name').value.should eq category
         find('.btn-close').click
       end
     end

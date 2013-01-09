@@ -1,55 +1,52 @@
 class PlacesController < ApplicationController
-  respond_to :js, only: [:index]
+
+  respond_to :js, only: [:show, :edit, :new, :destroy]
+
   layout 'small', only: [:index]
   
-  def show
-    @place = Place.find(params[:id])
+  def index
+    @nodes = Place.roots
   end
 
-  def index
+  def show
+    @node = Place.find(params[:id])
+    respond_with @node
+  end
 
-    @items = Place.roots
-    @event = params[:event] if params[:event]
-    case @event
-    when "show"
-      @parent_item = Place.find(params[:parent_item_id])
-      @child_items = @parent_item.children
-    when "add_child_items"
-      @parent_item = Place.find(params[:parent_item_id])
-    when "add_item"
-      @parent_item = Place.new
-    end
+  def edit
+    @node = Place.find(params[:id])
+    respond_with @node
+  end
+
+  def new
+    @node = Place.new
+    respond_with @node
   end
 
   def create
-    @place = Place.new(params[:place])
+    @node = Place.new(params[:place])
 
-    if @place.save
+    if @node.save
       redirect_to places_path, notice: 'Successfully created.'
     else
       redirect_to places_path, alert: 'Wrooongg.'
     end
   end
 
-  def edit
-    @place = Place.find(params[:id])
-  end
-
   def update
-    @place = Place.find(params[:id])
+    @node = Place.find(params[:id])
 
-    if @place.update_attributes(params[:place])
+    if @node.update_attributes(params[:place])
       redirect_to places_path
     else
-      redirect_to places_path(parent_place_id: params[:parent_place_id])
+      redirect_to places_path
     end
   end
 
   def destroy
-    @place = Place.find(params[:id])
-    if @place.destroy
-      redirect_to places_path, notice: 'Successfully destroyed.'
-    end
+    @node = Place.find(params[:id])
+    @node.destroy
+    respond_with @node
   end
 
   def find_by_name
