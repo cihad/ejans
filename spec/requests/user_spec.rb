@@ -30,14 +30,21 @@ describe User do
       let(:user) { Fabricate(:user) }
 
       it "sign in" do
-        signin user
+        visit signin_path
+        fill_in "user_email", with: user.email
+        fill_in "user_password", with: "123456"
+        click_button I18n.t('sessions.signin')
+
         page.should have_content t('devise.sessions.signed_in')
         page.should have_content t('sessions.signout')
       end
 
       it "signout" do
         signin user
-        signout user
+
+        click_link user.email
+        click_link I18n.t('sessions.signout')
+        
         page.should_not have_content t('sessions.signout')
         page.should have_content t('devise.sessions.signed_out')
       end
@@ -47,13 +54,23 @@ describe User do
       let(:user) { Fabricate(:user) }
 
       it "doesnt signin with unvalid email" do
-        signin_with "incorrect_email@example.com"
+        visit signin_path
+        fill_in "user_email", with: "incorrect_email@example.com"
+        fill_in "user_password", with: "123456"
+
+        click_button I18n.t('sessions.signin')
+
         page.should_not have_content t('sessions.signout')
         page.should_not have_content t('sessions.signed_in')
       end
 
       it "doesnt signin with valid email and unvalid password" do
-        signin_with user.email, "unvalid_password"
+        visit signin_path
+        fill_in "user_email", with: user.email
+        fill_in "user_password", with: "invalid_password"
+
+        click_button I18n.t('sessions.signin')
+
         page.should_not have_content t('sessions.signout')
         page.should_not have_content t('sessions.signed_in')
       end

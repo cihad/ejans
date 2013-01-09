@@ -16,7 +16,7 @@ RSpec.configure do |config|
 
   config.include Capybara::DSL
   config.include Devise::TestHelpers, :type => :controller
-  config.include ControllerMacros, :type => :controller
+  config.include ControllerHelpers, :type => :controller
   config.include TestHelpers, type: :request
   config.include SessionHelpers, type: :request
   config.include NodeTypeHelpers, type: :request

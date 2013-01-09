@@ -1,4 +1,4 @@
-module ControllerMacros
+module ControllerHelpers
   def signin(user)
     @request.env["devise.mapping"] = Devise.mappings[:user]
     sign_in user
