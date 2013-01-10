@@ -58,6 +58,7 @@ tr:
     dashboard: "Kontrol Paneli"
     configurations: "Ayarlar"
     delete_node_type: "Listeyi Sil"
+    created: "Eklenme tarihi"
 
   mailer_templates:
     successfully:

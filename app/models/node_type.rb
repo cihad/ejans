@@ -150,7 +150,7 @@ class NodeType
   def sort_data
     hash = {
       title: title_label,
-      created_at: I18n.t('global.created')
+      created_at: I18n.t('node_types.created')
     }
 
     sortable_fields.each do |field|

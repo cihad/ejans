@@ -50,17 +50,18 @@ class SortLinksPresenter
       icon = icon_for(machine_name)
       url = sort_url(machine_name, direction_for(machine_name))
 
-      output << iconic_link_to(label, icon, url, class: link_class)
+      output << iconic_link_to(label, icon, url, link_class)
       output
     end.html_safe
   end
 
-  def iconic_link_to(text = "", icon = "", *args)
-    url = args.shift
-    link_to url, *args do
-      content_tag(:i, nil, class: icon) if icon.present?
-      content_tag(:span, text) if text.present?
-    end
+  def iconic_link_to(text = "", icon = "", url = "", link_class)
+    %Q{
+      <a href="#{url}" class="#{link_class}">
+        <i class="#{icon}"></i>
+        #{text}
+      </a>
+    }
   end
 
   def method_missing(method, *args)
