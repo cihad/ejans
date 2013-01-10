@@ -1,11 +1,10 @@
-<%= content_tag :div, id: field.machine_name do %>
-  <%= field.f.input field.list_item_ids_name,
-                    collection: field.field.options.map { |o| [o.name, o.id]},
-                    hint: field.hint,
-                    label: field.label,
-                    as: :select,
-                    multiple: (field.maximum_select == 1 ? false : true),
-                    include_blank: false,
-                    input_html: {class: field.machine_name} %>
-  <%= multiselect ".#{field.machine_name}" unless field.maximum_select == 1 %>
-<% end %>
+<%= field.f.input field.list_item_ids_name,
+                  collection: field.field.options.map { |o| [o.name, o.id]},
+                  wrapper_html: { id: field.machine_name }
+                  hint: field.hint,
+                  label: field.label,
+                  as: :select,
+                  multiple: (field.maximum_select == 1 ? false : true),
+                  include_blank: false,
+                  input_html: {class: field.machine_name} %>
+<%= multiselect ".#{field.machine_name}" unless field.maximum_select == 1 %>
