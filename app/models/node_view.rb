@@ -8,6 +8,8 @@ class NodeView
   field :user_input_node_template,
         default: %q{<h3><%= node.title %></h3>}
 
+  alias :node_template :user_input_node_template
+
   ## validations
   validates_presence_of :user_input_node_template
 
