@@ -1,8 +1,10 @@
 class ImagesController < ApplicationController
+
   before_filter :node_type
   before_filter :node
   before_filter :images, only: [:destroy, :sort]
   respond_to :js
+
   include ControllerHelper
 
   def update
@@ -15,6 +17,7 @@ class ImagesController < ApplicationController
   def destroy
     @image = @images.find(params[:id])
     @image.destroy
+    render nothing: true
   end
 
   def sort

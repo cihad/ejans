@@ -1,110 +1,111 @@
 <%= field.f.input field.form_key, label: field.label, hint: field.hint do %>
 
-    <div class="fileupload-buttonbar clearfix">
-      <div class="btn-group pull-left">
-        <span class="btn fileinput-button" style="margin-right: 0;">
-          <i class="icon-picture"></i>
-          <%=t 'images.add' %>
-          <%= field.f.file_field field.form_key, multiple: true, name: "node[#{field.machine_name}]" %>
-        </span>
+  <div class="fileupload-buttonbar clearfix">
+    <div class="btn-group">
+      <span class="btn fileinput-button" style="margin-right: 0;">
+        <i class="icon-picture"></i>
+        <%=t 'images.add' %>
+        <%= field.f.file_field field.form_key, multiple: true, name: "node[#{field.machine_name}]" %>
+      </span>
 
-        <button type="submit" class="btn start">
-          <i class="icon-play"></i>
-          <%=t 'images.start_upload' %>
-        </button>
-      </div>
-
-      <div class="progress progress-success progress-striped active fade heighted">
-        <div class="bar" style="width:0%;"></div>
-      </div>
+      <button type="submit" class="btn start">
+        <i class="icon-play"></i>
+        <%=t 'images.start_upload' %>
+      </button>
     </div>
 
-    <ul class="images files">
-      <%= content_tag_for :li, field.value, class: "template-download fade in" do |image| %>
-        <div class="image-thumb">
-          <span class="preview">
-            <%= image_tag image.image_url(:thumb) %>
-          </span>
-        </div>
+    <div class="progress progress-success progress-striped active fade heighted">
+      <div class="bar" style="width:0%;"></div>
+    </div>
+  </div>
 
-        <div class="controls">
-          <span class="delete">
-            <button class="btn btn-mini btn-danger"
-                    data-type="DELETE"
-                    data-url="<%= ImagePresenter.new(image).destroy_path %>">
-              <i class="icon-trash"></i>
-            </button>
-          </span>
-        </div>
-      <% end %>
-    </ul>
-
-<% end %>
-    
-
-<script id="template-upload" type="text/x-tmpl">
-  {% for (var i=0, file; file=o.files[i]; i++) { %}
-    <li class="template-upload fade fields_image not-uploaded">
-      
-
+  <ul class="images files">
+    <%= content_tag_for :li, field.value, class: "template-download fade in" do |image| %>
       <div class="image-thumb">
         <span class="preview">
-          <span class="fade"></span>
-        </span>
-      </div>
-
-      <div class="controls on-hover">
-        <span class="start">
-          {% if (!o.options.autoUpload) { %}
-            <button class="btn btn-mini"><%=t 'actions.start' %></button>
-          {% } %}
-        </span>
-
-        <span class="cancel">
-          {% if (!i) { %}
-            <button class="btn btn-mini"><%=t 'actions.cancel' %></button>
-          {% } %}
-        </span>
-      </div>
-
-    </li>
-  {% } %}
-</script>
-
-<script id="template-download" type="text/x-tmpl">
-  {% for (var i=0, file; file=o.files[i]; i++) { %}
-    <li class="template-download fade fields_image">
-      <div class="image-thumb">
-        <span class="preview">
-          <a  href="{%=file.url%}"
-              title="{%=file.name%}"
-              rel="gallery"
-              download="{%=file.name%}">
-            <img src="{%=file.url%}">
-          </a>
+          <%= image_tag image.image_url(:thumb) %>
         </span>
       </div>
 
       <div class="controls">
         <span class="delete">
           <button class="btn btn-mini btn-danger"
-                  data-type="{%=file.delete_type%}"
-                  data-url="{%=file.delete_url%}">
+                  data-type="DELETE"
+                  data-url="<%= ImagePresenter.new(image).destroy_path %>">
             <i class="icon-trash"></i>
           </button>
         </span>
       </div>
-    </li>
-  {% } %}
-</script>
+    <% end %>
+  </ul>
 
-<script type="text/javascript" charset="utf-8">
-  $(function () {
-    // Initialize the jQuery File Upload widget:
-    $('#edit_node').fileupload({
-      url: "<%= add_image_node_type_node_images_path(@node_type.id, @node.id, machine_name: field.machine_name) %>",
-      previewMaxWidth: 96,
-      previewMaxHeight: 72
+  <script id="template-upload" type="text/x-tmpl">
+    {% for (var i=0, file; file=o.files[i]; i++) { %}
+      <li class="template-upload fade fields_image not-uploaded">
+        
+
+        <div class="image-thumb">
+          <span class="preview">
+            <span class="fade"></span>
+          </span>
+        </div>
+
+        <div class="image-controls on-hover">
+          <span class="start">
+            {% if (!o.options.autoUpload) { %}
+              <button class="btn btn-mini"><i class="icon-play"></i></button>
+            {% } %}
+          </span>
+
+          <span class="cancel">
+            {% if (!i) { %}
+              <button class="btn btn-mini"><i class="icon-remove"></i></button>
+            {% } %}
+          </span>
+        </div>
+
+      </li>
+    {% } %}
+  </script>
+
+  <script id="template-download" type="text/x-tmpl">
+    {% for (var i=0, file; file=o.files[i]; i++) { %}
+      <li class="template-download fade fields_image">
+        <div class="image-thumb">
+          <span class="preview">
+            <a  href="{%=file.url%}"
+                title="{%=file.name%}"
+                rel="gallery"
+                download="{%=file.name%}">
+              <img src="{%=file.url%}">
+            </a>
+          </span>
+        </div>
+
+        <div class="image-controls">
+          <span class="delete">
+            <button class="btn btn-mini btn-danger"
+                    data-type="{%=file.delete_type%}"
+                    data-url="{%=file.delete_url%}">
+              <i class="icon-trash"></i>
+            </button>
+          </span>
+        </div>
+      </li>
+    {% } %}
+  </script>
+
+  <script type="text/javascript" charset="utf-8">
+    $(function () {
+      // Initialize the jQuery File Upload widget:
+      $('#edit_node').fileupload({
+        url: "<%= add_image_node_type_node_images_path(@node_type.id, @node.id, machine_name: field.machine_name) %>",
+        previewMaxWidth: 96,
+        previewMaxHeight: 72
+      });
     });
-  });
-</script>
+  </script>
+
+  
+<% end %>
+    

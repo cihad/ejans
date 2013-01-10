@@ -3,16 +3,6 @@
   margin: 0;
   padding: 0;
 
-  .loading {
-    width: 106px;
-    height: 82px;
-    z-index: 2;
-    left: 0;
-    top: 0;
-    position: absolute;
-    background: image-url('images/ajax-loader.gif') center center no-repeat;
-  }
-
   .handle-move { cursor: move; }
 
   li {
@@ -23,15 +13,15 @@
     width: 96px;
     height: 72px;
     text-align: right;
-    background: #f0f0f0;
+    background: #ccc;
     position: relative;
 
-    .controls {
-      opacity: 0.7;
+    .image-controls {
+      opacity: 0.5;
       margin-top: -20px
     }
 
-    &:hover .controls {
+    &:hover .image-controls {
       opacity: 1;
     }
 
@@ -58,11 +48,11 @@
 
 .heighted {
   margin-bottom: 0;
-  height: 29px;
-  line-height: 29px;
+  height: 2px;
+  line-height: 2px;
 
   .bar {
-    height: 29px;
-    line-height: 29px;    
+    height: 2px;
+    line-height: 2px;    
   }
 }
