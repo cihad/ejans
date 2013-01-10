@@ -24,7 +24,7 @@ module CustomFields
       module ApplyValidate
         def apply_tag_validate(klass, rule)
           if rule['required']
-            klass.validates_presence_of rule['machine_name'].to_sym
+            klass.validates_presence_of "#{rule['machine_name']}_tags".to_sym
           end
 
           klass.class_eval <<-EOM, __FILE__, __LINE__ + 1

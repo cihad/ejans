@@ -12,6 +12,8 @@ module CustomFields
           klass.class_eval <<-EOM, __FILE__, __LINE__ + 1
             alias :#{rule['machine_name']} :#{rule['keyname']}
             alias :#{rule['machine_name']}= :#{rule['keyname']}=
+            alias :#{rule['machine_name']}_ids :#{rule['keyname'].to_s.singularize}_ids
+            alias :#{rule['machine_name']}_ids= :#{rule['keyname'].to_s.singularize}_ids=
           EOM
         end
       end
@@ -20,7 +22,7 @@ module CustomFields
       module ApplyValidate
         def apply_select_validate(klass, rule)
           if rule['required']
-            klass.validates_presence_of rule['machine_name']
+            klass.validates_presence_of "#{rule['machine_name']}_ids".to_sym
           end
 
           if rule['maximum_select'] and rule['maximum_select'] != 0

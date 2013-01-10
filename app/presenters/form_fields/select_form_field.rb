@@ -4,11 +4,7 @@ module FormFields
     delegate :maximum_select, to: :field
 
     def form_key
-      :"#{keyname}_ids"
-    end
-
-    def list_item_ids_name
-      :"#{keyname.to_s.singularize}_ids"
+      :"#{machine_name}_ids"
     end
   end
 end

@@ -23,7 +23,7 @@ module CustomFields
       module ApplyValidate
         def apply_belongs_to_validate(klass, rule)
           if rule['required']
-            klass.validates_presence_of rule['keyname'].to_sym
+            klass.validates_presence_of "#{rule['machine_name']}_id".to_sym
           end
 
           if rule['can_be_added_only_by_parent_author']

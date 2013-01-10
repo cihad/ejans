@@ -4,14 +4,10 @@ module FormFields
       :"#{super}_id"
     end
 
-    delegate :can_be_added_only_by_parent_author?, to: :field
-
-    def parent_klass
-      field.class_name.constantize
-    end
+    delegate :can_be_added_only_by_parent_author?, :class_name, to: :field
 
     def nodes
-      parent_klass.all
+      Node.where("_type" => class_name)
     end
 
     def include_blank?
