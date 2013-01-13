@@ -58,21 +58,16 @@ module CustomFields
 
           case rule['filter_type'].to_sym
           when :single
-            year = params[rule['machine_name']].to_i
-            start_date = Date.new.change(year: year).beginning_of_year
-            end_date   = Date.new.change(year: year).end_of_year
-            criteria = criteria.between( where_is_date(rule) => start_date..end_date)
+            if value(params, rule)
+              criteria = criteria.between( where_is_date(rule) => value(params, rule))
+            end
           when :range
-            if value_start(params)
-              criteria = criteria.gte(
-                where_is_date(rule) => 
-                Date.new(params[date_start_machine_name(rule)].to_i).beginning_of_year)
+            if start_value(params, rule)
+              criteria = criteria.gte(where_is_date(rule) => start_value(params, rule))
             end
 
-            if value_end(params)
-              criteria = criteria.lte(
-                where_is_date(rule) =>
-                Date.new(params[date_end_machine_name(rule)].to_i).end_of_year)
+            if end_value(params, rule)
+              criteria = criteria.lte(where_is_date(rule) => end_value(params, rule))
             end
           end
 
@@ -82,10 +77,10 @@ module CustomFields
         def date_param_exist?(params, rule)
           case rule['filter_type'].to_sym
           when :single
-            params[rule['machine_name']].present?
+            params[date_machine_name(rule)].present?
           when :range
-            params["#{rule['machine_name']}_start"].present? or
-            params["#{rule['machine_name']}_end"].present?
+            params[date_start_machine_name(rule)].present? or
+            params[date_end_machine_name(rule)].present?
           end
         end
 
@@ -94,6 +89,23 @@ module CustomFields
         end
 
         ## custom methods
+        def value(params, rule)
+          date = ::Date.new.change(year: Integer(params[date_machine_name(rule)])) rescue return
+          date.beginning_of_year..date.end_of_year
+        end
+
+        def start_value(params, rule)
+          ::Date.new(Integer(params[date_start_machine_name(rule)])).beginning_of_year rescue nil
+        end
+
+        def end_value(params, rule)
+          ::Date.new(Integer(params[date_end_machine_name(rule)])).end_of_year rescue nil
+        end
+
+        def date_machine_name(rule)
+          rule['machine_name'].to_s
+        end
+
         def date_start_machine_name(rule)
           "#{rule['machine_name']}_start"
         end
