@@ -8,8 +8,4 @@ module NodeTypesHelper
   def author_nodes_path
     node_type_nodes_path(@node.node_type, params_query(params).merge(author_id: @node.author_id.to_s))
   end
-
-  def node_type_background
-    render 'node_types/background'
-  end
 end

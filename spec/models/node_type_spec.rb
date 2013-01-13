@@ -13,7 +13,6 @@ describe NodeType do
   it { should respond_to :signin_required }
   it { should respond_to :node_expiration_day_limit }
   it { should respond_to :nodes_count }
-  it { should respond_to :background_image }
   
   it "validation" do
     should be_valid

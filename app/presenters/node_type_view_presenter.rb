@@ -55,10 +55,6 @@ class NodeTypeViewPresenter
     h.render partial_path('related_node_types')
   end
 
-  def background
-    h.node_type_background
-  end
-
   def one_or_more_filters?
     !filtered_fields.blank?
   end

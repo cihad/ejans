@@ -8,7 +8,6 @@ class NodeType
   attr_accessor :administrator_email
   
   # Behaviours
-  mount_uploader :background_image, BackgroundImageUploader
   custom_fields_for :nodes
 
   # Fields

@@ -181,7 +181,6 @@ tr:
         commentable: "Yorum"
         signin_required: "Üye girişi"
         administrator_email: "Yeni Yönetici"
-        background_image: "Arkaplan resmi"
       field:
         label: "Label"
         required: "Gerekli"

@@ -9,7 +9,6 @@
   <%= f.input :signin_required, as: :boolean %>
   <%= f.association :administrators, collection: @node_type.administrators.map { |u| [u.email, u.id] }, as:  :check_boxes %>
   <%= f.input :administrator_email, placeholder: "email" %>
-  <%= f.input :background_image, as: :file, image_url: @node_type.background_image_url, wrapper: :single_image %>
   <div class="form-actions page-bottom-actions">
     <%= f.button :submit %>
   </div>
