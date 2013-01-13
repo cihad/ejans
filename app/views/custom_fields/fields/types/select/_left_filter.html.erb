@@ -1,6 +1,0 @@
-<%= select_tag  field.machine_name,
-                options_for_select(field.list_items.inject({}) { |hash, item| hash[item.name] = item.id; hash }, params["#{field.machine_name}"]),
-                multiple: true,
-                class: field.machine_name %>
-
-<%= multiselect '.' + field.machine_name.to_s %>

@@ -177,7 +177,6 @@ tr:
         title_label: "Başlık alanı adı"
         description: "Açıklama"
         administrators: "Yöneticiler"
-        filters_position: "Filtrelerin konumu"
         node_expiration_day_limit: "Node expiration day limit"
         commentable: "Yorum"
         signin_required: "Üye girişi"
@@ -293,10 +292,6 @@ tr:
         current_password: "Değişiklikleri kaydedebilmek için şu anki parolanızı girmelisiniz."
 
     options:
-      node_type:
-        filters_position:
-          top: "Yukarda"
-          left: "Solda"
       field:
         thousand_marker:
           none: "Ayırma yok (örn: 23000)"

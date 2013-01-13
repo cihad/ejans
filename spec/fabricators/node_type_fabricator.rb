@@ -2,7 +2,6 @@ Fabricator :node_type do
   name { Faker::Name.title }
   title_label { Faker::Lorem.word.capitalize }
   description { Faker::Lorem.paragraph }
-  filters_position :left
   node_expiration_day_limit 0
   commentable false
   signin_required false

@@ -9,7 +9,6 @@ describe NodeType do
   it { should respond_to :name }
   it { should respond_to :title_label }
   it { should respond_to :description }
-  it { should respond_to :filters_position }
   it { should respond_to :commentable }
   it { should respond_to :signin_required }
   it { should respond_to :node_expiration_day_limit }
@@ -27,16 +26,6 @@ describe NodeType do
 
   it "#title_label validation" do
     subject.title_label = ""
-    subject.should_not be_valid
-  end
-
-  it "#filters_position validation" do
-    subject.filters_position = nil
-    subject.should_not be_valid
-  end
-
-  it "#filters_position inclusion validation" do
-    subject.filters_position = :invalid_position
     subject.should_not be_valid
   end
 

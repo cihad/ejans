@@ -1,9 +1,9 @@
 class NodeTypeViewPresenter
 
-  attr_reader :node_type, :nodes, :template, :params
+  attr_reader :node_type, :nodes, :context, :params
 
-  def initialize(node_type, nodes, params, template)
-    @template   = template
+  def initialize(node_type, nodes, params, context)
+    @context    = context
     @node_type  = node_type
     @nodes      = nodes
     @params     = params
@@ -11,8 +11,13 @@ class NodeTypeViewPresenter
   end
 
   delegate :css, :js, :node_template, :node_type_template, to: :view
+  delegate :name, :filtered_fields, to: :node_type
 
-  alias :h :template
+  alias :h :context
+
+  def partial_path(partial_name)
+    "nodes/index_partials/#{partial_name}"
+  end
 
   def rendered_css
     h.content_tag :style, css, type: Mime::CSS
@@ -23,11 +28,11 @@ class NodeTypeViewPresenter
   end
 
   def to_s
-    template.render inline: node_type_template, locals: { nodes: rendered_nodes }
+    h.render inline: node_type_template, locals: { nodes: rendered_nodes }
   end
 
   def paginate
-    @template.paginate nodes
+    h.paginate nodes
   end
 
   def view_links
@@ -36,6 +41,30 @@ class NodeTypeViewPresenter
 
   def sort_links
     SortLinksPresenter.new(node_type.sort_data, params, h).to_s
+  end
+
+  def page_title
+    name
+  end
+
+  def add_new_node_link
+    h.render partial_path('add_node_link')
+  end
+
+  def related_node_types
+    h.render partial_path('related_node_types')
+  end
+
+  def background
+    h.node_type_background
+  end
+
+  def one_or_more_filters?
+    !filtered_fields.blank?
+  end
+
+  def filters
+    h.render partial_path('filters'), view: self
   end
 
 private
@@ -57,7 +86,7 @@ private
 
   def rendered_nodes
     nodes.inject("") do |out, node|
-      out << NodeViewPresenter.new(node_template, node, node_type.field_data, template).to_s
+      out << NodeViewPresenter.new(node_template, node, node_type, h).to_s
     end.html_safe
   end
 

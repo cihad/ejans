@@ -1,114 +1,59 @@
 <%= body_class "node-type-nodes" %>
 
-<div class="row">
-  <div class="span12">
-    <div class="node-type-header">
-      <div class="row">
-        <div class="span7">
-          <%= page_title @node_type.name %>
-        </div>
-        <div class="span5 node-type-actions">
-          <% if allow? :nodes, :create, @node %>
-            <%= link_to new_node_type_node_path(@node_type),
-                        class: "btn btn-primary btn-new-node",
-                        rel: "tooltip",
-                        data: {
-                          placement: "bottom",
-                          original_title: "Ücretsiz ve üyelik gerektirmez. Sadece email adresiniz yeterli."
-                        } do %>
-              <%= content_tag :i, nil, class: "icon-plus icon-white" %>
-              <%=t 'nodes.add_new_node' %>
-            <% end %>
-          <% else %>
-            <%= link_to new_node_type_node_path(@node_type),
-                        class: "btn btn-primary disabled btn-new-node",
-                        rel: "tooltip",
-                        data: {
-                          placement: "bottom",
-                          original_title: "Node ekleyebilmek icin kullanici girisi yapiniz."
-                        } do %>
-              <%= content_tag :i, nil, class: "icon-plus icon-white" %>
-              <%=t 'nodes.add_new_node' %>
-            <% end %>
+<% NodeTypeViewPresenter.new(@node_type, @nodes, params, self) do |view| %>
+  
+  <div class="row">
+    
+    <%= view.filters %>
 
-          <% end %>
+    <div class="<%= view.one_or_more_filters? ? "span9" : "span12" %>">
+      <div class="node-type-block" id="node-type-content">
 
-          <% unless @node_type.related_node_types.size == 0 %>
-            <%= dropdown "related node types", class: "btn-inverse" do %>
-              <% @node_type.related_node_types.each do |nt| %>
-                <li><%= link_to nt.name, node_type_nodes_path(nt) %></li>
-              <% end %>
-            <% end %>
-          <% end %>
-          
+        <div class="navbar navbar-static-top node-type-navbar">
+          <div class="navbar-inner">
+            <span class="brand"><%= view.page_title %></span>
+
+            <ul class="nav pull-right">
+              <%= view.related_node_types %>
+              
+              <li><%= view.add_new_node_link %></li>
+            </ul>
+          </div>
         </div>
+
+        <div class="block-content">
+          <div class="controls clearfix">
+            <div class="pull-right">
+              <div class="btn-group pull-right">
+                <%= view.view_links %>
+              </div>
+              <span class="btn btn-link pull-right">Görünüm:</span>
+            </div>
+
+
+            <div class="pull-right">
+              <div class="btn-group pull-right">
+                <%= view.sort_links %>
+              </div>
+              <span class="btn btn-link pull-right">Sırala:</span>
+            </div>
+          </div>
+
+          <div id="nodes">
+            <%= view %>
+          </div>
+
+          <div id="paging">
+            <%= view.paginate %>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
-</div>
 
-<% NodeTypeViewPresenter.new(@node_type, @nodes, params, self) do |view| %>
-
-  <% if @node_type.filters_position == :left %>
-    <div class="row">
-      <% unless @node_type.filtered_fields.blank? %>
-        <div class="span3">
-          <div class="controls">
-            <h3 class="control-title">FILTERS</h3>
-          </div>
-          <%= render 'nodes/filters_left_side/filter_form' %>
-        </div>
-      <% end %>
-
-      <div class="<%= @node_type.filtered_fields.blank? ? "span12" : "span9" %>">
-        <div class="controls">
-          <div class="right-sided-controls btn-group">
-            <%= view.view_links %>
-          </div>
-          <div class="right-sided-controls btn-group">
-            <%= view.sort_links %>
-          </div>
-          <h3 class="control-title">NODES</h3>
-        </div>
-
-        <div id="nodes">
-          <%= view %>
-        </div>
-
-        <div id="paging">
-          <%= view.paginate %>
-        </div>
-      </div>
-    </div>
-
-  <% else %>
-
-    <div class="row">
-      <div class="span12 controls">
-        <div class="right-sided-controls btn-group">
-          <%= view.view_links %>
-        </div>
-        <div class="right-sided-controls btn-group">
-          <%= view.sort_links %>
-        </div>
-        <%= render 'nodes/filters_top_side/filter_form' unless @node_type.filtered_fields.blank? %>
-      </div>
-
-      <div id="nodes" class="span12">
-        <%= view %>
-      </div>
-
-      <div id="paging" class="span12">
-        <%= view.paginate %>
-      </div>
-    </div>
-    
-  <% end %>
-
-  <%= view.css %>
-
-  <%= view.js %>
+  <%= view.rendered_css %>
+  <%= view.rendered_js %>
+  <%= view.background %>
 
 <% end %>
-
-<%= node_type_background %>

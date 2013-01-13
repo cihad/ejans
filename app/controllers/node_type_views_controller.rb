@@ -29,7 +29,7 @@ class NodeTypeViewsController < ApplicationController
   def update
     @node_type_view = @node_type.node_type_views.find(params[:id])
     if @node_type_view.update_attributes(params[:node_type_view])
-      redirect_to edit_node_type_view_path(@node_type, @node_type_view),
+      redirect_to edit_node_type_node_type_view_path(@node_type, @node_type_view),
         notice: 'View was successfully updated.'
     else
       render action: "edit"

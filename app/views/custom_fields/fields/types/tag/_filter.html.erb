@@ -5,7 +5,9 @@
                     data: { original_title: "Etiketler arasina virgul koyunuz" } %>
 
 <%= javascript_tag do %>
-  $('#<%= field.machine_name %>').tooltip({
-    placement: "bottom"
+  $(function() {
+    $('#<%= field.machine_name %>').tooltip({
+      placement: "bottom"
+    })
   })
 <% end %>

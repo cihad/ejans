@@ -28,7 +28,6 @@ describe "NodeType" do
       fill_in 'node_type_name', with: attributes[:name]
       fill_in 'node_type_title_label', with: attributes[:title_label]
       fill_in 'node_type_description', with: attributes[:description]
-      choose "node_type_filters_position_#{attributes[:filters_position]}"
       fill_in 'node_type_node_expiration_day_limit', with: attributes[:node_expiration_day_limit]
       checkbox 'node_type_commentable', attributes[:commentable]
       checkbox 'node_type_signin_required', attributes[:signin_required]

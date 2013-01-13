@@ -4,10 +4,6 @@
   <%= f.input :description,
               as: :text,
               input_html: { rows: 3, class: "span4" } %>
-  <%= f.input :filters_position,
-              collection: f.object.class::FILTERS_POSITIONS,
-              as: :radio_buttons,
-              item_wrapper_class: "inline" %>
   <%= f.input :node_expiration_day_limit, as: :integer %>
   <%= f.input :commentable, as: :boolean %>
   <%= f.input :signin_required, as: :boolean %>

@@ -6,8 +6,7 @@ class NodeType
   include CustomFields::Source
 
   attr_accessor :administrator_email
-  FILTERS_POSITIONS = %w(top left).map(&:to_sym)
-
+  
   # Behaviours
   mount_uploader :background_image, BackgroundImageUploader
   custom_fields_for :nodes
@@ -16,7 +15,6 @@ class NodeType
   field :name
   field :title_label,               default: I18n.t('node_types.default_label')
   field :description
-  field :filters_position,          type: Symbol, default: :top
   field :commentable,               type: Boolean
   field :signin_required,           type: Boolean
   field :node_expiration_day_limit, type: Integer, default: 0
@@ -25,8 +23,6 @@ class NodeType
   # Validates
   validates :name, presence: true
   validates :title_label, presence: true
-  validates :filters_position, presence: true
-  validates :filters_position, inclusion: { in: FILTERS_POSITIONS }
 
   # Indexes
   index nodes_count: 1
@@ -103,9 +99,11 @@ class NodeType
   end
 
   def related_node_types
-    nodes_custom_fields.exists(class_name: true).map(&:class_name).map do |class_name|
-      self.class.class_name_to_node_type(class_name)
+    ids = nodes_custom_fields.exists(class_name: true).map(&:class_name).map do |class_name|
+      self.class.class_name_to_node_type_id(class_name)
     end
+
+    self.class.in(id: ids)
   end
 
   def potential_users=(emails)
@@ -165,7 +163,11 @@ class NodeType
     self.administrators << user if user and !administrator_ids.include?(user.id)
   end
 
+  def self.class_name_to_node_type_id(class_name)
+    $1 if class_name =~ /^Node(.*)/
+  end
+
   def self.class_name_to_node_type(class_name)
-    find($1) if class_name =~ /^Node(.*)/
+    find(class_name_to_node_type_id(class_name))
   end
 end

@@ -5,16 +5,12 @@ module FieldFilters
 
     delegate :type, :filter_type, :machine_name, :label, to: :field
 
-    def position
-      field.node_type.filters_position
-    end
-
     def to_s
-      render "custom_fields/fields/types/#{field.type}/#{position}_filter", field: self
+      render "custom_fields/fields/types/#{field.type}/filter", field: self
     end
 
-    def self.presenter_class(field)
-      "FieldFilters::#{field.type.camelize}FieldFilter".constantize
+    def self.present(field, context)
+      "FieldFilters::#{field.type.camelize}FieldFilter".constantize.new(field, context)
     end
   end
 end

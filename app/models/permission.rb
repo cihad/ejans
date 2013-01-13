@@ -23,8 +23,8 @@ class Permission
     allow :node_types, :index
 
     allow :nodes, [:index, :show]
-    allow :nodes, [:new, :create] do |node|
-      !node.node_type.signin_required?
+    allow :nodes, [:new, :create] do |node_type|
+      !node_type.signin_required?
     end
     allow :nodes, [:edit, :destroy, :update] do |node|
       node.token == params[:token]

@@ -1,0 +1,27 @@
+<% if allow? :nodes, :create, @node_type %>
+
+  <%= link_to new_node_type_node_path(@node_type),
+        class: "btn-new-node",
+        rel: "tooltip",
+        data: {
+          placement: "bottom",
+          original_title: "Ücretsiz ve üyelik gerektirmez."
+        } do %>
+    <%= content_tag :i, nil, class: "icon-plus icon-white" %>
+    <%=t 'nodes.add_new_node' %>
+  <% end %>
+
+<% else %>
+
+  <%= link_to new_node_type_node_path(@node_type),
+        class: "disabled btn-new-node",
+        rel: "tooltip",
+        data: {
+          placement: "bottom",
+          original_title: "Node ekleyebilmek icin kullanici girisi yapiniz."
+        } do %>
+    <%= content_tag :i, nil, class: "icon-plus icon-white" %>
+    <%=t 'nodes.add_new_node' %>
+  <% end %>
+
+<% end %>

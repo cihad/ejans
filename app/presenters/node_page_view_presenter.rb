@@ -28,7 +28,7 @@ class NodePageViewPresenter
   end
 
   def rendered_node
-    NodeViewPresenter.new(node_view.node_template, node, node_type.field_data, @template).to_s.html_safe
+    NodeViewPresenter.new(node_view.node_template, node, node_type, @template).to_s.html_safe
   end
 
   def info

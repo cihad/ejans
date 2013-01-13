@@ -4,9 +4,8 @@ module FieldsHelper
     object_class.new(f, self)
   end
 
-  def filter_for(field_configuration)
-    object_class = FieldFilters::Filter.presenter_class(field_configuration)
-    presenter = object_class.new(field_configuration, self)
+  def filter_for(field)
+    presenter = FieldFilters::Filter.present(field, self)
     if block_given?
       yield presenter
     else
@@ -28,13 +27,16 @@ module FieldsHelper
     name.join(' ')
   end
 
-  def multiselect(selector, label = "Seciniz")
+  def multiselect(selector, opts = {})
+    label = opts[:label] || "Seciniz"
+    width = opts[:width]
+
     javascript_tag <<-EOM
       $('#{selector}').multiselect({
         noneSelectedText: '#{label}',
         header: false,
         selectedList: 2,
-        minWidth: 200,
+        minWidth: #{width}
       });
     EOM
   end

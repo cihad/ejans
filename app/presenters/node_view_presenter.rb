@@ -1,18 +1,34 @@
 class NodeViewPresenter
 
-  def initialize(node_template, node, data, template)
+  attr_reader :node_template, :node, :node_type, :context
+
+  def initialize(node_template, node, node_type, context)
     @node_template = node_template
     @node          = node
-    @data          = data
-    @template      = template
+    @node_type     = node_type
+    @context       = context
   end
 
-  def locals
-    @node.mapping(@data)
+  alias :h :context
+
+  def path
+    h.node_type_node_path(node.node_type_id, node.id)
+  end
+
+  def field_data
+    @field_data ||= node_type.field_data
+  end
+
+  def node_data
+    { node: node }
+  end
+
+  def as_json
+    field_data.merge(node_data).merge(node_type.self_data)
   end
 
   def to_s
-    @template.render inline: @node_template, locals: locals
+    h.render inline: node_template, locals: as_json
   end
   
 end

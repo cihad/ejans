@@ -44,7 +44,7 @@ class SortLinksPresenter
     @sort_data.inject("") do |output, machine_label|
       machine_name, label = machine_label
 
-      link_class = "btn btn-small"
+      link_class = "btn"
       link_class << " active" if current_sort == machine_name.to_s
 
       icon = icon_for(machine_name)

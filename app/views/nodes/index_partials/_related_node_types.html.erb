@@ -1,0 +1,7 @@
+<% if @node_type.related_node_types.exists? %>
+  <%= dropdown_tab "related node types" do %>
+    <% @node_type.related_node_types.each do |nt| %>
+      <li><%= link_to nt.name, node_type_nodes_path(nt) %></li>
+    <% end %>
+  <% end %>
+<% end %>
