@@ -35,7 +35,7 @@ module CustomFields
 
       module Query
         def select_criteria(params, rule)
-          ids = params[rule['machine_name']].map { Moped::BSON::ObjectId(id) }
+          ids = params[rule['machine_name']].map { |id| Moped::BSON::ObjectId(id) }
           ::CustomFields::Criteria.new.in(where_is_select(rule) => ids)
         end
 
@@ -44,7 +44,7 @@ module CustomFields
         end
 
         def where_is_select(rule)
-          "#{params[rule['keyname']].to_s.singularize}_ids".to_sym
+          "#{rule['keyname'].to_s.singularize}_ids".to_sym
         end
       end
 
