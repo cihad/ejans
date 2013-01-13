@@ -40,12 +40,17 @@ module CustomFields
 
           case rule['filter_type'].to_sym
           when :single
-            criteria = criteria.where(where_is_integer(rule) => value)
+            if value(params, rule)
+              criteria = criteria.where(where_is_integer(rule) => value(params, rule))
+            end
           when :range
-            criteria = criteria.between(
-              where_is_integer(rule) =>
-                params[integer_min_machine_name(rule)]..params[integer_max_machine_name(rule)]
-            )
+            if min_value(params, rule)
+              criteria = criteria.gte(where_is_integer(rule) => min_value(params, rule))
+            end
+
+            if max_value(params, rule)
+              criteria = criteria.lte(where_is_integer(rule) => max_value(params, rule))
+            end
           end
 
           criteria
@@ -54,10 +59,10 @@ module CustomFields
         def integer_param_exist?(params, rule)
           case rule['filter_type'].to_sym
           when :single
-            params[rule['machine_name']].present?
+            params[machine_name(rule)].present?
           when :range
-            params[integer_min_machine_name(rule)].present? or
-            params[integer_max_machine_name(rule)].present?
+            params[min_machine_name(rule)].present? or
+            params[max_machine_name(rule)].present?
           end
         end
 
@@ -66,11 +71,27 @@ module CustomFields
         end
 
         ## custom methods
-        def integer_min_machine_name(rule)
+        def value(params, rule)
+          Integer(params[machine_name(rule)]) rescue nil
+        end
+
+        def min_value(params, rule)
+          Integer(params[min_machine_name(rule)]) rescue nil
+        end
+
+        def max_value(params, rule)
+          Integer(params[max_machine_name(rule)]) rescue nil
+        end
+
+        def machine_name(rule)
+          rule['machine_name'].to_s
+        end
+
+        def min_machine_name(rule)
           "#{rule['machine_name']}_min"
         end
 
-        def integer_max_machine_name(rule)
+        def max_machine_name(rule)
           "#{rule['machine_name']}_max"
         end
       end
