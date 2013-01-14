@@ -9,6 +9,8 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require jquery.fileupload-ui
+ *= require jquery-ui-1.8.16.custom
+ *= require gmaps4rails
  *= 
  */
 @import "ejans_variables";
@@ -31,7 +33,4 @@
 @import "node_view";
 @import "place_nodes";
 @import "configuration_pages";
-@import "jquery-ui-1.8.16.custom";
 @import "jquery.multiselect";
-@import "jquery.multiselect.filter";
-@import "gmaps4rails";
