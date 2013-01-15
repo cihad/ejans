@@ -11,5 +11,6 @@ db/sphinx/*
 db/*.sqlite3
 
 public/uploads/*
+public/assets/*
 public/javascripts/*
 public/stylesheets/*
