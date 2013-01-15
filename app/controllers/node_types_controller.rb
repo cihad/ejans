@@ -1,8 +1,6 @@
 class NodeTypesController < ApplicationController
   before_filter :node_type, only: [:show, :edit, :update, :destroy, :manage]
 
-  layout 'small'
-
   def index
     @node_types = NodeType.search(params[:q])
   end

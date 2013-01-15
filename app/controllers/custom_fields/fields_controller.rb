@@ -4,8 +4,6 @@ module CustomFields
 
     include ControllerHelper
 
-    layout "small"
-
     def index
       @fields = @node_type.nodes_custom_fields
     end

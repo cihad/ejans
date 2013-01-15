@@ -1,6 +1,8 @@
-<% provide :body_class, "node-type-manage" %>
-<%= node_type_navigation %>
+<% provide :title, "Dashboard" %>
 
+<%= column_navbar title: @node_type.name do %>
+  <%= node_type_navigation %>
+<% end %>
 
 <%= javascript 'jquery-plugins/jquery.masonry' %>
 <script>

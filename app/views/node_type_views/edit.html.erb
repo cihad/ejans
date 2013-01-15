@@ -1,6 +1,8 @@
-<%= node_type_navigation %>
 <% provide :title, t('node_type_views.edit') %>
-<% provide :body_class, "node-type-manage" %>
+
+<%= column_navbar title: @node_type.name do %>
+  <%= node_type_navigation %>
+<% end %>
 
 <%= form_title t('node_type_views.edit') %>
 <%= render 'form' %>

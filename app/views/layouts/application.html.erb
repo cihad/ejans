@@ -1,60 +1,36 @@
 <%= render 'layouts/head' %>
-
-<%
-contentspan = content_for?(:left) ? 'span9' : 'span12'
-%>
-
-<body class="<%= content_for?(:right) or content_for?(:left) ? 'twoColumn' : 'oneColumn' %> <%= yield(:body_class) %>">
+<body class="<%= controller_class %> <%= yield(:body_class) %>">
 
   <div id="overlay">
     <%= yield :overlay %>
   </div>
 
-    <div class="body">
+  <div class="body">
     <!-- Container -->
-    <div class="container">
+    <div class="container page">
 
       <%= yield :top %>
 
       <%= render 'layouts/header' %>
 
-      <div class="page">
-        <div class="row">
-          <% if breadcrumbs.items.size > 1 %>
-            <div id="breadcrumb">
-              <%= breadcrumbs.render %>
+      <div class="row">
+        <% if content_for?(:left_column) %>
+          <aside id="left-column" class="span3">
+            <div class="column-inner">
+              <%= yield :left_column %>
             </div>
-            <!-- /Breadcrumb -->
-          <% end %>
-          
-          <% if content_for?(:left) %>
-            <div class="span3">
-              <aside id="left">
-                <%= yield :left %>
-              </aside>
-            </div>
-            <!-- /aside left -->
-          <% end %>
+          </aside>
+          <!-- /aside left -->
+        <% end %>
 
-          <div class="<%= contentspan %>">
-            <section id="content">
-              <%= render 'layouts/messages' %>
-                <%= yield %>
-            </section>
+        <section id="content-column" class="<%= content_for?(:left_column) ? 'span9' : (yield(:body_class).include?('small-page') ? 'span8' : 'span12') %>">
+          <div class="column-inner">
+            <%= render 'layouts/messages' %>
+            <%= yield %>
           </div>
-          <!-- /Content -->
-
-          <% if content_for?(:right) %>
-            <div class="span3">
-              <aside id="right">
-                <%= yield :right %>
-              </aside>
-            </div>
-            <!-- /aside right -->
-          <% end %>
-        </div>
+        </section>
+        <!-- /Content -->
       </div>
-      <!-- /Page -->
 
       <%= render 'layouts/footer' %>
 

@@ -1,22 +1,10 @@
-<%= user_navigation %>
 <% provide :title, resource.email %>
-<% body_class "user-manage" %>
+
+<%= column_navbar title: t('edit_user') do %>
+  <%= user_navigation %>
+<% end %>
 
 <%= horizontal_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
-
-  <legend>
-    <%=t 'edit_user' %>
-    <p class="pull-right">
-      <%= link_to "Delete my account",
-        registration_path(resource_name),
-        :data => { :confirm => "Are you sure?" },
-        :method => :delete,
-        class: "badge badge-important" %>
-    </p>
-  </legend>
-
-  <%#= devise_error_messages! %>
-  <%#= error_messages_for resource %>
 
   <%= f.input :email, as: :email %>
 
@@ -27,7 +15,15 @@
   <%= f.input :current_password, as: :password %>
 
   <div class="form-actions page-bottom-actions">
-    <%= f.button :submit %><%#, t('actions.update')  %>
+    <%= f.button :submit, t('actions.update') %>
+
+    <p class="pull-right">
+      <%= link_to "Delete my account",
+        registration_path(resource_name),
+        :data => { :confirm => "Are you sure?" },
+        :method => :delete,
+        class: "badge badge-important" %>
+    </p>
   </div>
 
 <% end %>

@@ -1,6 +1,6 @@
 module NodeTypesHelper
   def node_type_navigation
-    nav_tab do
+    content_tag :ul, class: "nav pull-right" do
       render 'node_types/nav'
     end
   end

@@ -1,8 +1,10 @@
-<%= node_type_navigation %>
 <% provide :title, "Potential Users" %>
-<% provide :body_class, "node-type-manage" %>
-<%= page_title "Potential Users" %>
 
+<%= column_navbar title: @node_type.name do %>
+  <%= node_type_navigation %>
+<% end %>
+
+<%= content_tag  :legend, "Potential Users" %>
 <table class="table">
   <thead>
     <tr>

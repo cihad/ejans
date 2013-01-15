@@ -1,7 +1,8 @@
-<%= node_type_navigation %>
 <% provide :title, t('potential_users.new') %>
-<% provide :body_class, "node-type-manage" %>
 
+<%= column_navbar title: @node_type.name do %>
+  <%= node_type_navigation %>
+<% end %>
 
 <%= form_title t('potential_users.new') %>
 <%= render 'form' %>

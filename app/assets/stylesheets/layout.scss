@@ -1,15 +1,32 @@
 // LAYOUT
-.oneColumn .container {
-}
-
 .container {
   width: 940px;
 }
 
-.page {
-  margin: 0 -31px;
-  padding: 20px 30px;
-  @include border-radius(4px);
-  background: #fff;
+.small-page .container.page {
+  width: 600px;
+}
+
+.column-inner {
   border: 1px solid $bordercolor;
+  overflow: hidden;
+  background: white;
+  padding: 15px 20px;
+
+  .column-content {
+    padding: 15px 20px 0px 20px;
+  }
+
+  .column-navbar {
+    margin: -15px -20px 20px -20px;
+  }
+
+  .column-navbar .navbar-inner {
+    padding-right: 0;
+  }
+
+  .column-navbar.navbar {
+    position: relative;
+    width: auto;
+  }
 }

@@ -1,7 +1,9 @@
-<%= body_class 'node-form' %>
 <% provide :title, "#{@node.title} - Duzenle".html_safe %>
 
-<%= render 'statement' %>
+<%= column_navbar title: @node.title do %>
+  <%= render 'statement' %>
+<% end %>
+
 
 <%= form_title "Duzenle" %>
 <%= render "form" %>

@@ -1,5 +1,10 @@
+<% provide :body_class, 'small-page' %>
+
+<%= column_navbar title: t('sessions.signin') do %>
+  <%= render "devise/shared/links" %>
+<% end %>
+
 <%= horizontal_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-  <legend><%=t 'sessions.signin' %></legend>
 
   <%= f.input :email, as: :email %>
   <%= f.input :password, as: :password, hint: false %>
@@ -11,10 +16,11 @@
           <%= f.check_box :remember_me %> <%=t 'sessions.remember_me' %>
         <% end %>        
       <% end -%>
-      <%= f.button :submit, t('sessions.signin') %>
     </div>
   </div>
 
-<% end %>
+  <div class="form-actions page-bottom-actions">
+    <%= f.button :submit, t('sessions.signin') %>
+  </div>
 
-<%= render "devise/shared/links" %>
+<% end %>

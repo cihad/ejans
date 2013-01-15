@@ -1,57 +1,41 @@
-<%= body_class "node-type-nodes" %>
-
 <% NodeTypeViewPresenter.new(@node_type, @nodes, params, self) do |view| %>
-  
-  <div class="row">
     
+  <% content_for :left_column do %>
     <%= view.filters %>
+  <% end %>
 
-    <div class="<%= view.one_or_more_filters? ? "span9" : "span12" %>">
-      <div class="node-type-block" id="node-type-content">
+  <%= column_navbar title: view.page_title do %>
+    <ul class="nav pull-right">
+      <%= view.related_node_types %>
+      <li><%= view.add_new_node_link %></li>
+    </ul>
+  <% end %>
 
-        <div class="navbar navbar-static-top node-type-navbar">
-          <div class="navbar-inner">
-            <span class="brand"><%= view.page_title %></span>
-
-            <ul class="nav pull-right">
-              <%= view.related_node_types %>
-              
-              <li><%= view.add_new_node_link %></li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="block-content">
-          <div class="controls clearfix">
-            <div class="pull-right">
-              <div class="btn-group pull-right">
-                <%= view.view_links %>
-              </div>
-              <span class="btn btn-link pull-right">Görünüm:</span>
-            </div>
-
-
-            <div class="pull-right">
-              <div class="btn-group pull-right">
-                <%= view.sort_links %>
-              </div>
-              <span class="btn btn-link pull-right">Sırala:</span>
-            </div>
-          </div>
-
-          <div id="nodes">
-            <%= view %>
-          </div>
-
-          <div id="paging">
-            <%= view.paginate %>
-          </div>
-        </div>
-
+  <div class="controls clearfix">
+    <div class="pull-right">
+      <div class="btn-group pull-right">
+        <%= view.view_links %>
       </div>
+      <span class="btn btn-link pull-right">Görünüm:</span>
+    </div>
+
+
+    <div class="pull-right">
+      <div class="btn-group pull-right">
+        <%= view.sort_links %>
+      </div>
+      <span class="btn btn-link pull-right">Sırala:</span>
     </div>
   </div>
 
+  <div id="nodes">
+    <%= view %>
+  </div>
+
+  <div id="paging">
+    <%= view.paginate %>
+  </div>
+  
   <%= view.rendered_css %>
   <%= view.rendered_js %>
 

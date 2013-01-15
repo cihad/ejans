@@ -1,8 +1,9 @@
-<%= node_type_navigation %>
 <% title = "Views" %>
 <% provide :title, title %>
-<% provide :body_class, "node-type-manage" %>
 
+<%= column_navbar title: @node_type.name do %>
+  <%= node_type_navigation %>
+<% end %>
 
 <%= content_tag :legend, title %>
 

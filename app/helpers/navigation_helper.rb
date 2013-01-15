@@ -6,8 +6,8 @@ module NavigationHelper
   end
 
   def nav_tab(options = {}, &block)
-    type = options.delete(:type) || "nav-tabs"
-    render layout: 'shared/nav_tab', locals: { type: type }, &block
+    classes = options.delete(:class)
+    render layout: 'shared/nav_tab', locals: { class: classes }, &block
   end
 
   def dropdown_tab(title, options = {}, &block)
@@ -29,5 +29,12 @@ module NavigationHelper
       classes: classes
     }.merge(options)
     render layout: 'shared/dropdown', locals: locals, &block
+  end
+
+  def column_navbar(opts = {}, &block)
+    render layout: 'shared/column_navbar' do
+      concat(content_tag :span, opts[:title], class: "brand") if opts.has_key?(:title)
+      concat(capture(&block)) if block_given?
+    end
   end
 end

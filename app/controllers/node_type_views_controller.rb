@@ -3,8 +3,6 @@ class NodeTypeViewsController < ApplicationController
 
   before_filter :node_type
 
-  layout "small"
-
   def index
     @node_type_views = @node_type.node_type_views
   end

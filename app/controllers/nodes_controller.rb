@@ -4,8 +4,6 @@ class NodesController < ApplicationController
   before_filter :node_type
   before_filter :node, except: :index
 
-  layout "small", except: :index
-
   def index
     @nodes = NodesQuery.new(@node_type, params).results
   end

@@ -3,7 +3,7 @@
   <%= f.input :emails, as: :text, input_html: { rows: 15, class: "span4" } %>
   <%= f.input :node_type_id, as: :hidden, input_html: { value: @node_type.id } %>
   <%#= hidden_field_tag "potential_users[node_type_id]", @node_type.id %>
-  <div class="form-actions">
+  <div class="form-actions page-bottom-actions">
     <%= f.button :submit %>
   </div>
 <% end %>

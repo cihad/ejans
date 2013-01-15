@@ -35,6 +35,7 @@ tr:
     password_confirmation: "Parolayı tekrarla"
     signup: "Kayıt"
     already_registered: "Zaten kayıtlı bir kullanıcısınız."
+    my_account: "Hesabım"
 
   devise:
     confirmations:

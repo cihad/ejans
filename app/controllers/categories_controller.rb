@@ -2,8 +2,6 @@ class CategoriesController < ApplicationController
 
   respond_to :js, only: [:edit, :show, :new, :destroy]
 
-  layout 'small', only: [:index]
-
   def index
     @nodes = Category.roots
   end

@@ -22,6 +22,12 @@ module ApplicationHelper
     content_for(:body_class) { classes }
   end
 
+  def controller_class
+    module_name, controller = params[:controller].parameterize.split('-')
+    action = params[:action]
+    [module_name, controller, action].compact.join(' ')
+  end
+
   def stylesheet(*args)
     content_for(:head) { stylesheet_link_tag(*args.map(&:to_s)) }
   end

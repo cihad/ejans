@@ -1,8 +1,11 @@
 <% page_name = @node.title %>
 <% provide :title, page_name %>
-<% meta_description @node.title %>
-<%= page_title @node.title %>
-<%= body_class 'node-page' %>
+<% provide :body_class, 'small-page' %>
+<% meta_description page_name %>
+
+<%= column_navbar title: page_name do %>
+  <%= render 'statement' %>
+<% end %>
 
 <%= render "node" %>
 
@@ -11,4 +14,3 @@
   <%= render @node.comments %>
   <%= render 'comments/form' %>
 </div>
-

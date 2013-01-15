@@ -1,6 +1,8 @@
-<%= node_type_navigation %>
 <% provide :title, t('mailers.new_mailer') %>
-<% provide :body_class, "node-type-manage" %>
+
+<%= column_navbar title: @node_type.name do %>
+  <%= node_type_navigation %>
+<% end %>
 
 <%= form_title t('mailers.new_mailer') %>
 <%= render 'form' %>

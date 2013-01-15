@@ -1,28 +1,28 @@
 <header>
   <div class="navbar navbar-inverse navbar-fixed-top">
-  <div class="navbar-inner">
-    <div class="container">
-      <%= link_to "ejans.com", root_path, class: "brand" %>
+    <div class="navbar-inner">
+      <div class="container">
+        <%= link_to "ejans.com", root_path, class: "brand" %>
 
-      <ul class="nav">
-        <%= yield :navbar %>
-      </ul>
+        <ul class="nav">
+          <%= yield :navbar %>
+        </ul>
 
-      <ul class="nav pull-right">
-        <li class="divider-vertical"></li>
-        <% if user_signed_in? %>
-          <%= dropdown_tab current_user.email do %>
-            <%= tab_item "Nodes", user_path %>
-            <%= tab_item "Configurations", edit_user_path %>
-            <%= content_tag :li, nil, class: "divider" %>
-            <%= tab_item t('sessions.signout'), signout_path, link_to: { method: :delete } %>
+        <ul class="nav pull-right">
+          <li class="divider-vertical"></li>
+          <% if user_signed_in? %>
+            <%= dropdown_tab current_user.email do %>
+              <%= tab_item "Nodes", user_path %>
+              <%= tab_item "Configurations", edit_user_path %>
+              <%= content_tag :li, nil, class: "divider" %>
+              <%= tab_item t('sessions.signout'), signout_path, link_to: { method: :delete } %>
+            <% end %>
+          <% else %>
+            <li><%= link_to t('sessions.signin'), signin_path %></li>
           <% end %>
-        <% else %>
-          <li><%= link_to t('sessions.signin'), signin_path %></li>
-        <% end %>
-      </ul>
+        </ul>
+      </div>
     </div>
   </div>
-</div>
 </header>
 <!-- /header -->

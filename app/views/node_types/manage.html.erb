@@ -1,8 +1,10 @@
-<%= node_type_navigation %>
 <% provide :title, 'Manage All Nodes' %>
-<% provide :body_class, "node-type-manage" %>
 
-<%= page_title 'Manage All Nodes' %>
+<%= column_navbar title: @node_type.name do %>
+  <%= node_type_navigation %>
+<% end %>
+
+<%= content_tag :legend, 'Manage All Nodes' %>
 
 <table class="table table-striped">
   <tr>

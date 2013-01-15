@@ -1,7 +1,5 @@
 module UsersHelper
   def user_navigation
-    nav_tab do
-      render 'users/nav'
-    end
+    content_tag(:ul, class: "nav pull-right") { render 'users/nav' }
   end
 end

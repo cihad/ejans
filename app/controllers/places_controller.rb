@@ -1,8 +1,6 @@
 class PlacesController < ApplicationController
 
   respond_to :js, only: [:show, :edit, :new, :destroy]
-
-  layout 'small', only: [:index]
   
   def index
     @nodes = Place.roots

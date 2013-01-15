@@ -10,7 +10,6 @@ class MailerTemplatesController < ApplicationController
   end
 
   def show
-    layout "mail"
   end
 
   def new
@@ -63,7 +62,7 @@ class MailerTemplatesController < ApplicationController
     if params[:action] == "show"
       "mail"
     else
-      "small"
+      "application"
     end
   end
 end

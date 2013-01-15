@@ -1,40 +1,29 @@
 <% if view.one_or_more_filters? %>
-  <div class="span3">
-    <div id="node-type-filters" class="node-type-block">
 
-      <div class="navbar navbar-static-top node-type-navbar">
-        <div class="navbar-inner">
-            <span class="brand">Filtreler</span>
+  <%= column_navbar title: "Filtereler" %>
+
+  <%= form_tag node_type_nodes_path(),
+       method: :get,
+       class: "filter-form filters-left" do %>
+
+    <% if params[:author_id].present? %>
+      <div class="filter">
+        <h4>Author</h4>
+        <div class="body">
+          <label class="checkbox">
+            <%= check_box_tag "author_id", params[:author_id], true %>
+            <%= User.find(params[:author_id]).email %>
+          </label>
         </div>
       </div>
+    <% end %>
 
+    <% @node_type.filtered_fields.each do |field| %>
+      <%= render 'nodes/index_partials/filter_block', filtered_field: filter_for(field) %>
+    <% end %>
 
-      <div class="block-content">
-        <%= form_tag node_type_nodes_path(),
-             method: :get,
-             class: "filter-form filters-left" do %>
+    <%= render 'hidden_fields_for_filters' %>
+    <%= submit_tag "Filter", class: "btn btn-success" %>
+  <% end %>
 
-          <% if params[:author_id].present? %>
-            <div class="filter">
-              <h4>Author</h4>
-              <div class="body">
-                <label class="checkbox">
-                  <%= check_box_tag "author_id", params[:author_id], true %>
-                  <%= User.find(params[:author_id]).email %>
-                </label>
-              </div>
-            </div>
-          <% end %>
-
-          <% @node_type.filtered_fields.each do |field| %>
-            <%= render 'nodes/index_partials/filter_block', filtered_field: filter_for(field) %>
-          <% end %>
-
-          <%= render 'hidden_fields_for_filters' %>
-          <%= submit_tag "Filter", class: "btn btn-success" %>
-        <% end %>
-      </div>
-
-    </div>
-  </div>
 <% end %>

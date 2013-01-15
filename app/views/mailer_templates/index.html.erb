@@ -1,5 +1,8 @@
-<% provide :body_class, "node-type-manage" %>
-<%= node_type_navigation %>
+<% provide :title, "Mailer Templates" %>
+
+<%= column_navbar title: @node_type.name do %>
+  <%= node_type_navigation %>
+<% end %>
 
 <%= error_messages_for @fc if @fc %>
 

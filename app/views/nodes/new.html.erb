@@ -1,8 +1,9 @@
-<%= body_class 'node-form' %>
-<% provide :title, "Yeni node ekle" %>
+<% provide :body_class, 'small-page' %>
+<% provide :title, "Add new node" %>
 
-<%= render 'statement' %>
-
+<%= column_navbar title: "New Node" do %>
+  <%= render 'statement' %>
+<% end %>
 
 <%= form_title t('nodes.add_new') %>
 <%= render "form" %>
