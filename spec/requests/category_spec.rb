@@ -18,8 +18,6 @@ describe Category do
       click_link t('categories.add_category')
       categories = 3.times.inject([]) { |arr, _| arr << Faker::Lorem.word.capitalize }
 
-      binding.pry
-
       within("#new_category") do
         fill_in "category_name", with: "A Category"
         fill_in "category_child_nodes", with: categories.join("\n")

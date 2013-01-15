@@ -36,7 +36,7 @@ module FieldsHelper
         noneSelectedText: '#{label}',
         header: false,
         selectedList: 2,
-        minWidth: #{width}
+        #{('minWidth: ' + width) if width}
       });
     EOM
   end

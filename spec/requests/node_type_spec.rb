@@ -74,7 +74,7 @@ describe "NodeType" do
     end
 
     it "show the right informations" do
-      within 'h1' do
+      within '.column-navbar .brand' do
         page.should have_content t('node_types.node_types')
       end
       page.should have_link node_type.name

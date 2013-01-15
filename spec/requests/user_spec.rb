@@ -114,7 +114,7 @@ describe User do
       user = Fabricate(:unconfirmed_user)
       visit user_confirmation_path(:confirmation_token => "thisisaunvalidconfirmationtoken")
       page.should_not have_content t('devise.confirmations.confirmed')
-      within "legend" do
+      within ".column-navbar .brand" do
         page.should have_content t('devise.confirmations.resend')
       end
     end
