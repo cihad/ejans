@@ -80,7 +80,7 @@ module CustomFields
         end
 
         def custom_recipe
-          { 'category_id' => category.id.to_s }
+          { 'category_id' => category_id.to_s }
         end
       end
 
