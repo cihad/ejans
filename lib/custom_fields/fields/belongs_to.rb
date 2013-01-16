@@ -10,8 +10,13 @@ module CustomFields
             class_name: rule['class_name'],
             inverse_of: rule['inverse_of'].try(:to_sym)
 
+          source_class = rule['class_name'].match(/^([A-Za-z]+)/).to_s
+
           klass.class_eval <<-EOM, __FILE__, __LINE__ + 1
-            alias :#{rule['machine_name']} :#{rule['keyname']}
+            def #{rule['machine_name']}
+              @#{rule['machine_name']} ||= #{source_class}.find(#{rule['keyname']}_id)
+            end
+
             alias :#{rule['machine_name']}= :#{rule['keyname']}=
             alias :#{rule['machine_name']}_id :#{rule['keyname']}_id
             alias :#{rule['machine_name']}_id= :#{rule['keyname']}_id=
