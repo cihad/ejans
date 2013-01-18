@@ -34,8 +34,6 @@ class Permission
       node.token == params[:token]
     end
 
-    allow :comments, :create
-
     allow :users, :show
   end
 
@@ -112,7 +110,10 @@ class Permission
     allow :comments, :create
 
     allow :comments, :destroy do |comment|
-      comment.author_id == user.id
+      comment.author_id == user.id or
+      comment._parent.author_id == user.id or
+      comment._parent.node_type.administrator_ids.include?(user.id) or
+      comment._parent.node_type.super_administrator_id == user.id
     end
 
     allow :users, :show

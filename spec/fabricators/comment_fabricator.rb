@@ -1,3 +1,3 @@
 Fabricator :comment do
-  body "Lorem ipsum dolor sit amet."
+  body { Faker::Lorem.paragraph }
 end

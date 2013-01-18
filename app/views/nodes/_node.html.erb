@@ -1,6 +1,6 @@
 <% NodePageViewPresenter.new(@node, @node_type, self) do |view| %>
   <%= view.to_s %>
   <%= view.info %>
-  <%= view.css %>
-  <%= view.js %>
+  <%= view.rendered_css %>
+  <%= view.rendered_js %>
 <% end %>

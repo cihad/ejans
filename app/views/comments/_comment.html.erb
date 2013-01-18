@@ -1,15 +1,21 @@
-<div id="comment_<%= comment.id %>" class="row comment">
-  <div class="span1 offset1">
-    <div class="author">
-      Author
-    </div>
+<div id="<%= dom_id comment %>" class="comment clearfix">
+  <div class="author pull-left">
+    <i class="icon-comments-alt author-icon"></i>
   </div>
-  <div class="span6">
-    <div class="body">
-      <div class="ins">
-        <%= simple_format comment.body %>
-        <%= comment_date comment %>
-      </div>
+  <div class="body">
+    <div class="ins">
+      <p>
+        <%= link_to comment.author.email_name + ":", "#", class: "author-link" %>
+        <%= simple_format(comment.body)[3..-5].html_safe %>
+        <%= content_tag :i, (comment_date(comment) + " once"), class: "muted" %>
+        <% if allow? :comments, :destroy, comment %>
+          <%= link_to t('actions.delete'),
+                      node_type_node_comment_path(@node_type.id, @node.id, comment.id),
+                      remote: true,
+                      method: :delete,
+                      confirm: "Are you sure?" %>
+        <% end %>
+      </p>
     </div>
   </div>
 </div>

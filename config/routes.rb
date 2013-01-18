@@ -19,8 +19,6 @@ Ejans::Application.routes.draw do
 
   resources :home, only: [:index, :show]
 
-  resources :comments, :only => [:create, :destroy]
-
   # Node Types, Fields, Views, Nodes
   resources :node_types, path: 'nt' do
     get :manage, on: :member
@@ -49,6 +47,8 @@ Ejans::Application.routes.draw do
       get :change_owner, on: :member
       post :change_owner, on: :member
       get :change_status, on: :member
+
+      resources :comments, :only => [:create, :destroy]
 
       resources :images do
         post :sort, on: :collection
