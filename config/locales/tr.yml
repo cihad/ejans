@@ -4,6 +4,7 @@
 
 tr:
   actions:
+    are_you_sure: "Emin misiniz?"
     save: "Kaydet"
     delete: "Sil"
     destroy: "Sil"
@@ -83,6 +84,8 @@ tr:
     published: "yayınlandı"
     expired: "süresi sona erdi"
     rejected: "reddeddildi"
+    manage: "Yönet"
+    edit: "Düzenle"
 
   comments:
     comments: "Yorumlar"

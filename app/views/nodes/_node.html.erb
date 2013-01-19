@@ -1,6 +1,8 @@
-<% NodePageViewPresenter.new(@node, @node_type, self) do |view| %>
-  <%= view.to_s %>
-  <%= view.info %>
-  <%= view.rendered_css %>
-  <%= view.rendered_js %>
-<% end %>
+<div class="column-indent">
+  <% NodePageViewPresenter.new(@node, @node_type, self) do |view| %>
+    <%= view.to_s %>
+    <%= view.info %>
+    <%= view.rendered_css %>
+    <%= view.rendered_js %>
+  <% end %>
+</div>

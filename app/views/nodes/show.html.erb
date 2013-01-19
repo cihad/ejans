@@ -4,15 +4,29 @@
 <% meta_description page_name %>
 
 <%= column_navbar title: page_name do %>
-  <%= render 'statement' %>
+  <% if allow? :nodes, :edit, @node %>
+    <ul class="nav pull-right">
+      <%= dropdown_tab t('nodes.manage') do %>
+        <%= tab_item t('nodes.edit'), edit_node_type_node_path(@node.node_type, @node) %>
+        <%= tab_item "Yayından kaldır", "#" %>
+        <%= tab_item t('actions.destroy'), 
+              node_type_node_path(@node_type, @node),
+              link_to: {
+                method: :delete,
+                confirm: t('actions.are_you_sure') } %>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <%#= render 'statement' %>
 <% end %>
 
+
+<%= render "node" %>
+
 <div class="column-indent">
-
-  <%= render "node" %>
-
   <div id="comments">
-    <legend>Comments</legend>
+    <legend><%=t 'comments.comments' %></legend>
     <%= render @node.comments %>
     <%= render 'comments/form' %>
   </div>

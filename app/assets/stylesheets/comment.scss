@@ -1,5 +1,5 @@
 #comments {
-  margin-top: 50px;
+  margin-top: 25px;
 }
 
 .comment {
@@ -9,6 +9,10 @@
     color: #ddd;
     font-size: 32px;
     line-height: 32px;
+  }
+
+  .author-link {
+    font-weight: bold;
   }
 
   .body {

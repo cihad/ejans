@@ -13,7 +13,7 @@ class CommentsController < ApplicationController
 
   def destroy
     @comment.destroy
-    render nothing: true
+    respond_with @comment
   end
 
   private

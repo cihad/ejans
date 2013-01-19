@@ -1,18 +1,39 @@
 .node-info {
   margin-top: 30px;
   width: 100%;
-  border-top: 1px solid #ccc;
+  margin-right: -5px;
 
-  .info-label {
-    font-size: .9em;
-  }
-
-  td:first-child {
-    padding-left: 0;
+  .info-icon {
+    font-size: 24px;
+    line-height: 22px;
+    color: #fafafa;
+    text-shadow: 0 -1px 0 #bbb;
   }
 
   td {
-    padding: 10px 15px 0;
-    border-right: 1px dashed #aaa;
+    width: 33.333333333333%;
   }
+
+  tr td:last-child .info-label {
+    margin-right: 0;
+  }
+
+  .info-label {
+    line-height: 18px;
+    background: #f0f0f0;
+    padding: 10px 15px;
+    margin: 0 5px 5px 0;
+    border-width: 0 1px 1px 0;
+    border-style: solid;
+    border-color: #ddd;
+  }
+
+  .hidden-row {
+    display: none;
+  }
+
+  &:hover .hidden-row {
+    display: table-row;
+  }
+
 }

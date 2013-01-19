@@ -1,43 +1,53 @@
 <table class="node-info">
   <tr>
     <td>
-      <div><%= time_ago_in_words(@node.created_at) %></div>
-      <div class="info-label">önce eklendi</div>
+      <div class="info-label">
+        <i class="info-icon icon-time pull-right"></i>
+        <%= time_ago_in_words(@node.created_at) %> önce
+      </div>
     </td>
 
     <td>
-      <div>
+      <div class="info-label">
+        <i class="info-icon icon-user pull-right"></i>
         <%= @node.author.try(:email_name) %>
         <%= link_to "(nodes)", author_nodes_path %>
       </div>
-      <div class="info-label">author</div>
     </td>
 
     <td>
-      <div><%= @node.comments.size %></div>
-      <div class="info-label">yorum var</div>
+      <div class="info-label">
+        <i class="info-icon icon-comments-alt pull-right"></i>
+        <%= @node.comments.size %> yorum
+      </div>
     </td>
 
-    <% if allow? :nodes, :edit, @node %>
-      <td class="center">
-        <div class="btn-toolbar">
-          <%= dropdown "Yönet", classes: "btn-small", direction: "dropup" do %>
-            <li><%= link_to "Göster", node_type_node_path(@node.node_type, @node) %></li>
-            <li><%= link_to "Düzenle", edit_node_type_node_path(@node.node_type, @node) %></li>
-            <li><%= link_to "Yayından kaldır", "#" %></li>
-            <li class="divider"></li>
-            <li><%= link_to t('actions.destroy'), 
-                            node_type_node_path(@node_type, @node),
-                            method: :delete,
-                            confirm: "Are you sure?"  %></li>
-          <% end %>
-        </div>
-      </td>
-    <% end %>
 
+  </tr>
+
+  <tr class="hidden-row">
     <td>
-      <div><%= link_to @node_type.name, node_type_nodes_path(@node_type) %></div>
-      <div class="info-label">node type</div>
+      <div class="info-label">
+        <% if @node.published? %>
+          <i class="info-icon pull-right icon-ok"></i> yayında
+        <% elsif @node.pending_approval? %>
+          <i class="info-icon pull-right icon-bell"></i> onay bekliyor
+        <% else %>
+          <i class="info-icon pull-right icon-off"></i> yayınlanmıyor
+        <% end %>
+      </div>
     </td>
+    <td>
+      <div class="info-label">
+        <i class="info-icon pull-right icon-list"></i>
+        <%= link_to @node_type.name, node_type_nodes_path(@node_type) %>
+      </div>
+    </td>
+    <td>
+      <div class="info-label">
+        &nbsp;
+      </div>
+    </td>
+
   </tr>
 </table>
