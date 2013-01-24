@@ -9,14 +9,29 @@ module CustomFields
           klass.has_and_belongs_to_many rule['keyname'].to_sym,
             class_name: "::CustomFields::Fields::Select::Option"
 
+          klass.field "#{rule['keyname']}_names", type: Array
+
+          klass.class_eval do
+            define_method rule['machine_name'] do
+              self["#{rule['keyname']}_names"]
+            end
+
+            before_save "fill_#{rule['keyname']}_names".to_sym
+
+            define_method "fill_#{rule['keyname']}_names" do
+              names = self.send(rule['keyname']).map(&:name)
+              self.send("#{rule['keyname']}_names=", names)
+            end
+          end
+
           klass.class_eval <<-EOM, __FILE__, __LINE__ + 1
-            alias :#{rule['machine_name']} :#{rule['keyname']}
             alias :#{rule['machine_name']}= :#{rule['keyname']}=
             alias :#{rule['machine_name']}_ids :#{rule['keyname'].to_s.singularize}_ids
             alias :#{rule['machine_name']}_ids= :#{rule['keyname'].to_s.singularize}_ids=
           EOM
         end
       end
+
 
 
       module ApplyValidate
@@ -26,11 +41,12 @@ module CustomFields
           end
 
           if rule['maximum_select'] and rule['maximum_select'] != 0
-            klass.validates_length_of rule['machine_name'].to_sym,
+            klass.validates_length_of rule['keyname'].to_sym,
               maximum: rule['maximum_select']
           end
         end
       end
+
 
 
       module Query
@@ -82,7 +98,7 @@ module CustomFields
           selected_options = Random.rand(1..max).times.inject([]) do |arr, i|
             arr << options[i]
           end
-          node.send("#{machine_name}=", selected_options)
+          node.send("#{keyname}=", selected_options)
         end
 
         def custom_recipe

@@ -27,10 +27,10 @@ class CommentsController < ApplicationController
   end
 
   def comment
-    @comment = node.comments.find(params[:id])
+    @comment ||= node.comments.find(params[:id])
   end
 
-  def current_resorce
-    @current_resorce ||= comment if params[:id]
+  def current_resource
+    @current_resource ||= comment if params[:id]
   end
 end

@@ -23,11 +23,11 @@ class TableViewNodeTemplate
   end
 
   def self.boolean(machine_name)
-    "<%= node.#{machine_name} ? #{machine_name}.on_value : #{machine_name}.off_value %>"
+    "<%= node.#{machine_name} %>"
   end
 
   def self.date(machine_name)
-    "<%= node.#{machine_name} %>"
+    "<%= node.#{machine_name}.value %>"
   end
 
   def self.has_many(machine_name)
@@ -39,8 +39,8 @@ class TableViewNodeTemplate
   end
 
   def self.image(machine_name)
-    %{<% node.#{machine_name}.each do |image| %>
-        <img src="<%= image.image_url(:thumb) %>" />
+    %{<% node.#{machine_name}(:thumb).each do |image_url| %>
+        <img src="<%= image_url %>" />
       <% end %>}
   end
 
@@ -51,12 +51,12 @@ class TableViewNodeTemplate
   end
 
   def self.select(machine_name)
-    "<%= node.#{machine_name}.map(&:name).join(', ') %>"
+    "<%= node.#{machine_name}.join(', ') %>"
   end
 
   def self.place(machine_name)
     %{<% node.#{machine_name}.each do |row| %>
-        <%= row.places.map(&:name).join(', ') %><br />
+        <%= row.join(', ') %><br />
       <% end %>}
   end
 
@@ -69,7 +69,7 @@ class TableViewNodeTemplate
   end
 
   def self.tree_category(machine_name)
-    "<%= node.#{machine_name}.map(&:name).join(', ') %>"
+    "<%= node.#{machine_name}.join(', ') %>"
   end
 
   def self.print_field(field_type, machine_name)

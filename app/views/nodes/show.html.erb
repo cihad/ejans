@@ -7,7 +7,7 @@
   <% if allow? :nodes, :edit, @node %>
     <ul class="nav pull-right">
       <%= dropdown_tab t('nodes.manage') do %>
-        <%= tab_item t('nodes.edit'), edit_node_type_node_path(@node.node_type, @node) %>
+        <%= tab_item t('nodes.edit'), edit_node_type_node_path(@node_type, @node) %>
         <%= tab_item "Yayından kaldır", "#" %>
         <%= tab_item t('actions.destroy'), 
               node_type_node_path(@node_type, @node),
@@ -27,7 +27,7 @@
 <div class="column-indent">
   <div id="comments">
     <legend><%=t 'comments.comments' %></legend>
-    <%= render @node.comments %>
+    <%= render @node.comments.includes(:author) %>
     <%= render 'comments/form' %>
   </div>
 

@@ -9,6 +9,12 @@ module CustomFields
           klass.field rule['keyname'].to_sym,
             as: rule['machine_name'].to_sym,
             type: ::Date
+
+          klass.class_eval do
+            define_method rule['machine_name'] do
+              Presenter.new(self[rule['keyname']], rule)
+            end
+          end
         end
       end
 
@@ -19,30 +25,30 @@ module CustomFields
           klass.send(:include, Mongoid::MultiParameterAttributes)
 
           if rule['required']
-            klass.validates_presence_of rule['machine_name'].to_sym
+            klass.validates_presence_of rule['keyname'].to_sym
           end
 
           if rule['cant_be_lower_than_start_year']
-            klass.validate "rule['machine_name']_start_year".to_sym
+            klass.validate "rule['keyname']_start_year".to_sym
 
             klass.class_eval <<-EOM, __FILE__, __LINE__ + 1
               private
-              def #{rule['machine_name']}_start_year
-                if #{rule['machine_name']}.year < #{rule['start_year']}
-                  errors.add(:#{rule['machine_name']}, "baslangic tarihinden kucuk olamaz")
+              def #{rule['keyname']}_start_year
+                if #{rule['keyname']}.year < #{rule['start_year']}
+                  errors.add(:#{rule['keyname']}, "baslangic tarihinden kucuk olamaz")
                 end
               end
             EOM
           end
 
           if rule['cant_be_greater_than_end_year']
-            klass.validate "rule['machine_name']_end_year".to_sym
+            klass.validate "rule['keyname']_end_year".to_sym
 
             klass.class_eval <<-EOM, __FILE__, __LINE__ + 1
               private
-              def #{rule['machine_name']}_end_year
-                if #{rule['machine_name']}.year > #{rule['end_year']}
-                  errors.add(:#{rule['machine_name']}, "bitis tarihinden tarihinden buyuk olamaz")
+              def #{rule['keyname']}_end_year
+                if #{rule['keyname']}.year > #{rule['end_year']}
+                  errors.add(:#{rule['keyname']}, "bitis tarihinden tarihinden buyuk olamaz")
                 end
               end
             EOM
@@ -202,7 +208,7 @@ module CustomFields
         end
 
         def fill_node_with_random_value(node)
-          node.send("#{machine_name}=", ::Date.new(::Random.rand(start_year...end_year)))
+          node.send("#{keyname}=", ::Date.new(::Random.rand(start_year...end_year)))
         end
 
         private
@@ -211,6 +217,21 @@ module CustomFields
             errors.add(:base, "Start year, end year'den buyuk olamaz.")
           end
         end
+      end
+
+
+
+      class Presenter < ::CustomFields::Fields::Default::Presenter
+
+        def to_s
+          case metadata['date_type']
+          when :year then source.year
+          when :year_month then [source.month, source.year]
+          when :year_month_day then source
+          end
+        end
+        alias :value :to_s
+
       end
 
 

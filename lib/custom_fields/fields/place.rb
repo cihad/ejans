@@ -13,10 +13,26 @@ module CustomFields
           klass.accepts_nested_attributes_for rule['keyname'],
             allow_destroy: true
 
-          klass.class_eval <<-EOM, __FILE__, __LINE__ + 1
-            alias :#{rule['machine_name']} :#{rule['keyname']}
-            alias :#{rule['machine_name']}= :#{rule['keyname']}=
-          EOM
+          klass.field "#{rule['keyname']}_names".to_sym, type: ::Array
+
+          klass.class_eval do
+            alias :"#{rule['machine_name']}=" :"#{rule['keyname']}="
+
+            define_method rule['machine_name'] do
+              self["#{rule['keyname']}_names"]
+            end
+
+            before_save "refresh_#{rule['keyname']}_names".to_sym
+
+            define_method "refresh_#{rule['keyname']}_names" do
+              place_names = self.send(rule['keyname']).inject([]) do |names, place_item|
+                names << place_item.places.map(&:name)
+                names
+              end
+              self.send("#{rule['keyname']}_names=", place_names)
+            end
+            
+          end
         end
       end
 
@@ -25,13 +41,13 @@ module CustomFields
       module ApplyValidate
         def apply_place_validate(klass, rule)
           klass.before_validation do |doc|
-            doc.send(rule['machine_name']).each do |plc|
+            doc.send(rule['keyname']).each do |plc|
               plc.delete if plc.place_ids.size == 0
             end
           end
 
           if rule['required']
-            klass.validates_presence_of rule['machine_name'].to_sym
+            klass.validates_presence_of rule['keyname'].to_sym
           end
         end
       end
@@ -106,7 +122,7 @@ module CustomFields
 
         def fill_node_with_random_value(node)
           place = PlaceItem.new(places: top_place.get_just_a_branch, able_to_place_item: node)
-          node.send("#{machine_name}") << place
+          node.send("#{keyname}") << place
         end
 
         def custom_recipe
@@ -131,9 +147,6 @@ module CustomFields
           name
         end
       end
-
-
-
 
 
     end

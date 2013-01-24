@@ -10,10 +10,23 @@ module CustomFields
             class_name: "Category",
             inverse_of: nil
 
-          klass.class_eval <<-EOM, __FILE__, __LINE__ + 1
-            alias :#{rule['machine_name']} :#{rule['keyname']}
-            alias :#{rule['machine_name']}= :#{rule['keyname']}=
-          EOM
+          cache_field_name = "#{rule['keyname']}_names".to_sym
+          klass.field cache_field_name, type: ::Array
+
+          klass.class_eval do
+            alias :"#{rule['machine_name']}=" :"#{rule['keyname']}="
+
+            define_method rule['machine_name'] do
+              self[cache_field_name]
+            end
+
+            before_save "refresh_#{cache_field_name}".to_sym
+
+            define_method "refresh_#{cache_field_name}" do
+              category_names = self.send(rule['keyname']).map(&:name)
+              self.write_attribute(cache_field_name, category_names)
+            end
+          end
         end
       end
 
@@ -22,7 +35,7 @@ module CustomFields
       module ApplyValidate
         def apply_tree_category_validate(klass, rule)
           if rule['required']
-            klass.validates_presence_of rule['machine_name'].to_sym
+            klass.validates_presence_of rule['keyname'].to_sym
           end
         end
       end
@@ -76,7 +89,7 @@ module CustomFields
         validates :category, presence: true
 
         def fill_node_with_random_value(node)
-          node.send("#{machine_name}=", category.get_just_a_branch)
+          node.send("#{keyname}=", category.get_just_a_branch)
         end
 
         def custom_recipe

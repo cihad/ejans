@@ -11,8 +11,8 @@
         <% if allow? :comments, :destroy, comment %>
           <%= link_to t('actions.delete'),
                       node_type_node_comment_path(@node_type.id, @node.id, comment.id),
-                      remote: true,
                       method: :delete,
+                      remote: true,
                       confirm: "Are you sure?" %>
         <% end %>
       </p>

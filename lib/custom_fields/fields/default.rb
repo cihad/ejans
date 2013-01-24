@@ -132,6 +132,27 @@ module CustomFields
         end
       end
 
+      class Presenter
+
+        attr_reader :source, :metadata
+
+        def initialize(source, metadata)
+          @source = source
+          @metadata = metadata
+        end
+
+        private
+
+        def keyname
+          metadata['keyname']
+        end
+
+        def machine_name
+          metadata['machine_name']
+        end
+        
+      end
+
 
 
 

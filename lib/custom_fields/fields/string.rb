@@ -39,7 +39,7 @@ module CustomFields
         validates :text_format, inclusion: { in: TEXT_FORMATS }
         
         def fill_node_with_random_value(node)
-          node.send("#{machine_name}=", Faker::Lorem.sentences.join(' '))
+          node.send("#{keyname}=", Faker::Lorem.sentences.join(' '))
         end
 
         def custom_recipe

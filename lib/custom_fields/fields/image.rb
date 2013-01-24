@@ -11,8 +11,13 @@ module CustomFields
             as: :imageable,
             cascade_callbacks: true
 
+          klass.class_eval do
+            define_method rule['machine_name'] do |version|
+              Presenter.new(version, self.send(rule['keyname']), rule)
+            end
+          end
+
           klass.class_eval <<-EOM, __FILE__, __LINE__ + 1
-            alias :#{rule['machine_name']} :#{rule['keyname']}
             alias :#{rule['machine_name']}= :#{rule['keyname']}=
           EOM
         end
@@ -23,11 +28,11 @@ module CustomFields
       module ApplyValidate
         def apply_image_validate(klass, rule)
           if rule['required']
-            klass.validates_presence_of rule['machine_name'].to_sym
+            klass.validates_presence_of rule['keyname'].to_sym
           end
 
           if rule['maximum_image'] and rule['maximum_image'] != 0
-            klass.validates_length_of rule['machine_name'].to_sym,
+            klass.validates_length_of rule['keyname'].to_sym,
               maximum: rule['maximum_image']
           end
 
@@ -36,7 +41,7 @@ module CustomFields
               params.inject([]) do |new_images, img|
                 image = ::CustomFields::Fields::Image::Image.new(image: img)
                 new_images << image
-                result = #{rule['machine_name']} << image
+                result = #{rule['keyname']} << image
                 new_images
               end
             end
@@ -116,7 +121,7 @@ module CustomFields
           images = Random.rand(1..maximum_image).times.inject([]) do |arr, i|
             arr << Image.new(imageable: node, image: File.new("#{Rails.root}/spec/support/images/home_#{i+1}.jpg"))
           end
-          node.send("#{machine_name}=", images)
+          node.send("#{keyname}=", images)
         end
 
         def custom_recipe
@@ -133,6 +138,43 @@ module CustomFields
           name
         end
       end
+
+
+
+      class Presenter < ::CustomFields::Fields::Default::Presenter
+        include Enumerable
+
+        attr_reader :version
+
+        def initialize(version = nil, *args)
+          @version = version
+          super *args
+        end
+
+        def [](key)
+          images[key]
+        end
+
+        def to_a
+          images.dup
+        end
+
+        def each(&block)
+          images.each(&block)
+        end
+
+        def count
+          images.size
+        end
+
+        private
+
+        def images
+          source.map { |image| image.image_url(version) }
+        end
+      end
+
+
 
 
 

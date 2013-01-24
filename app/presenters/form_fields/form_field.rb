@@ -12,7 +12,7 @@ module FormFields
     delegate :label, :machine_name, :keyname, :required?, :hint, to: :field
 
     def form_key
-      machine_name
+      keyname
     end
 
     def node

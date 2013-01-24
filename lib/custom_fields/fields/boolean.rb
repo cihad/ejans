@@ -9,6 +9,12 @@ module CustomFields
           klass.field rule['keyname'].to_sym,
             as: rule['machine_name'].to_sym,
             type: ::Boolean
+
+          klass.class_eval do
+            define_method rule['machine_name'].to_sym do
+              Presenter.new(self[rule['keyname']], rule)
+            end
+          end
         end
       end
 
@@ -16,7 +22,7 @@ module CustomFields
       module ApplyValidate
         def apply_boolean_validate(klass, rule)
           if rule['required']
-            klass.validates_presence_of rule['machine_name'].to_sym
+            klass.validates_presence_of rule['keyname'].to_sym
           end
         end
       end
@@ -61,10 +67,29 @@ module CustomFields
         end
 
         def fill_node_with_random_value(node)
-          node.send("#{machine_name}=", true)
+          node.send("#{keyname}=", true)
         end
       end
 
+
+
+      class Presenter < ::CustomFields::Fields::Default::Presenter
+
+        # source = true|false
+        def to_s
+          source ? on_value : off_value
+        end
+
+        private
+
+        def on_value
+          metadata['on_value']
+        end
+
+        def off_value
+          metadata['off_value']
+        end
+      end
 
 
       

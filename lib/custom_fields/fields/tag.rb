@@ -11,11 +11,12 @@ module CustomFields
             type: ::Array,
             default: []
 
-          klass.class_eval <<-EOM, __FILE__, __LINE__ + 1
-            def #{rule['machine_name']}_tags
-              #{rule['machine_name']}.join(', ')
+          klass.class_eval do
+            define_method "#{rule['keyname']}_tags" do
+              self[rule['keyname']].join(', ')
             end
-          EOM
+            alias :"#{rule['machine_name']}_tags" :"#{rule['keyname']}_tags"
+          end
         end
       end
 
@@ -24,12 +25,12 @@ module CustomFields
       module ApplyValidate
         def apply_tag_validate(klass, rule)
           if rule['required']
-            klass.validates_presence_of "#{rule['machine_name']}_tags".to_sym
+            klass.validates_presence_of "#{rule['keyname']}_tags".to_sym
           end
 
           klass.class_eval <<-EOM, __FILE__, __LINE__ + 1
-            def #{rule['machine_name']}_tags=(tags)
-              self.#{rule['machine_name']} = tags.split(',').map(&:strip)
+            def #{rule['keyname']}_tags=(tags)
+              self.#{rule['keyname']} = tags.split(',').map(&:strip)
             end
           EOM
         end
@@ -61,7 +62,7 @@ module CustomFields
         extend Query
 
         def fill_node_with_random_value(node)
-          node.send("#{machine_name}_tags=", Faker::Lorem.words.join(','))
+          node.send("#{keyname}_tags=", Faker::Lorem.words.join(','))
         end
 
         def custom_recipe

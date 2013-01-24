@@ -10,13 +10,26 @@ module CustomFields
             class_name: rule['class_name'],
             inverse_of: rule['inverse_of'].try(:to_sym)
 
-          source_class = rule['class_name'].match(/^([A-Za-z]+)/).to_s
+          klass.field "#{rule['keyname']}_title".to_sym
+
+          klass.class_eval do
+            define_method rule['machine_name'].to_sym do
+              source = {}
+              source.merge!(id: self["#{rule['keyname']}_id"])
+              source.merge!(title: self["#{rule['keyname']}_title"])
+              Presenter.new(source, rule)
+            end
+          end
+
+          klass.before_save :fill_belongs_to_title
+
+          klass.class_eval do
+            define_method :fill_belongs_to_title do
+              self.send("#{rule['keyname']}_title=", self.send(rule['keyname']).try(:title))
+            end
+          end
 
           klass.class_eval <<-EOM, __FILE__, __LINE__ + 1
-            def #{rule['machine_name']}
-              @#{rule['machine_name']} ||= #{source_class}.find(#{rule['keyname']}_id)
-            end
-
             alias :#{rule['machine_name']}= :#{rule['keyname']}=
             alias :#{rule['machine_name']}_id :#{rule['keyname']}_id
             alias :#{rule['machine_name']}_id= :#{rule['keyname']}_id=
@@ -28,17 +41,17 @@ module CustomFields
       module ApplyValidate
         def apply_belongs_to_validate(klass, rule)
           if rule['required']
-            klass.validates_presence_of "#{rule['machine_name']}_id".to_sym
+            klass.validates_presence_of "#{rule['keyname']}_id".to_sym
           end
 
           if rule['can_be_added_only_by_parent_author']
-            klass.validate :"#{rule['machine_name']}_can_be_added_only_by_parent_author"
+            klass.validate :"#{rule['keyname']}_can_be_added_only_by_parent_author"
 
             klass.class_eval <<-EOV, __FILE__, __LINE__ + 1
               private
-              def #{rule['machine_name']}_can_be_added_only_by_parent_author
-                if author != #{machine_name}.try(:author)
-                  errors.add(:#{machine_name},
+              def #{rule['keyname']}_can_be_added_only_by_parent_author
+                if author != #{rule['keyname']}.try(:author)
+                  errors.add(:#{rule['keyname']},
                     %q{node ekleyebilmek icin once
                       <a href='#'>buradan</a>
                       ust bir dugum eklemelisiniz. Sonra buradan eklediginiz
@@ -90,12 +103,33 @@ module CustomFields
                         else
                           class_name.constantize.all.first
                         end
-          node.send("#{machine_name}=", parent_node)
+          node.send("#{keyname}=", parent_node)
         end
 
       end
 
 
+
+      class Presenter < ::CustomFields::Fields::Default::Presenter
+
+        def id
+          source[:id] # Moped::Bson::ObjectId
+        end
+
+        def title
+          source[:title]
+        end
+
+        private
+
+        def belongs_to_node
+          @belongs_to_node ||= source_class.constantize.find(id)
+        end
+
+        def source_class
+          metadata['class_name'].match(/^([A-Za-z]+)/).to_s
+        end
+      end
 
 
     end

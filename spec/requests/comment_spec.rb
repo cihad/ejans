@@ -36,6 +36,8 @@ describe "Comment" do
 
     alert.accept
 
+    sleep 1
+
     page.should_not have_content comment.body
   end
 

@@ -1,7 +1,7 @@
 module FormFields
   class BelongsToFormField < FormField
     def form_key
-      :"#{super}_id"
+      "#{super}_id".to_sym
     end
 
     delegate :can_be_added_only_by_parent_author?, :class_name, to: :field

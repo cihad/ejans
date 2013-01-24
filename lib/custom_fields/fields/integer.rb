@@ -17,16 +17,16 @@ module CustomFields
       module ApplyValidate
         def apply_integer_validate(klass, rule)
           if rule['required']
-            klass.validates_presence_of rule['machine_name'].to_sym
+            klass.validates_presence_of rule['keyname'].to_sym
           end
 
           if rule['min']
-            klass.validates_numericality_of rule['machine_name'].to_sym,
+            klass.validates_numericality_of rule['keyname'].to_sym,
               greater_than_or_equal_to: rule['min']
           end
 
           if rule['max']
-            klass.validates_numericality_of rule['machine_name'].to_sym,
+            klass.validates_numericality_of rule['keyname'].to_sym,
               less_than_or_equal_to: rule['max']
           end
         end
@@ -136,7 +136,7 @@ module CustomFields
           minimum = minimum || 0
           maximum = maximum || 1000
           val     = Random.rand(0..1000)
-          node.send("#{machine_name}=", val)
+          node.send("#{keyname}=", val)
         end
 
         def custom_recipe

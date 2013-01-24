@@ -6,6 +6,6 @@ module NodeTypesHelper
   end
 
   def author_nodes_path
-    node_type_nodes_path(@node.node_type, params_query(params).merge(author_id: @node.author_id.to_s))
+    node_type_nodes_path(@node.node_type_id, params_query(params).merge(author_id: @node.author_id))
   end
 end

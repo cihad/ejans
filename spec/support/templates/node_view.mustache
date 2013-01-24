@@ -5,7 +5,7 @@
   </tr>
   <tr>
     <th><%= {{boolean}}.label %></th>
-    <td><%= node.{{boolean}} ? {{boolean}}.on_value : {{boolean}}.off_value %></td>
+    <td><%= node.{{boolean}} %></td>
   </tr>
   <tr>
     <th><%= {{date}}.label %></th>
@@ -14,8 +14,8 @@
   <tr>
     <th><%= {{image}}.label %></th>
     <td>
-      <% node.{{image}}.each do |image| %>
-        <img src="<%= image.image_url(:thumb) %>" />
+      <% node.{{image}}(:thumb).each do |image_url| %>
+        <img src="<%= image_url %>" />
       <% end %>
     </td>
   </tr>
@@ -29,13 +29,13 @@
   </tr>
   <tr>
     <th><%= {{select}}.label %></th>
-    <td><%= node.{{select}}.map(&:name).join(', ') %></td>
+    <td><%= node.{{select}}.join(', ') %></td>
   </tr>
   <tr>
     <th><%= {{place}}.label %></th>
     <td>
       <% node.{{place}}.each do |row| %>
-        <%= row.places.map(&:name).join(', ') %><br />
+        <%= row.join(', ') %><br />
       <% end %>
     </td>
   </tr>
@@ -49,6 +49,6 @@
   </tr>
   <tr>
     <th><%= {{tree_category}}.label %></th>
-    <td><%= node.{{tree_category}}.map(&:name).join(', ') %></td>
+    <td><%= node.{{tree_category}}.join(', ') %></td>
   </tr>
 </table>

@@ -33,15 +33,15 @@ describe "Node" do
       choose boolean_field(node_type).on_value
 
       # DateField
-      select "1990", from: "node_#{date_field(node_type).machine_name}_1i"
+      select "1990", from: "node_#{date_field(node_type).keyname}_1i"
 
       # ImageField
-      page.execute_script("$('#node_#{image_field(node_type).machine_name}').css({
+      page.execute_script("$('#node_#{image_field(node_type).keyname}').css({
         'opacity': 1,
         'position': 'relative',
         'transform': 'none'  
       })")
-      attach_file "node_#{image_field(node_type).machine_name}", "#{images_dir}/image-800-600.jpg"
+      attach_file "node_#{image_field(node_type).keyname}", "#{images_dir}/image-800-600.jpg"
       click_button t('images.start_upload')
       
       # IntegerField
