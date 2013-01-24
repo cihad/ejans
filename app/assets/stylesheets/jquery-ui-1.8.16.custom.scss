@@ -458,7 +458,7 @@
 }
 
 .ui-button-error{
-  @extend .btn-error;
+  @extend .btn-warning;
 }
 
 .ui-button-icon-only { width: 2.2em; } /* to make room for the icon, a width needs to be set here */
