@@ -50,26 +50,7 @@ class Node
   index updaed_at: 1
   index({ node_type_id: 1, status: 1, _type: 1, created_at: 1 }, { background: true })
 
-  # { integer: 4,
-  #   string: 3,
-  #   date: 2 }.each do |key_prefix, how_many|
-  #   how_many.times.each_with_index do |i|
-  #     index "#{key_prefix}_#{i}" => 1
-  #   end
-  # end
-
-  # { place_value: 2 }.each do |key_prefix, how_many|
-  #   how_many.times.each_with_index do |i|
-  #     index "#{key_prefix}_#{i}_ids" => 1
-  #   end
-  # end
-
-  # { list_item: 4 }.each do |key_prefix, how_many|
-  #   how_many.times.each_with_index do |i|
-  #     index "#{I18n.with_locale(:en) { i.to_words }}_#{key_prefix}_ids" => 1
-  #   end
-  # end
-
+  # Workflow for node status
   workflow do
     state :new do
       event :submit, :transitions_to => :pending_approval
@@ -95,17 +76,17 @@ class Node
     end
   end
 
-  ## presenter
+  ## TODO: presenter
   def path
     node_type_node_path(node_type_id, self.id)
   end
 
-  ## presenter
+  ## TODO: presenter
   def self_data
     { :"node" => self }
   end
 
-  #$ presenter
+  ## TODO: presenter
   def mapping(field_data)
     field_data.merge(self_data).merge(node_type.self_data)
   end
