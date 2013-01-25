@@ -28,7 +28,7 @@ class NodeTypeViewPresenter
   end
 
   def to_s
-    h.render inline: node_type_template, locals: { nodes: rendered_nodes }
+    ViewRenderer.new(node_type_template, nodes: rendered_nodes).evaluate.html_safe
   end
 
   def paginate
@@ -83,7 +83,7 @@ private
   def rendered_nodes
     nodes.inject("") do |out, node|
       out << NodeViewPresenter.new(node_template, node, node_type, h).to_s
-    end.html_safe
+    end
   end
 
 end

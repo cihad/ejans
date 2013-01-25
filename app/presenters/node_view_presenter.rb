@@ -28,7 +28,7 @@ class NodeViewPresenter
   end
 
   def to_s
-    h.render inline: node_template, locals: as_json
+    ViewRenderer.new(node_template, as_json).evaluate
   end
   
 end

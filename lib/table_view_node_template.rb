@@ -11,7 +11,7 @@ class TableViewNodeTemplate
 
   def self.row(field, &block)
     %{<tr>
-      <th><%= #{field}.label %></th>
+      <th><%= @#{field}.label %></th>
       <td>
         #{yield field}
       </td>
@@ -19,57 +19,57 @@ class TableViewNodeTemplate
   end
 
   def self.belongs_to(machine_name)
-    "<%= node.#{machine_name}.title %>"
+    "<%= @node.#{machine_name}.title %>"
   end
 
   def self.boolean(machine_name)
-    "<%= node.#{machine_name} %>"
+    "<%= @node.#{machine_name} %>"
   end
 
   def self.date(machine_name)
-    "<%= node.#{machine_name}.value %>"
+    "<%= @node.#{machine_name}.value %>"
   end
 
   def self.has_many(machine_name)
     %{<ul>
-      <% node.#{machine_name}.each do |node| %>
-        <li><a href="<%= node.path %>" data-remote><%= node.title %></a></li>
+      <% @node.#{machine_name}.each do |node| %>
+        <li><a href="<%= @node.path %>" data-remote><%= @node.title %></a></li>
       <% end %>
     </ul>}
   end
 
   def self.image(machine_name)
-    %{<% node.#{machine_name}(:thumb).each do |image_url| %>
+    %{<% @node.#{machine_name}(:thumb).each do |image_url| %>
         <img src="<%= image_url %>" />
       <% end %>}
   end
 
   def self.integer(machine_name)
     %{<%= #{machine_name}.prefix %>
-      <%= node.#{machine_name} %>
+      <%= @node.#{machine_name} %>
       <%= #{machine_name}.suffix %>}
   end
 
   def self.select(machine_name)
-    "<%= node.#{machine_name}.join(', ') %>"
+    "<%= @node.#{machine_name}.join(', ') %>"
   end
 
   def self.place(machine_name)
-    %{<% node.#{machine_name}.each do |row| %>
+    %{<% @node.#{machine_name}.each do |row| %>
         <%= row.join(', ') %><br />
       <% end %>}
   end
 
   def self.string(machine_name)
-    "<%= node.#{machine_name} %>"
+    "<%= @node.#{machine_name} %>"
   end
 
   def self.tag(machine_name)
-    "<%= node.#{machine_name}.join(', ') %>"
+    "<%= @node.#{machine_name}.join(', ') %>"
   end
 
   def self.tree_category(machine_name)
-    "<%= node.#{machine_name}.join(', ') %>"
+    "<%= @node.#{machine_name}.join(', ') %>"
   end
 
   def self.print_field(field_type, machine_name)

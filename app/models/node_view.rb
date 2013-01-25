@@ -6,7 +6,7 @@ class NodeView
   field :css
   field :js
   field :user_input_node_template,
-        default: %q{<h3><%= node.title %></h3>}
+        default: %q{<h3><%= @node.title %></h3>}
 
   alias :node_template :user_input_node_template
 

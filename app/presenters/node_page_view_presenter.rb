@@ -15,7 +15,7 @@ class NodePageViewPresenter
 
   def wrapper
     %q{<div class='node'>
-      <%= node %>
+      <%= @node %>
     </div>}
   end
 
@@ -28,7 +28,7 @@ class NodePageViewPresenter
   end
 
   def rendered_node
-    NodeViewPresenter.new(node_view.node_template, node, node_type, @template).to_s.html_safe
+    NodeViewPresenter.new(node_view.node_template, node, node_type, @template).to_s
   end
 
   def info
@@ -36,7 +36,7 @@ class NodePageViewPresenter
   end
 
   def to_s
-    h.render inline: wrapper, locals: { node: rendered_node }
+    ViewRenderer.new(wrapper, node: rendered_node).evaluate.html_safe
   end
 
 private
