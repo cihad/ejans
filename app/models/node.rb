@@ -18,6 +18,7 @@ class Node
   field :status
   field :token
   field :email_send, type: Boolean
+  field :node_view
 
   # Associations
   belongs_to  :node_type, index: true
@@ -42,6 +43,7 @@ class Node
   before_save     :save_user
   after_save      :send_email
   before_create   :set_random_token
+  before_save     :fill_node_view
 
   # Indexes
   index title: 1
@@ -137,4 +139,17 @@ class Node
   def save_user
     @user.save(validate: false) if @user
   end
+
+  def fill_node_view
+    node_template = node_type.node_view.node_template
+    self.node_view = NodeViewPresenter.new(node_template, self, node_type).to_s
+    if node_type.node_type_views.exists?
+      node_type.node_type_views.each do |v|
+        self["view_#{v.id}"] = NodeViewPresenter.new(v.node_template, self, node_type).to_s
+      end
+    else
+      self["view_default"] = NodeViewPresenter.new(DefaultNodeTypeView.new.node_template, self, node_type).to_s
+    end
+  end
+
 end

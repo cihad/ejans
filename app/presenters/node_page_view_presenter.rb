@@ -27,8 +27,8 @@ class NodePageViewPresenter
     h.javascript_tag js
   end
 
-  def rendered_node
-    NodeViewPresenter.new(node_view.node_template, node, node_type, @template).to_s
+  def rendered_node_view
+    node.node_view
   end
 
   def info
@@ -36,7 +36,7 @@ class NodePageViewPresenter
   end
 
   def to_s
-    ViewRenderer.new(wrapper, node: rendered_node).evaluate.html_safe
+    ViewRenderer.new(wrapper, node: rendered_node_view).evaluate.html_safe
   end
 
 private

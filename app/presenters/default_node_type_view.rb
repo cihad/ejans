@@ -1,7 +1,7 @@
 class DefaultNodeTypeView
 
-  def initialize(node_type)
-    @node_type = node_type
+  def id
+    "default"
   end
 
   def css; end
@@ -11,7 +11,7 @@ class DefaultNodeTypeView
   def node_type_template
     %q{
       <table class="table table-hover">
-        <%= nodes %>
+        <%= @nodes %>
       </table>
     }
   end
@@ -20,8 +20,8 @@ class DefaultNodeTypeView
     %q{
       <tr>
         <td>
-          <a href="<%= node.path %>" data-remote>
-            <%= node.title %>
+          <a href="<%= @node.path %>" data-remote>
+            <%= @node.title %>
           </a>
         </td>
       </tr>

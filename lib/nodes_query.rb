@@ -18,9 +18,14 @@ class NodesQuery
 
   def results
     @relation.
+      only(:custom_fields_recipe, :"view_#{view.id}").
       send(:where, criteria.selector).
       send(:order_by, criteria.options[:sort]).
       page(params[:page])
+  end
+
+  def view
+    CurrentView.new(node_type, params[:view_id]).view
   end
 
   def filtered_fields

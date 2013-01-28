@@ -66,14 +66,7 @@ class NodeTypeViewPresenter
 private
   
   def view
-    view_id = params[:view_id]
-    @view ||= if view_id.present? 
-                node_type_views.find(params[:view_id])
-              elsif node_type_views.present?
-                node_type_views.first
-              else
-                DefaultNodeTypeView.new(node_type)
-              end
+    @view ||= CurrentView.new(node_type, params[:view_id]).view
   end
 
   def node_type_views
@@ -82,7 +75,7 @@ private
 
   def rendered_nodes
     nodes.inject("") do |out, node|
-      out << NodeViewPresenter.new(node_template, node, node_type, h).to_s
+      out << node["view_#{view.id}"]
     end
   end
 
