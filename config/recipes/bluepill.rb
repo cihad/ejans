@@ -1,7 +1,7 @@
 namespace :bluepill do
   desc "|DarkRecipes| Install the bluepill monitoring tool"
   task :install, :roles => [:app] do
-    sudo "gem install bluepill"
+    run "#{sudo} gem install bluepill"
     run "#{sudo} touch /etc/syslog.conf"
     run "#{sudo} echo 'local6.*          /var/log/bluepill.log' >> /etc/syslog.conf"
     run "#{sudo} mkdir -p /var/run/bluepill"
