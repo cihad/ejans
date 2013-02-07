@@ -1,10 +1,13 @@
 namespace :bluepill do
   desc "|DarkRecipes| Install the bluepill monitoring tool"
   task :install, :roles => [:app] do
-    run "#{sudo} gem install bluepill"
+    run "cd #{current_path} && gem install bluepill"
     run "#{sudo} touch /etc/syslog.conf"
     run "#{sudo} echo 'local6.*          /var/log/bluepill.log' >> /etc/syslog.conf"
     run "#{sudo} mkdir -p /var/run/bluepill"
+    template "bluepill_upstart.erb", "/tmp/bluepill"
+    run "chmod +x /tmp/bluepill"
+    run "#{sudo} mv /tmp/bluepill /etc/init/bluepill"
   end
   after 'deploy:setup' do
     install if Capistrano::CLI.ui.agree("Do you want to install the bluepill monitor? [Yn]")

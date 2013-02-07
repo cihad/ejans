@@ -38,16 +38,29 @@ Bluepill.application(application) do |app|
       app.process("resque-#{i}") do |process|
         process.group = "resque"
 
-        process.pid_file = "#{current_path}/tmp/pids/resque_#{i}.pid"
-        process.stdout = process.stderr = "#{rails_root}/log/resque_#{i}.log"
+        process.pid_file = "#{current_path}/tmp/pids/resque_work_#{i}.pid"
+        process.stdout = process.stderr = "#{rails_root}/log/resque_work_#{i}.log"
         process.environment = {
+          'PIDFILE'   => "#{current_path}/tmp/pids/resque_work_#{i}.pid",
           'RAILS_ENV' => rails_env,
-          'QUEUE' => queue_list
+          'QUEUE'     => queue_list
         }
         process.start_command = "bundle exec rake resque:work"
         process.stop_command = "kill -QUIT {{PID}}"
         process.daemonize = true
       end
     end
+  end
+
+  # Nginx
+  app.process("nginx") do |process|
+    process.pid_file "/var/run/nginx.pid"
+
+    process.start_command "/etc/init.d/nginx start"
+    process.stop_command "/etc/init.d/nginx stop"
+
+    process.start_grace_time = 10.seconds
+    process.stop_grace_time = 10.seconds
+    process.restart_grace_time = 10.seconds
   end
 end
