@@ -39,7 +39,7 @@ Bluepill.application(application) do |app|
         process.group = "resque"
 
         process.pid_file = "#{current_path}/tmp/pids/resque_work_#{i}.pid"
-        process.stdout = process.stderr = "#{rails_root}/log/resque_work_#{i}.log"
+        process.stdout = process.stderr = "#{current_path}/log/resque_work_#{i}.log"
         process.environment = {
           'PIDFILE'   => "#{current_path}/tmp/pids/resque_work_#{i}.pid",
           'RAILS_ENV' => rails_env,
