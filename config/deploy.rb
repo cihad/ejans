@@ -1,7 +1,8 @@
 require "bundler/capistrano"
 
 load "config/recipes/base"
-load "config/recipes/bluepill"
+# load "config/recipes/bluepill"
+load "config/recipes/monit"
 load "config/recipes/default"
 load "config/recipes/mongoid"
 load "config/recipes/nginx"

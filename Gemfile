@@ -48,7 +48,7 @@ end
 
 group :production do
   gem 'unicorn', '4.1.1'
-  gem 'bluepill'
+  # gem 'bluepill'
 end
 
 group :test, :development do
