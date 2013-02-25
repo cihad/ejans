@@ -1,6 +1,6 @@
 Ejans::Application.routes.draw do
 
-  root :to => 'node_types#index'
+  root :to => 'settlements#index'
 
   get '/user'      => 'users#show'
 
@@ -18,6 +18,7 @@ Ejans::Application.routes.draw do
   match "/404", :to => "errors#not_found"
 
   resources :home, only: [:index, :show]
+
 
   # Node Types, Fields, Views, Nodes
   resources :node_types, path: 'nt' do
@@ -57,10 +58,13 @@ Ejans::Application.routes.draw do
     end
   end
 
+  
   resources :places do
     get :find_by_name, on: :collection
   end
   resources :categories
 
+  resources :settlements, path: '', only: [:index, :show]
+  
   mount Resque::Server, at: "/resque"
 end

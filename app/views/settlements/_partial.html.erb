@@ -1,0 +1,75 @@
+
+<%= column_navbar do %>
+  <ul class="nav">
+    <% (@place.ancestors.reverse + [@place]).each do |place| %>
+      <% if place == @place %>
+        <li class="dropdown active">
+      <% else %>
+        <li class="dropdown">
+      <% end %>
+
+        <% if place.siblings.exists? %>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= place.name %> <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <% place.siblings.each do |plc| %>
+              <li><%= link_to plc.name, settlement_path(plc) %></li>
+            <% end %>
+          </ul>
+        <% else %>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <i class="icon-map-marker" style="font-size: 20px; width: 1em; line-height: 5px"> </i>
+          </a>
+        <% end %>
+
+      </li>
+    <% end %>
+
+
+    <% if @place.children.exists? %>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>...</b></a>
+        <ul class="dropdown-menu">
+          <% @place.children.each do |plc| %>
+            <li><%= link_to plc.name, settlement_path(plc) %></li>
+          <% end %>
+        </ul>
+      </li>
+    <% end %>
+      
+
+
+  </ul>
+
+  <ul class="nav pull-right">
+    <li>
+      <%= link_to node_types_path,
+            class: "btn-new-node",
+            rel: "tooltip",
+            data: {
+              placement: "bottom",
+              original_title: t('settlements.add')
+            },
+            title: t('settlements.add') do %>
+        <%= content_tag :i, nil, class: "icon-plus icon-white" %>
+      <% end %>
+    </li>
+  </ul>
+<% end %>
+
+<div class="column-indent">
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th style="padding-left: 0"><%= t('settlements.title') %></th>
+        <th><%= t('settlements.list') %></th>
+      </tr>
+    </thead>
+    <% @place.nodes.published.each do |node| %>
+      <tr>
+        <td style="padding-left:0"><%= link_to node.title, node_type_node_path(node.node_type_id, node.id), remote: true %></td>
+        <td><%= link_to node.node_type.name, node_type_nodes_path(node.node_type_id) %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>

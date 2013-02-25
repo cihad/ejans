@@ -18,7 +18,6 @@
 <%= dropdown_tab t('node_type_views.views') do %>
   <%= tab_item t('node_type_views.index'), node_type_node_type_views_path(@node_type) %>
   <%= tab_item t('node_views.edit_node_view'), edit_node_type_node_view_path(@node_type) %>
-  <%= tab_item t('place_page_view.edit_place_page_view'), edit_node_type_place_page_view_path(@node_type) if @node_type.place_page_view %>
   <%= content_tag :li, nil, class: "divider" %>
   <% @node_type.node_type_views.each do |node_type_view| %>
     <%= tab_item "<i class='icon #{node_type_view.icon}'></i> #{t('node_type_views.view')}".html_safe,

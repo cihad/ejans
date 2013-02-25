@@ -7,6 +7,7 @@
   <%= f.input :node_expiration_day_limit, as: :integer %>
   <%= f.input :commentable, as: :boolean %>
   <%= f.input :signin_required, as: :boolean %>
+  <%= f.input :list_in_place_page, as: :boolean %>
   <%= f.association :administrators, collection: @node_type.administrators.map { |u| [u.email, u.id] }, as:  :check_boxes %>
   <%= f.input :administrator_email, placeholder: "email" %>
   <div class="form-actions page-bottom-actions">

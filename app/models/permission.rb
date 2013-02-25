@@ -16,6 +16,7 @@ class Permission
 
   def allow_for_everyone
     allow :errors, :not_found
+    allow :settlements, [:index, :show]
     allow :mailer_templates, :show
   end
 

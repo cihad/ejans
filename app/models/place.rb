@@ -19,7 +19,7 @@ class Place
   fulltext_search_in :name
 
   ## scopes
-  default_scope order_by([:name, :asc])
+  # default_scope order_by([:name, :asc])
 
   def lat_lng
     lng_lat.reverse
@@ -46,21 +46,14 @@ class Place
   end
 
   def nodes
-    node_types = NodeType.where({'place_page_view' => { "$exists" => true  }})
-    keynames = node_types.inject([]) do |a, node_type|
-                  a << node_type.keynames.grep(/place/)
-                end.flatten.uniq
-    node_type_query = BlankCriteria.new.in(node_type_id: node_types.map(&:id))
-    key_query = keynames.inject([]) do |a, keyname|
-      a << { "features.#{keyname}_ids" => { "$in" => [self.id]}}
+    @nodes ||= begin
+      listed_node_type_ids = NodeType.only(:list_in_place_page, :name).
+      where(list_in_place_page: true).
+      map(&:id)
+
+      Node.only(:custom_fields_recipe, :node_type_id, :title).
+        where(:node_type_id.in => listed_node_type_ids).
+        where(:"zero_places.place_ids".in => [id])
     end
-
-    place_query = BlankCriteria.new.or(key_query)
-    query = BlankCriteria.new.and(
-              place_query.selector,
-              node_type_query.selector,
-              BlankCriteria.new.where(status: "published").selector)
-    Node.where(query.selector)
   end
-
 end

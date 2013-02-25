@@ -18,6 +18,7 @@ class NodeType
   field :signin_required,           type: Boolean
   field :node_expiration_day_limit, type: Integer, default: 0
   field :nodes_count,               type: Integer, default: 0
+  field :list_in_place_page,        type: Boolean
 
   # Validates
   validates :name, presence: true
@@ -29,7 +30,6 @@ class NodeType
   # Associations
   has_many    :nodes, dependent: :destroy
   embeds_one  :node_view, autobuild: true
-  embeds_one  :place_page_view
   embeds_many :node_type_views
   embeds_many :mailer_templates
   embeds_many :mailers

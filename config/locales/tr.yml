@@ -138,7 +138,6 @@ tr:
     mailer: "Postacı"
     templates: "Temalar"
     new_mailer: "Yeni posta"
-    edit_place_page_view: "Yer sayfasının gösterimi"
 
   images:
     add: "Resim ekle..."
@@ -160,6 +159,12 @@ tr:
   potential_users:
     potential_users: "Potansiyel üyeler"
     new: "Yeni potansiyel üye ekle"
+
+  settlements:
+    navigation: "Navigasyon"
+    title: "Başlık"
+    list: "Liste"
+    add: "Ekle"
 
   helpers:
     submit:
@@ -232,7 +237,7 @@ tr:
         multiselect: "Çoklu seçim"
         level: "Seviye"
         top_place_name: "Üst seviye yer adı"
-        place_page_list: "Yer sayfasında listelensin"
+        list_in_place_page: "Yer sayfasında listelensin"
 
         # select
         maximum_select: "Maksimum seçim"

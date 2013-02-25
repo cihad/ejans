@@ -10,8 +10,7 @@ module CustomFields
             class_name: "::CustomFields::Fields::Place::PlaceItem",
             as: :able_to_place_item
 
-          klass.accepts_nested_attributes_for rule['keyname'],
-            allow_destroy: true
+          klass.accepts_nested_attributes_for rule['keyname'], allow_destroy: true
 
           klass.field "#{rule['keyname']}_names".to_sym, type: ::Array
 
@@ -103,7 +102,7 @@ module CustomFields
         field :multiselect,     type: ::Boolean, default: false
 
         ## associations
-        belongs_to :top_place, class_name: "Place"
+        belongs_to :top_place, class_name: "::Place"
 
         ## validations
         validates :level, numericality: { greater_than_or_equal_to: 1 }
